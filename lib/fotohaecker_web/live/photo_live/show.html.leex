@@ -1,0 +1,42 @@
+<h1>Show Photo</h1>
+
+<%= if @live_action in [:edit] do %>
+  <%= live_modal @socket, FotohaeckerWeb.PhotoLive.FormComponent,
+    id: @photo.id,
+    title: @page_title,
+    action: @live_action,
+    photo: @photo,
+    return_to: Routes.photo_show_path(@socket, :show, @photo) %>
+<% end %>
+
+<ul>
+
+  <li>
+    <strong>Title:</strong>
+    <%= @photo.title %>
+  </li>
+
+  <li>
+    <strong>Description:</strong>
+    <%= @photo.description %>
+  </li>
+
+  <li>
+    <strong>Path:</strong>
+    <%= @photo.path %>
+  </li>
+
+  <li>
+    <strong>Tags:</strong>
+    <%= @photo.tags %>
+  </li>
+
+  <li>
+    <strong>Uploaded:</strong>
+    <%= @photo.uploaded %>
+  </li>
+
+</ul>
+
+<span><%= live_patch "Edit", to: Routes.photo_show_path(@socket, :edit, @photo), class: "button" %></span>
+<span><%= live_redirect "Back", to: Routes.photo_index_path(@socket, :index) %></span>
