@@ -18,3 +18,9 @@ Ready to run in production? Please [check our deployment guides](https://hexdocs
   * Docs: https://hexdocs.pm/phoenix
   * Forum: https://elixirforum.com/c/phoenix-forum
   * Source: https://github.com/phoenixframework/phoenix
+
+
+# Notes
+Commands used:
+- `photos`: `mix phx.gen.live Content Photo photos title:string description:string path:string tags:{:array, string} uploaded:utc_datetime`
+- `users`: `mix phx.gen.live Accounts User users name:string password:string email:string profile_picture:string`
