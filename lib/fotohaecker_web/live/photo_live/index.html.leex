@@ -16,7 +16,6 @@
       <th>Description</th>
       <th>Path</th>
       <th>Tags</th>
-      <th>Uploaded</th>
 
       <th></th>
     </tr>
@@ -28,7 +27,6 @@
         <td><%= photo.description %></td>
         <td><%= photo.path %></td>
         <td><%= photo.tags %></td>
-        <td><%= photo.uploaded %></td>
 
         <td>
           <span><%= live_redirect "Show", to: Routes.photo_show_path(@socket, :show, photo) %></span>

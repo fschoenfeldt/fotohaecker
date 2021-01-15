@@ -31,11 +31,6 @@
     <%= @photo.tags %>
   </li>
 
-  <li>
-    <strong>Uploaded:</strong>
-    <%= @photo.uploaded %>
-  </li>
-
 </ul>
 
 <span><%= live_patch "Edit", to: Routes.photo_show_path(@socket, :edit, @photo), class: "button" %></span>

@@ -7,7 +7,6 @@ defmodule Fotohaecker.Repo.Migrations.CreatePhotos do
       add :description, :string
       add :path, :string
       add :tags, {:array, :string}
-      add :uploaded, :utc_datetime
       add :user_id, references(:users, on_delete: :nothing)
 
       timestamps()

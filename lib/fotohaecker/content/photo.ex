@@ -7,7 +7,6 @@ defmodule Fotohaecker.Content.Photo do
     field :path, :string
     field :tags, {:array, :string}
     field :title, :string
-    field :uploaded, :utc_datetime
     field :user_id, :id
 
     timestamps()
@@ -16,8 +15,8 @@ defmodule Fotohaecker.Content.Photo do
   @doc false
   def changeset(photo, attrs) do
     photo
-    |> cast(attrs, [:title, :description, :path, :tags, :uploaded])
+    |> cast(attrs, [:title, :description, :path, :tags])
     |> foreign_key_constraint(:user_id)
-    |> validate_required([:title, :description, :path, :uploaded])
+    |> validate_required([:title, :description, :path])
   end
 end

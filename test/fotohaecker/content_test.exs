@@ -6,9 +6,19 @@ defmodule Fotohaecker.ContentTest do
   describe "photos" do
     alias Fotohaecker.Content.Photo
 
-    @valid_attrs %{description: "some description", path: "some path", tags: [], title: "some title", uploaded: "2010-04-17T14:00:00Z"}
-    @update_attrs %{description: "some updated description", path: "some updated path", tags: [], title: "some updated title", uploaded: "2011-05-18T15:01:01Z"}
-    @invalid_attrs %{description: nil, path: nil, tags: nil, title: nil, uploaded: nil}
+    @valid_attrs %{
+      description: "some description",
+      path: "some path",
+      tags: [],
+      title: "some title"
+    }
+    @update_attrs %{
+      description: "some updated description",
+      path: "some updated path",
+      tags: [],
+      title: "some updated title"
+    }
+    @invalid_attrs %{description: nil, path: nil, tags: nil, title: nil}
 
     def photo_fixture(attrs \\ %{}) do
       {:ok, photo} =
@@ -35,7 +45,6 @@ defmodule Fotohaecker.ContentTest do
       assert photo.path == "some path"
       assert photo.tags == []
       assert photo.title == "some title"
-      assert photo.uploaded == DateTime.from_naive!(~N[2010-04-17T14:00:00Z], "Etc/UTC")
     end
 
     test "create_photo/1 with invalid data returns error changeset" do
@@ -49,7 +58,6 @@ defmodule Fotohaecker.ContentTest do
       assert photo.path == "some updated path"
       assert photo.tags == []
       assert photo.title == "some updated title"
-      assert photo.uploaded == DateTime.from_naive!(~N[2011-05-18T15:01:01Z], "Etc/UTC")
     end
 
     test "update_photo/2 with invalid data returns error changeset" do

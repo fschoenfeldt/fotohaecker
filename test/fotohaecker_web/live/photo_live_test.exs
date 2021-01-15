@@ -5,9 +5,19 @@ defmodule FotohaeckerWeb.PhotoLiveTest do
 
   alias Fotohaecker.Content
 
-  @create_attrs %{description: "some description", path: "some path", tags: [], title: "some title", uploaded: "2010-04-17T14:00:00Z"}
-  @update_attrs %{description: "some updated description", path: "some updated path", tags: [], title: "some updated title", uploaded: "2011-05-18T15:01:01Z"}
-  @invalid_attrs %{description: nil, path: nil, tags: nil, title: nil, uploaded: nil}
+  @create_attrs %{
+    description: "some description",
+    path: "some path",
+    tags: [],
+    title: "some title"
+  }
+  @update_attrs %{
+    description: "some updated description",
+    path: "some updated path",
+    tags: [],
+    title: "some updated title"
+  }
+  @invalid_attrs %{description: nil, path: nil, tags: [], title: nil}
 
   defp fixture(:photo) do
     {:ok, photo} = Content.create_photo(@create_attrs)

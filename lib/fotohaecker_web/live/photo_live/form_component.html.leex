@@ -22,9 +22,5 @@
   <%= multiple_select f, :tags, ["Option 1": "option1", "Option 2": "option2"] %>
   <%= error_tag f, :tags %>
 
-  <%= label f, :uploaded %>
-  <%= datetime_select f, :uploaded %>
-  <%= error_tag f, :uploaded %>
-
   <%= submit "Save", phx_disable_with: "Saving..." %>
 </form>

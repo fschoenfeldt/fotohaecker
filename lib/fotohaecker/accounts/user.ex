@@ -1,7 +1,6 @@
 defmodule Fotohaecker.Accounts.User do
   use Ecto.Schema
   import Ecto.Changeset
-  import Fotohaecker.Content
 
   schema "users" do
     field :email, :string
