@@ -5,8 +5,18 @@ defmodule FotohaeckerWeb.UserLiveTest do
 
   alias Fotohaecker.Accounts
 
-  @create_attrs %{email: "some email", name: "some name", password: "some password", profile_picture: "some profile_picture"}
-  @update_attrs %{email: "some updated email", name: "some updated name", password: "some updated password", profile_picture: "some updated profile_picture"}
+  @create_attrs %{
+    email: "some email",
+    name: "some name",
+    password: "some password",
+    profile_picture: "some profile_picture"
+  }
+  @update_attrs %{
+    email: "some updated email",
+    name: "some updated name",
+    password: "some updated password",
+    profile_picture: "some updated profile_picture"
+  }
   @invalid_attrs %{email: nil, name: nil, password: nil, profile_picture: nil}
 
   defp fixture(:user) do

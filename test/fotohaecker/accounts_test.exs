@@ -6,8 +6,18 @@ defmodule Fotohaecker.AccountsTest do
   describe "users" do
     alias Fotohaecker.Accounts.User
 
-    @valid_attrs %{email: "some email", name: "some name", password: "some password", profile_picture: "some profile_picture"}
-    @update_attrs %{email: "some updated email", name: "some updated name", password: "some updated password", profile_picture: "some updated profile_picture"}
+    @valid_attrs %{
+      email: "some email",
+      name: "some name",
+      password: "some password",
+      profile_picture: "some profile_picture"
+    }
+    @update_attrs %{
+      email: "some updated email",
+      name: "some updated name",
+      password: "some updated password",
+      profile_picture: "some updated profile_picture"
+    }
     @invalid_attrs %{email: nil, name: nil, password: nil, profile_picture: nil}
 
     def user_fixture(attrs \\ %{}) do
