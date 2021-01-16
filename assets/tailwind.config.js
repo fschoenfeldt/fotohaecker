@@ -6,7 +6,12 @@ module.exports = {
     : ["../lib/**/*.ex", "../lib/**/*.leex", "../lib/**/*.eex", "./js/**/*.js"],
   darkMode: false, // or 'media' or 'class'
   theme: {
-    extend: {},
+    extend: {
+      fontFamily: {
+        sans: ["IBM Plex Sans", "sans-serif"],
+        // heading: ["Oswald", "sans-serif"],
+      },
+    },
   },
   variants: {
     extend: {},
