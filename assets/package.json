@@ -15,6 +15,7 @@
     "phoenix_live_view": "file:../deps/phoenix_live_view",
     "postcss": "^8.2.4",
     "postcss-import": "^14.0.0",
+    "postcss-loader": "^4.1.0",
     "tailwindcss": "^2.0.2"
   },
   "devDependencies": {

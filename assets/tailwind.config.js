@@ -1,9 +1,9 @@
+const devMode = process.env.NODE_ENV !== "production";
+
 module.exports = {
-  purge: [
-    "lib/fotohaecker_web/**/*.eex",
-    "lib/fotohaecker_web/**/*.leex",
-    "lib/fotohaecker_web/**/*.ex",
-  ],
+  purge: devMode
+    ? false
+    : ["../lib/**/*.ex", "../lib/**/*.leex", "../lib/**/*.eex", "./js/**/*.js"],
   darkMode: false, // or 'media' or 'class'
   theme: {
     extend: {},
