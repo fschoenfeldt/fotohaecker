@@ -10,7 +10,8 @@ defmodule Fotohaecker.MixProject do
       compilers: [:phoenix, :gettext] ++ Mix.compilers(),
       start_permanent: Mix.env() == :prod,
       aliases: aliases(),
-      deps: deps()
+      deps: deps(),
+      dialyzer: [plt_add_deps: :transitive]
     ]
   end
 
@@ -36,6 +37,7 @@ defmodule Fotohaecker.MixProject do
       {:phoenix, "~> 1.5.7"},
       {:phoenix_ecto, "~> 4.1"},
       {:credo, "~> 1.5", only: [:dev, :test], runtime: false},
+      {:dialyxir, "~> 1.0.0", only: [:dev], runtime: false},
       {:ecto_sql, "~> 3.4"},
       {:postgrex, ">= 0.0.0"},
       {:phoenix_live_view, "~> 0.15.0"},
