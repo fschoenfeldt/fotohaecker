@@ -11,11 +11,18 @@
   </head>
   <body>
     <header>
+      <%= link "Fotohaecker", to: Routes.page_path(@conn, :index) %>
       <section class="container">
         <nav role="navigation">
-          <!-- !TODO navigation -->
+          <ul>
+            <li>
+              <%= link "Photos", to: Routes.photo_index_path(@conn, :index) %>
+            </li>
+            <li>
+              <%= link "Users", to: Routes.user_index_path(@conn, :index) %>
+            </li>
+          </ul>
         </nav>
-        <%= link "Fotohaecker", to: Routes.page_path(@conn, :index) %>
       </section>
     </header>
     <%= @inner_content %>
