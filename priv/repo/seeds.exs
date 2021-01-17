@@ -40,7 +40,7 @@ alias Fotohaecker.Content.Photo
 %Photo{
   title: "Testfoto 2",
   description: "Lorem Ipsum Dolor Sit Amet",
-  path: "testfoto",
+  path: "testfoto_2",
   tags: ["zum", "testen"],
   user_id: 2
 }
