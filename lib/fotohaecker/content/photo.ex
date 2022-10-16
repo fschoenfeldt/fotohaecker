@@ -1,15 +1,15 @@
 defmodule Fotohaecker.Content.Photo do
   @moduledoc false
-  use Ecto.Schema
+  use TypedEctoSchema
   import Ecto.Changeset
 
-  schema "photos" do
+  typed_schema "photos" do
     field :description, :string
     field :file_name, :string
     field :tags, {:array, :string}
     field :title, :string
 
-    timestamps()
+    timestamps(type: :naive_datetime_usec)
   end
 
   @doc false
