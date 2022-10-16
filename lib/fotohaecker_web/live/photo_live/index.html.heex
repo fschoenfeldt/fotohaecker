@@ -1,0 +1,45 @@
+<h1>Listing Photos</h1>
+
+<%= if @live_action in [:new, :edit] do %>
+  <.modal return_to={Routes.photo_index_path(@socket, :index)}>
+    <.live_component
+      module={FotohaeckerWeb.PhotoLive.FormComponent}
+      id={@photo.id || :new}
+      title={@page_title}
+      action={@live_action}
+      photo={@photo}
+      return_to={Routes.photo_index_path(@socket, :index)}
+    />
+  </.modal>
+<% end %>
+
+<table>
+  <thead>
+    <tr>
+      <th>Title</th>
+      <th>Description</th>
+      <th>File name</th>
+      <th>Tags</th>
+
+      <th></th>
+    </tr>
+  </thead>
+  <tbody id="photos">
+    <%= for photo <- @photos do %>
+      <tr id={"photo-#{photo.id}"}>
+        <td><%= photo.title %></td>
+        <td><%= photo.description %></td>
+        <td><%= photo.file_name %></td>
+        <td><%= photo.tags %></td>
+
+        <td>
+          <span><%= live_redirect "Show", to: Routes.photo_show_path(@socket, :show, photo) %></span>
+          <span><%= live_patch "Edit", to: Routes.photo_index_path(@socket, :edit, photo) %></span>
+          <span><%= link "Delete", to: "#", phx_click: "delete", phx_value_id: photo.id, data: [confirm: "Are you sure?"] %></span>
+        </td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<span><%= live_patch "New Photo", to: Routes.photo_index_path(@socket, :new) %></span>
