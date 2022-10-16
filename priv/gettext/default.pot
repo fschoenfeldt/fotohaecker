@@ -1,0 +1,67 @@
+## This file is a PO Template file.
+##
+## "msgid"s here are often extracted from source code.
+## Add new translations manually only if they're dynamic
+## translations that can't be statically extracted.
+##
+## Run "mix gettext.extract" to bring this file up to
+## date. Leave "msgstr"s empty as changing them here has no
+## effect: edit them in PO (.po) files instead.
+msgid ""
+msgstr ""
+
+#: lib/fotohaecker_web/live/index_live/home.ex:107
+#, elixir-autogen, elixir-format
+msgid "(active)"
+msgstr ""
+
+#: lib/fotohaecker_web/live/index_live/home.ex:46
+#, elixir-autogen, elixir-format
+msgid "Upload your photos, license-free."
+msgstr ""
+
+#: lib/fotohaecker_web/live/index_live/home.ex:107
+#, elixir-autogen, elixir-format
+msgid "latest"
+msgstr ""
+
+#: lib/fotohaecker_web/live/index_live/home.ex:117
+#, elixir-autogen, elixir-format
+msgid "most downloaded"
+msgstr ""
+
+#: lib/fotohaecker_web/live/index_live/home.ex:125
+#, elixir-autogen, elixir-format
+msgid "no photos, yet..."
+msgstr ""
+
+#: lib/fotohaecker_web/live/index_live/home.ex:112
+#, elixir-autogen, elixir-format
+msgid "oldest"
+msgstr ""
+
+#: lib/fotohaecker_web/live/index_live/home.ex:152
+#: lib/fotohaecker_web/live/photo_live/show.ex:49
+#, elixir-autogen, elixir-format
+msgid "photo %{title} on Fotohäcker"
+msgstr ""
+
+#: lib/fotohaecker_web/live/index_live/home.ex:103
+#, elixir-autogen, elixir-format
+msgid "sort by"
+msgstr ""
+
+#: lib/fotohaecker_web/live/index_live/home.ex:80
+#, elixir-autogen, elixir-format
+msgid "the selected file can't be uploaded:"
+msgstr ""
+
+#: lib/fotohaecker_web/live/index_live/home.ex:92
+#, elixir-autogen, elixir-format
+msgid "upload"
+msgstr ""
+
+#: lib/fotohaecker_web/live/index_live/home.ex:91
+#, elixir-autogen, elixir-format
+msgid "uploading.."
+msgstr ""

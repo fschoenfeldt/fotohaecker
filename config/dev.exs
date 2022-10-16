@@ -16,7 +16,7 @@ config :fotohaecker, Fotohaecker.Repo,
 config :fotohaecker, FotohaeckerWeb.Endpoint,
   # Binding to loopback ipv4 address prevents access from other machines.
   # Change to `ip: {0, 0, 0, 0}` to allow access from other machines.
-  http: [ip: {127, 0, 0, 1}, port: 4000],
+  http: [ip: {0, 0, 0, 0}, port: 4000],
   check_origin: false,
   code_reloader: true,
   debug_errors: true,
@@ -56,6 +56,7 @@ config :fotohaecker, FotohaeckerWeb.Endpoint,
   live_reload: [
     patterns: [
       ~r"priv/static/.*(js|css|png|jpeg|jpg|gif|svg)$",
+      # TODO disable uploads here..
       ~r"priv/gettext/.*(po)$",
       ~r"lib/fotohaecker_web/(live|views)/.*(ex)$",
       ~r"lib/fotohaecker_web/templates/.*(eex)$"
