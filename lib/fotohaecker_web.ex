@@ -73,6 +73,7 @@ defmodule FotohaeckerWeb do
 
       import Plug.Conn
       import Phoenix.Controller
+      import Phoenix.Component
       import Phoenix.LiveView.Router
     end
   end
@@ -90,6 +91,7 @@ defmodule FotohaeckerWeb do
       use Phoenix.HTML
 
       # Import LiveView and .heex helpers (live_render, live_patch, <.form>, etc)
+      import Phoenix.Component
       import Phoenix.LiveView.Helpers
       import FotohaeckerWeb.LiveHelpers
 

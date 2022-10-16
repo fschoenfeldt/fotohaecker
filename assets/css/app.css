@@ -3,6 +3,11 @@
 @import "tailwindcss/utilities";
 
 @layer base {
+  html,
+  body,
+  div[data-phx-main] {
+    @apply h-full;
+  }
   /* merriweather-300 - latin */
   @font-face {
     font-family: "Merriweather";
@@ -96,6 +101,76 @@
 }
 
 @layer components {
+  #home {
+    @apply h-full;
+    .bg {
+      @apply h-screen w-full absolute -z-10 top-0 left-0;
+      background: rgb(219, 69, 230);
+      background: radial-gradient(
+        circle,
+        rgba(219, 69, 230, 1) 0%,
+        rgba(0, 174, 255, 1) 100%
+      );
+      clip-path: ellipse(100% 70% at 0% 0%);
+      @screen md {
+        clip-path: ellipse(100% 100% at 0% 0%);
+      }
+    }
+    .intro {
+      @apply relative flex flex-col gap-6 md:grid h-full p-4;
+      /* clip-path: ellipse(60% 60% at 32% 25%);
+
+      background-image: url("/images/index_gradient.svg"),
+        url("/images/grain.svg");
+      background-position: left top;
+      background-repeat: no-repeat;
+      background-size: 150%; */
+      @screen md {
+        grid-template-columns: 1fr 1fr;
+      }
+      @screen lg {
+        background-size: 100%;
+      }
+
+      h1 {
+        @apply text-white drop-shadow text-[15vw] leading-none md:text-8xl uppercase;
+      }
+    }
+
+    .upload_form {
+      @apply lg:self-center lg:justify-self-center h-max md:w-max bg-white rounded-xl p-4 shadow-xl border border-gray-300 space-y-4;
+      label {
+        @apply block text-sm font-medium text-gray-700;
+      }
+      input[type="text"],
+      textarea {
+        @apply mt-1 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md;
+      }
+      button[type="submit"] {
+        @apply border p-2 px-4;
+      }
+      .dropzone {
+        @apply border-2 border-gray-300 p-4 rounded-lg border-dashed space-y-2;
+        input::file-selector-button {
+          @apply bg-transparent border rounded;
+        }
+      }
+    }
+  }
+  .decorative-gradient {
+    background-image: -webkit-gradient(
+      linear,
+      left top,
+      right top,
+      from(#4faecc),
+      color-stop(#469abc),
+      to(#347884)
+    );
+    background-image: linear-gradient(90deg, #4faecc, #469abc, #347884);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+
   /* Alerts and form errors used by phx.new */
   .alert {
     padding: 15px;
@@ -125,9 +200,7 @@
     display: none;
   }
   .invalid-feedback {
-    color: #a94442;
-    display: block;
-    margin: -1rem 0 2rem;
+    @apply block text-red-500;
   }
 
   /* LiveView specific classes for your customization */
