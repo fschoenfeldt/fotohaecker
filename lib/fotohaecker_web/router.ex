@@ -17,7 +17,7 @@ defmodule FotohaeckerWeb.Router do
   scope "/", FotohaeckerWeb do
     pipe_through :browser
 
-    get "/", PageController, :index
+    live "/", IndexLive.Home, :home
 
     live "/photos", PhotoLive.Index, :index
     live "/photos/new", PhotoLive.Index, :new
