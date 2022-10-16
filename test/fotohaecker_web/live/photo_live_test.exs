@@ -18,7 +18,7 @@ defmodule FotohaeckerWeb.PhotoLiveTest do
   }
   @invalid_attrs %{description: nil, file_name: nil, tags: [], title: nil}
 
-  defp create_photo(_) do
+  defp create_photo(_params) do
     photo = photo_fixture()
     %{photo: photo}
   end
@@ -45,7 +45,7 @@ defmodule FotohaeckerWeb.PhotoLiveTest do
              |> form("#photo-form", photo: @invalid_attrs)
              |> render_change() =~ "can&#39;t be blank"
 
-      {:ok, _, html} =
+      {:ok, _view, html} =
         index_live
         |> form("#photo-form", photo: @create_attrs)
         |> render_submit()
@@ -67,7 +67,7 @@ defmodule FotohaeckerWeb.PhotoLiveTest do
              |> form("#photo-form", photo: @invalid_attrs)
              |> render_change() =~ "can&#39;t be blank"
 
-      {:ok, _, html} =
+      {:ok, _view, html} =
         index_live
         |> form("#photo-form", photo: @update_attrs)
         |> render_submit()
@@ -107,7 +107,7 @@ defmodule FotohaeckerWeb.PhotoLiveTest do
              |> form("#photo-form", photo: @invalid_attrs)
              |> render_change() =~ "can&#39;t be blank"
 
-      {:ok, _, html} =
+      {:ok, _view, html} =
         show_live
         |> form("#photo-form", photo: @update_attrs)
         |> render_submit()
