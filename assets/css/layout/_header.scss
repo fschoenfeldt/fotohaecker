@@ -1,9 +1,0 @@
-header {
-  @apply flex gap-2 p-4 bg-gray-100 md:max-w-xl md:mx-auto;
-  nav {
-    @apply ml-auto;
-    > ul {
-      @apply flex gap-2 mr-0;
-    }
-  }
-}
