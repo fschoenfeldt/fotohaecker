@@ -4,8 +4,18 @@ defmodule FotohaeckerWeb.PhotoLiveTest do
   import Phoenix.LiveViewTest
   import Fotohaecker.ContentFixtures
 
-  @create_attrs %{description: "some description", file_name: "some file_name", tags: [], title: "some title"}
-  @update_attrs %{description: "some updated description", file_name: "some updated file_name", tags: [], title: "some updated title"}
+  @create_attrs %{
+    description: "some description",
+    file_name: "some file_name",
+    tags: [],
+    title: "some title"
+  }
+  @update_attrs %{
+    description: "some updated description",
+    file_name: "some updated file_name",
+    tags: [],
+    title: "some updated title"
+  }
   @invalid_attrs %{description: nil, file_name: nil, tags: [], title: nil}
 
   defp create_photo(_) do

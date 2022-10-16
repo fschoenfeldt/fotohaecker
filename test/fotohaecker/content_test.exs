@@ -21,7 +21,12 @@ defmodule Fotohaecker.ContentTest do
     end
 
     test "create_photo/1 with valid data creates a photo" do
-      valid_attrs = %{description: "some description", file_name: "some file_name", tags: [], title: "some title"}
+      valid_attrs = %{
+        description: "some description",
+        file_name: "some file_name",
+        tags: [],
+        title: "some title"
+      }
 
       assert {:ok, %Photo{} = photo} = Content.create_photo(valid_attrs)
       assert photo.description == "some description"
@@ -36,7 +41,13 @@ defmodule Fotohaecker.ContentTest do
 
     test "update_photo/2 with valid data updates the photo" do
       photo = photo_fixture()
-      update_attrs = %{description: "some updated description", file_name: "some updated file_name", tags: [], title: "some updated title"}
+
+      update_attrs = %{
+        description: "some updated description",
+        file_name: "some updated file_name",
+        tags: [],
+        title: "some updated title"
+      }
 
       assert {:ok, %Photo{} = photo} = Content.update_photo(photo, update_attrs)
       assert photo.description == "some updated description"
