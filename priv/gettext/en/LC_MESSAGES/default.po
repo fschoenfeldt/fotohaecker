@@ -1,0 +1,68 @@
+## "msgid"s in this file come from POT (.pot) files.
+##
+## Do not add, change, or remove "msgid"s manually here as
+## they're tied to the ones in the corresponding POT file
+## (with the same domain).
+##
+## Use "mix gettext.extract --merge" or "mix gettext.merge"
+## to merge POT files into PO files.
+msgid ""
+msgstr ""
+"Language: en\n"
+"Plural-Forms: nplurals=2\n"
+
+#: lib/fotohaecker_web/live/index_live/home.ex:107
+#, elixir-autogen, elixir-format
+msgid "(active)"
+msgstr ""
+
+#: lib/fotohaecker_web/live/index_live/home.ex:46
+#, elixir-autogen, elixir-format
+msgid "Upload your photos, license-free."
+msgstr ""
+
+#: lib/fotohaecker_web/live/index_live/home.ex:107
+#, elixir-autogen, elixir-format
+msgid "latest"
+msgstr ""
+
+#: lib/fotohaecker_web/live/index_live/home.ex:117
+#, elixir-autogen, elixir-format
+msgid "most downloaded"
+msgstr ""
+
+#: lib/fotohaecker_web/live/index_live/home.ex:125
+#, elixir-autogen, elixir-format
+msgid "no photos, yet..."
+msgstr ""
+
+#: lib/fotohaecker_web/live/index_live/home.ex:112
+#, elixir-autogen, elixir-format
+msgid "oldest"
+msgstr ""
+
+#: lib/fotohaecker_web/live/index_live/home.ex:152
+#: lib/fotohaecker_web/live/photo_live/show.ex:49
+#, elixir-autogen, elixir-format
+msgid "photo %{title} on Fotohäcker"
+msgstr ""
+
+#: lib/fotohaecker_web/live/index_live/home.ex:103
+#, elixir-autogen, elixir-format
+msgid "sort by"
+msgstr ""
+
+#: lib/fotohaecker_web/live/index_live/home.ex:80
+#, elixir-autogen, elixir-format
+msgid "the selected file can't be uploaded:"
+msgstr ""
+
+#: lib/fotohaecker_web/live/index_live/home.ex:92
+#, elixir-autogen, elixir-format
+msgid "upload"
+msgstr ""
+
+#: lib/fotohaecker_web/live/index_live/home.ex:91
+#, elixir-autogen, elixir-format
+msgid "uploading.."
+msgstr ""

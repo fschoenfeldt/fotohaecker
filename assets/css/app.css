@@ -111,13 +111,21 @@
         rgba(219, 69, 230, 1) 0%,
         rgba(0, 174, 255, 1) 100%
       );
+      @media (prefers-color-scheme: dark) {
+        background: rgb(30, 58, 138);
+        background: radial-gradient(
+          circle,
+          rgb(30, 58, 138) 0%,
+          rgb(107, 33, 168) 100%
+        );
+      }
       clip-path: ellipse(100% 70% at 0% 0%);
       @screen md {
         clip-path: ellipse(100% 100% at 0% 0%);
       }
     }
     .intro {
-      @apply relative flex flex-col gap-6 md:grid h-full p-4;
+      @apply relative flex flex-col gap-4 md:gap-8 md:grid p-4 md:p-8;
       /* clip-path: ellipse(60% 60% at 32% 25%);
 
       background-image: url("/images/index_gradient.svg"),
@@ -133,27 +141,57 @@
       }
 
       h1 {
-        @apply text-white drop-shadow text-[15vw] leading-none md:text-8xl uppercase;
+        @apply text-white drop-shadow text-[15vw] leading-none md:text-9xl lg:text-[10rem] uppercase;
       }
     }
 
     .upload_form {
-      @apply lg:self-center lg:justify-self-center h-max md:w-max bg-white rounded-xl p-4 shadow-xl border border-gray-300 space-y-4;
+      @apply lg:self-center lg:justify-self-center h-max md:w-max bg-white dark:bg-gray-800 rounded-xl p-4 shadow-xl border border-gray-300 space-y-4;
+      &.phx-submit-loading {
+        @apply animate-pulse;
+      }
       label {
-        @apply block text-sm font-medium text-gray-700;
+        @apply block text-sm font-medium text-gray-700 dark:text-gray-100;
       }
       input[type="text"],
       textarea {
-        @apply mt-1 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md;
+        @apply mt-1 block w-full shadow-sm sm:text-sm border-gray-300 dark:border-gray-200 rounded-md;
       }
       button[type="submit"] {
-        @apply border p-2 px-4;
+        @apply border p-2 px-4 dark:text-gray-200 rounded;
       }
       .dropzone {
-        @apply border-2 border-gray-300 p-4 rounded-lg border-dashed space-y-2;
-        input::file-selector-button {
-          @apply bg-transparent border rounded;
+        @apply border-2 border-gray-300 dark:border-gray-500 p-4 rounded-lg border-dashed space-y-2 overflow-hidden;
+        input {
+          @apply dark:text-gray-200;
         }
+        input::file-selector-button {
+          @apply bg-transparent border dark:border-gray-300 rounded dark:text-gray-200;
+        }
+      }
+    }
+  }
+  #photo {
+    @apply bg-gray-100 dark:bg-gray-900;
+    .bg {
+      @apply h-screen w-full absolute -z-10 top-0 left-0;
+      background: rgb(219, 69, 230);
+      background: radial-gradient(
+        circle,
+        rgba(219, 69, 230, 1) 0%,
+        rgba(0, 174, 255, 1) 100%
+      );
+      @media (prefers-color-scheme: dark) {
+        background: rgb(30, 58, 138);
+        background: radial-gradient(
+          circle,
+          rgb(30, 58, 138) 0%,
+          rgb(107, 33, 168) 100%
+        );
+      }
+      clip-path: ellipse(100% 70% at 0% 0%);
+      @screen md {
+        clip-path: ellipse(100% 100% at 0% 0%);
       }
     }
   }
@@ -200,7 +238,7 @@
     display: none;
   }
   .invalid-feedback {
-    @apply block text-red-500;
+    @apply block text-red-500 dark:text-red-400;
   }
 
   /* LiveView specific classes for your customization */

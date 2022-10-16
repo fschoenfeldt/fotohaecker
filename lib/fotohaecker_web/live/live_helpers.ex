@@ -3,6 +3,7 @@ defmodule FotohaeckerWeb.LiveHelpers do
   import Phoenix.LiveView.Helpers
   import Phoenix.Component
 
+  alias FotohaeckerWeb.Router.Helpers
   alias Phoenix.LiveView.JS
 
   @doc """
@@ -58,4 +59,7 @@ defmodule FotohaeckerWeb.LiveHelpers do
     |> JS.hide(to: "#modal", transition: "fade-out")
     |> JS.hide(to: "#modal-content", transition: "fade-out-scale")
   end
+
+  def home_route, do: Helpers.index_home_path(FotohaeckerWeb.Endpoint, :home)
+  def photo_route(id), do: Helpers.photo_show_path(FotohaeckerWeb.Endpoint, :show, id)
 end

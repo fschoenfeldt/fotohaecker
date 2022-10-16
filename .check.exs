@@ -28,5 +28,7 @@
     ## custom new tools may be added (Mix tasks or arbitrary commands)
     # {:my_task, "mix my_task", env: %{"MIX_ENV" => "prod"}},
     # {:my_tool, ["my_tool", "arg with spaces"]}
+    {:gettext, "mix gettext.extract --check-up-to-date",
+     fix: "mix gettext.extract --merge priv/gettext"}
   ]
 ]
