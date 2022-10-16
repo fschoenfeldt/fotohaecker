@@ -9,39 +9,3 @@
 #
 # We recommend using the bang functions (`insert!`, `update!`
 # and so on) as they will fail if something goes wrong.
-
-alias Fotohaecker.Repo
-alias Fotohaecker.Accounts.User
-alias Fotohaecker.Content.Photo
-
-%User{
-  email: "admin@fotohaeck.er",
-  name: "admin",
-  password: "12345"
-}
-|> Repo.insert!()
-
-%User{
-  email: "another_user@fotohaeck.er",
-  name: "another_user",
-  password: "12345"
-}
-|> Repo.insert!()
-
-%Photo{
-  title: "Testfoto",
-  description: "Lorem Ipsum Dolor Sit Amet",
-  path: "testfoto",
-  tags: ["zum", "testen"],
-  user_id: 1
-}
-|> Repo.insert!()
-
-%Photo{
-  title: "Testfoto 2",
-  description: "Lorem Ipsum Dolor Sit Amet",
-  path: "testfoto_2",
-  tags: ["zum", "testen"],
-  user_id: 2
-}
-|> Repo.insert!()

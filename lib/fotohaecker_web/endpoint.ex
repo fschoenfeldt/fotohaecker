@@ -7,12 +7,8 @@ defmodule FotohaeckerWeb.Endpoint do
   @session_options [
     store: :cookie,
     key: "_fotohaecker_key",
-    signing_salt: "rllKb57O"
+    signing_salt: "3+3h+H+O"
   ]
-
-  socket "/socket", FotohaeckerWeb.UserSocket,
-    websocket: true,
-    longpoll: false
 
   socket "/live", Phoenix.LiveView.Socket, websocket: [connect_info: [session: @session_options]]
 
@@ -24,7 +20,7 @@ defmodule FotohaeckerWeb.Endpoint do
     at: "/",
     from: :fotohaecker,
     gzip: false,
-    only: ~w(css fonts images uploads js favicon.ico robots.txt)
+    only: ~w(assets fonts images favicon.ico robots.txt)
 
   # Code reloading can be explicitly enabled under the
   # :code_reloader configuration of your endpoint.
