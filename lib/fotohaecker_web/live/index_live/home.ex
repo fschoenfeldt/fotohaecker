@@ -1,12 +1,14 @@
 defmodule FotohaeckerWeb.IndexLive.Home do
   use FotohaeckerWeb, :live_view
 
+  alias Fotohaecker.Content.Photo
+
 
   def mount(_params, _session, socket) do
     upload_params = %{
       title: ""
     }
-    upload_changeset = Fotohaecker.Content.Photo.changeset(%Fotohaecker.Content.Photo{}, upload_params)
+    upload_changeset = Photo.changeset(%Fotohaecker.Content.Photo{}, upload_params)
     socket = socket |> assign(:upload_params, upload_params) |> assign(:upload_changeset, upload_changeset)
 
     {:ok, socket}
@@ -14,6 +16,7 @@ defmodule FotohaeckerWeb.IndexLive.Home do
 
   def render(assigns) do
     ~H"""
+    <%= inspect assigns %>
     <p>Hello, wörld!</p>
 
     <.form for={@upload_changeset} multipart={true} phx-submit="upload_submit" phx-change="upload_change">
@@ -24,7 +27,9 @@ defmodule FotohaeckerWeb.IndexLive.Home do
   end
 
   def handle_event("upload_change", %{"upload" => upload_params}, socket) do
-    upload_changeset = Fotohaecker.Content.Photo.changeset(%Fotohaecker.Content.Photo{}, upload_params)
+    upload_params = upload_params |> Jason.encode!() |> Jason.decode!(keys: :atoms!)
+    upload_changeset = Photo.changeset(%Fotohaecker.Content.Photo{}, upload_params)
+
     socket = socket |> assign(:upload_params, upload_params) |> assign(:upload_changeset, upload_changeset)
     {:noreply, socket}
   end
