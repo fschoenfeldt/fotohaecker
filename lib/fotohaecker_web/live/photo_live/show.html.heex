@@ -14,7 +14,6 @@
 <% end %>
 
 <ul>
-
   <li>
     <strong>Title:</strong>
     <%= @photo.title %>
@@ -34,8 +33,9 @@
     <strong>Tags:</strong>
     <%= @photo.tags %>
   </li>
-
 </ul>
 
-<span><%= live_patch "Edit", to: Routes.photo_show_path(@socket, :edit, @photo), class: "button" %></span> |
-<span><%= live_redirect "Back", to: Routes.photo_index_path(@socket, :index) %></span>
+<span>
+  <%= live_patch("Edit", to: Routes.photo_show_path(@socket, :edit, @photo), class: "button") %>
+</span> |
+<span><%= live_redirect("Back", to: Routes.photo_index_path(@socket, :index)) %></span>
