@@ -10,12 +10,15 @@ defmodule FotohaeckerWeb.PhotoLive.Show do
 
   @impl true
   def handle_params(%{"id" => id}, _what, socket) do
+    photo = Content.get_photo!(id)
+
     {:noreply,
      socket
-     # |> assign(:page_title, page_title(socket.assigns.live_action))
-     |> assign(:photo, Content.get_photo!(id))}
+     |> assign(:page_title, photo.title)
+     |> assign(:photo, photo)}
   end
 
+  @impl true
   def render(assigns) do
     ~H"""
     <div id="photo" class="h-full">
@@ -39,11 +42,11 @@ defmodule FotohaeckerWeb.PhotoLive.Show do
         </svg>
         Back
       </a>
-      <%= with id        <- @photo.id,
+      <%= with _id       <- @photo.id,
                title     <- @photo.title,
                file_name <- @photo.file_name,
                extension <- @photo.extension,
-               path       <- Routes.static_path(FotohaeckerWeb.Endpoint,
+               path      <- Routes.static_path(FotohaeckerWeb.Endpoint,
                             "/images/uploads/#{file_name}#{extension}") do %>
         <h1 class="dark:text-gray-200"><%= title %></h1>
         <img src={path} alt={gettext("photo %{title} on Fotohäcker", %{title: title})} />
@@ -52,10 +55,8 @@ defmodule FotohaeckerWeb.PhotoLive.Show do
     """
   end
 
+  @impl true
   def handle_event("goto", %{"target" => "index"}, socket) do
     {:noreply, push_navigate(socket, to: home_route())}
   end
-
-  defp page_title(:show), do: "Show Photo"
-  defp page_title(:edit), do: "Edit Photo"
 end
