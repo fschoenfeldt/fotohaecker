@@ -97,22 +97,22 @@ defmodule FotohaeckerWeb.IndexLive.Home do
 
   defp photos(assigns) do
     ~H"""
-    <div class="bg-gray-100 dark:bg-gray-800 max-w-[100rem] mx-auto p-4 md:p-10 rounded-2xl">
+    <div class="photos">
       <%!-- #TODO do this via form, with single select that can be more accessible --%>
       <p class="sr-only"><%= gettext("sort by") %></p>
-      <ul class="flex gap-x-2 mb-2">
+      <ul class="sortby-options">
         <li>
-          <a href="#" class="text-gray-500 dark:text-gray-400">
+          <a href="#" class="sortby-options__option sortby-options__option--active">
             <%= gettext("latest") %> <span class="sr-only"><%= gettext("(active)") %></span>
           </a>
         </li>
         <li>
-          <a href="#" class="text-gray-500 dark:text-gray-400 no-underline">
+          <a href="#" class="sortby-options__option">
             <%= gettext("oldest") %>
           </a>
         </li>
         <li>
-          <a href="#" class="text-gray-500 dark:text-gray-400 no-underline">
+          <a href="#" class="sortby-options__option">
             <%= gettext("most downloaded") %>
           </a>
         </li>
