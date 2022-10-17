@@ -5,7 +5,6 @@ defmodule FotohaeckerWeb.IndexLive.Home do
   alias Fotohaecker.Content.Photo
 
   def mount(_params, _session, socket) do
-    # prepare upload, maybe refactor..
     submission_params = %{
       title: ""
     }
@@ -15,12 +14,12 @@ defmodule FotohaeckerWeb.IndexLive.Home do
     socket =
       socket
       |> assign(:uploaded_files, [])
+      # prepare upload, maybe refactor..
       |> allow_upload(:photo, accept: ~w(.jpg), max_entries: 1, max_file_size: 20_000_000)
       |> assign(:submission_params, submission_params)
       |> assign(:photo_changeset, photo_changeset)
-
-    # get latest photos, maybe refactor..
-    socket = socket |> assign(:photos, Content.list_photos())
+      # get latest photos, maybe refactor..
+      |> assign(:photos, Content.list_photos())
 
     {:ok, socket}
   end
@@ -225,7 +224,7 @@ defmodule FotohaeckerWeb.IndexLive.Home do
         {:ok, Routes.static_path(socket, "/images/uploads/#{filename}#{extension}")}
       end)
 
-    # TODO file could be appended with phx-update
+    # file could be appended with phx-update
     # {:noreply, update(socket, :uploaded_files, &(&1 ++ uploaded_files))}
 
     {:noreply, socket}
