@@ -1,0 +1,5 @@
+# for production builds
+# in case you want to provide an own DATABASE_PATH
+# export DATABASE_PATH=""
+
+export SECRET_KEY_BASE=""

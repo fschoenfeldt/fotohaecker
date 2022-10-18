@@ -1,0 +1,4 @@
+direnv 2.32.1
+nodejs lts-gallium
+elixir 1.14.1-otp-25
+erlang 25.1.1
