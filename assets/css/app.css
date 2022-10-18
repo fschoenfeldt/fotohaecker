@@ -113,10 +113,15 @@
   #home {
     @apply h-full;
 
-    .bg--experiment {
+    .bg-experiment {
+      @apply absolute top-0 left-0 -z-10 h-screen w-full bg-cover brightness-50;
+
       background-image: url(/images/uploads/my-first-photo.jpg);
-      background-size: cover;
-      filter: brightness(0.5);
+
+      clip-path: ellipse(100% 70% at 0% 0%);
+      @screen md {
+        clip-path: ellipse(100% 105% at 0% 0%);
+      }
     }
 
     .intro {
