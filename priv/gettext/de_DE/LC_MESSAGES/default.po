@@ -1,107 +1,108 @@
-## This file is a PO Template file.
+## "msgid"s in this file come from POT (.pot) files.
 ##
-## "msgid"s here are often extracted from source code.
-## Add new translations manually only if they're dynamic
-## translations that can't be statically extracted.
+## Do not add, change, or remove "msgid"s manually here as
+## they're tied to the ones in the corresponding POT file
+## (with the same domain).
 ##
-## Run "mix gettext.extract" to bring this file up to
-## date. Leave "msgstr"s empty as changing them here has no
-## effect: edit them in PO (.po) files instead.
+## Use "mix gettext.extract --merge" or "mix gettext.merge"
+## to merge POT files into PO files.
 msgid ""
 msgstr ""
+"Language: de_DE\n"
+"Plural-Forms: nplurals=2\n"
 
 #: lib/fotohaecker_web/live/index_live/home.ex:108
 #, elixir-autogen, elixir-format
 msgid "(active)"
-msgstr ""
+msgstr "(aktiv)"
 
 #: lib/fotohaecker_web/live/index_live/home.ex:45
 #, elixir-autogen, elixir-format
 msgid "Upload your photos, license-free."
-msgstr ""
+msgstr "Laden Sie Ihre Fotos hoch, lizenzfrei."
 
 #: lib/fotohaecker_web/live/index_live/home.ex:108
 #, elixir-autogen, elixir-format
 msgid "latest"
-msgstr ""
+msgstr "Neueste"
 
 #: lib/fotohaecker_web/live/index_live/home.ex:118
 #, elixir-autogen, elixir-format
 msgid "most downloaded"
-msgstr ""
+msgstr "Am meisten heruntergeladen"
 
 #: lib/fotohaecker_web/live/index_live/home.ex:126
 #, elixir-autogen, elixir-format
 msgid "no photos, yet..."
-msgstr ""
+msgstr "keine Fotos, bis jetzt..."
 
 #: lib/fotohaecker_web/live/index_live/home.ex:113
 #, elixir-autogen, elixir-format
 msgid "oldest"
-msgstr ""
+msgstr "Älteste"
 
 #: lib/fotohaecker_web/live/index_live/home.ex:164
 #: lib/fotohaecker_web/live/photo_live/show.ex:59
 #, elixir-autogen, elixir-format
 msgid "photo %{title} on Fotohäcker"
-msgstr ""
+msgstr "Foto %{title} auf Fotohäcker"
 
 #: lib/fotohaecker_web/live/index_live/home.ex:104
 #, elixir-autogen, elixir-format
 msgid "sort by"
-msgstr ""
+msgstr "sortieren nach"
 
 #: lib/fotohaecker_web/live/index_live/home.ex:81
 #, elixir-autogen, elixir-format
 msgid "the selected file can't be uploaded:"
-msgstr ""
+msgstr "die ausgewählte Datei kann nicht hochgeladen werden:"
 
 #: lib/fotohaecker_web/live/index_live/home.ex:93
 #, elixir-autogen, elixir-format
 msgid "upload"
-msgstr ""
+msgstr "hochladen"
 
 #: lib/fotohaecker_web/live/index_live/home.ex:92
 #, elixir-autogen, elixir-format
 msgid "uploading.."
-msgstr ""
+msgstr "wird hochgeladen.."
 
 #: lib/fotohaecker_web/templates/layout/root.html.heex:29
 #, elixir-autogen, elixir-format
 msgid "Language"
-msgstr ""
+msgstr "Sprache"
 
 #: lib/fotohaecker_web/live/photo_live/show.ex:50
 #, elixir-autogen, elixir-format
 msgid "back"
-msgstr ""
+msgstr "zurück"
 
 #: lib/fotohaecker_web/live/index_live/home.ex:72
 #, elixir-autogen, elixir-format
 msgid "drag the photo here or use the file button below"
-msgstr ""
+msgstr "Ziehe das Foto hierher oder verwende die Schaltfläche unten"
 
 #: lib/fotohaecker_web/live/live_helpers.ex:73
 #, elixir-autogen, elixir-format
 msgid "english"
-msgstr ""
+msgstr "englisch"
 
 #: lib/fotohaecker_web/live/live_helpers.ex:67
 #, elixir-autogen, elixir-format
 msgid "german"
-msgstr ""
+msgstr "deutsch"
 
 #: lib/fotohaecker_web/live/index_live/home.ex:160
-#, elixir-autogen, elixir-format
+#, elixir-autogen, elixir-format, fuzzy
 msgid "go to photo %{title} on Fotohäcker"
-msgstr ""
+msgstr "Foto %{title} auf Fotohäcker"
 
 #: lib/fotohaecker_web/live/index_live/home.ex:63
 #, elixir-autogen, elixir-format
 msgid "photo title"
-msgstr ""
+msgstr "Fototitel"
 
 #: lib/fotohaecker_web/live/index_live/home.ex:57
 #, elixir-autogen, elixir-format
 msgid "title"
-msgstr ""
+msgstr "Titel"

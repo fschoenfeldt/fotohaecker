@@ -18,12 +18,13 @@ defmodule FotohaeckerWeb.Router do
     pipe_through :browser
 
     live "/", IndexLive.Home, :home
+    live "/:locale", IndexLive.Home, :home
+    live "/:locale/photos/:id", PhotoLive.Show, :show
 
     live "/photos", PhotoLive.Index, :index
     live "/photos/new", PhotoLive.Index, :new
     live "/photos/:id/edit", PhotoLive.Index, :edit
 
-    live "/photos/:id", PhotoLive.Show, :show
     live "/photos/:id/show/edit", PhotoLive.Show, :edit
   end
 

@@ -1,14 +1,15 @@
-## This file is a PO Template file.
+## "msgid"s in this file come from POT (.pot) files.
 ##
-## "msgid"s here are often extracted from source code.
-## Add new translations manually only if they're dynamic
-## translations that can't be statically extracted.
+## Do not add, change, or remove "msgid"s manually here as
+## they're tied to the ones in the corresponding POT file
+## (with the same domain).
 ##
-## Run "mix gettext.extract" to bring this file up to
-## date. Leave "msgstr"s empty as changing them here has no
-## effect: edit them in PO (.po) files instead.
+## Use "mix gettext.extract --merge" or "mix gettext.merge"
+## to merge POT files into PO files.
 msgid ""
 msgstr ""
+"Language: en_US\n"
+"Plural-Forms: nplurals=2\n"
 
 #: lib/fotohaecker_web/live/index_live/home.ex:108
 #, elixir-autogen, elixir-format
@@ -92,7 +93,7 @@ msgid "german"
 msgstr ""
 
 #: lib/fotohaecker_web/live/index_live/home.ex:160
-#, elixir-autogen, elixir-format
+#, elixir-autogen, elixir-format, fuzzy
 msgid "go to photo %{title} on Fotohäcker"
 msgstr ""
 

@@ -54,13 +54,13 @@ defmodule FotohaeckerWeb.IndexLive.Home do
       >
         <div>
           <label for="photo_title">
-            Title
+            <%= gettext("title") %>
           </label>
           <input
             id="photo_title"
             type="text"
             name="photo[title]"
-            placeholder="My fancy title"
+            placeholder={gettext("photo title")}
             required
             value={@submission_params.title}
             phx-debounce="blur"
@@ -68,7 +68,9 @@ defmodule FotohaeckerWeb.IndexLive.Home do
           <%= error_tag(f, :title) %>
         </div>
         <div phx-drop-target={@uploads.photo.ref} class="dropzone">
-          <div class="dark:text-gray-200">drag the photo here or use the file button below</div>
+          <div class="dark:text-gray-200">
+            <%= gettext("drag the photo here or use the file button below") %>
+          </div>
           <.live_file_input upload={@uploads.photo} />
           <%= for entry <- @uploads.photo.entries do %>
             <%= unless Enum.empty?(upload_errors(@uploads.photo, entry)) do %>
@@ -87,7 +89,7 @@ defmodule FotohaeckerWeb.IndexLive.Home do
             <% end %>
           <% end %>
         </div>
-        <button type="submit" phx-disable-with={gettext("uploading..")}>
+        <button class="btn btn--green" type="submit" phx-disable-with={gettext("uploading..")}>
           <%= gettext("upload") %>
         </button>
       </.form>
@@ -145,13 +147,24 @@ defmodule FotohaeckerWeb.IndexLive.Home do
                path       <- Routes.static_path(FotohaeckerWeb.Endpoint,
                             "/images/uploads/#{file_name}_thumb#{extension}") do %>
         <%!-- #TODO: href should be set --%>
-        <a class="block" phx-click="navigate_to" phx-value-photo_id={id}>
+        <div
+          class="block"
+          phx-click="navigate_to"
+          phx-keydown="navigate_to"
+          phx-key="Enter"
+          phx-value-photo_id={id}
+          tabindex="0"
+          aria-describedby={"photo-#{id}-title"}
+        >
+          <span class="sr-only">
+            <%= gettext("go to photo %{title} on Fotohäcker", %{title: title}) %>
+          </span>
           <img
             src={path}
             alt={gettext("photo %{title} on Fotohäcker", %{title: title})}
             loading="lazy"
           />
-        </a>
+        </div>
       <% end %>
     </div>
     """

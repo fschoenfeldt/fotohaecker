@@ -98,13 +98,23 @@
   h2 {
     @apply text-3xl;
   }
+
+  /* https://alpinejs.dev/directives/cloak */
+  [x-cloak] {
+    display: none !important;
+  }
+
+  button,
+  .btn {
+    @apply rounded border border-gray-800 p-2 px-4 text-gray-800 dark:border-gray-200 dark:text-gray-200;
+  }
 }
 
 @layer components {
   #home {
     @apply h-full;
     .bg {
-      @apply h-screen w-full absolute -z-10 top-0 left-0;
+      @apply absolute top-0 left-0 -z-10 h-screen w-full;
       background: rgb(219, 69, 230);
       background: radial-gradient(
         circle,
@@ -125,7 +135,7 @@
       }
     }
     .intro {
-      @apply relative flex flex-col gap-4 md:gap-8 md:grid p-4 md:p-8;
+      @apply relative flex flex-col gap-4 p-4 md:grid md:gap-8 md:p-8;
 
       @screen md {
         grid-template-columns: 1fr 1fr;
@@ -135,11 +145,11 @@
       }
 
       h1 {
-        @apply text-white drop-shadow text-[15vw] leading-none md:text-9xl lg:text-[10rem] uppercase;
+        @apply text-[15vw] uppercase leading-none text-white drop-shadow md:text-9xl lg:text-[10rem];
       }
 
       .upload_form {
-        @apply lg:self-center lg:justify-self-center h-max md:w-max bg-white dark:bg-gray-800 rounded-xl p-4 shadow-xl border border-gray-300 space-y-4;
+        @apply h-max space-y-4 rounded-xl border border-gray-300 bg-white p-4 shadow-xl dark:bg-gray-800 md:w-max lg:self-center lg:justify-self-center;
         &.phx-submit-loading {
           @apply animate-pulse;
         }
@@ -148,28 +158,28 @@
         }
         input[type="text"],
         textarea {
-          @apply mt-1 block w-full shadow-sm sm:text-sm border-gray-300 dark:border-gray-200 rounded-md;
+          @apply mt-1 block w-full rounded-md border-gray-300 shadow-sm dark:border-gray-200 sm:text-sm;
         }
         button[type="submit"] {
-          @apply border p-2 px-4 dark:text-gray-200 rounded;
+          @apply rounded border p-2 px-4 dark:text-gray-200;
         }
         .dropzone {
-          @apply border-2 border-gray-300 dark:border-gray-500 p-4 rounded-lg border-dashed space-y-2 overflow-hidden;
+          @apply space-y-2 overflow-hidden rounded-lg border-2 border-dashed border-gray-300 p-4 dark:border-gray-500;
           input {
             @apply dark:text-gray-200;
           }
           input::file-selector-button {
-            @apply bg-transparent border dark:border-gray-300 rounded dark:text-gray-200;
+            @apply rounded border bg-transparent dark:border-gray-300 dark:text-gray-200;
           }
         }
       }
     }
     .photos {
-      @apply bg-gray-100 dark:bg-gray-800 max-w-[100rem] mx-auto p-4 md:p-10 rounded-2xl shadow border rounded-b-none 2xl:mt-8;
+      @apply mx-auto max-w-[100rem] rounded-2xl rounded-b-none border bg-gray-100 p-4 shadow dark:bg-gray-800 md:p-10 2xl:mt-8;
       .sortby-options {
-        @apply flex gap-x-2 mb-2;
+        @apply mb-2 flex gap-x-2;
         &__option {
-          @apply text-gray-500 dark:text-gray-400 underline;
+          @apply text-gray-500 underline dark:text-gray-400;
           &--active {
             @apply no-underline;
           }
@@ -180,7 +190,7 @@
   #photo {
     @apply bg-gray-100 dark:bg-gray-900;
     .bg {
-      @apply h-screen w-full absolute -z-10 top-0 left-0;
+      @apply absolute top-0 left-0 -z-10 h-screen w-full;
       background: rgb(219, 69, 230);
       background: radial-gradient(
         circle,
@@ -213,6 +223,36 @@
     background-image: linear-gradient(90deg, #4faecc, #469abc, #347884);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
+  }
+
+  .btn {
+    &--light {
+      @apply border-gray-200 text-gray-200 dark:border-gray-800 dark:text-gray-800;
+      &:hover {
+        @apply border-gray-300 text-gray-300 dark:border-gray-700 dark:text-gray-700;
+      }
+      &:focus {
+        @apply ring-2 ring-blue-500 ring-offset-2 dark:ring-blue-400;
+      }
+    }
+    &--dark {
+      @apply border-gray-800 text-gray-800 dark:border-gray-200 dark:text-gray-200;
+      &:hover {
+        @apply bg-gray-800 text-gray-200 dark:bg-gray-200 dark:text-gray-800;
+      }
+      &:focus {
+        @apply ring-2 ring-blue-500 ring-offset-2 dark:ring-blue-400;
+      }
+    }
+    &--green {
+      @apply border-green-600 bg-green-500 text-white shadow-sm dark:border-green-400 dark:text-green-400;
+      &:hover {
+        @apply bg-green-600 dark:bg-green-500;
+      }
+      &:focus {
+        @apply ring-2 ring-green-500 ring-offset-2 dark:ring-green-400;
+      }
+    }
   }
 
   /* Alerts and form errors used by phx.new */

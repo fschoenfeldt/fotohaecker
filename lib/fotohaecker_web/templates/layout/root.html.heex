@@ -17,16 +17,36 @@
   </head>
   <body>
     <header class="relative p-2 md:p-4">
-      <section>
-        <a
-          href={Routes.index_home_path(@conn, :home)}
-          class="text-gray-100 text-xl"
-        >
+      <section class="flex justify-between">
+        <a href={Routes.index_home_path(@conn, :home)} class="text-gray-100 text-xl">
           Fotohäcker
         </a>
         <nav>
           <ul></ul>
         </nav>
+        <div x-data="{expanded: false}">
+          <button class="btn btn--light" type="button" @click="expanded = !expanded">
+            <%= gettext("change language") %>
+          </button>
+          <ul x-cloak x-show="expanded">
+            <%= for locale <- Gettext.known_locales(FotohaeckerWeb.Gettext) do %>
+              <li>
+                <%= with {title, url} <- locale_gui(locale) do %>
+                  <a
+                    phx-click="change_locale"
+                    phx-value-to={locale}
+                    phx-keydown="change_locale"
+                    phx-key="Enter"
+                    tabindex="0"
+                  >
+                    <%= title %>
+                    <img src={url} alt="" />
+                  </a>
+                <% end %>
+              </li>
+            <% end %>
+          </ul>
+        </div>
       </section>
     </header>
     <%= @inner_content %>
