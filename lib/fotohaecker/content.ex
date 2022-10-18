@@ -37,6 +37,8 @@ defmodule Fotohaecker.Content do
   """
   def get_photo!(id), do: Repo.get!(Photo, id)
 
+  def get_photo(id), do: Repo.get(Photo, id)
+
   @doc """
   Creates a photo.
 
