@@ -19,7 +19,7 @@ msgstr "(aktiv)"
 #: lib/fotohaecker_web/live/index_live/home.ex:45
 #, elixir-autogen, elixir-format
 msgid "Upload your photos, license-free."
-msgstr "Laden Sie Ihre Fotos hoch, lizenzfrei."
+msgstr "Lade Deine Fotos hoch, lizenzfrei."
 
 #: lib/fotohaecker_web/live/index_live/home.ex:108
 #, elixir-autogen, elixir-format
