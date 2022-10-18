@@ -4,8 +4,7 @@
 
 @layer base {
   html,
-  body,
-  div[data-phx-main] {
+  body {
     @apply h-full;
   }
   /* merriweather-300 - latin */
@@ -113,27 +112,7 @@
 @layer components {
   #home {
     @apply h-full;
-    .bg {
-      @apply absolute top-0 left-0 -z-10 h-screen w-full;
-      background: rgb(219, 69, 230);
-      background: radial-gradient(
-        circle,
-        rgba(219, 69, 230, 1) 0%,
-        rgba(0, 174, 255, 1) 100%
-      );
-      @media (prefers-color-scheme: dark) {
-        background: rgb(30, 58, 138);
-        background: radial-gradient(
-          circle,
-          rgb(30, 58, 138) 0%,
-          rgb(107, 33, 168) 100%
-        );
-      }
-      clip-path: ellipse(100% 70% at 0% 0%);
-      @screen md {
-        clip-path: ellipse(100% 100% at 0% 0%);
-      }
-    }
+
     .intro {
       @apply relative flex flex-col gap-4 p-4 md:grid md:gap-8 md:p-8;
 
@@ -188,28 +167,6 @@
     }
   }
   #photo {
-    @apply bg-gray-100 dark:bg-gray-900;
-    .bg {
-      @apply absolute top-0 left-0 -z-10 h-screen w-full;
-      background: rgb(219, 69, 230);
-      background: radial-gradient(
-        circle,
-        rgba(219, 69, 230, 1) 0%,
-        rgba(0, 174, 255, 1) 100%
-      );
-      @media (prefers-color-scheme: dark) {
-        background: rgb(30, 58, 138);
-        background: radial-gradient(
-          circle,
-          rgb(30, 58, 138) 0%,
-          rgb(107, 33, 168) 100%
-        );
-      }
-      clip-path: ellipse(100% 70% at 0% 0%);
-      @screen md {
-        clip-path: ellipse(100% 100% at 0% 0%);
-      }
-    }
   }
   .decorative-gradient {
     background-image: -webkit-gradient(
@@ -223,6 +180,27 @@
     background-image: linear-gradient(90deg, #4faecc, #469abc, #347884);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
+  }
+  .bg {
+    @apply absolute top-0 left-0 -z-10 h-screen w-full;
+    background: rgb(219, 69, 230);
+    background: radial-gradient(
+      circle,
+      rgba(219, 69, 230, 1) 0%,
+      rgba(0, 174, 255, 1) 100%
+    );
+    @media (prefers-color-scheme: dark) {
+      background: rgb(30, 58, 138);
+      background: radial-gradient(
+        circle,
+        rgb(30, 58, 138) 0%,
+        rgb(107, 33, 168) 100%
+      );
+    }
+    clip-path: ellipse(100% 70% at 0% 0%);
+    @screen md {
+      clip-path: ellipse(100% 105% at 0% 0%);
+    }
   }
 
   .btn {

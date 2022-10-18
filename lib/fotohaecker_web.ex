@@ -69,7 +69,7 @@ defmodule FotohaeckerWeb do
 
         # right now, changing locale always redirects to homepage.
         # this could be improved with a plug strategy
-        {:noreply, push_navigate(socket, to: FotohaeckerWeb.LiveHelpers.home_route())}
+        {:noreply, redirect(socket, to: FotohaeckerWeb.LiveHelpers.home_route())}
       end
 
       on_mount RestoreLocale

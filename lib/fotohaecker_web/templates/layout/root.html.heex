@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang={Gettext.get_locale(FotohaeckerWeb.Gettext) |> String.split("_") |> hd()}>
   <head>
     <meta charset="utf-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
@@ -31,15 +31,17 @@
           <ul x-cloak x-show="expanded">
             <%= for locale <- Gettext.known_locales(FotohaeckerWeb.Gettext) do %>
               <li>
-                <%= with {title, url} <- locale_gui(locale) do %>
+                <%= with {name, url} <- locale_gui(locale) do %>
                   <a
                     phx-click="change_locale"
                     phx-value-to={locale}
                     phx-keydown="change_locale"
                     phx-key="Enter"
                     tabindex="0"
+                    @click="expanded = false"
+                    @keydown.enter="expanded = false"
                   >
-                    <%= title %>
+                    <%= name %>
                     <img src={url} alt="" />
                   </a>
                 <% end %>

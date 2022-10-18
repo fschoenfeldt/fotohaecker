@@ -21,7 +21,7 @@ defmodule FotohaeckerWeb.PhotoLive.Show do
   @impl true
   def render(assigns) do
     ~H"""
-    <div id="photo" class="h-full">
+    <div id="photo">
       <div class="bg"></div>
       <%!-- #TODO: href should be set --%>
       <div
@@ -55,7 +55,7 @@ defmodule FotohaeckerWeb.PhotoLive.Show do
                extension <- @photo.extension,
                path      <- Routes.static_path(FotohaeckerWeb.Endpoint,
                             "/images/uploads/#{file_name}#{extension}") do %>
-        <h1 class="dark:text-gray-200"><%= title %></h1>
+        <h1 class="text-gray-200"><%= title %></h1>
         <img src={path} alt={gettext("photo %{title} on Fotohäcker", %{title: title})} />
       <% end %>
     </div>
