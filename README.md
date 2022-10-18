@@ -18,3 +18,7 @@ Now you can visit [`localhost:1337`](http://localhost:1337) from your browser.
 ---
 
 Ready to run in production? Please [check our deployment guides](https://hexdocs.pm/phoenix/deployment.html).
+
+## Acknowledgements
+
+- Locale flags provided by https://flag.pk/

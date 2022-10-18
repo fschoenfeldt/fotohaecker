@@ -24,7 +24,14 @@ defmodule FotohaeckerWeb.PhotoLive.Show do
     <div id="photo" class="h-full">
       <div class="bg"></div>
       <%!-- #TODO: href should be set --%>
-      <a phx-click="goto" phx-value-target="index" class="flex text-white fill-white">
+      <div
+        phx-click="goto"
+        phx-keydown="goto"
+        phx-key="Enter"
+        phx-value-target="index"
+        class="flex text-white fill-white"
+        tabindex="0"
+      >
         <svg
           class="w-6 h-6"
           fill="#fff"
@@ -40,8 +47,8 @@ defmodule FotohaeckerWeb.PhotoLive.Show do
           >
           </path>
         </svg>
-        Back
-      </a>
+        <%= gettext("back") %>
+      </div>
       <%= with _id       <- @photo.id,
                title     <- @photo.title,
                file_name <- @photo.file_name,

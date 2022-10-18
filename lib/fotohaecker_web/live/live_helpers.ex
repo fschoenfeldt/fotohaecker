@@ -6,6 +6,8 @@ defmodule FotohaeckerWeb.LiveHelpers do
   alias FotohaeckerWeb.Router.Helpers
   alias Phoenix.LiveView.JS
 
+  require FotohaeckerWeb.Gettext
+
   @doc """
   Renders a live component inside a modal.
 
@@ -60,6 +62,34 @@ defmodule FotohaeckerWeb.LiveHelpers do
     |> JS.hide(to: "#modal-content", transition: "fade-out-scale")
   end
 
-  def home_route, do: Helpers.index_home_path(FotohaeckerWeb.Endpoint, :home)
-  def photo_route(id), do: Helpers.photo_show_path(FotohaeckerWeb.Endpoint, :show, id)
+  def locale_gui("de_DE" = locale),
+    do: {
+      FotohaeckerWeb.Gettext.gettext("german"),
+      static("/images/flags/#{locale}.svg")
+    }
+
+  def locale_gui("en_US" = locale),
+    do: {
+      FotohaeckerWeb.Gettext.gettext("english"),
+      static("/images/flags/#{locale}.svg")
+    }
+
+  def home_route,
+    do:
+      Helpers.index_home_path(
+        FotohaeckerWeb.Endpoint,
+        :home,
+        Gettext.get_locale(FotohaeckerWeb.Gettext)
+      )
+
+  def photo_route(id),
+    do:
+      Helpers.photo_show_path(
+        FotohaeckerWeb.Endpoint,
+        :show,
+        Gettext.get_locale(FotohaeckerWeb.Gettext),
+        id
+      )
+
+  def static(path), do: Helpers.static_path(FotohaeckerWeb.Endpoint, path)
 end
