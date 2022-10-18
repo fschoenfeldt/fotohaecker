@@ -28,6 +28,7 @@ defmodule FotohaeckerWeb.IndexLive.Home do
     ~H"""
     <div id="home">
       <div class="bg"></div>
+      <div class="bg bg--experiment"></div>
       <.intro
         photo_changeset={@photo_changeset}
         submission_params={@submission_params}

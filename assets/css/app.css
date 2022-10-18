@@ -113,6 +113,12 @@
   #home {
     @apply h-full;
 
+    .bg--experiment {
+      background-image: url(/images/uploads/my-first-photo.jpg);
+      background-size: cover;
+      filter: brightness(0.5);
+    }
+
     .intro {
       @apply relative flex flex-col gap-4 p-4 md:grid md:gap-8 md:p-8;
 

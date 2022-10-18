@@ -9,3 +9,12 @@
 #
 # We recommend using the bang functions (`insert!`, `update!`
 # and so on) as they will fail if something goes wrong.
+
+alias Fotohaecker.Content.Photo
+alias Fotohaecker.Repo
+
+Repo.insert!(%Photo{
+  title: "My first photo",
+  file_name: "my-first-photo",
+  extension: ".jpg"
+})
