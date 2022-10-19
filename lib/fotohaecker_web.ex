@@ -58,8 +58,6 @@ defmodule FotohaeckerWeb do
         end
 
         def on_mount(:default, params, session, socket) do
-          send(self(), {:put_default_locale})
-
           {:cont, socket}
         end
       end
