@@ -20,6 +20,9 @@
       <section class="flex justify-between">
         <a href={Routes.index_home_path(@conn, :home)} class="text-gray-100 text-xl">
           Fotohäcker
+          <span class="bg-indigo-500 text-white rounded-full px-2 text-sm no-underline">
+            alpha
+          </span>
         </a>
         <nav>
           <ul></ul>
@@ -52,5 +55,11 @@
       </section>
     </header>
     <%= @inner_content %>
+    <footer class="py-4 mt-4 border-t text-gray-500 dark:text-gray-300 text-center">
+      Made with ❤️ in Hamburg, Germany.
+      <a href="https://github.com/fschoenfeldt/fotohaecker/">
+        Source Code
+      </a>
+    </footer>
   </body>
 </html>
