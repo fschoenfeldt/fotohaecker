@@ -13,8 +13,19 @@
 alias Fotohaecker.Content.Photo
 alias Fotohaecker.Repo
 
-Repo.insert!(%Photo{
+photo = %Photo{
   title: "My first photo",
   file_name: "my-first-photo",
   extension: ".jpg"
-})
+}
+
+amount_photos =
+  if Mix.env() == :dev do
+    1..10
+  else
+    1
+  end
+
+for _ <- amount_photos do
+  Repo.insert!(photo)
+end
