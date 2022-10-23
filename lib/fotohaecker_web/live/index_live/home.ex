@@ -27,6 +27,7 @@ defmodule FotohaeckerWeb.IndexLive.Home do
   def render(assigns) do
     ~H"""
     <div id="home">
+      <button type="button" phx-click="test">Test</button>
       <div class="bg-experiment"></div>
       <.intro
         photo_changeset={@photo_changeset}
@@ -154,9 +155,14 @@ defmodule FotohaeckerWeb.IndexLive.Home do
                title     <- @photo.title,
                file_name <- @photo.file_name,
                extension <- @photo.extension,
-               path       <- Routes.static_path(FotohaeckerWeb.Endpoint,
-                            "/images/uploads/#{file_name}_thumb#{extension}") do %>
-        <%!-- #TODO: href should be set --%>
+               thumbs    <- Enum.map([1, 2, 3],
+                                     &(Routes.static_path(FotohaeckerWeb.Endpoint,
+                                      "/images/uploads/#{file_name}_thumb@#{&1}x#{extension}"))
+                                    ),
+               srcset    <- thumbs
+                            |> Enum.with_index(&("#{&1} #{&2 + 1}x"))
+                            |> Enum.join(", ") do %>
+        <%!-- #TODO href should be set --%>
         <div
           class="block"
           phx-click="navigate_to"
@@ -170,7 +176,9 @@ defmodule FotohaeckerWeb.IndexLive.Home do
             <%= gettext("go to photo %{title} on Fotohäcker", %{title: title}) %>
           </span>
           <img
-            src={path}
+            class="w-full"
+            src={hd(thumbs)}
+            srcset={srcset}
             alt={gettext("photo %{title} on Fotohäcker", %{title: title})}
             loading="lazy"
           />
@@ -217,34 +225,33 @@ defmodule FotohaeckerWeb.IndexLive.Home do
             "image/jpeg" ->
               ".jpg"
 
-            "image/png" ->
-              ".png"
+            # "image/png" ->
+            #   ".png"
 
             _type ->
               raise "Unsupported Type. This error shouldn't happen as it's configured via LiveView Upload."
           end
 
-        filename = Path.basename(path)
-        photo = Image.open!(path)
-
-        dest = Photo.gen_path(filename)
-
-        # write thumb
-        {:ok, _image} =
-          photo
-          |> Image.resize!(400)
-          |> Image.write("#{dest}_thumb#{extension}")
+        file_name = Path.basename(path)
+        dest = "#{Photo.gen_path(file_name)}#{extension}"
 
         # write photo
-        File.cp!(path, "#{dest}#{extension}")
+        File.cp!(path, dest)
+
+        # write thumb
+        Task.async(fn ->
+          NodeJS.call("compress", [Photo.gen_path(file_name), extension]) |> IO.inspect()
+        end)
+        |> IO.inspect()
+
         # insert into db
         {:ok, %Photo{}} =
           submission_params
-          |> Map.put(:file_name, filename)
+          |> Map.put(:file_name, file_name)
           |> Map.put(:extension, extension)
           |> Content.create_photo()
 
-        {:ok, Routes.static_path(socket, "/images/uploads/#{filename}#{extension}")}
+        {:ok, Routes.static_path(socket, "/images/uploads/#{file_name}#{extension}")}
       end)
 
     # file could be appended with phx-update

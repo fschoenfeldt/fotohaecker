@@ -15,9 +15,13 @@ defmodule Fotohaecker.Application do
       # Start the PubSub system
       {Phoenix.PubSub, name: Fotohaecker.PubSub},
       # Start the Endpoint (http/https)
-      FotohaeckerWeb.Endpoint
+      FotohaeckerWeb.Endpoint,
       # Start a worker by calling: Fotohaecker.Worker.start_link(arg)
       # {Fotohaecker.Worker, arg}
+      %{
+        id: NodeJS,
+        start: {NodeJS, :start_link, [[path: "assets/", pool_size: 4]]}
+      }
     ]
 
     # See https://hexdocs.pm/elixir/Supervisor.html
