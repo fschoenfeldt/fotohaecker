@@ -31,7 +31,7 @@ defmodule FotohaeckerWeb.PhotoLive.Show do
   def render(assigns) do
     ~H"""
     <div id="photo">
-      <div class="bg"></div>
+      <div class="bg-experiment"></div>
       <%!-- #TODO: href should be set --%>
       <div
         phx-click="goto"
@@ -63,9 +63,15 @@ defmodule FotohaeckerWeb.PhotoLive.Show do
                file_name <- @photo.file_name,
                extension <- @photo.extension,
                path      <- Routes.static_path(FotohaeckerWeb.Endpoint,
-                            "/images/uploads/#{file_name}#{extension}") do %>
+                            "/images/uploads/#{file_name}_preview#{extension}") do %>
         <h1 class="text-gray-200"><%= title %></h1>
-        <img src={path} alt={gettext("photo %{title} on Fotohäcker", %{title: title})} />
+        <div class="flex justify-center">
+          <img
+            class="max-w-[70rem] w-full"
+            src={path}
+            alt={gettext("photo %{title} on Fotohäcker", %{title: title})}
+          />
+        </div>
       <% end %>
     </div>
     """

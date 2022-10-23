@@ -2,10 +2,20 @@
 // https://tailwindcss.com/docs/configuration
 
 let plugin = require("tailwindcss/plugin");
+const colors = require("tailwindcss/colors");
 
 module.exports = {
   content: ["./js/**/*.js", "../lib/*_web.ex", "../lib/*_web/**/*.*ex"],
   theme: {
+    colors: {
+      transparent: "transparent",
+      black: colors.black,
+      white: colors.white,
+      gray: colors.stone,
+      green: colors.emerald,
+      red: colors.red,
+      blue: colors.indigo,
+    },
     extend: {
       colors: {
         signature: {
