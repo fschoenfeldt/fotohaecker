@@ -1,0 +1,6 @@
+#!/usr/bin/env bash
+
+docker run -e DATABASE_PATH="./fotohaecker_prod.db" \
+-e SECRET_KEY_BASE="H1CTSuSH5cIYm9iLdu1Wjtyt1VIrIpMKGkR/ZoRORXXFwwSMIeShxLkIv6QtsAv0" \
+-e PHX_HOST="localhost" \
+-e PORT=443 fotohaecker:latest 

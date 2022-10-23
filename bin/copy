@@ -1,0 +1,7 @@
+#!/usr/bin/env bash
+
+docker create --name fotohaecker fotohaecker:latest
+docker cp fotohaecker:/app ./rel/artifacts
+docker rm -f fotohaecker
+
+tar -zcfv ../fotohaecker.tar.gz ../rel/artifacts/app
