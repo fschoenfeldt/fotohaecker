@@ -7,6 +7,9 @@
   body {
     @apply h-full;
   }
+  div[data-phx-main] {
+    @apply min-h-[calc(100vh-9rem)];
+  }
   /* merriweather-300 - latin */
   @font-face {
     font-family: "Merriweather";
@@ -113,17 +116,6 @@
   #home {
     @apply h-full;
 
-    .bg-experiment {
-      @apply absolute top-0 left-0 -z-10 h-screen w-full bg-cover brightness-50;
-
-      background-image: url(/fh/images/uploads/my-first-photo.jpg);
-
-      clip-path: ellipse(100% 70% at 0% 0%);
-      @screen md {
-        clip-path: ellipse(100% 105% at 0% 0%);
-      }
-    }
-
     .intro {
       @apply relative flex flex-col gap-4 p-4 md:grid md:gap-8 md:p-8;
 
@@ -178,6 +170,9 @@
     }
   }
   #photo {
+    .bg-experiment {
+      @apply brightness-[10%] saturate-[0%];
+    }
   }
   .decorative-gradient {
     background-image: -webkit-gradient(
@@ -214,32 +209,43 @@
     }
   }
 
+  .bg-experiment {
+    @apply absolute top-0 left-0 -z-10 h-screen w-full bg-cover brightness-50;
+
+    background-image: url(/fh/images/uploads/my-first-photo.jpg);
+
+    clip-path: ellipse(100% 70% at 0% 0%);
+    @screen md {
+      clip-path: ellipse(100% 105% at 0% 0%);
+    }
+  }
+
   .btn {
     &--light {
-      @apply border-gray-200 text-gray-200 dark:border-gray-800 dark:text-gray-800;
+      @apply border-gray-200 text-gray-200;
       &:hover {
-        @apply border-gray-300 text-gray-300 dark:border-gray-700 dark:text-gray-700;
+        @apply border-gray-300 text-gray-300;
       }
       &:focus {
         @apply ring-2 ring-blue-500 ring-offset-2 dark:ring-blue-400;
       }
     }
     &--dark {
-      @apply border-gray-800 text-gray-800 dark:border-gray-200 dark:text-gray-200;
+      @apply border-gray-800 text-gray-800;
       &:hover {
-        @apply bg-gray-800 text-gray-200 dark:bg-gray-200 dark:text-gray-800;
+        @apply bg-gray-800 text-gray-200;
       }
       &:focus {
-        @apply ring-2 ring-blue-500 ring-offset-2 dark:ring-blue-400;
+        @apply ring-2 ring-blue-500 ring-offset-2;
       }
     }
     &--green {
-      @apply border-green-600 bg-green-500 text-white shadow-sm dark:border-green-400 dark:text-green-400;
+      @apply border-green-600 bg-green-500 text-white shadow-sm;
       &:hover {
-        @apply bg-green-600 dark:bg-green-500;
+        @apply bg-green-600;
       }
       &:focus {
-        @apply ring-2 ring-green-500 ring-offset-2 dark:ring-green-400;
+        @apply ring-2 ring-green-500 ring-offset-2;
       }
     }
   }
