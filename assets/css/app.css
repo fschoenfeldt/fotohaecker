@@ -212,7 +212,11 @@
   .bg-experiment {
     @apply absolute top-0 left-0 -z-10 h-screen w-full bg-cover brightness-50;
 
-    background-image: url(/fh/images/uploads/my-first-photo_preview.jpg);
+    background-image: url(/fh/images/uploads/my-first-photo_thumb@3x.jpg);
+
+    @screen sm {
+      background-image: url(/fh/images/uploads/my-first-photo_preview.jpg);
+    }
 
     clip-path: ellipse(100% 70% at 0% 0%);
     @screen md {
