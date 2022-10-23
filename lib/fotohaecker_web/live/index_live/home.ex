@@ -234,14 +234,15 @@ defmodule FotohaeckerWeb.IndexLive.Home do
         file_name = Path.basename(path)
         dest = "#{Photo.gen_path(file_name)}#{extension}"
 
+        # TODO strip metadata to ensure privacy!
+
         # write photo
         File.cp!(path, dest)
 
         # write thumb
         Task.async(fn ->
-          NodeJS.call("compress", [Photo.gen_path(file_name), extension]) |> IO.inspect()
+          NodeJS.call("compress", [Photo.gen_path(file_name), extension])
         end)
-        |> IO.inspect()
 
         # insert into db
         {:ok, %Photo{}} =
@@ -256,7 +257,8 @@ defmodule FotohaeckerWeb.IndexLive.Home do
     # file could be appended with phx-update
     # {:noreply, update(socket, :uploaded_files, &(&1 ++ uploaded_files))}
 
-    {:noreply, socket}
+    # TODO the update of the page can be done much more gracefully by appending
+    {:noreply, push_redirect(socket, to: home_route())}
   end
 
   defp error_to_string(reason), do: Atom.to_string(reason)
