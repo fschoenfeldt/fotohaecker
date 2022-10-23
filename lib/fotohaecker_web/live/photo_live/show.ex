@@ -58,19 +58,26 @@ defmodule FotohaeckerWeb.PhotoLive.Show do
         </svg>
         <%= gettext("back") %>
       </div>
-      <%= with _id       <- @photo.id,
-               title     <- @photo.title,
-               file_name <- @photo.file_name,
-               extension <- @photo.extension,
-               path      <- Routes.static_path(FotohaeckerWeb.Endpoint,
-                            "/images/uploads/#{file_name}_preview#{extension}") do %>
+      <%= with _id          <- @photo.id,
+               title        <- @photo.title,
+               file_name    <- @photo.file_name,
+               extension    <- @photo.extension,
+               path         <- Routes.static_path(FotohaeckerWeb.Endpoint,
+                                                  "/images/uploads/#{file_name}#{extension}"),
+               preview_path <- Routes.static_path(FotohaeckerWeb.Endpoint,
+                                                  "/images/uploads/#{file_name}_preview#{extension}") do %>
         <h1 class="text-gray-200"><%= title %></h1>
         <div class="flex justify-center">
-          <img
-            class="max-w-[70rem] w-full"
-            src={path}
-            alt={gettext("photo %{title} on Fotohäcker", %{title: title})}
-          />
+          <a
+            href={path}
+            title={gettext("download the photo %{title} from Fotohäcker", %{title: title})}
+          >
+            <img
+              class="max-w-[70rem] w-full"
+              src={preview_path}
+              alt={gettext("photo %{title} on Fotohäcker", %{title: title})}
+            />
+          </a>
         </div>
       <% end %>
     </div>
