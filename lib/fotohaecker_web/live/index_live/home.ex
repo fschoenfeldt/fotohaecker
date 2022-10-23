@@ -27,7 +27,6 @@ defmodule FotohaeckerWeb.IndexLive.Home do
   def render(assigns) do
     ~H"""
     <div id="home">
-      <button type="button" phx-click="test">Test</button>
       <div class="bg-experiment"></div>
       <.intro
         photo_changeset={@photo_changeset}

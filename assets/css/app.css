@@ -13,10 +13,10 @@
     font-style: normal;
     font-weight: 300;
     src: local(""),
-      url("/fonts/merriweather/merriweather-v30-latin-300.woff2")
+      url("/fh/fonts/merriweather/merriweather-v30-latin-300.woff2")
         format("woff2"),
       /* Chrome 26+, Opera 23+, Firefox 39+ */
-        url("/fonts/merriweather/merriweather-v30-latin-300.woff")
+        url("/fh/fonts/merriweather/merriweather-v30-latin-300.woff")
         format("woff"); /* Chrome 6+, Firefox 3.6+, IE 9+, Safari 5.1+ */
   }
   /* merriweather-regular - latin */
@@ -25,10 +25,10 @@
     font-style: normal;
     font-weight: 400;
     src: local(""),
-      url("/fonts/merriweather/merriweather-v30-latin-regular.woff2")
+      url("/fh/fonts/merriweather/merriweather-v30-latin-regular.woff2")
         format("woff2"),
       /* Chrome 26+, Opera 23+, Firefox 39+ */
-        url("/fonts/merriweather/merriweather-v30-latin-regular.woff")
+        url("/fh/fonts/merriweather/merriweather-v30-latin-regular.woff")
         format("woff"); /* Chrome 6+, Firefox 3.6+, IE 9+, Safari 5.1+ */
   }
   /* merriweather-italic - latin */
@@ -37,10 +37,10 @@
     font-style: italic;
     font-weight: 400;
     src: local(""),
-      url("/fonts/merriweather/merriweather-v30-latin-italic.woff2")
+      url("/fh/fonts/merriweather/merriweather-v30-latin-italic.woff2")
         format("woff2"),
       /* Chrome 26+, Opera 23+, Firefox 39+ */
-        url("/fonts/merriweather/merriweather-v30-latin-italic.woff")
+        url("/fh/fonts/merriweather/merriweather-v30-latin-italic.woff")
         format("woff"); /* Chrome 6+, Firefox 3.6+, IE 9+, Safari 5.1+ */
   }
   /* merriweather-700 - latin */
@@ -49,10 +49,10 @@
     font-style: normal;
     font-weight: 700;
     src: local(""),
-      url("/fonts/merriweather/merriweather-v30-latin-700.woff2")
+      url("/fh/fonts/merriweather/merriweather-v30-latin-700.woff2")
         format("woff2"),
       /* Chrome 26+, Opera 23+, Firefox 39+ */
-        url("/fonts/merriweather/merriweather-v30-latin-700.woff")
+        url("/fh/fonts/merriweather/merriweather-v30-latin-700.woff")
         format("woff"); /* Chrome 6+, Firefox 3.6+, IE 9+, Safari 5.1+ */
   }
   /* anton-regular - latin */
@@ -61,9 +61,9 @@
     font-style: normal;
     font-weight: 400;
     src: local(""),
-      url("/fonts/anton/anton-v23-latin-regular.woff2") format("woff2"),
+      url("/fh/fonts/anton/anton-v23-latin-regular.woff2") format("woff2"),
       /* Chrome 26+, Opera 23+, Firefox 39+ */
-        url("/fonts/anton/anton-v23-latin-regular.woff") format("woff"); /* Chrome 6+, Firefox 3.6+, IE 9+, Safari 5.1+ */
+        url("/fh/fonts/anton/anton-v23-latin-regular.woff") format("woff"); /* Chrome 6+, Firefox 3.6+, IE 9+, Safari 5.1+ */
   }
 
   * {
@@ -116,7 +116,7 @@
     .bg-experiment {
       @apply absolute top-0 left-0 -z-10 h-screen w-full bg-cover brightness-50;
 
-      background-image: url(/images/uploads/my-first-photo.jpg);
+      background-image: url(/fh/images/uploads/my-first-photo.jpg);
 
       clip-path: ellipse(100% 70% at 0% 0%);
       @screen md {

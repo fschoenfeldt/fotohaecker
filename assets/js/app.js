@@ -29,7 +29,7 @@ import Alpine from "alpinejs";
 let csrfToken = document
   .querySelector("meta[name='csrf-token']")
   .getAttribute("content");
-let liveSocket = new LiveSocket("/live", Socket, {
+let liveSocket = new LiveSocket("/fh/live", Socket, {
   params: { _csrf_token: csrfToken },
   dom: {
     onBeforeElUpdated(from, to) {
