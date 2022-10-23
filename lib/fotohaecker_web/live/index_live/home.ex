@@ -19,7 +19,7 @@ defmodule FotohaeckerWeb.IndexLive.Home do
       |> assign(:submission_params, submission_params)
       |> assign(:photo_changeset, photo_changeset)
       # get latest photos, maybe refactor..
-      |> assign(:photos, Content.list_photos())
+      |> assign(:photos, Enum.reverse(Content.list_photos()))
 
     {:ok, socket}
   end
