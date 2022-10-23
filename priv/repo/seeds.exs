@@ -23,7 +23,7 @@ amount_photos =
   if Mix.env() == :dev do
     1..10
   else
-    1
+    [1]
   end
 
 for _ <- amount_photos do

@@ -15,6 +15,8 @@ config :fotohaecker, FotohaeckerWeb.Endpoint,
 # Do not print debug messages in production
 config :logger, level: :info
 
+config :fotohaecker, FotohaeckerWeb.Endpoint, static_url: [path: "/fh"]
+
 # ## SSL Support
 #
 # To get SSL working, you will need to add the `https` key

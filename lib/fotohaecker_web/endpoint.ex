@@ -10,14 +10,15 @@ defmodule FotohaeckerWeb.Endpoint do
     signing_salt: "3+3h+H+O"
   ]
 
-  socket "/live", Phoenix.LiveView.Socket, websocket: [connect_info: [session: @session_options]]
+  socket "/fh/live", Phoenix.LiveView.Socket,
+    websocket: [connect_info: [session: @session_options]]
 
   # Serve at "/" the static files from "priv/static" directory.
   #
   # You should set gzip to true if you are running phx.digest
   # when deploying your static files in production.
   plug Plug.Static,
-    at: "/",
+    at: "/fh",
     from: :fotohaecker,
     gzip: false,
     only: ~w(assets fonts images favicon.ico robots.txt)

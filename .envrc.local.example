@@ -2,4 +2,8 @@
 # in case you want to provide an own DATABASE_PATH
 # export DATABASE_PATH=""
 
+# in case you want to use the uberspace deployment script
+# export UBERSPACE_USER=""
+# export UBERSPACE_SERVER="SERVERNAME.uberspace.de"
+
 export SECRET_KEY_BASE=""

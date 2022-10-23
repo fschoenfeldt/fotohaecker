@@ -14,7 +14,7 @@ defmodule FotohaeckerWeb.Router do
     plug :accepts, ["json"]
   end
 
-  scope "/", FotohaeckerWeb do
+  scope "/fh", FotohaeckerWeb do
     pipe_through :browser
 
     live "/", IndexLive.Home, :home
