@@ -11,6 +11,7 @@
     "alpinejs": "^3.10.4",
     "phoenix": "file:../deps/phoenix",
     "phoenix_html": "file:../deps/phoenix_html",
-    "phoenix_live_view": "file:../deps/phoenix_live_view"
+    "phoenix_live_view": "file:../deps/phoenix_live_view",
+    "sharp": "^0.31.1"
   }
 }

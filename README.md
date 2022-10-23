@@ -3,17 +3,16 @@
 ## Installation
 
 ```shell
-# get required tools
+# get required tools (https://github.com/asdf-vm/asdf)
+# - elixir / erlang OTP
+# - nodejs
+# - direnv
 asdf install
 # copy .envrc.local.example to .envrc.local
 cp .envrc.local.example .envrc.local
 # allow via direnv
 direnv allow
 ```
-
-### Prerequisites
-
-Fotohäcker uses [Image](https://hexdocs.pm/image) for image upload compression, which in turn [requires libvips](https://hexdocs.pm/image/readme.html#installing-libvips). Refer to Images' documentation on how to install it.
 
 ### Setup & Start Server
 
