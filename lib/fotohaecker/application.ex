@@ -18,6 +18,7 @@ defmodule Fotohaecker.Application do
       FotohaeckerWeb.Endpoint,
       # Start a worker by calling: Fotohaecker.Worker.start_link(arg)
       # {Fotohaecker.Worker, arg}
+      :hackney_pool.child_spec(:image_detection, timeout: 20_000, max_connections: 10),
       %{
         id: NodeJS,
         start: {NodeJS, :start_link, [[path: "assets/", pool_size: 4]]}

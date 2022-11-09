@@ -8,7 +8,7 @@ defmodule Fotohaecker.ContentTest do
 
     import Fotohaecker.ContentFixtures
 
-    @invalid_attrs %{description: nil, file_name: nil, tags: nil, title: nil}
+    @invalid_attrs %{file_name: nil, tags: nil, title: nil}
 
     test "list_photos/0 returns all photos" do
       photo = photo_fixture()
@@ -22,14 +22,13 @@ defmodule Fotohaecker.ContentTest do
 
     test "create_photo/1 with valid data creates a photo" do
       valid_attrs = %{
-        description: "some description",
         file_name: "some file_name",
         tags: [],
-        title: "some title"
+        title: "some title",
+        extension: ".jpg"
       }
 
       assert {:ok, %Photo{} = photo} = Content.create_photo(valid_attrs)
-      assert photo.description == "some description"
       assert photo.file_name == "some file_name"
       assert photo.tags == []
       assert photo.title == "some title"
@@ -43,17 +42,16 @@ defmodule Fotohaecker.ContentTest do
       photo = photo_fixture()
 
       update_attrs = %{
-        description: "some updated description",
         file_name: "some updated file_name",
         tags: [],
-        title: "some updated title"
+        title: "updated",
+        extension: ".jpg"
       }
 
       assert {:ok, %Photo{} = photo} = Content.update_photo(photo, update_attrs)
-      assert photo.description == "some updated description"
       assert photo.file_name == "some updated file_name"
       assert photo.tags == []
-      assert photo.title == "some updated title"
+      assert photo.title == "updated"
     end
 
     test "update_photo/2 with invalid data returns error changeset" do

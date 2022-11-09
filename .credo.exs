@@ -35,7 +35,8 @@
           ~r"/_build/",
           ~r"/deps/",
           ~r"/node_modules/",
-          "lib/fotohaecker_web/live/photo_live"
+          "lib/fotohaecker_web/live/photo_live",
+          "lib/fotohaecker/release.ex"
         ]
       },
       #

@@ -20,12 +20,6 @@ defmodule FotohaeckerWeb.Router do
     live "/", IndexLive.Home, :home
     live "/:locale", IndexLive.Home, :home
     live "/:locale/photos/:id", PhotoLive.Show, :show
-
-    live "/photos", PhotoLive.Index, :index
-    live "/photos/new", PhotoLive.Index, :new
-    live "/photos/:id/edit", PhotoLive.Index, :edit
-
-    live "/photos/:id/show/edit", PhotoLive.Show, :edit
   end
 
   # Other scopes may use custom stacks.

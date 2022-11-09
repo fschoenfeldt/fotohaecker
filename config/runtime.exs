@@ -7,6 +7,17 @@ import Config
 # any compile-time configuration in here, as it won't be applied.
 # The block below contains prod specific runtime configuration.
 
+# Configure image detection here
+# in case you don't provide a config, the NoDetection module will be used
+if System.get_env("CLARIFAI_API_SECRET") do
+  config :fotohaecker, Fotohaecker.TagDetection, %{
+    implementation: Fotohaecker.TagDetection.Clarifai,
+    credentials: %{
+      api_secret: System.get_env("CLARIFAI_API_SECRET")
+    }
+  }
+end
+
 # ## Using releases
 #
 # If you use `mix release`, you need to explicitly enable the server

@@ -14,7 +14,8 @@ defmodule Fotohaecker.ContentFixtures do
         description: "some description",
         file_name: "some file_name",
         tags: [],
-        title: "some title"
+        title: "some title",
+        extension: ".jpg"
       })
       |> Fotohaecker.Content.create_photo()
 

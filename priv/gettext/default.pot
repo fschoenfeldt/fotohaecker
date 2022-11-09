@@ -10,7 +10,7 @@
 msgid ""
 msgstr ""
 
-#: lib/fotohaecker_web/live/index_live/home.ex:108
+#: lib/fotohaecker_web/live/index_live/home.ex:118
 #, elixir-autogen, elixir-format
 msgid "(active)"
 msgstr ""
@@ -20,63 +20,58 @@ msgstr ""
 msgid "Upload your photos, license-free."
 msgstr ""
 
-#: lib/fotohaecker_web/live/index_live/home.ex:108
+#: lib/fotohaecker_web/live/index_live/home.ex:118
 #, elixir-autogen, elixir-format
 msgid "latest"
 msgstr ""
 
-#: lib/fotohaecker_web/live/index_live/home.ex:118
+#: lib/fotohaecker_web/live/index_live/home.ex:128
 #, elixir-autogen, elixir-format
 msgid "most downloaded"
 msgstr ""
 
-#: lib/fotohaecker_web/live/index_live/home.ex:126
+#: lib/fotohaecker_web/live/index_live/home.ex:136
 #, elixir-autogen, elixir-format
 msgid "no photos, yet..."
 msgstr ""
 
-#: lib/fotohaecker_web/live/index_live/home.ex:113
+#: lib/fotohaecker_web/live/index_live/home.ex:123
 #, elixir-autogen, elixir-format
 msgid "oldest"
 msgstr ""
 
-#: lib/fotohaecker_web/live/index_live/home.ex:164
-#: lib/fotohaecker_web/live/photo_live/show.ex:59
+#: lib/fotohaecker_web/live/index_live/home.ex:181
+#: lib/fotohaecker_web/live/photo_live/show.ex:78
 #, elixir-autogen, elixir-format
 msgid "photo %{title} on Fotohäcker"
 msgstr ""
 
-#: lib/fotohaecker_web/live/index_live/home.ex:104
+#: lib/fotohaecker_web/live/index_live/home.ex:114
 #, elixir-autogen, elixir-format
 msgid "sort by"
 msgstr ""
 
-#: lib/fotohaecker_web/live/index_live/home.ex:81
+#: lib/fotohaecker_web/live/index_live/home.ex:92
 #, elixir-autogen, elixir-format
 msgid "the selected file can't be uploaded:"
 msgstr ""
 
-#: lib/fotohaecker_web/live/index_live/home.ex:93
+#: lib/fotohaecker_web/live/index_live/home.ex:104
 #, elixir-autogen, elixir-format
 msgid "upload"
 msgstr ""
 
-#: lib/fotohaecker_web/live/index_live/home.ex:92
+#: lib/fotohaecker_web/live/index_live/home.ex:103
 #, elixir-autogen, elixir-format
 msgid "uploading.."
 msgstr ""
 
-#: lib/fotohaecker_web/templates/layout/root.html.heex:29
-#, elixir-autogen, elixir-format
-msgid "Language"
-msgstr ""
-
-#: lib/fotohaecker_web/live/photo_live/show.ex:50
+#: lib/fotohaecker_web/live/photo_live/show.ex:59
 #, elixir-autogen, elixir-format
 msgid "back"
 msgstr ""
 
-#: lib/fotohaecker_web/live/index_live/home.ex:72
+#: lib/fotohaecker_web/live/index_live/home.ex:83
 #, elixir-autogen, elixir-format
 msgid "drag the photo here or use the file button below"
 msgstr ""
@@ -91,17 +86,27 @@ msgstr ""
 msgid "german"
 msgstr ""
 
-#: lib/fotohaecker_web/live/index_live/home.ex:160
+#: lib/fotohaecker_web/live/index_live/home.ex:175
 #, elixir-autogen, elixir-format
 msgid "go to photo %{title} on Fotohäcker"
 msgstr ""
 
-#: lib/fotohaecker_web/live/index_live/home.ex:63
+#: lib/fotohaecker_web/live/index_live/home.ex:74
 #, elixir-autogen, elixir-format
 msgid "photo title"
 msgstr ""
 
-#: lib/fotohaecker_web/live/index_live/home.ex:57
+#: lib/fotohaecker_web/live/index_live/home.ex:68
 #, elixir-autogen, elixir-format
 msgid "title"
+msgstr ""
+
+#: lib/fotohaecker_web/templates/layout/root.html.heex:32
+#, elixir-autogen, elixir-format
+msgid "change language"
+msgstr ""
+
+#: lib/fotohaecker_web/live/photo_live/show.ex:73
+#, elixir-autogen, elixir-format
+msgid "download the photo %{title} from Fotohäcker"
 msgstr ""

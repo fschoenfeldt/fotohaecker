@@ -57,7 +57,8 @@ defmodule Fotohaecker.MixProject do
       {:sobelow, ">= 0.0.0", only: [:dev], runtime: false},
       {:ex_check, "~> 0.14.0", only: [:dev], runtime: false},
       {:typed_ecto_schema, "~> 0.4"},
-      {:nodejs, "~> 2.0"}
+      {:nodejs, "~> 2.0"},
+      {:httpoison, "~> 1.8"}
     ]
   end
 
