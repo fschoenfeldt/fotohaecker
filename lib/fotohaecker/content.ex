@@ -88,8 +88,9 @@ defmodule Fotohaecker.Content do
 
   """
   def delete_photo(%Photo{} = photo) do
-    :ok = File.rm(Photo.gen_path(photo.file_name) <> photo.extension)
-    :ok = File.rm(Photo.gen_path(photo.file_name) <> "_thumb" <> photo.extension)
+    # TODO delete photo file after deleting photo
+    # :ok = File.rm(Photo.gen_path(photo.file_name) <> photo.extension)
+    # :ok = File.rm(Photo.gen_path(photo.file_name) <> "_thumb" <> photo.extension)
     Repo.delete(photo)
   end
 

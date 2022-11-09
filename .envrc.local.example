@@ -6,4 +6,7 @@
 # export UBERSPACE_USER=""
 # export UBERSPACE_SERVER="SERVERNAME.uberspace.de"
 
+# in case you want to use automatic tag detection via clarifai
+# export CLARIFAI_API_SECRET=""
+
 export SECRET_KEY_BASE=""
