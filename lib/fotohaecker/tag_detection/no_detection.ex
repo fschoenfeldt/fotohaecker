@@ -3,16 +3,16 @@ defmodule Fotohaecker.TagDetection.NoDetection do
   Fallback module when no detection is enabled via config.
   """
 
-  @behaviour Fotohaecker.TagDetection
-  alias Fotohaecker.TagDetection
+  @behaviour Fotohaecker.TagDetection.TagDetectionBehaviour
+  alias Fotohaecker.TagDetection.TagDetectionBehaviour
 
-  @impl TagDetection
-  def caption(_image) do
+  @impl TagDetectionBehaviour
+  def caption(_image_path) do
     {:ok, nil}
   end
 
-  @impl TagDetection
-  def tags(_image) do
+  @impl TagDetectionBehaviour
+  def tags(_image_path) do
     {:ok, []}
   end
 end

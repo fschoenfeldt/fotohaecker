@@ -10,12 +10,7 @@ import Config
 # Configure image detection here
 # in case you don't provide a config, the NoDetection module will be used
 if System.get_env("CLARIFAI_API_SECRET") do
-  config :fotohaecker, Fotohaecker.TagDetection, %{
-    implementation: Fotohaecker.TagDetection.Clarifai,
-    credentials: %{
-      api_secret: System.get_env("CLARIFAI_API_SECRET")
-    }
-  }
+  config :fotohaecker, Fotohaecker.TagDetection, Fotohaecker.TagDetection.Clarifai
 end
 
 # ## Using releases

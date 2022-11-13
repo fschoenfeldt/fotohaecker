@@ -96,7 +96,7 @@
           # If you don't want TODO comments to cause `mix credo` to fail, just
           # set this value to 0 (zero).
           #
-          {Credo.Check.Design.TagTODO, [exit_status: 2]},
+          {Credo.Check.Design.TagTODO, [exit_status: 0]},
           {Credo.Check.Design.TagFIXME, []},
           {Credo.Check.Design.DuplicatedCode, []},
           {Credo.Check.Design.SkipTestWithoutComment, []},
@@ -163,7 +163,11 @@
           {Credo.Check.Refactor.MapMap, []},
           {Credo.Check.Refactor.ModuleDependencies,
            [
-             excluded_namespaces: ["FotohaeckerWeb", "FotohaeckerWeb.Endpoint"]
+             excluded_namespaces: [
+               "FotohaeckerWeb",
+               "FotohaeckerWeb.Endpoint",
+               "Fotohaecker.TagDetection.Clarifai"
+             ]
            ]},
           {Credo.Check.Refactor.NegatedIsNil, []},
           {Credo.Check.Refactor.PipeChainStart, []},
