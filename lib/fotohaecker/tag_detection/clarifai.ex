@@ -8,7 +8,7 @@ defmodule Fotohaecker.TagDetection.Clarifai do
   @api_secret System.get_env("CLARIFAI_API_SECRET")
 
   @impl TagDetectionBehaviour
-  def caption(image_path \\ "priv/static/images/uploads/my-first-photo_thumb@3x.jpg"),
+  def caption(image_path),
     do: run("general-english-image-caption-clip", image_path, &get_caption/1)
 
   @impl TagDetectionBehaviour
