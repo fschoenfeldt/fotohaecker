@@ -58,7 +58,8 @@ defmodule Fotohaecker.MixProject do
       {:ex_check, "~> 0.14.0", only: [:dev], runtime: false},
       {:typed_ecto_schema, "~> 0.4"},
       {:nodejs, "~> 2.0"},
-      {:httpoison, "~> 1.8"}
+      {:httpoison, "~> 1.8"},
+      {:knigge, "~> 1.4"}
     ]
   end
 

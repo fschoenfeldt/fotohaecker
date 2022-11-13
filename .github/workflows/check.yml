@@ -9,8 +9,8 @@ jobs:
     strategy:
       matrix:
         include:
-          - elixir: "1.14.1"
-            otp: "25.1.1"
+          - elixir: "1.14.2"
+            otp: "25.1.2"
 
     runs-on: ubuntu-20.04
 
@@ -18,8 +18,8 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v2
 
-      - name: Get Libvips and deps
-        run: sudo apt-get install -y libvips-dev
+      # - name: Get Libvips and deps
+      #   run: sudo apt-get install -y libvips-dev
 
       - name: Setup Elixir
         uses: erlef/setup-elixir@v1

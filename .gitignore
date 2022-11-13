@@ -37,4 +37,5 @@ npm-debug.log
 *.db
 *.db-*
 
+.elixir_ls/
 .envrc.local

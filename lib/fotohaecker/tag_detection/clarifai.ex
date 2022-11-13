@@ -3,54 +3,41 @@ defmodule Fotohaecker.TagDetection.Clarifai do
   Detects tags in a given image using the Clarifai API.
   """
 
-  @behaviour Fotohaecker.TagDetection
-  alias Fotohaecker.TagDetection
+  @behaviour Fotohaecker.TagDetection.TagDetectionBehaviour
+  alias Fotohaecker.TagDetection.TagDetectionBehaviour
+  @api_secret System.get_env("CLARIFAI_API_SECRET")
 
-  @impl TagDetection
-  def caption(_image) do
-    model_id = "general-english-image-caption-clip"
+  @impl TagDetectionBehaviour
+  def caption(image_path \\ "priv/static/images/uploads/my-first-photo_thumb@3x.jpg"),
+    do: run("general-english-image-caption-clip", image_path, &get_caption/1)
 
-    # get the credentials from the application config
-    %{credentials: %{api_secret: api_secret}} = Application.get_env(:fotohaecker, TagDetection)
+  @impl TagDetectionBehaviour
+  def tags(image_path), do: run("general-image-recognition", image_path, &get_tags/1)
 
-    # TODO use actual photo and not fixture
-    image = File.read!("priv/static/images/uploads/my-first-photo_thumb@3x.jpg")
+  defp run(modal_id, image_path, extract_fn) do
+    image = image_path |> File.read!() |> Base.encode64()
+    request = create_request(model_id: modal_id, image: image)
 
-    {:ok, %HTTPoison.Response{body: response}} =
-      create_request(model_id: model_id, api_secret: api_secret, image: image)
-      |> HTTPoison.request()
+    case HTTPoison.request(request) do
+      {:error, %HTTPoison.Error{reason: reason}} ->
+        {:error, reason}
 
-    {:ok, response |> Jason.decode!() |> get_caption()}
+      {:ok, %HTTPoison.Response{body: body}} ->
+        {:ok,
+         body
+         |> Jason.decode!()
+         |> extract_fn.()}
+    end
   end
 
-  @impl TagDetection
-  def tags(_image) do
-    model_id = "general-image-recognition"
-
-    # get the credentials from the application config
-    %{credentials: %{api_secret: api_secret}} = Application.get_env(:fotohaecker, TagDetection)
-
-    # TODO use actual photo and not fixture
-    image = File.read!("priv/static/images/uploads/my-first-photo_thumb@3x.jpg")
-
-    {:ok, %HTTPoison.Response{body: response}} =
-      create_request(model_id: model_id, api_secret: api_secret, image: image)
-      |> HTTPoison.request()
-
-    {:ok,
-     response
-     |> Jason.decode!()
-     |> get_tags()}
-  end
-
-  @spec create_request(any()) :: HTTPoison.Request.t()
-  defp create_request(model_id: model_id, api_secret: api_secret, image: image) do
+  @spec create_request(model_id: String.t(), image: binary()) :: HTTPoison.Request.t()
+  defp create_request(model_id: model_id, image: image) do
     %HTTPoison.Request{
       method: :post,
       url: "https://api.clarifai.com/v2/models/#{model_id}/outputs",
       headers: [
         {"Accept", "application/json"},
-        {"Authorization", "Key #{api_secret}"}
+        {"Authorization", "Key #{@api_secret}"}
       ],
       body:
         Jason.encode!(%{
@@ -58,7 +45,7 @@ defmodule Fotohaecker.TagDetection.Clarifai do
             %{
               data: %{
                 image: %{
-                  base64: Base.encode64(image)
+                  base64: image
                 }
               }
             }
@@ -68,17 +55,19 @@ defmodule Fotohaecker.TagDetection.Clarifai do
   end
 
   @spec get_caption(any()) :: String.t()
-  defp get_caption(%{"outputs" => outputs}) do
-    outputs |> hd() |> Map.get("data") |> Map.get("text") |> Map.get("raw")
-  end
+  defp get_caption(%{"outputs" => outputs}),
+    do: outputs |> hd() |> Map.get("data") |> Map.get("text") |> Map.get("raw")
+
+  defp get_caption(_unknown_api_response), do: nil
 
   @spec get_tags(any()) :: [String.t()]
-  defp get_tags(%{"outputs" => outputs}) do
-    outputs
-    |> hd()
-    |> Map.get("data")
-    |> Map.get("concepts")
+  defp get_tags(%{"outputs" => outputs}),
+    do:
+      outputs
+      |> hd()
+      |> Map.get("data", %{})
+      |> Map.get("concepts", %{})
+      |> Enum.map(fn concept -> concept["name"] end)
 
-    # TODO actually return list of tags here
-  end
+  defp get_tags(_unknown_api_response), do: []
 end
