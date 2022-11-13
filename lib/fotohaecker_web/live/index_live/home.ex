@@ -234,8 +234,6 @@ defmodule FotohaeckerWeb.IndexLive.Home do
         file_name = Path.basename(path)
         dest = "#{Photo.gen_path(file_name)}#{extension}"
 
-        # TODO strip metadata to ensure privacy!
-
         # write photo
         File.cp!(path, dest)
 

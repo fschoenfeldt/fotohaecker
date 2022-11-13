@@ -12,6 +12,9 @@ defmodule Fotohaecker.Content.Photo do
     timestamps(type: :naive_datetime_usec)
   end
 
+  @doc """
+  Generates path for saving a photo
+  """
   def gen_path(filename) do
     Path.join([
       :code.priv_dir(:fotohaecker),
