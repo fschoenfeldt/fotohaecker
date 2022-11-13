@@ -117,7 +117,7 @@
     @apply h-full;
 
     .intro {
-      @apply relative flex flex-col gap-4 p-4 md:grid md:gap-8 md:p-8;
+      @apply relative mx-auto flex max-w-[150rem] flex-col gap-4 p-4 md:grid md:gap-8 md:p-8;
 
       @screen md {
         grid-template-columns: 1fr 1fr;
