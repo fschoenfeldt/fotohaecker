@@ -1,17 +1,17 @@
 {
   "devDependencies": {
     "@tailwindcss/forms": "^0.5.3",
-    "esbuild": "^0.15.12",
+    "esbuild": "^0.15.13",
     "postcss-import": "^15.0.0",
     "prettier": "^2.7.1",
     "prettier-plugin-tailwindcss": "^0.1.13",
-    "tailwindcss": "^3.1.8"
+    "tailwindcss": "^3.2.4"
   },
   "dependencies": {
-    "alpinejs": "^3.10.4",
+    "alpinejs": "^3.10.5",
     "phoenix": "file:../deps/phoenix",
     "phoenix_html": "file:../deps/phoenix_html",
     "phoenix_live_view": "file:../deps/phoenix_live_view",
-    "sharp": "^0.31.1"
+    "sharp": "^0.31.2"
   }
 }
