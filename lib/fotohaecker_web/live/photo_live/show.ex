@@ -70,6 +70,7 @@ defmodule FotohaeckerWeb.PhotoLive.Show do
         <div class="flex justify-center">
           <a
             href={path}
+            target="_blank"
             title={gettext("download the photo %{title} from Fotohäcker", %{title: title})}
           >
             <img

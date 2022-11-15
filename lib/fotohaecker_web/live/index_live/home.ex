@@ -3,6 +3,7 @@ defmodule FotohaeckerWeb.IndexLive.Home do
 
   alias Fotohaecker.Content
   alias Fotohaecker.Content.Photo
+  alias FotohaeckerWeb.IndexLive.Home.{PhotosComponent, UploadForm}
 
   def mount(_params, _session, socket) do
     submission_params = %{
@@ -33,7 +34,7 @@ defmodule FotohaeckerWeb.IndexLive.Home do
         submission_params={@submission_params}
         uploads={@uploads}
       />
-      <.photos photos={@photos} />
+      <PhotosComponent.render photos={@photos} />
     </div>
     """
   end
@@ -44,145 +45,11 @@ defmodule FotohaeckerWeb.IndexLive.Home do
       <h1 class="">
         <%= gettext("Upload your photos, license-free.") %>
       </h1>
-      <.upload_form
+      <UploadForm.render
         photo_changeset={@photo_changeset}
         submission_params={@submission_params}
         uploads={@uploads}
       />
-    </div>
-    """
-  end
-
-  defp upload_form(assigns) do
-    ~H"""
-    <.form
-      :let={f}
-      for={@photo_changeset}
-      multipart={true}
-      phx-submit="submission_submit"
-      phx-change="submission_change"
-      class="upload_form"
-    >
-      <div>
-        <label for="photo_title">
-          <%= gettext("title") %>
-        </label>
-        <input
-          id="photo_title"
-          type="text"
-          name="photo[title]"
-          placeholder={gettext("photo title")}
-          required
-          value={@submission_params.title}
-          phx-debounce="150"
-        />
-        <%= error_tag(f, :title) %>
-      </div>
-      <div phx-drop-target={@uploads.photo.ref} class="dropzone">
-        <div class="dark:text-gray-200" aria-hidden="true">
-          <%= gettext("drag the photo here or use the file button below") %>
-        </div>
-        <.live_file_input upload={@uploads.photo} />
-        <%= for entry <- @uploads.photo.entries do %>
-          <%= unless Enum.empty?(upload_errors(@uploads.photo, entry)) do %>
-            <div hidden>
-              <%= inspect(entry) %>
-            </div>
-            <div class="">
-              <div class="text-red-500"><%= gettext("the selected file can't be uploaded:") %></div>
-
-              <ul class="list-disc list-inside">
-                <%= for err <- upload_errors(@uploads.photo, entry) do %>
-                  <li class="text-red-500"><%= error_to_string(err) %></li>
-                <% end %>
-              </ul>
-            </div>
-          <% end %>
-        <% end %>
-      </div>
-      <button class="btn btn--green" type="submit" phx-disable-with={gettext("uploading..")}>
-        <%= gettext("upload") %>
-      </button>
-    </.form>
-    """
-  end
-
-  defp photos(assigns) do
-    ~H"""
-    <div class="photos">
-      <%!-- #TODO do this via form, with single select that can be more accessible --%>
-      <p class="sr-only"><%= gettext("sort by") %></p>
-      <ul class="sortby-options">
-        <li>
-          <a href="#" class="sortby-options__option sortby-options__option--active">
-            <%= gettext("latest") %> <span class="sr-only"><%= gettext("(active)") %></span>
-          </a>
-        </li>
-        <li>
-          <a href="#" class="sortby-options__option">
-            <%= gettext("oldest") %>
-          </a>
-        </li>
-        <li>
-          <a href="#" class="sortby-options__option">
-            <%= gettext("most downloaded") %>
-          </a>
-        </li>
-      </ul>
-
-      <%= if Enum.empty?(@photos) do %>
-        <div class="text-center">
-          <p class="text-gray-500 dark:text-gray-400 italic">
-            <%= gettext("no photos, yet...") %>
-          </p>
-        </div>
-      <% else %>
-        <div class="columns-2 md:columns-3 lg:columns-4 space-y-4 gap-4">
-          <%= for photo <- @photos do %>
-            <.photo photo={photo} />
-          <% end %>
-        </div>
-      <% end %>
-    </div>
-    """
-  end
-
-  defp photo(assigns) do
-    ~H"""
-    <div class="">
-      <%= with id        <- @photo.id,
-               title     <- @photo.title,
-               file_name <- @photo.file_name,
-               extension <- @photo.extension,
-               thumbs    <- Enum.map([1, 2, 3],
-                                     &(Routes.static_path(FotohaeckerWeb.Endpoint,
-                                      "/images/uploads/#{file_name}_thumb@#{&1}x#{extension}"))
-                                    ),
-               srcset    <- thumbs
-                            |> Enum.with_index(&("#{&1} #{&2 + 1}x"))
-                            |> Enum.join(", ") do %>
-        <%!-- #TODO href should be set --%>
-        <div
-          class="block"
-          phx-click="navigate_to"
-          phx-keydown="navigate_to"
-          phx-key="Enter"
-          phx-value-photo_id={id}
-          tabindex="0"
-          aria-describedby={"photo-#{id}-title"}
-        >
-          <span class="sr-only">
-            <%= gettext("go to photo %{title} on Fotohäcker", %{title: title}) %>
-          </span>
-          <img
-            class="w-full"
-            src={hd(thumbs)}
-            srcset={srcset}
-            alt={gettext("photo %{title} on Fotohäcker", %{title: title})}
-            loading="lazy"
-          />
-        </div>
-      <% end %>
     </div>
     """
   end
@@ -258,8 +125,6 @@ defmodule FotohaeckerWeb.IndexLive.Home do
     # TODO the update of the page can be done much more gracefully by appending
     {:noreply, push_redirect(socket, to: home_route())}
   end
-
-  defp error_to_string(reason), do: Atom.to_string(reason)
 
   defp maybe_put_file_name(params, entries) do
     if Enum.empty?(entries) do
