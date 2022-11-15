@@ -56,7 +56,7 @@ config :fotohaecker, FotohaeckerWeb.Endpoint,
 config :fotohaecker, FotohaeckerWeb.Endpoint,
   live_reload: [
     patterns: [
-      ~r"priv/static/.*(js|css|png|jpeg|jpg|gif|svg)$",
+      ~r"priv/static/.*(js|css|png|gif|svg)$",
       # TODO disable uploaded photos here..
       ~r"priv/gettext/.*(po)$",
       ~r"lib/fotohaecker_web/(live|views)/.*(ex)$",

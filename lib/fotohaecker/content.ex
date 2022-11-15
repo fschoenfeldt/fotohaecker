@@ -22,6 +22,31 @@ defmodule Fotohaecker.Content do
   end
 
   @doc """
+  Gets latest photos by amount.
+
+  ## Examples
+
+      iex> get_latest_photos()
+      [%Photo{}, ...]
+
+      iex> get_latest_photos(1)
+      [%Photo{}]
+
+  """
+  @spec get_latest_photos(integer) :: [Photo.t()] | []
+  def get_latest_photos(limit \\ 10, offset \\ 0)
+      when is_integer(limit)
+      when is_integer(offset) do
+    query = from p in Photo, order_by: [desc: p.inserted_at], limit: ^limit, offset: ^offset
+    Repo.all(query)
+  end
+
+  def get_amount_of_photos do
+    query = from p in Photo, select: count(p.id)
+    Repo.one(query)
+  end
+
+  @doc """
   Gets a single photo.
 
   Raises `Ecto.NoResultsError` if the Photo does not exist.

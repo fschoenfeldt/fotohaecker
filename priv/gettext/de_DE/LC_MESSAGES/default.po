@@ -11,58 +11,58 @@ msgstr ""
 "Language: de_DE\n"
 "Plural-Forms: nplurals=2\n"
 
-#: lib/fotohaecker_web/live/index_live/home.ex:118
+#: lib/fotohaecker_web/live/index_live/home/photos_component.ex:24
 #, elixir-autogen, elixir-format
 msgid "(active)"
 msgstr "(aktiv)"
 
-#: lib/fotohaecker_web/live/index_live/home.ex:45
+#: lib/fotohaecker_web/live/index_live/home.ex:59
 #, elixir-autogen, elixir-format
 msgid "Upload your photos, license-free."
 msgstr "Lade Deine Fotos hoch, lizenzfrei."
 
-#: lib/fotohaecker_web/live/index_live/home.ex:118
+#: lib/fotohaecker_web/live/index_live/home/photos_component.ex:24
 #, elixir-autogen, elixir-format
 msgid "latest"
 msgstr "Neueste"
 
-#: lib/fotohaecker_web/live/index_live/home.ex:128
+#: lib/fotohaecker_web/live/index_live/home/photos_component.ex:34
 #, elixir-autogen, elixir-format
 msgid "most downloaded"
 msgstr "Am meisten heruntergeladen"
 
-#: lib/fotohaecker_web/live/index_live/home.ex:136
+#: lib/fotohaecker_web/live/index_live/home/photos_component.ex:43
 #, elixir-autogen, elixir-format
 msgid "no photos, yet..."
 msgstr "keine Fotos, bis jetzt..."
 
-#: lib/fotohaecker_web/live/index_live/home.ex:123
+#: lib/fotohaecker_web/live/index_live/home/photos_component.ex:29
 #, elixir-autogen, elixir-format
 msgid "oldest"
 msgstr "Älteste"
 
-#: lib/fotohaecker_web/live/index_live/home.ex:181
-#: lib/fotohaecker_web/live/photo_live/show.ex:78
+#: lib/fotohaecker_web/live/index_live/home/photo_component.ex:38
+#: lib/fotohaecker_web/live/photo_live/show.ex:79
 #, elixir-autogen, elixir-format
 msgid "photo %{title} on Fotohäcker"
 msgstr "Foto %{title} auf Fotohäcker"
 
-#: lib/fotohaecker_web/live/index_live/home.ex:114
+#: lib/fotohaecker_web/live/index_live/home/photos_component.ex:20
 #, elixir-autogen, elixir-format
 msgid "sort by"
 msgstr "sortieren nach"
 
-#: lib/fotohaecker_web/live/index_live/home.ex:92
+#: lib/fotohaecker_web/live/index_live/home/upload_form.ex:43
 #, elixir-autogen, elixir-format
 msgid "the selected file can't be uploaded:"
 msgstr "die ausgewählte Datei kann nicht hochgeladen werden:"
 
-#: lib/fotohaecker_web/live/index_live/home.ex:104
+#: lib/fotohaecker_web/live/index_live/home/upload_form.ex:55
 #, elixir-autogen, elixir-format
 msgid "upload"
 msgstr "hochladen"
 
-#: lib/fotohaecker_web/live/index_live/home.ex:103
+#: lib/fotohaecker_web/live/index_live/home/upload_form.ex:54
 #, elixir-autogen, elixir-format
 msgid "uploading.."
 msgstr "wird hochgeladen.."
@@ -72,7 +72,7 @@ msgstr "wird hochgeladen.."
 msgid "back"
 msgstr "zurück"
 
-#: lib/fotohaecker_web/live/index_live/home.ex:83
+#: lib/fotohaecker_web/live/index_live/home/upload_form.ex:34
 #, elixir-autogen, elixir-format
 msgid "drag the photo here or use the file button below"
 msgstr "Ziehe das Foto hierher oder verwende die Schaltfläche unten"
@@ -87,17 +87,17 @@ msgstr "englisch"
 msgid "german"
 msgstr "deutsch"
 
-#: lib/fotohaecker_web/live/index_live/home.ex:175
+#: lib/fotohaecker_web/live/index_live/home/photo_component.ex:32
 #, elixir-autogen, elixir-format, fuzzy
 msgid "go to photo %{title} on Fotohäcker"
 msgstr "Foto %{title} auf Fotohäcker"
 
-#: lib/fotohaecker_web/live/index_live/home.ex:74
+#: lib/fotohaecker_web/live/index_live/home/upload_form.ex:25
 #, elixir-autogen, elixir-format
 msgid "photo title"
 msgstr "Fototitel"
 
-#: lib/fotohaecker_web/live/index_live/home.ex:68
+#: lib/fotohaecker_web/live/index_live/home/upload_form.ex:19
 #, elixir-autogen, elixir-format
 msgid "title"
 msgstr "Titel"
@@ -107,7 +107,17 @@ msgstr "Titel"
 msgid "change language"
 msgstr "Sprache ändern"
 
-#: lib/fotohaecker_web/live/photo_live/show.ex:73
+#: lib/fotohaecker_web/live/photo_live/show.ex:74
 #, elixir-autogen, elixir-format, fuzzy
 msgid "download the photo %{title} from Fotohäcker"
 msgstr "Foto %{title} auf Fotohäcker"
+
+#: lib/fotohaecker_web/live/index_live/home/photos_component.ex:54
+#, elixir-autogen, elixir-format
+msgid "show more"
+msgstr "mehr zeigen"
+
+#: lib/fotohaecker_web/live/index_live/home/photos_component.ex:15
+#, elixir-autogen, elixir-format
+msgid "showing %{limit} out of %{amount} photos"
+msgstr "%{limit} von %{amount} Fotos angezeigt"

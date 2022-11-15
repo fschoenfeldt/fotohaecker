@@ -19,8 +19,6 @@ module.exports = (path, extension) => {
   const thumb1x = sharp(src).jpeg({ mozjpeg: true }).resize(275);
   const thumb2x = sharp(src).jpeg({ mozjpeg: true }).resize(400);
   const thumb3x = sharp(src).jpeg({ mozjpeg: true }).resize(500);
-  // remove original file because we don't need it anymore
-  const removeSrc = fs.rm(src);
 
   return Promise.all([
     preview.toFile(dest.preview),
@@ -28,6 +26,5 @@ module.exports = (path, extension) => {
     thumb2x.toFile(dest.thumb2x),
     thumb3x.toFile(dest.thumb3x),
     fullsize.toFile(dest.fullsize),
-    removeSrc,
   ]);
 };

@@ -19,7 +19,6 @@ defmodule Fotohaecker.Content.Photo do
     Path.join([
       :code.priv_dir(:fotohaecker),
       "static",
-      "images",
       "uploads",
       filename
     ])

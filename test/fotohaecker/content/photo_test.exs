@@ -6,6 +6,6 @@ defmodule Fotohaecker.PhotoTest do
 
   test "gen_path/1 returns path for saving a photo" do
     assert Photo.gen_path("test.jpg") =~
-             "/lib/fotohaecker/priv/static/images/uploads/test.jpg"
+             "/lib/fotohaecker/priv/static/uploads/test.jpg"
   end
 end

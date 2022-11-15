@@ -3,7 +3,8 @@ defmodule FotohaeckerWeb.IndexLive.Home do
 
   alias Fotohaecker.Content
   alias Fotohaecker.Content.Photo
-  alias FotohaeckerWeb.IndexLive.Home.{PhotosComponent, UploadForm}
+  alias FotohaeckerWeb.IndexLive.Home.PhotosComponent
+  alias FotohaeckerWeb.IndexLive.Home.UploadForm
 
   def mount(_params, _session, socket) do
     submission_params = %{
@@ -20,9 +21,21 @@ defmodule FotohaeckerWeb.IndexLive.Home do
       |> assign(:submission_params, submission_params)
       |> assign(:photo_changeset, photo_changeset)
       # get latest photos, maybe refactor..
-      |> assign(:photos, Enum.reverse(Content.list_photos()))
+      |> assign(:photos, %{
+        user_limit: 5,
+        amount: Content.get_amount_of_photos(),
+        photos: Content.get_latest_photos(5)
+      })
 
     {:ok, socket}
+  end
+
+  defp assign_photos_limit(socket, limit) do
+    assign(socket, :photos, %{
+      user_limit: limit,
+      amount: Content.get_amount_of_photos(),
+      photos: Content.get_latest_photos(limit)
+    })
   end
 
   def render(assigns) do
@@ -52,6 +65,12 @@ defmodule FotohaeckerWeb.IndexLive.Home do
       />
     </div>
     """
+  end
+
+  def handle_event("show_more_photos", _params, socket) do
+    current_limit = socket.assigns.photos.user_limit
+
+    {:noreply, assign_photos_limit(socket, current_limit + 10)}
   end
 
   def handle_event("navigate_to", %{"photo_id" => id}, socket) do
@@ -105,9 +124,14 @@ defmodule FotohaeckerWeb.IndexLive.Home do
         File.cp!(path, dest)
 
         # write thumb
-        Task.async(fn ->
-          NodeJS.call("compress", [Photo.gen_path(file_name), extension])
-        end)
+        task_compress =
+          Task.async(fn ->
+            NodeJS.call("compress", [Photo.gen_path(file_name), extension])
+          end)
+
+        # delete original photo afterwards because it's not needed anymore
+        Task.await(task_compress)
+        File.rm!(dest)
 
         # insert into db
         {:ok, %Photo{}} =
@@ -116,7 +140,7 @@ defmodule FotohaeckerWeb.IndexLive.Home do
           |> Map.put(:extension, extension)
           |> Content.create_photo()
 
-        {:ok, Routes.static_path(socket, "/images/uploads/#{file_name}#{extension}")}
+        {:ok, Routes.static_path(socket, "/uploads/#{file_name}#{extension}")}
       end)
 
     # file could be appended with phx-update

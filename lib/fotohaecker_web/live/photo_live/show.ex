@@ -63,9 +63,9 @@ defmodule FotohaeckerWeb.PhotoLive.Show do
                file_name    <- @photo.file_name,
                extension    <- @photo.extension,
                path         <- Routes.static_path(FotohaeckerWeb.Endpoint,
-                                                  "/images/uploads/#{file_name}_og#{extension}"),
+                                                  "/uploads/#{file_name}_og#{extension}"),
                preview_path <- Routes.static_path(FotohaeckerWeb.Endpoint,
-                                                  "/images/uploads/#{file_name}_preview#{extension}") do %>
+                                                  "/uploads/#{file_name}_preview#{extension}") do %>
         <h1 class="text-gray-200"><%= title %></h1>
         <div class="flex justify-center">
           <a

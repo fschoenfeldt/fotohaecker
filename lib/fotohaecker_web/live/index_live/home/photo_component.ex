@@ -13,7 +13,7 @@ defmodule FotohaeckerWeb.IndexLive.Home.PhotoComponent do
                extension <- @photo.extension,
                thumbs    <- Enum.map([1, 2, 3],
                                      &(Routes.static_path(FotohaeckerWeb.Endpoint,
-                                      "/images/uploads/#{file_name}_thumb@#{&1}x#{extension}"))
+                                      "/uploads/#{file_name}_thumb@#{&1}x#{extension}"))
                                     ),
                srcset    <- thumbs
                             |> Enum.with_index(&("#{&1} #{&2 + 1}x"))
