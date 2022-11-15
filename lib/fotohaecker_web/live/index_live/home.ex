@@ -130,7 +130,7 @@ defmodule FotohaeckerWeb.IndexLive.Home do
           end)
 
         # delete original photo afterwards because it's not needed anymore
-        Task.await(task_compress)
+        Task.await(task_compress, 10_000)
         File.rm!(dest)
 
         # insert into db
