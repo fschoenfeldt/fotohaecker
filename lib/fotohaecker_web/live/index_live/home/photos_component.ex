@@ -11,7 +11,7 @@ defmodule FotohaeckerWeb.IndexLive.Home.PhotosComponent do
     <div class="photos">
       <%!-- #TODO do this via form, with single select that can be more accessible --%>
       <div class="flex justify-between">
-        <div>
+        <div class="dark:text-gray-50">
           <%= gettext("showing %{limit} out of %{amount} photos",
             amount: @photos.amount,
             limit: @photos.user_limit

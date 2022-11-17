@@ -112,7 +112,7 @@ msgstr "Sprache ändern"
 msgid "download the photo %{title} from Fotohäcker"
 msgstr "Foto %{title} auf Fotohäcker"
 
-#: lib/fotohaecker_web/live/index_live/home/photos_component.ex:54
+#: lib/fotohaecker_web/live/index_live/home/photos_component.ex:58
 #, elixir-autogen, elixir-format
 msgid "show more"
 msgstr "mehr zeigen"
@@ -121,3 +121,13 @@ msgstr "mehr zeigen"
 #, elixir-autogen, elixir-format
 msgid "showing %{limit} out of %{amount} photos"
 msgstr "%{limit} von %{amount} Fotos angezeigt"
+
+#: lib/fotohaecker_web/live/index_live/home.ex:154
+#, elixir-autogen, elixir-format
+msgid "Photo uploaded successfully."
+msgstr "Foto erfolgreich hochgeladen."
+
+#: lib/fotohaecker_web/live/index_live/home.ex:163
+#, elixir-autogen, elixir-format
+msgid "Something went wrong uploading your photo. Please try again."
+msgstr "Etwas ist beim Hochladen Deines Fotos schiefgelaufen. Bitte versuche es erneut."
