@@ -21,6 +21,7 @@ direnv allow
 To start your Phoenix server:
 
 - Install with `mix setup`
+- provide a valid `SECRET_KEY_BASE` in your `.envrc.local`, generate one with `mix phx.gen.secret`
 - Start Phoenix endpoint with `mix phx.server` or inside IEx with `iex -S mix phx.server`
 
 Now you can visit [`localhost:1337`](http://localhost:1337) from your browser.
