@@ -6,8 +6,7 @@ defmodule FotohaeckerWeb.IndexLive.Home.PhotoComponent do
 
   def render(assigns) do
     ~H"""
-    <div class="">
-      <%= with id        <- @photo.id,
+    <%= with id        <- @photo.id,
                title     <- @photo.title,
                file_name <- @photo.file_name,
                extension <- @photo.extension,
@@ -18,29 +17,29 @@ defmodule FotohaeckerWeb.IndexLive.Home.PhotoComponent do
                srcset    <- thumbs
                             |> Enum.with_index(&("#{&1} #{&2 + 1}x"))
                             |> Enum.join(", ") do %>
-        <%!-- #TODO href should be set --%>
-        <div
-          class="block"
-          phx-click="navigate_to"
-          phx-keydown="navigate_to"
-          phx-key="Enter"
-          phx-value-photo_id={id}
-          tabindex="0"
-          aria-describedby={"photo-#{id}-title"}
-        >
-          <span class="sr-only">
-            <%= gettext("go to photo %{title} on Fotohäcker", %{title: title}) %>
-          </span>
-          <img
-            class="w-full"
-            src={hd(thumbs)}
-            srcset={srcset}
-            alt={gettext("photo %{title} on Fotohäcker", %{title: title})}
-            loading="lazy"
-          />
-        </div>
-      <% end %>
-    </div>
+      <%!-- #TODO href should be set --%>
+      <div
+        class="block"
+        phx-click="navigate_to"
+        phx-keydown="navigate_to"
+        phx-key="Enter"
+        id={"photo-#{id}"}
+        phx-value-photo_id={id}
+        tabindex="0"
+        aria-describedby={"photo-#{id}-title"}
+      >
+        <span class="sr-only">
+          <%= gettext("go to photo %{title} on Fotohäcker", %{title: title}) %>
+        </span>
+        <img
+          class="w-full"
+          src={hd(thumbs)}
+          srcset={srcset}
+          alt={gettext("photo %{title} on Fotohäcker", %{title: title})}
+          loading="lazy"
+        />
+      </div>
+    <% end %>
     """
   end
 end

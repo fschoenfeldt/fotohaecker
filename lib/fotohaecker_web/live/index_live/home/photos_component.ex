@@ -44,7 +44,11 @@ defmodule FotohaeckerWeb.IndexLive.Home.PhotosComponent do
           </p>
         </div>
       <% else %>
-        <div class="columns-2 md:columns-3 lg:columns-4 space-y-4 gap-4">
+        <div
+          id="photos"
+          phx-update="append"
+          class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 items-start gap-4"
+        >
           <%= for photo <- @photos.photos do %>
             <PhotoComponent.render photo={photo} />
           <% end %>

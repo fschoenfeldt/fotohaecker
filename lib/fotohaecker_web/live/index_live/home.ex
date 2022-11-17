@@ -103,7 +103,7 @@ defmodule FotohaeckerWeb.IndexLive.Home do
       |> Jason.encode!()
       |> Jason.decode!(keys: :atoms!)
 
-    _uploaded_files =
+    upload_result =
       consume_uploaded_entries(socket, :photo, fn %{path: path}, entry ->
         extension =
           case entry.client_type do
@@ -134,20 +134,36 @@ defmodule FotohaeckerWeb.IndexLive.Home do
         File.rm!(dest)
 
         # insert into db
-        {:ok, %Photo{}} =
-          submission_params
-          |> Map.put(:file_name, file_name)
-          |> Map.put(:extension, extension)
-          |> Content.create_photo()
-
-        {:ok, Routes.static_path(socket, "/uploads/#{file_name}#{extension}")}
+        submission_params
+        |> Map.put(:file_name, file_name)
+        |> Map.put(:extension, extension)
+        |> Content.create_photo()
       end)
 
-    # file could be appended with phx-update
-    # {:noreply, update(socket, :uploaded_files, &(&1 ++ uploaded_files))}
+    case upload_result do
+      [%Photo{} = photo] ->
+        photos = [photo | socket.assigns.photos.photos]
 
-    # TODO the update of the page can be done much more gracefully by appending
-    {:noreply, push_redirect(socket, to: home_route())}
+        {
+          :noreply,
+          socket
+          |> assign(:photos, %{
+            socket.assigns.photos
+            | photos: photos
+          })
+          |> put_flash(:info, gettext("Photo uploaded successfully."))
+        }
+
+      _unknown_upload_result ->
+        {
+          :noreply,
+          put_flash(
+            socket,
+            :error,
+            gettext("Something went wrong uploading your photo. Please try again.")
+          )
+        }
+    end
   end
 
   defp maybe_put_file_name(params, entries) do
