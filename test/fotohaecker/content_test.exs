@@ -70,5 +70,47 @@ defmodule Fotohaecker.ContentTest do
       photo = photo_fixture()
       assert %Ecto.Changeset{} = Content.change_photo(photo)
     end
+
+    test "get_latest_photos/0" do
+      Enum.map(1..20, fn _i -> photo_fixture() end)
+      actual = length(Content.get_latest_photos())
+      expected = 10
+
+      assert actual == expected
+    end
+
+    test "get_latest_photos/1" do
+      Enum.map(1..20, fn _i -> photo_fixture() end)
+      actual = length(Content.get_latest_photos(5))
+      expected = 5
+
+      assert actual == expected
+    end
+
+    test "get_latest_photos/2 " do
+      _photo_1 = photo_fixture(%{title: "test1"})
+      photo_2 = photo_fixture(%{title: "test2"})
+      photo_3 = photo_fixture(%{title: "test3"})
+      photo_4 = photo_fixture(%{title: "test4"})
+      _photo_5 = photo_fixture(%{title: "test5"})
+
+      actual = Content.get_latest_photos(3, 1)
+
+      expected = [
+        photo_4,
+        photo_3,
+        photo_2
+      ]
+
+      assert actual == expected
+    end
+
+    test "get_amount_of_photos/0" do
+      Enum.map(1..20, fn _i -> photo_fixture() end)
+      actual = Content.get_amount_of_photos()
+      expected = 20
+
+      assert actual == expected
+    end
   end
 end

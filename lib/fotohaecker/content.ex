@@ -33,7 +33,7 @@ defmodule Fotohaecker.Content do
       [%Photo{}]
 
   """
-  @spec get_latest_photos(integer) :: [Photo.t()] | []
+  @spec get_latest_photos(integer, integer) :: [Photo.t()] | []
   def get_latest_photos(limit \\ 10, offset \\ 0)
       when is_integer(limit)
       when is_integer(offset) do
