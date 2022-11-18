@@ -45,7 +45,7 @@ defmodule FotohaeckerWeb do
   def live_view do
     quote do
       use Phoenix.LiveView,
-        layout: {FotohaeckerWeb.LayoutView, "live.html"}
+        layout: {FotohaeckerWeb.LayoutView, :live}
 
       # https://hexdocs.pm/phoenix_live_view/using-gettext.html
       defmodule RestoreLocale do
