@@ -6,10 +6,12 @@ defmodule FotohaeckerWeb.IndexLive.Home do
   alias FotohaeckerWeb.IndexLive.Home.PhotosComponent
   alias FotohaeckerWeb.IndexLive.Home.UploadForm
 
+  @submission_params_default %{
+    title: ""
+  }
+
   def mount(_params, _session, socket) do
-    submission_params = %{
-      title: ""
-    }
+    submission_params = @submission_params_default
 
     photo_changeset = Content.change_photo(%Photo{}, submission_params)
 
@@ -147,6 +149,7 @@ defmodule FotohaeckerWeb.IndexLive.Home do
         {
           :noreply,
           socket
+          |> assign(:submission_params, @submission_params_default)
           |> assign(:photos, %{
             socket.assigns.photos
             | photos: photos
