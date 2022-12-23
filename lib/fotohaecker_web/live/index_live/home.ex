@@ -25,7 +25,7 @@ defmodule FotohaeckerWeb.IndexLive.Home do
       # get latest photos, maybe refactor..
       |> assign(:photos, %{
         user_limit: 5,
-        amount: Content.get_amount_of_photos(),
+        amount: Content.photos_count(),
         photos: Content.get_latest_photos(5)
       })
 
@@ -35,7 +35,7 @@ defmodule FotohaeckerWeb.IndexLive.Home do
   defp assign_photos_limit(socket, limit) do
     assign(socket, :photos, %{
       user_limit: limit,
-      amount: Content.get_amount_of_photos(),
+      amount: Content.photos_count(),
       photos: Content.get_latest_photos(limit)
     })
   end
