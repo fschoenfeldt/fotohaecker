@@ -16,7 +16,7 @@ msgstr ""
 msgid "(active)"
 msgstr "(aktiv)"
 
-#: lib/fotohaecker_web/live/index_live/home.ex:59
+#: lib/fotohaecker_web/live/index_live/home.ex:61
 #, elixir-autogen, elixir-format
 msgid "Upload your photos, license-free."
 msgstr "Lade Deine Fotos hoch, lizenzfrei."
@@ -122,12 +122,12 @@ msgstr "mehr zeigen"
 msgid "showing %{limit} out of %{amount} photos"
 msgstr "%{limit} von %{amount} Fotos angezeigt"
 
-#: lib/fotohaecker_web/live/index_live/home.ex:154
+#: lib/fotohaecker_web/live/index_live/home.ex:157
 #, elixir-autogen, elixir-format
 msgid "Photo uploaded successfully."
 msgstr "Foto erfolgreich hochgeladen."
 
-#: lib/fotohaecker_web/live/index_live/home.ex:163
+#: lib/fotohaecker_web/live/index_live/home.ex:166
 #, elixir-autogen, elixir-format
 msgid "Something went wrong uploading your photo. Please try again."
 msgstr "Etwas ist beim Hochladen Deines Fotos schiefgelaufen. Bitte versuche es erneut."

@@ -105,9 +105,9 @@ defmodule Fotohaecker.ContentTest do
       assert actual == expected
     end
 
-    test "get_amount_of_photos/0" do
+    test "photos_count/0" do
       Enum.map(1..20, fn _i -> photo_fixture() end)
-      actual = Content.get_amount_of_photos()
+      actual = Content.photos_count()
       expected = 20
 
       assert actual == expected

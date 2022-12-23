@@ -41,7 +41,7 @@ defmodule Fotohaecker.Content do
     Repo.all(query)
   end
 
-  def get_amount_of_photos do
+  def photos_count do
     query = from p in Photo, select: count(p.id)
     Repo.one(query)
   end
