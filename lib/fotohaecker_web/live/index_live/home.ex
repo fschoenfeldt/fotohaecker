@@ -3,8 +3,8 @@ defmodule FotohaeckerWeb.IndexLive.Home do
 
   alias Fotohaecker.Content
   alias Fotohaecker.Content.Photo
+  alias FotohaeckerWeb.IndexLive.Home.IntroComponent
   alias FotohaeckerWeb.IndexLive.Home.PhotosComponent
-  alias FotohaeckerWeb.IndexLive.Home.UploadForm
 
   @submission_params_default %{
     title: ""
@@ -25,18 +25,26 @@ defmodule FotohaeckerWeb.IndexLive.Home do
       # get latest photos, maybe refactor..
       |> assign(:photos, %{
         user_limit: 5,
+        user_order: :desc_inserted_at,
         amount: Content.photos_count(),
-        photos: Content.get_latest_photos(5)
+        photos: Content.list_photos(5)
       })
 
     {:ok, socket}
   end
 
-  defp assign_photos_limit(socket, limit) do
+  defp assign_photos(socket, opts) do
+    order = Keyword.get(opts, :order, socket.assigns.photos.user_order)
+    limit = Keyword.get(opts, :limit, socket.assigns.photos.user_limit)
+
+    amount = Content.photos_count()
+    photos = Content.list_photos(limit, 0, order)
+
     assign(socket, :photos, %{
-      user_limit: limit,
-      amount: Content.photos_count(),
-      photos: Content.get_latest_photos(limit)
+      user_limit: if(limit > amount, do: amount, else: limit),
+      user_order: order,
+      amount: amount,
+      photos: photos
     })
   end
 
@@ -44,7 +52,7 @@ defmodule FotohaeckerWeb.IndexLive.Home do
     ~H"""
     <div id="home">
       <div class="bg-experiment"></div>
-      <.intro
+      <IntroComponent.render
         photo_changeset={@photo_changeset}
         submission_params={@submission_params}
         uploads={@uploads}
@@ -54,25 +62,13 @@ defmodule FotohaeckerWeb.IndexLive.Home do
     """
   end
 
-  defp intro(assigns) do
-    ~H"""
-    <div class="intro">
-      <h1 class="">
-        <%= gettext("Upload your photos, license-free.") %>
-      </h1>
-      <UploadForm.render
-        photo_changeset={@photo_changeset}
-        submission_params={@submission_params}
-        uploads={@uploads}
-      />
-    </div>
-    """
+  def handle_event("sort_by", %{"order" => order}, socket) do
+    {:noreply, assign_photos(socket, order: String.to_existing_atom(order))}
   end
 
   def handle_event("show_more_photos", _params, socket) do
     current_limit = socket.assigns.photos.user_limit
-
-    {:noreply, assign_photos_limit(socket, current_limit + 10)}
+    {:noreply, assign_photos(socket, limit: current_limit + 10)}
   end
 
   def handle_event("navigate_to", %{"photo_id" => id}, socket) do

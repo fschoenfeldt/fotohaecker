@@ -9,37 +9,30 @@ defmodule Fotohaecker.Content do
   alias Fotohaecker.Content.Photo
 
   @doc """
-  Returns the list of photos.
+  lists photos.
 
   ## Examples
 
       iex> list_photos()
       [%Photo{}, ...]
 
-  """
-  def list_photos do
-    Repo.all(Photo)
-  end
-
-  @doc """
-  Gets latest photos by amount.
-
-  ## Examples
-
-      iex> get_latest_photos()
-      [%Photo{}, ...]
-
-      iex> get_latest_photos(1)
+      iex> list_photos(1)
       [%Photo{}]
 
   """
-  @spec get_latest_photos(integer, integer) :: [Photo.t()] | []
-  def get_latest_photos(limit \\ 10, offset \\ 0)
+  @spec list_photos(integer, integer, atom()) :: [Photo.t()] | []
+  def list_photos(limit \\ 10, offset \\ 0, order \\ :desc_inserted_at)
       when is_integer(limit)
       when is_integer(offset) do
-    query = from p in Photo, order_by: [desc: p.inserted_at], limit: ^limit, offset: ^offset
+    query = list_photos_query(limit, offset, order)
     Repo.all(query)
   end
+
+  defp list_photos_query(limit, offset, :desc_inserted_at = _order),
+    do: from(p in Photo, order_by: [desc: p.inserted_at], limit: ^limit, offset: ^offset)
+
+  defp list_photos_query(limit, offset, :asc_inserted_at = _order),
+    do: from(p in Photo, order_by: [asc: p.inserted_at], limit: ^limit, offset: ^offset)
 
   def photos_count do
     query = from p in Photo, select: count(p.id)

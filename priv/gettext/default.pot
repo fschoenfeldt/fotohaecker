@@ -10,32 +10,27 @@
 msgid ""
 msgstr ""
 
-#: lib/fotohaecker_web/live/index_live/home/photos_component.ex:24
+#: lib/fotohaecker_web/live/index_live/home/photos_component.ex:29
 #, elixir-autogen, elixir-format
 msgid "(active)"
 msgstr ""
 
-#: lib/fotohaecker_web/live/index_live/home.ex:61
+#: lib/fotohaecker_web/live/index_live/home/intro_component.ex:14
 #, elixir-autogen, elixir-format
 msgid "Upload your photos, license-free."
 msgstr ""
 
-#: lib/fotohaecker_web/live/index_live/home/photos_component.ex:24
+#: lib/fotohaecker_web/live/index_live/home/photos_component.ex:29
 #, elixir-autogen, elixir-format
 msgid "latest"
 msgstr ""
 
-#: lib/fotohaecker_web/live/index_live/home/photos_component.ex:34
-#, elixir-autogen, elixir-format
-msgid "most downloaded"
-msgstr ""
-
-#: lib/fotohaecker_web/live/index_live/home/photos_component.ex:43
+#: lib/fotohaecker_web/live/index_live/home/photos_component.ex:48
 #, elixir-autogen, elixir-format
 msgid "no photos, yet..."
 msgstr ""
 
-#: lib/fotohaecker_web/live/index_live/home/photos_component.ex:29
+#: lib/fotohaecker_web/live/index_live/home/photos_component.ex:39
 #, elixir-autogen, elixir-format
 msgid "oldest"
 msgstr ""
@@ -111,7 +106,7 @@ msgstr ""
 msgid "download the photo %{title} from Fotohäcker"
 msgstr ""
 
-#: lib/fotohaecker_web/live/index_live/home/photos_component.ex:58
+#: lib/fotohaecker_web/live/index_live/home/photos_component.ex:62
 #, elixir-autogen, elixir-format
 msgid "show more"
 msgstr ""
@@ -121,12 +116,12 @@ msgstr ""
 msgid "showing %{limit} out of %{amount} photos"
 msgstr ""
 
-#: lib/fotohaecker_web/live/index_live/home.ex:157
+#: lib/fotohaecker_web/live/index_live/home.ex:153
 #, elixir-autogen, elixir-format
 msgid "Photo uploaded successfully."
 msgstr ""
 
-#: lib/fotohaecker_web/live/index_live/home.ex:166
+#: lib/fotohaecker_web/live/index_live/home.ex:162
 #, elixir-autogen, elixir-format
 msgid "Something went wrong uploading your photo. Please try again."
 msgstr ""

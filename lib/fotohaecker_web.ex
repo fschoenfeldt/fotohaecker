@@ -122,6 +122,7 @@ defmodule FotohaeckerWeb do
 
       # Import basic rendering functionality (render, render_layout, etc)
       import Phoenix.View
+      alias Phoenix.LiveView.JS
 
       import FotohaeckerWeb.ErrorHelpers
       import FotohaeckerWeb.Gettext
