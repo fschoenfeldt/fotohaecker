@@ -140,17 +140,11 @@ defmodule FotohaeckerWeb.IndexLive.Home do
 
     case upload_result do
       [%Photo{} = photo] ->
-        photos = [photo | socket.assigns.photos.photos]
-
         {
           :noreply,
           socket
-          |> assign(:submission_params, @submission_params_default)
-          |> assign(:photos, %{
-            socket.assigns.photos
-            | photos: photos
-          })
           |> put_flash(:info, gettext("Photo uploaded successfully."))
+          |> push_navigate(to: photo_route(photo.id))
         }
 
       _unknown_upload_result ->
