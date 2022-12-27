@@ -11,32 +11,27 @@ msgstr ""
 "Language: de_DE\n"
 "Plural-Forms: nplurals=2\n"
 
-#: lib/fotohaecker_web/live/index_live/home/photos_component.ex:24
+#: lib/fotohaecker_web/live/index_live/home/photos_component.ex:29
 #, elixir-autogen, elixir-format
 msgid "(active)"
 msgstr "(aktiv)"
 
-#: lib/fotohaecker_web/live/index_live/home.ex:61
+#: lib/fotohaecker_web/live/index_live/home/intro_component.ex:14
 #, elixir-autogen, elixir-format
 msgid "Upload your photos, license-free."
 msgstr "Lade Deine Fotos hoch, lizenzfrei."
 
-#: lib/fotohaecker_web/live/index_live/home/photos_component.ex:24
+#: lib/fotohaecker_web/live/index_live/home/photos_component.ex:29
 #, elixir-autogen, elixir-format
 msgid "latest"
 msgstr "Neueste"
 
-#: lib/fotohaecker_web/live/index_live/home/photos_component.ex:34
-#, elixir-autogen, elixir-format
-msgid "most downloaded"
-msgstr "Am meisten heruntergeladen"
-
-#: lib/fotohaecker_web/live/index_live/home/photos_component.ex:43
+#: lib/fotohaecker_web/live/index_live/home/photos_component.ex:48
 #, elixir-autogen, elixir-format
 msgid "no photos, yet..."
 msgstr "keine Fotos, bis jetzt..."
 
-#: lib/fotohaecker_web/live/index_live/home/photos_component.ex:29
+#: lib/fotohaecker_web/live/index_live/home/photos_component.ex:39
 #, elixir-autogen, elixir-format
 msgid "oldest"
 msgstr "Älteste"
@@ -112,7 +107,7 @@ msgstr "Sprache ändern"
 msgid "download the photo %{title} from Fotohäcker"
 msgstr "Foto %{title} auf Fotohäcker"
 
-#: lib/fotohaecker_web/live/index_live/home/photos_component.ex:58
+#: lib/fotohaecker_web/live/index_live/home/photos_component.ex:62
 #, elixir-autogen, elixir-format
 msgid "show more"
 msgstr "mehr zeigen"
@@ -122,12 +117,12 @@ msgstr "mehr zeigen"
 msgid "showing %{limit} out of %{amount} photos"
 msgstr "%{limit} von %{amount} Fotos angezeigt"
 
-#: lib/fotohaecker_web/live/index_live/home.ex:157
+#: lib/fotohaecker_web/live/index_live/home.ex:153
 #, elixir-autogen, elixir-format
 msgid "Photo uploaded successfully."
 msgstr "Foto erfolgreich hochgeladen."
 
-#: lib/fotohaecker_web/live/index_live/home.ex:166
+#: lib/fotohaecker_web/live/index_live/home.ex:162
 #, elixir-autogen, elixir-format
 msgid "Something went wrong uploading your photo. Please try again."
 msgstr "Etwas ist beim Hochladen Deines Fotos schiefgelaufen. Bitte versuche es erneut."

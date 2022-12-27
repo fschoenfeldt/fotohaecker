@@ -20,18 +20,23 @@ defmodule FotohaeckerWeb.IndexLive.Home.PhotosComponent do
         <p class="sr-only"><%= gettext("sort by") %></p>
         <ul class="sortby-options">
           <li>
-            <a href="#" class="sortby-options__option sortby-options__option--active">
+            <a
+              phx-click="sort_by"
+              phx-value-order="desc_inserted_at"
+              href="#"
+              class={"sortby-options__option" <> sort_active(@photos.user_order, :desc_inserted_at)}
+            >
               <%= gettext("latest") %> <span class="sr-only"><%= gettext("(active)") %></span>
             </a>
           </li>
           <li>
-            <a href="#" class="sortby-options__option">
+            <a
+              phx-click="sort_by"
+              phx-value-order="asc_inserted_at"
+              href="#"
+              class={"sortby-options__option" <> sort_active(@photos.user_order, :asc_inserted_at)}
+            >
               <%= gettext("oldest") %>
-            </a>
-          </li>
-          <li>
-            <a href="#" class="sortby-options__option">
-              <%= gettext("most downloaded") %>
             </a>
           </li>
         </ul>
@@ -46,7 +51,6 @@ defmodule FotohaeckerWeb.IndexLive.Home.PhotosComponent do
       <% else %>
         <div
           id="photos"
-          phx-update="append"
           class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 items-start gap-4"
         >
           <%= for photo <- @photos.photos do %>
@@ -61,5 +65,13 @@ defmodule FotohaeckerWeb.IndexLive.Home.PhotosComponent do
       <% end %>
     </div>
     """
+  end
+
+  def sort_active(user_order, order) do
+    if user_order == order do
+      " sortby-options__option--active"
+    else
+      ""
+    end
   end
 end
