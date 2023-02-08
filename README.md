@@ -33,6 +33,14 @@ To start your Phoenix server:
 
 Now you can visit [`localhost:1337`](http://localhost:1337) from your browser.
 
+### Deployment (WIP!)
+
+To deploy your application to uberspace, make sure to set the required variables in your `.envrc.local`.
+
+After that, you can deploy with `./bin/deploy.sh`.
+
+TODO: Document neccessary steps on uberspace.
+
 ---
 
 Ready to run in production? Please [check our deployment guides](https://hexdocs.pm/phoenix/deployment.html).
