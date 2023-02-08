@@ -4,11 +4,18 @@ Live Demo: https://fschoenf.uber.space/fh/
 
 ## Installation
 
+This project uses [asdf](https://asdf-vm.com/#/) to manage development dependencies.
+
+### Get required asdf plugins
+
+- [Elixir](https://github.com/asdf-vm/asdf-elixir#install)
+- [Erlang OTP](https://github.com/asdf-vm/asdf-erlang#install)
+- [NodeJS](https://github.com/asdf-vm/asdf-nodejs#install)
+- [Direnv](https://github.com/asdf-community/asdf-direnv#setup)
+
+### Install development dependencies
+
 ```shell
-# get required tools (https://github.com/asdf-vm/asdf)
-# - elixir / erlang OTP
-# - nodejs
-# - direnv
 asdf install
 # copy .envrc.local.example to .envrc.local
 cp .envrc.local.example .envrc.local
