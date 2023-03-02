@@ -19,6 +19,7 @@ defmodule Fotohaecker.MixProject do
   def application do
     [
       mod: {Fotohaecker.Application, []},
+      # applications: [:ueberauth_auth0],
       extra_applications: [:logger, :runtime_tools]
     ]
   end
@@ -57,7 +58,9 @@ defmodule Fotohaecker.MixProject do
       {:sobelow, ">= 0.0.0", only: [:dev], runtime: false},
       {:ex_check, "~> 0.15.0", only: [:dev], runtime: false},
       {:nodejs, "~> 2.0"},
-      {:httpoison, "~> 1.8"}
+      {:httpoison, "~> 1.8"},
+      {:ueberauth, "~> 0.7"},
+      {:ueberauth_auth0, "~> 2.0"}
     ]
   end
 

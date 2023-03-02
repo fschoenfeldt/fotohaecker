@@ -14,12 +14,26 @@ defmodule FotohaeckerWeb.Router do
     plug :accepts, ["json"]
   end
 
+  pipeline :protected do
+    plug FotohaeckerWeb.Plugs.RequireAuth
+  end
+
   scope "/fh", FotohaeckerWeb do
     pipe_through :browser
 
     live "/", IndexLive.Home, :home
     live "/:locale", IndexLive.Home, :home
     live "/:locale/photos/:id", PhotoLive.Show, :show
+
+    scope "/auth" do
+      live "/:locale/login", AuthLive.Index, :login
+      get "/:provider/callback", AuthController, :callback
+    end
+
+    scope "/user" do
+      pipe_through :protected
+      live "/:locale", UserLive.Index, :index
+    end
   end
 
   # Other scopes may use custom stacks.
