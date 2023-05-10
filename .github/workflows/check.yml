@@ -4,15 +4,8 @@ on: push
 
 jobs:
   mix_check:
-    name: mix check (Elixir ${{matrix.elixir}}, OTP ${{matrix.otp}})
-
-    strategy:
-      matrix:
-        include:
-          - elixir: "1.14.4"
-            otp: "25.3.1"
-
-    runs-on: ubuntu-20.04
+    name: mix check
+    runs-on: ubuntu-18.04
 
     steps:
       - name: Checkout
@@ -24,8 +17,8 @@ jobs:
       - name: Setup Elixir
         uses: erlef/setup-elixir@v1
         with:
-          elixir-version: ${{ matrix.elixir }}
-          otp-version: ${{ matrix.otp }}
+          version-file: .tool-versions
+          version-type: strict
 
       # - name: Cache Elixir deps
       #   uses: actions/cache@v2
