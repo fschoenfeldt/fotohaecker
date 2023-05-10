@@ -96,7 +96,7 @@ msgstr ""
 msgid "title"
 msgstr ""
 
-#: lib/fotohaecker_web/templates/layout/root.html.heex:32
+#: lib/fotohaecker_web/templates/layout/root.html.heex:34
 #, elixir-autogen, elixir-format
 msgid "change language"
 msgstr ""
