@@ -7,6 +7,7 @@ defmodule Fotohaecker.MixProject do
       version: "0.1.0",
       elixir: "~> 1.14",
       elixirc_paths: elixirc_paths(Mix.env()),
+      compilers: Mix.compilers(),
       start_permanent: Mix.env() == :prod,
       aliases: aliases(),
       deps: deps()
@@ -54,7 +55,7 @@ defmodule Fotohaecker.MixProject do
       {:doctor, ">= 0.0.0", only: [:dev], runtime: false},
       {:ex_doc, ">= 0.0.0", only: [:dev], runtime: false},
       {:sobelow, ">= 0.0.0", only: [:dev], runtime: false},
-      {:ex_check, "~> 0.14.0", only: [:dev], runtime: false},
+      {:ex_check, "~> 0.15.0", only: [:dev], runtime: false},
       {:typed_ecto_schema, "~> 0.4"},
       {:nodejs, "~> 2.0"},
       {:httpoison, "~> 1.8"}
