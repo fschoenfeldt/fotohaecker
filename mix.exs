@@ -82,7 +82,6 @@ defmodule Fotohaecker.MixProject do
       "assets.deploy": [
         "tailwind default --minify",
         "esbuild default --minify",
-        "cmd --cd assets node build.js --deploy",
         "phx.digest"
       ]
     ]
