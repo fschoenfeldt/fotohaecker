@@ -21,6 +21,7 @@ defmodule FotohaeckerWeb do
       import Plug.Conn
       import FotohaeckerWeb.Gettext
       alias FotohaeckerWeb.Router.Helpers, as: Routes
+      unquote(verified_routes())
     end
   end
 
@@ -130,6 +131,16 @@ defmodule FotohaeckerWeb do
       import FotohaeckerWeb.ErrorHelpers
       import FotohaeckerWeb.Gettext
       alias FotohaeckerWeb.Router.Helpers, as: Routes
+      unquote(verified_routes())
+    end
+  end
+
+  def verified_routes do
+    quote do
+      use Phoenix.VerifiedRoutes,
+        endpoint: FotohaeckerWeb.Endpoint,
+        router: FotohaeckerWeb.Router,
+        statics: FotohaeckerWeb.static_paths()
     end
   end
 

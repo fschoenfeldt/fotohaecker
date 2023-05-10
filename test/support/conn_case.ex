@@ -23,6 +23,7 @@ defmodule FotohaeckerWeb.ConnCase do
       import Plug.Conn
       import Phoenix.ConnTest
       import FotohaeckerWeb.ConnCase
+      import FotohaeckerWeb, :verified_routes
 
       alias FotohaeckerWeb.Router.Helpers, as: Routes
 
