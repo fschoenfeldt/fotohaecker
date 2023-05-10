@@ -14,10 +14,10 @@ defmodule Fotohaecker.Content do
   ## Examples
 
       iex> list_photos()
-      [%Photo{}, ...]
+      [%Fotohaecker.Content.Photo{}, ...]
 
       iex> list_photos(1)
-      [%Photo{}]
+      [%Fotohaecker.Content.Photo{}]
 
   """
   @spec list_photos(integer, integer, atom()) :: [Photo.t()] | []

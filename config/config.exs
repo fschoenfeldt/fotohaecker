@@ -13,7 +13,10 @@ config :fotohaecker,
 # Configures the endpoint
 config :fotohaecker, FotohaeckerWeb.Endpoint,
   url: [host: "localhost"],
-  render_errors: [view: FotohaeckerWeb.ErrorView, accepts: ~w(html json), layout: false],
+  render_errors: [
+    formats: [html: FotohaeckerWeb.ErrorHTML, json: FotohaeckerWeb.ErrorJSON],
+    layout: false
+  ],
   pubsub_server: Fotohaecker.PubSub,
   live_view: [signing_salt: "Uo5H/hq4"]
 
@@ -31,7 +34,7 @@ config :swoosh, :api_client, false
 
 # Configure esbuild (the version is required)
 config :esbuild,
-  version: "0.14.29",
+  version: "0.17.11",
   default: [
     args:
       ~w(js/app.js --bundle --target=es2017 --outdir=../priv/static/assets --external:/fonts/* --external:/images/*),
@@ -49,7 +52,7 @@ config :phoenix, :json_library, Jason
 
 # Configure Tailwind
 config :tailwind,
-  version: "3.1.8",
+  version: "3.2.7",
   default: [
     args: ~w(
     --postcss

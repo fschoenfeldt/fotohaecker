@@ -19,6 +19,11 @@ defmodule FotohaeckerWeb.ConnCase do
 
   using do
     quote do
+      # The default endpoint for testing
+      @endpoint FotohaeckerWeb.Endpoint
+
+      use FotohaeckerWeb, :verified_routes
+
       # Import conveniences for testing with connections
       import Plug.Conn
       import Phoenix.ConnTest

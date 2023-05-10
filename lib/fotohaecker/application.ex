@@ -8,10 +8,10 @@ defmodule Fotohaecker.Application do
   @impl true
   def start(_type, _args) do
     children = [
-      # Start the Ecto repository
-      Fotohaecker.Repo,
       # Start the Telemetry supervisor
       FotohaeckerWeb.Telemetry,
+      # Start the Ecto repository
+      Fotohaecker.Repo,
       # Start the PubSub system
       {Phoenix.PubSub, name: Fotohaecker.PubSub},
       # Start the Endpoint (http/https)

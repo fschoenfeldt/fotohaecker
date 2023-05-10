@@ -97,7 +97,7 @@ msgstr "Fototitel"
 msgid "title"
 msgstr "Titel"
 
-#: lib/fotohaecker_web/templates/layout/root.html.heex:32
+#: lib/fotohaecker_web/components/layouts/root.html.heex:32
 #, elixir-autogen, elixir-format
 msgid "change language"
 msgstr "Sprache ändern"
@@ -117,12 +117,23 @@ msgstr "mehr zeigen"
 msgid "showing %{limit} out of %{amount} photos"
 msgstr "%{limit} von %{amount} Fotos angezeigt"
 
-#: lib/fotohaecker_web/live/index_live/home.ex:146
+#: lib/fotohaecker_web/live/index_live/home.ex:147
 #, elixir-autogen, elixir-format
 msgid "Photo uploaded successfully."
 msgstr "Foto erfolgreich hochgeladen."
 
-#: lib/fotohaecker_web/live/index_live/home.ex:156
+#: lib/fotohaecker_web/live/index_live/home.ex:157
 #, elixir-autogen, elixir-format
 msgid "Something went wrong uploading your photo. Please try again."
 msgstr "Etwas ist beim Hochladen Deines Fotos schiefgelaufen. Bitte versuche es erneut."
+
+#: lib/fotohaecker_web/components/core_components.ex:449
+#, elixir-autogen, elixir-format
+msgid "Actions"
+msgstr ""
+
+#: lib/fotohaecker_web/components/core_components.ex:76
+#: lib/fotohaecker_web/components/core_components.ex:128
+#, elixir-autogen, elixir-format
+msgid "close"
+msgstr ""
