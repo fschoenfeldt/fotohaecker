@@ -9,8 +9,8 @@ jobs:
     strategy:
       matrix:
         include:
-          - elixir: "1.14.2"
-            otp: "25.1.2"
+          - elixir: "1.14.4"
+          - otp: "25.3.1"
 
     runs-on: ubuntu-20.04
 

@@ -116,7 +116,8 @@ defmodule FotohaeckerWeb.IndexLive.Home do
           end
 
         file_name = Path.basename(path)
-        dest = "#{Photo.gen_path(file_name)}#{extension}"
+        dest_name = Photo.gen_path(file_name)
+        dest = "#{dest_name}#{extension}"
 
         # write photo
         File.cp!(path, dest)

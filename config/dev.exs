@@ -59,8 +59,7 @@ config :fotohaecker, FotohaeckerWeb.Endpoint,
       ~r"priv/static/.*(js|css|png|gif|svg)$",
       # TODO disable uploaded photos here..
       ~r"priv/gettext/.*(po)$",
-      ~r"lib/fotohaecker_web/(live|views)/.*(ex)$",
-      ~r"lib/fotohaecker_web/templates/.*(eex)$"
+      ~r"lib/fotohaecker_web/(controllers|live|templates|components)/.*(ex|heex)$"
     ]
   ]
 
