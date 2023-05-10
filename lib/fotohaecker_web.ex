@@ -1,21 +1,18 @@
 defmodule FotohaeckerWeb do
   @moduledoc """
   The entrypoint for defining your web interface, such
-  as controllers, views, channels and so on.
-
+  as controllers, components, channels, and so on.
   This can be used in your application as:
-
       use FotohaeckerWeb, :controller
-      use FotohaeckerWeb, :view
-
-  The definitions below will be executed for every view,
-  controller, etc, so keep them short and clean, focused
+      use FotohaeckerWeb, :html
+  The definitions below will be executed for every controller,
+  component, etc, so keep them short and clean, focused
   on imports, uses and aliases.
-
   Do NOT define functions inside the quoted expressions
-  below. Instead, define any helper function in modules
-  and import those modules here.
+  below. Instead, define additional modules and import
+  those modules here.
   """
+  def static_paths, do: ~w(assets fonts images favicon.ico robots.txt uploads)
 
   def controller do
     quote do
@@ -33,9 +30,15 @@ defmodule FotohaeckerWeb do
         root: "lib/fotohaecker_web/templates",
         namespace: FotohaeckerWeb
 
+      # import Phoenix.Component
+
+      use Phoenix.Controller,
+        formats: [:html, :json],
+        layouts: [html: FotohaeckerWeb.Layouts]
+
       # Import convenience functions from controllers
-      import Phoenix.Controller,
-        only: [get_flash: 1, get_flash: 2, view_module: 1, view_template: 1]
+      # import Phoenix.Controller,
+      #   only: [get_flash: 1, get_flash: 2, view_module: 1, view_template: 1]
 
       # Include shared imports and aliases for views
       unquote(view_helpers())
@@ -117,11 +120,11 @@ defmodule FotohaeckerWeb do
 
       # Import LiveView and .heex helpers (live_render, live_patch, <.form>, etc)
       import Phoenix.Component
-      import Phoenix.LiveView.Helpers
+      # import Phoenix.LiveView.Helpers
       import FotohaeckerWeb.LiveHelpers
 
       # Import basic rendering functionality (render, render_layout, etc)
-      import Phoenix.View
+      # import Phoenix.View
       alias Phoenix.LiveView.JS
 
       import FotohaeckerWeb.ErrorHelpers
