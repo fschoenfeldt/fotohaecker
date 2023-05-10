@@ -11,7 +11,7 @@ defmodule Fotohaecker.MixProject do
       start_permanent: Mix.env() == :prod,
       aliases: aliases(),
       deps: deps(),
-      dialyzer: [plt_add_deps: true]
+      dialyzer: [plt_add_deps: Enum.map(deps(), &elem(&1, 0))]
     ]
   end
 
