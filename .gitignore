@@ -42,3 +42,6 @@ npm-debug.log
 
 _uberspace/*.ini*
 !_uberspace/*.ini.example
+
+# auth0
+auth0/config.json

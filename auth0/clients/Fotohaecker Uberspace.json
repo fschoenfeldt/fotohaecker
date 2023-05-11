@@ -1,0 +1,51 @@
+{
+  "is_token_endpoint_ip_header_trusted": false,
+  "name": "Fotohaecker Uberspace",
+  "is_first_party": true,
+  "oidc_conformant": true,
+  "sso_disabled": false,
+  "cross_origin_auth": false,
+  "refresh_token": {
+    "expiration_type": "non-expiring",
+    "leeway": 0,
+    "infinite_token_lifetime": true,
+    "infinite_idle_token_lifetime": true,
+    "token_lifetime": 31557600,
+    "idle_token_lifetime": 2592000,
+    "rotation_type": "non-rotating"
+  },
+  "allowed_clients": [],
+  "allowed_logout_urls": [
+    "http://localhost:1337/fh/auth/logout"
+  ],
+  "callbacks": [
+    "http://localhost:1337/fh/auth/auth0/callback"
+  ],
+  "native_social_login": {
+    "apple": {
+      "enabled": false
+    },
+    "facebook": {
+      "enabled": false
+    }
+  },
+  "initiate_login_uri": "https://fotohaecker-demo.eu.auth0.com/login",
+  "jwt_configuration": {
+    "alg": "RS256",
+    "lifetime_in_seconds": 36000,
+    "secret_encoded": false
+  },
+  "client_aliases": [],
+  "token_endpoint_auth_method": "client_secret_post",
+  "app_type": "regular_web",
+  "grant_types": [
+    "authorization_code",
+    "implicit",
+    "refresh_token",
+    "client_credentials"
+  ],
+  "web_origins": [
+    "http://localhost:1337"
+  ],
+  "custom_login_page_on": true
+}
