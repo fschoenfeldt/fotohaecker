@@ -117,17 +117,14 @@
     @apply h-full;
 
     .intro {
-      @apply relative mx-auto flex max-w-[150rem] flex-col gap-4 p-4 md:grid md:gap-8 md:p-8;
+      @apply relative mx-auto flex max-w-6xl flex-col gap-4 p-4 lg:grid lg:grid-cols-2 lg:gap-8 lg:p-8;
 
-      @screen md {
-        grid-template-columns: 1fr 1fr;
-      }
       @screen lg {
         background-size: 100%;
       }
 
       h1 {
-        @apply text-[15vw] uppercase leading-none text-white drop-shadow md:text-9xl lg:text-[10rem];
+        @apply text-[15vw] uppercase leading-none text-white drop-shadow md:text-9xl;
       }
 
       .upload_form {
@@ -157,7 +154,7 @@
       }
     }
     .photos {
-      @apply mx-auto max-w-[100rem] space-y-4 rounded-2xl rounded-b-none border bg-gray-100 p-4 shadow dark:bg-gray-800 md:p-10 2xl:mt-8;
+      @apply mx-auto max-w-6xl space-y-4 rounded-2xl rounded-b-none border bg-gray-100 p-4 shadow dark:bg-gray-800 md:p-10 2xl:mt-8;
       .sortby-options {
         @apply mb-2 flex gap-x-2;
         &__option {
@@ -170,9 +167,7 @@
     }
   }
   #photo {
-    .bg-experiment {
-      @apply brightness-[10%] saturate-[0%];
-    }
+    @apply dark:bg-gray-800;
   }
   .decorative-gradient {
     background-image: -webkit-gradient(
@@ -188,7 +183,7 @@
     -webkit-text-fill-color: transparent;
   }
   .bg {
-    @apply absolute top-0 left-0 -z-10 h-screen w-full;
+    @apply absolute left-0 top-0 -z-10 h-screen w-full;
     background: rgb(219, 69, 230);
     background: radial-gradient(
       circle,
@@ -210,7 +205,7 @@
   }
 
   .bg-experiment {
-    @apply absolute top-0 left-0 -z-10 h-screen w-full bg-cover brightness-50;
+    @apply absolute left-0 top-0 -z-10 h-screen w-full bg-cover brightness-50;
 
     background-image: url(/fh/uploads/my-first-photo_thumb@3x.jpg);
 

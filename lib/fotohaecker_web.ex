@@ -66,6 +66,22 @@ defmodule FotohaeckerWeb do
         end
       end
 
+      defmodule CurrentUser do
+        @moduledoc false
+
+        import Phoenix.LiveView
+
+        # user can be in session
+        def on_mount(:default, _params, %{"current_user" => user} = _session, socket) do
+          {:cont, assign(socket, :current_user, user)}
+        end
+
+        # in case its not
+        def on_mount(:default, _params, _session, socket) do
+          {:cont, assign(socket, :current_user, nil)}
+        end
+      end
+
       def handle_event("change_locale", %{"to" => locale}, socket) do
         Gettext.put_locale(FotohaeckerWeb.Gettext, locale)
 
@@ -75,6 +91,7 @@ defmodule FotohaeckerWeb do
       end
 
       on_mount RestoreLocale
+      on_mount CurrentUser
 
       unquote(view_helpers())
     end

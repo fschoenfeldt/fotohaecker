@@ -66,6 +66,7 @@ config :fotohaecker,
        default_locale: "en_US"
 
 config :ueberauth, Ueberauth,
+  base_path: "/fh/auth",
   providers: [
     auth0: {Ueberauth.Strategy.Auth0, []}
   ]

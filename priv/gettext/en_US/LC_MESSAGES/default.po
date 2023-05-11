@@ -37,7 +37,7 @@ msgid "oldest"
 msgstr ""
 
 #: lib/fotohaecker_web/live/index_live/home/photo_component.ex:38
-#: lib/fotohaecker_web/live/photo_live/show.ex:79
+#: lib/fotohaecker_web/live/photo_live/show.ex:52
 #, elixir-autogen, elixir-format
 msgid "photo %{title} on Fotohäcker"
 msgstr ""
@@ -62,7 +62,7 @@ msgstr ""
 msgid "uploading.."
 msgstr ""
 
-#: lib/fotohaecker_web/live/photo_live/show.ex:59
+#: lib/fotohaecker_web/live/photo_live/show.ex:90
 #, elixir-autogen, elixir-format
 msgid "back"
 msgstr ""
@@ -97,12 +97,12 @@ msgstr ""
 msgid "title"
 msgstr ""
 
-#: lib/fotohaecker_web/templates/layout/root.html.heex:34
+#: lib/fotohaecker_web/templates/layout/root.html.heex:36
 #, elixir-autogen, elixir-format
 msgid "change language"
 msgstr ""
 
-#: lib/fotohaecker_web/live/photo_live/show.ex:74
+#: lib/fotohaecker_web/live/photo_live/show.ex:47
 #, elixir-autogen, elixir-format, fuzzy
 msgid "download the photo %{title} from Fotohäcker"
 msgstr ""
@@ -117,12 +117,22 @@ msgstr ""
 msgid "showing %{limit} out of %{amount} photos"
 msgstr ""
 
-#: lib/fotohaecker_web/live/index_live/home.ex:150
+#: lib/fotohaecker_web/live/index_live/home.ex:149
 #, elixir-autogen, elixir-format
 msgid "Photo uploaded successfully."
 msgstr ""
 
-#: lib/fotohaecker_web/live/index_live/home.ex:160
+#: lib/fotohaecker_web/live/index_live/home.ex:159
 #, elixir-autogen, elixir-format
 msgid "Something went wrong uploading your photo. Please try again."
+msgstr ""
+
+#: lib/fotohaecker_web/templates/layout/root.html.heex:79
+#, elixir-autogen, elixir-format
+msgid "login"
+msgstr ""
+
+#: lib/fotohaecker_web/templates/layout/root.html.heex:71
+#, elixir-autogen, elixir-format
+msgid "logout"
 msgstr ""

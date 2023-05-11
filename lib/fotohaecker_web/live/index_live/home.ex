@@ -15,7 +15,6 @@ defmodule FotohaeckerWeb.IndexLive.Home do
 
   def mount(_params, _session, socket) do
     submission_params = @submission_params_default
-
     photo_changeset = Content.change_photo(%Photo{}, submission_params)
 
     socket =

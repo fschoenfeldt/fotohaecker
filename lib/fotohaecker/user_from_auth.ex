@@ -33,7 +33,7 @@ defmodule Fotohaecker.UserFromAuth do
   # default case if nothing matches
   defp avatar_from_auth(auth) do
     Logger.warn("#{auth.provider} needs to find an avatar URL!")
-    Logger.debug(Jason.encode!(auth))
+    auth |> Jason.encode!() |> Logger.debug()
     nil
   end
 
@@ -45,9 +45,7 @@ defmodule Fotohaecker.UserFromAuth do
     if auth.info.name do
       auth.info.name
     else
-      name =
-        [auth.info.first_name, auth.info.last_name]
-        |> Enum.filter(&(&1 != nil and &1 != ""))
+      name = Enum.filter([auth.info.first_name, auth.info.last_name], &(&1 != nil and &1 != ""))
 
       if Enum.empty?(name) do
         auth.info.nickname
@@ -69,5 +67,5 @@ defmodule Fotohaecker.UserFromAuth do
     {:error, "Passwords do not match"}
   end
 
-  defp validate_pass(_), do: {:error, "Password Required"}
+  defp validate_pass(_passoword), do: {:error, "Password Required"}
 end

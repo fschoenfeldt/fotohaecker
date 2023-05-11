@@ -37,7 +37,7 @@ msgid "oldest"
 msgstr "Älteste"
 
 #: lib/fotohaecker_web/live/index_live/home/photo_component.ex:38
-#: lib/fotohaecker_web/live/photo_live/show.ex:79
+#: lib/fotohaecker_web/live/photo_live/show.ex:52
 #, elixir-autogen, elixir-format
 msgid "photo %{title} on Fotohäcker"
 msgstr "Foto %{title} auf Fotohäcker"
@@ -62,7 +62,7 @@ msgstr "hochladen"
 msgid "uploading.."
 msgstr "wird hochgeladen.."
 
-#: lib/fotohaecker_web/live/photo_live/show.ex:59
+#: lib/fotohaecker_web/live/photo_live/show.ex:90
 #, elixir-autogen, elixir-format
 msgid "back"
 msgstr "zurück"
@@ -97,12 +97,12 @@ msgstr "Fototitel"
 msgid "title"
 msgstr "Titel"
 
-#: lib/fotohaecker_web/templates/layout/root.html.heex:34
+#: lib/fotohaecker_web/templates/layout/root.html.heex:36
 #, elixir-autogen, elixir-format
 msgid "change language"
 msgstr "Sprache ändern"
 
-#: lib/fotohaecker_web/live/photo_live/show.ex:74
+#: lib/fotohaecker_web/live/photo_live/show.ex:47
 #, elixir-autogen, elixir-format, fuzzy
 msgid "download the photo %{title} from Fotohäcker"
 msgstr "Foto %{title} auf Fotohäcker"
@@ -117,12 +117,22 @@ msgstr "mehr zeigen"
 msgid "showing %{limit} out of %{amount} photos"
 msgstr "%{limit} von %{amount} Fotos angezeigt"
 
-#: lib/fotohaecker_web/live/index_live/home.ex:150
+#: lib/fotohaecker_web/live/index_live/home.ex:149
 #, elixir-autogen, elixir-format
 msgid "Photo uploaded successfully."
 msgstr "Foto erfolgreich hochgeladen."
 
-#: lib/fotohaecker_web/live/index_live/home.ex:160
+#: lib/fotohaecker_web/live/index_live/home.ex:159
 #, elixir-autogen, elixir-format
 msgid "Something went wrong uploading your photo. Please try again."
 msgstr "Etwas ist beim Hochladen Deines Fotos schiefgelaufen. Bitte versuche es erneut."
+
+#: lib/fotohaecker_web/templates/layout/root.html.heex:79
+#, elixir-autogen, elixir-format
+msgid "login"
+msgstr ""
+
+#: lib/fotohaecker_web/templates/layout/root.html.heex:71
+#, elixir-autogen, elixir-format
+msgid "logout"
+msgstr ""

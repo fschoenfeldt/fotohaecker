@@ -18,57 +18,74 @@
     </script>
   </head>
   <body>
-    <header class="relative p-2 md:p-4">
-      <section class="flex justify-between">
-        <a href={Routes.index_home_path(@conn, :home)} class="text-gray-100 text-xl">
-          Fotohäcker
-          <span class="bg-blue-500 text-white rounded-full px-2 text-sm no-underline">
-            alpha
-          </span>
-        </a>
-        <nav>
-          <ul></ul>
-        </nav>
-        <div x-data="{expanded: false}">
-          <button class="btn btn--light" type="button" @click="expanded = !expanded">
-            <%= gettext("change language") %>
-          </button>
-          <ul
-            x-cloak
-            x-show="expanded"
-            @click.away="expanded = false"
-            class="bg-gray-50 dark:bg-gray-800 p-2 rounded mt-2 absolute z-10 space-y-2 items-start"
-          >
-            <%= for locale <- Gettext.known_locales(FotohaeckerWeb.Gettext) do %>
-              <li>
-                <%= with {name, url} <- locale_gui(locale) do %>
-                  <a
-                    phx-click="change_locale"
-                    phx-value-to={locale}
-                    phx-keydown="change_locale"
-                    phx-key="Enter"
-                    tabindex="0"
-                    @click="expanded = false"
-                    @keydown.enter="expanded = false"
-                    class="flex text-gray-700 dark:text-white gap-2"
-                  >
-                    <img src={url} class="w-10" alt="" />
-                    <%= name %>
-                  </a>
+    <header class="bg-[#17181b] relative p-2 md:p-4">
+      <div class="max-w-6xl mx-auto">
+        <section class="flex justify-between items-center">
+          <a href={Routes.index_home_path(@conn, :home)} class="text-gray-100 text-xl">
+            Fotohäcker
+            <span class="bg-blue-500 text-white rounded-full px-2 text-sm no-underline">
+              alpha
+            </span>
+          </a>
+          <%!-- <nav>
+            <ul></ul>
+          </nav> --%>
+          <ul class="flex items-center justify-center gap-4">
+            <li x-data="{expanded: false}">
+              <button class="btn btn--light" type="button" @click="expanded = !expanded">
+                <%= gettext("change language") %>
+              </button>
+              <ul
+                x-cloak
+                x-show="expanded"
+                @click.away="expanded = false"
+                class="bg-gray-50 dark:bg-gray-800 p-2 rounded mt-2 absolute z-10 space-y-2 items-start"
+              >
+                <%= for locale <- Gettext.known_locales(FotohaeckerWeb.Gettext) do %>
+                  <li>
+                    <%= with {name, url} <- locale_gui(locale) do %>
+                      <a
+                        phx-click="change_locale"
+                        phx-value-to={locale}
+                        phx-keydown="change_locale"
+                        phx-key="Enter"
+                        tabindex="0"
+                        @click="expanded = false"
+                        @keydown.enter="expanded = false"
+                        class="flex text-gray-700 dark:text-white gap-2"
+                      >
+                        <img src={url} class="w-10" alt="" />
+                        <%= name %>
+                      </a>
+                    <% end %>
+                  </li>
                 <% end %>
-              </li>
-            <% end %>
+              </ul>
+            </li>
+            <li>
+              <%= if @current_user do %>
+                <.link
+                  class="btn btn--light flex items-center gap-2"
+                  href={Routes.auth_path(@conn, :delete)}
+                >
+                  <%= gettext("logout") %>
+                  <img src={@current_user.avatar} class="w-6 rounded-full" alt="" />
+                </.link>
+              <% else %>
+                <.link
+                  class="block btn btn--light"
+                  href={Routes.auth_path(@conn, :request, "auth0")}
+                >
+                  <%= gettext("login") %>
+                </.link>
+              <% end %>
+            </li>
           </ul>
-        </div>
-        <div>
-          <.link href={Routes.auth_path(@conn, :request, "auth0")}>
-            <%= gettext("login") %>
-          </.link>
-        </div>
-      </section>
+        </section>
+      </div>
     </header>
     <%= @inner_content %>
-    <footer class="py-4 mt-4 border-t text-gray-500 dark:text-gray-300 text-center bg-white dark:bg-gray-900">
+    <footer class="py-4 border-t text-gray-500 dark:text-gray-300 text-center bg-white dark:bg-gray-900">
       Made with ❤️ in Hamburg, Germany.
       <a href="https://github.com/fschoenfeldt/fotohaecker/">
         Source Code
