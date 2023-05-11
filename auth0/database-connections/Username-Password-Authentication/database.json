@@ -11,12 +11,6 @@
   "strategy": "auth0",
   "name": "Username-Password-Authentication",
   "is_domain_connection": false,
-  "realms": [
-    "Username-Password-Authentication"
-  ],
-  "enabled_clients": [
-    "Default App",
-    "Deploy CLI",
-    "Fotohaecker Uberspace"
-  ]
+  "realms": ["Username-Password-Authentication"],
+  "enabled_clients": ["Deploy CLI", "Fotohaecker Uberspace"]
 }
