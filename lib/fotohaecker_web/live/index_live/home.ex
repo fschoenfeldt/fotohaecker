@@ -1,4 +1,7 @@
 defmodule FotohaeckerWeb.IndexLive.Home do
+  @doc """
+  The one and only LiveView for the home page.
+  """
   use FotohaeckerWeb, :live_view
 
   alias Fotohaecker.Content
