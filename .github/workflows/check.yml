@@ -11,34 +11,31 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v2
 
-      # - name: Get Libvips and deps
-      #   run: sudo apt-get install -y libvips-dev
-
       - name: Setup Elixir
         uses: erlef/setup-elixir@v1
         with:
           version-file: .tool-versions
           version-type: strict
 
-      # - name: Cache Elixir deps
-      #   uses: actions/cache@v2
-      #   with:
-      #     path: deps
-      #     key: elixir-deps-${{ runner.os }}-${{ hashFiles('mix.lock') }}
-      #     restore-keys: |
-      #       elixir-deps-${{ runner.os }}-
+      - name: Cache Elixir deps
+        uses: actions/cache@v2
+        with:
+          path: deps
+          key: elixir-deps-${{ runner.os }}-${{ hashFiles('mix.lock') }}
+          restore-keys: |
+            elixir-deps-${{ runner.os }}-
 
       - name: Run setup
         run: mix setup
 
-      # - name: Cache Elixir build
-      #   uses: actions/cache@v2
-      #   with:
-      #     path: _build
-      #     key: elixir-build-${{ runner.os }}-${{ matrix.otp }}-${{ matrix.elixir }}-${{ hashFiles('mix.lock') }}-${{ hashFiles('lib/**/*.ex', 'lib/**/*.*ex', 'config/*.exs', 'mix.exs') }}
-      #     restore-keys: |
-      #       elixir-build-${{ runner.os }}-${{ matrix.otp }}-${{ matrix.elixir }}-${{ hashFiles('mix.lock') }}-
-      #       elixir-build-${{ runner.os }}-${{ matrix.otp }}-${{ matrix.elixir }}-
+      - name: Cache Elixir build
+        uses: actions/cache@v2
+        with:
+          path: _build
+          key: elixir-build-${{ runner.os }}-${{ matrix.otp }}-${{ matrix.elixir }}-${{ hashFiles('mix.lock') }}-${{ hashFiles('lib/**/*.ex', 'lib/**/*.*ex', 'config/*.exs', 'mix.exs') }}
+          restore-keys: |
+            elixir-build-${{ runner.os }}-${{ matrix.otp }}-${{ matrix.elixir }}-${{ hashFiles('mix.lock') }}-
+            elixir-build-${{ runner.os }}-${{ matrix.otp }}-${{ matrix.elixir }}-
 
       - name: Compile Elixir deps
         run: mix deps.compile
