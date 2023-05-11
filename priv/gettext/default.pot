@@ -116,12 +116,12 @@ msgstr ""
 msgid "showing %{limit} out of %{amount} photos"
 msgstr ""
 
-#: lib/fotohaecker_web/live/index_live/home.ex:147
+#: lib/fotohaecker_web/live/index_live/home.ex:150
 #, elixir-autogen, elixir-format
 msgid "Photo uploaded successfully."
 msgstr ""
 
-#: lib/fotohaecker_web/live/index_live/home.ex:157
+#: lib/fotohaecker_web/live/index_live/home.ex:160
 #, elixir-autogen, elixir-format
 msgid "Something went wrong uploading your photo. Please try again."
 msgstr ""
