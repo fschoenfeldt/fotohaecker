@@ -15,12 +15,8 @@
     "rotation_type": "non-rotating"
   },
   "allowed_clients": [],
-  "allowed_logout_urls": [
-    "http://localhost:1337/fh/auth/logout"
-  ],
-  "callbacks": [
-    "http://localhost:1337/fh/auth/auth0/callback"
-  ],
+  "allowed_logout_urls": ["http://localhost:1337/fh/auth/logout"],
+  "callbacks": ["http://localhost:1337/fh/auth/auth0/callback"],
   "native_social_login": {
     "apple": {
       "enabled": false
@@ -44,8 +40,6 @@
     "refresh_token",
     "client_credentials"
   ],
-  "web_origins": [
-    "http://localhost:1337"
-  ],
+  "web_origins": ["http://localhost:1337"],
   "custom_login_page_on": true
 }

@@ -1,8 +1,5 @@
 {
-  "enabled_locales": [
-    "en",
-    "de"
-  ],
+  "enabled_locales": ["en", "de"],
   "flags": {
     "universal_login": true,
     "revoke_refresh_token_grant": false,
