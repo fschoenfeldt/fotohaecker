@@ -20,7 +20,11 @@ defmodule Fotohaecker.Content do
       [%Fotohaecker.Content.Photo{}]
 
   """
-  @spec list_photos(integer, integer, atom()) :: [Photo.t()] | []
+  @spec list_photos(
+          limit :: integer(),
+          offset :: integer(),
+          order :: :asc_inserted_at | :desc_inserted_at
+        ) :: [Fotohaecker.Content.Photo.t()] | []
   def list_photos(limit \\ 10, offset \\ 0, order \\ :desc_inserted_at)
       when is_integer(limit)
       when is_integer(offset) do

@@ -1,13 +1,26 @@
 defmodule Fotohaecker.Content.Photo do
-  @moduledoc false
-  use TypedEctoSchema
+  @moduledoc """
+  Photo
+  """
+  use Ecto.Schema
   import Ecto.Changeset
 
-  typed_schema "photos" do
-    field :title, :string
-    field :file_name, :string
-    field :extension, :string
-    field :tags, {:array, :string}
+  @type t :: %__MODULE__{
+          __meta__: Ecto.Schema.Metadata.t(),
+          id: integer(),
+          title: String.t(),
+          file_name: String.t(),
+          extension: String.t(),
+          tags: [String.t()],
+          inserted_at: NaiveDateTime.t(),
+          updated_at: NaiveDateTime.t()
+        }
+
+  schema "photos" do
+    field(:title, :string)
+    field(:file_name, :string)
+    field(:extension, :string)
+    field(:tags, {:array, :string})
 
     timestamps(type: :naive_datetime_usec)
   end
