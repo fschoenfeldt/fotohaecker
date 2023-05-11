@@ -1,6 +1,6 @@
 defmodule FotohaeckerWeb.Plugs.RequireAuth do
   @moduledoc false
-  import Plug.Conn
+  # import Plug.Conn
 
   def init(_opts) do
     :ok

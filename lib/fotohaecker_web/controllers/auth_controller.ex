@@ -10,13 +10,26 @@ defmodule FotohaeckerWeb.AuthController do
 
   plug Ueberauth
 
-  alias Ueberauth.Strategy.Helpers
   alias Fotohaecker.UserFromAuth
+  alias Ueberauth.Strategy.Helpers
 
-  def request(conn, _params) do
-    conn
-    |> put_session(:callback_url, Helpers.callback_url(conn))
-    |> redirect(to: "/fh/auth/de_DE/login")
+  def request(conn, params) do
+    IO.inspect(Helpers.callback_url(conn))
+    # IO.inspect(params)
+    # IO.puts("it works!")
+
+    # redirect(conn,
+    #   to: Ueberauth.Strategy.Auth0.OAuth.authorize_url(%{scope: "openid email profile"})
+    # )
+
+    # # conn
+    # # |> Auth0.authorize_url(%{scope: "openid email profile"})
+    # # |> redirect()
+
+    # conn
+    # |> put_session(:callback_url, Helpers.callback_url(conn))
+    # |> redirect(to: "/fh/auth/auth0/de_DE/login")
+    render(conn, "request.html", callback_url: Helpers.callback_url(conn))
   end
 
   def delete(conn, _params) do

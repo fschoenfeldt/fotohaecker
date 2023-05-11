@@ -60,6 +60,11 @@
             <% end %>
           </ul>
         </div>
+        <div>
+          <.link href={Routes.auth_path(@conn, :request, "auth0")}>
+            <%= gettext("login") %>
+          </.link>
+        </div>
       </section>
     </header>
     <%= @inner_content %>

@@ -1,12 +1,22 @@
 defmodule FotohaeckerWeb.AuthLive.Index do
   use FotohaeckerWeb, :live_view
 
-  alias Ueberauth.Strategy.Helpers
+  #  alias Ueberauth.Strategy.Helpers
 
-  def mount(params, session, socket) do
+  @impl true
+  def mount(params, %{"callback_url" => callback_url} = session, socket) do
     IO.inspect(params)
     IO.inspect(session)
-    {:ok, socket}
+
+    {:ok,
+     socket
+     |> assign(callback_url: callback_url)
+     |> assign(
+       login_form: %{
+         email: "",
+         password: ""
+       }
+     )}
   end
 
   @impl Phoenix.LiveView
@@ -23,15 +33,15 @@ defmodule FotohaeckerWeb.AuthLive.Index do
         <legend>Authentication Information</legend>
 
         <label for="email">Email</label>
-        <input type="email" name="email" id="email" required value={@conn.params["email"]} />
+        <input type="email" name="email" id="email" required value={@login_form.email} />
 
         <label for="password">Password</label>
         <input type="password" name="password" id="password" required />
 
-        <label for="password_confirmation">Confirm Password</label>
-        <input type="password" name="password_confirmation" id="password_confirmation" required />
+        <%!-- <label for="password_confirmation">Confirm Password</label>
+        <input type="password" name="password_confirmation" id="password_confirmation" required /> --%>
       </fieldset>
-
+      <%!--
       <fieldset>
         <legend>Additional Information</legend>
 
@@ -52,7 +62,7 @@ defmodule FotohaeckerWeb.AuthLive.Index do
 
         <label for="description">Description</label>
         <textarea name="description" id="description"><%= @conn.params["description"] %></textarea>
-      </fieldset>
+      </fieldset> --%>
 
       <input class="button" type="submit" value="Login" />
     <% end %>
