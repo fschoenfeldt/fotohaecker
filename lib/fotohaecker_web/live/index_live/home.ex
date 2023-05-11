@@ -1,4 +1,7 @@
 defmodule FotohaeckerWeb.IndexLive.Home do
+  @doc """
+  The one and only LiveView for the home page.
+  """
   use FotohaeckerWeb, :live_view
 
   alias Fotohaecker.Content
@@ -116,7 +119,8 @@ defmodule FotohaeckerWeb.IndexLive.Home do
           end
 
         file_name = Path.basename(path)
-        dest = "#{Photo.gen_path(file_name)}#{extension}"
+        dest_name = Photo.gen_path(file_name)
+        dest = "#{dest_name}#{extension}"
 
         # write photo
         File.cp!(path, dest)

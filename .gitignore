@@ -39,3 +39,6 @@ npm-debug.log
 
 .elixir_ls/
 .envrc.local
+
+_uberspace/*.ini*
+!_uberspace/*.ini.example

@@ -14,13 +14,17 @@ defmodule Fotohaecker.Content do
   ## Examples
 
       iex> list_photos()
-      [%Photo{}, ...]
+      [%Fotohaecker.Content.Photo{}, ...]
 
       iex> list_photos(1)
-      [%Photo{}]
+      [%Fotohaecker.Content.Photo{}]
 
   """
-  @spec list_photos(integer, integer, atom()) :: [Photo.t()] | []
+  @spec list_photos(
+          limit :: integer(),
+          offset :: integer(),
+          order :: :asc_inserted_at | :desc_inserted_at
+        ) :: [Fotohaecker.Content.Photo.t()] | []
   def list_photos(limit \\ 10, offset \\ 0, order \\ :desc_inserted_at)
       when is_integer(limit)
       when is_integer(offset) do
@@ -63,7 +67,7 @@ defmodule Fotohaecker.Content do
   ## Examples
 
       iex> create_photo(%{field: value})
-      {:ok, %Photo{}}
+      {:ok, %Fotohaecker.Content.Photo{}}
 
       iex> create_photo(%{field: bad_value})
       {:error, %Ecto.Changeset{}}
@@ -81,7 +85,7 @@ defmodule Fotohaecker.Content do
   ## Examples
 
       iex> update_photo(photo, %{field: new_value})
-      {:ok, %Photo{}}
+      {:ok, %Fotohaecker.Content.Photo{}}
 
       iex> update_photo(photo, %{field: bad_value})
       {:error, %Ecto.Changeset{}}
@@ -99,7 +103,7 @@ defmodule Fotohaecker.Content do
   ## Examples
 
       iex> delete_photo(photo)
-      {:ok, %Photo{}}
+      {:ok, %Fotohaecker.Content.Photo{}}
 
       iex> delete_photo(photo)
       {:error, %Ecto.Changeset{}}
@@ -118,7 +122,7 @@ defmodule Fotohaecker.Content do
   ## Examples
 
       iex> change_photo(photo)
-      %Ecto.Changeset{data: %Photo{}}
+      %Ecto.Changeset{data: %Fotohaecker.Content.Photo{}}
 
   """
   def change_photo(%Photo{} = photo, attrs \\ %{}) do
