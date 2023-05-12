@@ -32,10 +32,10 @@ jobs:
         uses: actions/cache@v2
         with:
           path: _build
-          key: elixir-build-${{ runner.os }}-${{ matrix.otp }}-${{ matrix.elixir }}-${{ hashFiles('mix.lock') }}-${{ hashFiles('lib/**/*.ex', 'lib/**/*.*ex', 'config/*.exs', 'mix.exs') }}
+          key: elixir-build-${{ runner.os }}-${{ hashFiles('mix.lock') }}-${{ hashFiles('.tool-versions') }}-${{ hashFiles('lib/**/*.ex', 'lib/**/*.*ex', 'config/*.exs', 'mix.exs') }}
           restore-keys: |
-            elixir-build-${{ runner.os }}-${{ matrix.otp }}-${{ matrix.elixir }}-${{ hashFiles('mix.lock') }}-
-            elixir-build-${{ runner.os }}-${{ matrix.otp }}-${{ matrix.elixir }}-
+            elixir-build-${{ runner.os }}-${{ hashFiles('mix.lock') }}-${{ hashFiles('.tool-versions') }}
+            elixir-build-${{ runner.os }}
 
       - name: Compile Elixir deps
         run: mix deps.compile
