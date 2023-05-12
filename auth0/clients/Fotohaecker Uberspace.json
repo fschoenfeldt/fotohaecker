@@ -15,8 +15,14 @@
     "rotation_type": "non-rotating"
   },
   "allowed_clients": [],
-  "allowed_logout_urls": ["http://localhost:1337/fh/auth/logout"],
-  "callbacks": ["http://localhost:1337/fh/auth/auth0/callback"],
+  "allowed_logout_urls": [
+    "http://localhost:1337/fh/auth/logout",
+    "https://fschoenf.uber.space/fh/auth/logout"
+  ],
+  "callbacks": [
+    "http://localhost:1337/fh/auth/auth0/callback",
+    "https://fschoenf.uber.space/fh/auth/auth0/callback"
+  ],
   "native_social_login": {
     "apple": {
       "enabled": false
