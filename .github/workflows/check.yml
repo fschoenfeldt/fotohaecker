@@ -12,24 +12,24 @@ jobs:
         uses: actions/checkout@v2
 
       - name: Setup Elixir
-        uses: erlef/setup-elixir@v1
+        uses: erlef/setup-beam@v1
         with:
           version-file: .tool-versions
           version-type: strict
 
       # - name: Cache Elixir deps
-      #   uses: actions/cache@v2
+      #   uses: actions/cache@v3
       #   with:
       #     path: deps
-      #     key: elixir-deps-${{ runner.os }}-${{ hashFiles('mix.lock') }}
+      #     key: elixir-deps-${{ runner.os }}-${{ hashFiles('mix.lock') }}-${{ hashFiles('.tool-versions') }}
       #     restore-keys: |
-      #       elixir-deps-${{ runner.os }}-
+      #       elixir-deps-${{ runner.os }}
 
       - name: Run setup
         run: mix setup
 
       # - name: Cache Elixir build
-      #   uses: actions/cache@v2
+      #   uses: actions/cache@v3
       #   with:
       #     path: _build
       #     key: elixir-build-${{ runner.os }}-${{ hashFiles('mix.lock') }}-${{ hashFiles('.tool-versions') }}-${{ hashFiles('lib/**/*.ex', 'lib/**/*.*ex', 'config/*.exs', 'mix.exs') }}
@@ -41,4 +41,7 @@ jobs:
         run: mix deps.compile
 
       - name: Run check
-        run: mix check
+        run: mix check --except dialyzer
+
+      - name: Run dialyzer
+        run: mix dialyzer

@@ -51,21 +51,6 @@ defmodule FotohaeckerWeb do
       use Phoenix.LiveView,
         layout: {FotohaeckerWeb.LayoutView, :live}
 
-      # https://hexdocs.pm/phoenix_live_view/using-gettext.html
-      defmodule RestoreLocale do
-        @moduledoc false
-        import Phoenix.LiveView
-
-        def on_mount(:default, %{"locale" => locale} = _params, _session, socket) do
-          Gettext.put_locale(FotohaeckerWeb.Gettext, locale)
-          {:cont, socket}
-        end
-
-        def on_mount(:default, params, session, socket) do
-          {:cont, socket}
-        end
-      end
-
       def handle_event("change_locale", %{"to" => locale}, socket) do
         Gettext.put_locale(FotohaeckerWeb.Gettext, locale)
 
@@ -74,7 +59,8 @@ defmodule FotohaeckerWeb do
         {:noreply, redirect(socket, to: FotohaeckerWeb.LiveHelpers.home_route())}
       end
 
-      on_mount RestoreLocale
+      on_mount FotohaeckerWeb.OnMount.RestoreLocale
+      on_mount FotohaeckerWeb.OnMount.CurrentUser
 
       unquote(view_helpers())
     end
