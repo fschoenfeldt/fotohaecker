@@ -60,7 +60,8 @@ defmodule Fotohaecker.MixProject do
       {:nodejs, "~> 2.0"},
       {:httpoison, "~> 1.8"},
       {:ueberauth, "~> 0.7"},
-      {:ueberauth_auth0, "~> 2.0"}
+      {:ueberauth_auth0, "~> 2.0"},
+      {:heroicons, "~> 0.5.0"}
     ]
   end
 

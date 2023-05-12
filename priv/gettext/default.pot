@@ -36,7 +36,7 @@ msgid "oldest"
 msgstr ""
 
 #: lib/fotohaecker_web/live/index_live/home/photo_component.ex:38
-#: lib/fotohaecker_web/live/photo_live/show.ex:52
+#: lib/fotohaecker_web/live/photo_live/show.ex:47
 #, elixir-autogen, elixir-format
 msgid "photo %{title} on Fotohäcker"
 msgstr ""
@@ -61,7 +61,7 @@ msgstr ""
 msgid "uploading.."
 msgstr ""
 
-#: lib/fotohaecker_web/live/photo_live/show.ex:90
+#: lib/fotohaecker_web/live/photo_live/show.ex:111
 #, elixir-autogen, elixir-format
 msgid "back"
 msgstr ""
@@ -96,12 +96,12 @@ msgstr ""
 msgid "title"
 msgstr ""
 
-#: lib/fotohaecker_web/templates/layout/root.html.heex:36
+#: lib/fotohaecker_web/templates/layout/root.html.heex:42
 #, elixir-autogen, elixir-format
 msgid "change language"
 msgstr ""
 
-#: lib/fotohaecker_web/live/photo_live/show.ex:47
+#: lib/fotohaecker_web/live/photo_live/show.ex:79
 #, elixir-autogen, elixir-format
 msgid "download the photo %{title} from Fotohäcker"
 msgstr ""
@@ -126,12 +126,57 @@ msgstr ""
 msgid "Something went wrong uploading your photo. Please try again."
 msgstr ""
 
-#: lib/fotohaecker_web/templates/layout/root.html.heex:79
+#: lib/fotohaecker_web/templates/layout/root.html.heex:101
 #, elixir-autogen, elixir-format
 msgid "login"
 msgstr ""
 
-#: lib/fotohaecker_web/templates/layout/root.html.heex:71
+#: lib/fotohaecker_web/live/user_live/index.ex:26
 #, elixir-autogen, elixir-format
 msgid "logout"
+msgstr ""
+
+#: lib/fotohaecker_web/controllers/auth_controller.ex:33
+#, elixir-autogen, elixir-format
+msgid "Failed to authenticate."
+msgstr ""
+
+#: lib/fotohaecker_web/controllers/auth_controller.ex:43
+#, elixir-autogen, elixir-format
+msgid "Successfully authenticated."
+msgstr ""
+
+#: lib/fotohaecker_web/controllers/auth_controller.ex:24
+#, elixir-autogen, elixir-format
+msgid "You have been logged out!"
+msgstr ""
+
+#: lib/fotohaecker_web/live/user_live/index.ex:19
+#, elixir-autogen, elixir-format
+msgid "Delete Account (coming soon!)"
+msgstr ""
+
+#: lib/fotohaecker_web/live/photo_live/show.ex:58
+#, elixir-autogen, elixir-format
+msgid "Download"
+msgstr ""
+
+#: lib/fotohaecker_web/live/user_live/index.ex:15
+#, elixir-autogen, elixir-format
+msgid "Name/Email"
+msgstr ""
+
+#: lib/fotohaecker_web/live/user_live/index.ex:13
+#, elixir-autogen, elixir-format
+msgid "Your Account"
+msgstr ""
+
+#: lib/fotohaecker_web/live/photo_live/show.ex:55
+#, elixir-autogen, elixir-format
+msgid "uploaded on %{date}"
+msgstr ""
+
+#: lib/fotohaecker_web/templates/layout/root.html.heex:86
+#, elixir-autogen, elixir-format
+msgid "your account"
 msgstr ""

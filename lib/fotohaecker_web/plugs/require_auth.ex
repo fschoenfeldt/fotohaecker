@@ -1,23 +1,30 @@
 defmodule FotohaeckerWeb.Plugs.RequireAuth do
   @moduledoc false
-  # import Plug.Conn
+  import Plug.Conn
+  import Phoenix.Controller
+  alias FotohaeckerWeb.Router.Helpers, as: Routes
 
   def init(_opts) do
     :ok
   end
 
   def call(conn, _opts) do
-    # case Ueberauth. do
-    #   {:ok, _user} ->
-    #     # If the user is logged in, pass the request through unchanged
-    #     conn
+    current_user =
+      conn
+      |> get_session()
+      |> Map.get("current_user")
 
-    #   _ ->
-    #     # If the user is not logged in, redirect them to the Auth0 login page
-    #     conn
-    #     |> Phoenix.Controller.redirect(to: "/fh/auth/auth0")
-    # end
-
-    conn
+    if current_user do
+      # If the user is logged in, pass the request through unchanged
+      conn
+    else
+      # If the user is not logged in, redirect to home page
+      conn
+      |> put_flash(
+        :error,
+        "You must be logged in to access this page."
+      )
+      |> Phoenix.Controller.redirect(to: Routes.index_home_path(conn, :home))
+    end
   end
 end

@@ -32,8 +32,15 @@
           </nav> --%>
           <ul class="flex items-center justify-center gap-4">
             <li x-data="{expanded: false}">
-              <button class="btn btn--light" type="button" @click="expanded = !expanded">
-                <%= gettext("change language") %>
+              <button
+                class="btn btn--light flex items-center gap-2"
+                type="button"
+                @click="expanded = !expanded"
+              >
+                <Heroicons.language mini class="h-4 w-4 !fill-white" />
+                <span class="sr-only sm:not-sr-only text-white">
+                  <%= gettext("change language") %>
+                </span>
               </button>
               <ul
                 x-cloak
@@ -66,17 +73,33 @@
               <%= if @current_user do %>
                 <.link
                   class="btn btn--light flex items-center gap-2"
-                  href={Routes.auth_path(@conn, :delete)}
+                  href={
+                    Routes.user_index_path(
+                      @conn,
+                      :index,
+                      Gettext.get_locale(FotohaeckerWeb.Gettext)
+                    )
+                  }
                 >
-                  <%= gettext("logout") %>
-                  <img src={@current_user.avatar} class="w-6 rounded-full" alt="" />
+                  <img src={@current_user.avatar} class="w-6 rounded-full hidden sm:block" alt="" />
+                  <span class="text-white">
+                    <%= gettext("your account") %>
+                  </span>
                 </.link>
               <% else %>
                 <.link
-                  class="block btn btn--light"
-                  href={Routes.auth_path(@conn, :request, "auth0")}
+                  class="btn btn--light flex items-center gap-2"
+                  href={
+                    Routes.auth_path(@conn, :login, %{
+                      "provider" => "auth0",
+                      "locale" => Gettext.get_locale(FotohaeckerWeb.Gettext)
+                    })
+                  }
                 >
-                  <%= gettext("login") %>
+                  <Heroicons.arrow_left_on_rectangle mini class="h-4 w-4 !fill-white" />
+                  <span class="sr-only sm:not-sr-only text-white">
+                    <%= gettext("login") %>
+                  </span>
                 </.link>
               <% end %>
             </li>

@@ -39,26 +39,47 @@ defmodule FotohaeckerWeb.PhotoLive.Show do
                                                   "/uploads/#{file_name}_og#{extension}"),
                preview_path <- Routes.static_path(FotohaeckerWeb.Endpoint,
                                                   "/uploads/#{file_name}_preview#{extension}") do %>
-        <div class="grid gap-8 grid-cols-12">
-          <a
-            class="col-span-8"
-            href={path}
-            target="_blank"
-            title={gettext("download the photo %{title} from Fotohäcker", %{title: title})}
-          >
+        <div class="md:grid gap-8 grid-cols-12">
+          <.download_link class="col-span-8 bg-[#17181b] md:py-8" href={path} photo={@photo}>
             <img
-              class="max-w-[70rem] w-full"
+              class="w-auto max-h-[calc(100vh-10rem)] mx-auto"
               src={preview_path}
               alt={gettext("photo %{title} on Fotohäcker", %{title: title})}
             />
-          </a>
-          <div class="col-span-4 self-end">
+          </.download_link>
+          <div class="col-span-4 md:pt-4 space-y-4">
             <.back_button />
             <h1 class=""><%= title %></h1>
+
+            <p class="text-sm text-gray-800">
+              <%= gettext("uploaded on %{date}", %{date: @photo.inserted_at}) %>
+            </p>
+            <.download_link class="btn btn--green flex gap-2 w-max" href={path} photo={@photo}>
+              <Heroicons.arrow_down_tray class="w-6 h-6 stroke-white" /> <%= gettext("Download") %>
+            </.download_link>
           </div>
         </div>
       <% end %>
     </div>
+    """
+  end
+
+  slot :inner_block, required: true
+  attr :class, :string
+  attr :href, :string, required: true
+  attr :photo, Content.Photo, required: true
+  attr :target, :string, default: "_blank"
+
+  defp download_link(assigns) do
+    ~H"""
+    <.link
+      class={@class}
+      href={@href}
+      target={@target}
+      title={gettext("download the photo %{title} from Fotohäcker", %{title: @photo.title})}
+    >
+      <%= render_slot(@inner_block) %>
+    </.link>
     """
   end
 

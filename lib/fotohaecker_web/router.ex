@@ -21,20 +21,21 @@ defmodule FotohaeckerWeb.Router do
   scope "/fh", FotohaeckerWeb do
     pipe_through :browser
 
+    scope "/:locale/user" do
+      pipe_through :protected
+      live "/", UserLive.Index, :index
+    end
+
     live "/", IndexLive.Home, :home
     live "/:locale", IndexLive.Home, :home
     live "/:locale/photos/:id", PhotoLive.Show, :show
 
     scope "/auth" do
+      get "/login", AuthController, :login
       get "/logout", AuthController, :delete
       get "/:provider", AuthController, :request
       get "/:provider/callback", AuthController, :callback
       post "/:provider/callback", AuthController, :callback
-    end
-
-    scope "/user" do
-      pipe_through :protected
-      live "/:locale", UserLive.Index, :index
     end
   end
 
