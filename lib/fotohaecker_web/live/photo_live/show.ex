@@ -47,11 +47,11 @@ defmodule FotohaeckerWeb.PhotoLive.Show do
               alt={gettext("photo %{title} on Fotohäcker", %{title: title})}
             />
           </.download_link>
-          <div class="col-span-4 md:pt-4 space-y-4">
+          <div class="col-span-4 m-4 md:pt-4 space-y-4">
             <.back_button />
             <h1 class=""><%= title %></h1>
 
-            <p class="text-sm text-gray-800">
+            <p class="text-sm text-gray-800" x-data x-text={alpine_format_date(@photo.inserted_at)}>
               <%= gettext("uploaded on %{date}", %{date: @photo.inserted_at}) %>
             </p>
             <.download_link class="btn btn--green flex gap-2 w-max" href={path} photo={@photo}>
@@ -64,11 +64,16 @@ defmodule FotohaeckerWeb.PhotoLive.Show do
     """
   end
 
-  slot :inner_block, required: true
-  attr :class, :string
-  attr :href, :string, required: true
-  attr :photo, Content.Photo, required: true
-  attr :target, :string, default: "_blank"
+  defp alpine_format_date(%NaiveDateTime{} = date) do
+    js_date = "${new Date('#{date}').toLocaleDateString()}"
+    "`#{gettext("uploaded on %{date}", %{date: js_date})}`"
+  end
+
+  slot(:inner_block, required: true)
+  attr(:class, :string)
+  attr(:href, :string, required: true)
+  attr(:photo, Content.Photo, required: true)
+  attr(:target, :string, default: "_blank")
 
   defp download_link(assigns) do
     ~H"""

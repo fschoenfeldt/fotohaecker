@@ -62,7 +62,7 @@ msgstr "hochladen"
 msgid "uploading.."
 msgstr "wird hochgeladen.."
 
-#: lib/fotohaecker_web/live/photo_live/show.ex:111
+#: lib/fotohaecker_web/live/photo_live/show.ex:116
 #, elixir-autogen, elixir-format
 msgid "back"
 msgstr "zurück"
@@ -102,7 +102,7 @@ msgstr "Titel"
 msgid "change language"
 msgstr "Sprache ändern"
 
-#: lib/fotohaecker_web/live/photo_live/show.ex:79
+#: lib/fotohaecker_web/live/photo_live/show.ex:84
 #, elixir-autogen, elixir-format, fuzzy
 msgid "download the photo %{title} from Fotohäcker"
 msgstr "Foto %{title} auf Fotohäcker"
@@ -117,12 +117,12 @@ msgstr "mehr zeigen"
 msgid "showing %{limit} out of %{amount} photos"
 msgstr "%{limit} von %{amount} Fotos angezeigt"
 
-#: lib/fotohaecker_web/live/index_live/home.ex:149
+#: lib/fotohaecker_web/live/index_live/home.ex:150
 #, elixir-autogen, elixir-format
 msgid "Photo uploaded successfully."
 msgstr "Foto erfolgreich hochgeladen."
 
-#: lib/fotohaecker_web/live/index_live/home.ex:159
+#: lib/fotohaecker_web/live/index_live/home.ex:160
 #, elixir-autogen, elixir-format
 msgid "Something went wrong uploading your photo. Please try again."
 msgstr "Etwas ist beim Hochladen Deines Fotos schiefgelaufen. Bitte versuche es erneut."
@@ -173,6 +173,7 @@ msgid "Your Account"
 msgstr "Dein Account"
 
 #: lib/fotohaecker_web/live/photo_live/show.ex:55
+#: lib/fotohaecker_web/live/photo_live/show.ex:69
 #, elixir-autogen, elixir-format
 msgid "uploaded on %{date}"
 msgstr "hochgeladen am %{date}"
@@ -181,3 +182,8 @@ msgstr "hochgeladen am %{date}"
 #, elixir-autogen, elixir-format
 msgid "your account"
 msgstr "Dein Account"
+
+#: lib/fotohaecker_web/live/index_live/home.ex:34
+#, elixir-autogen, elixir-format
+msgid "Home"
+msgstr "Startseite"

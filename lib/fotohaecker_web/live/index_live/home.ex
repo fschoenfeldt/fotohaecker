@@ -31,6 +31,7 @@ defmodule FotohaeckerWeb.IndexLive.Home do
         amount: Content.photos_count(),
         photos: Content.list_photos(5)
       })
+      |> assign(page_title: gettext("Home"))
 
     {:ok, socket}
   end
