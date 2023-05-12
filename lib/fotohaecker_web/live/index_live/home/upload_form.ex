@@ -33,7 +33,12 @@ defmodule FotohaeckerWeb.IndexLive.Home.UploadForm do
         <div class="dark:text-gray-200" aria-hidden="true">
           <%= gettext("drag the photo here or use the file button below") %>
         </div>
-        <.live_file_input upload={@uploads.photo} required />
+        <label>
+          <.live_file_input upload={@uploads.photo} required />
+          <span class="sr-only">
+            <%= gettext("photo upload field") %>
+          </span>
+        </label>
         <%= for entry <- @uploads.photo.entries do %>
           <%= unless Enum.empty?(upload_errors(@uploads.photo, entry)) do %>
             <div hidden>

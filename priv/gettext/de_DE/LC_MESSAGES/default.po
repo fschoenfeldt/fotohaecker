@@ -47,17 +47,17 @@ msgstr "Foto %{title} auf Fotohäcker"
 msgid "sort by"
 msgstr "sortieren nach"
 
-#: lib/fotohaecker_web/live/index_live/home/upload_form.ex:43
+#: lib/fotohaecker_web/live/index_live/home/upload_form.ex:48
 #, elixir-autogen, elixir-format
 msgid "the selected file can't be uploaded:"
 msgstr "die ausgewählte Datei kann nicht hochgeladen werden:"
 
-#: lib/fotohaecker_web/live/index_live/home/upload_form.ex:55
+#: lib/fotohaecker_web/live/index_live/home/upload_form.ex:60
 #, elixir-autogen, elixir-format
 msgid "upload"
 msgstr "hochladen"
 
-#: lib/fotohaecker_web/live/index_live/home/upload_form.ex:54
+#: lib/fotohaecker_web/live/index_live/home/upload_form.ex:59
 #, elixir-autogen, elixir-format
 msgid "uploading.."
 msgstr "wird hochgeladen.."
@@ -187,3 +187,8 @@ msgstr "Dein Account"
 #, elixir-autogen, elixir-format
 msgid "Home"
 msgstr "Startseite"
+
+#: lib/fotohaecker_web/live/index_live/home/upload_form.ex:39
+#, elixir-autogen, elixir-format
+msgid "photo upload field"
+msgstr "Datei hochladen"

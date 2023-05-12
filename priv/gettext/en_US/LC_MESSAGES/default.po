@@ -47,17 +47,17 @@ msgstr ""
 msgid "sort by"
 msgstr ""
 
-#: lib/fotohaecker_web/live/index_live/home/upload_form.ex:43
+#: lib/fotohaecker_web/live/index_live/home/upload_form.ex:48
 #, elixir-autogen, elixir-format
 msgid "the selected file can't be uploaded:"
 msgstr ""
 
-#: lib/fotohaecker_web/live/index_live/home/upload_form.ex:55
+#: lib/fotohaecker_web/live/index_live/home/upload_form.ex:60
 #, elixir-autogen, elixir-format
 msgid "upload"
 msgstr ""
 
-#: lib/fotohaecker_web/live/index_live/home/upload_form.ex:54
+#: lib/fotohaecker_web/live/index_live/home/upload_form.ex:59
 #, elixir-autogen, elixir-format
 msgid "uploading.."
 msgstr ""
@@ -186,4 +186,9 @@ msgstr ""
 #: lib/fotohaecker_web/live/index_live/home.ex:34
 #, elixir-autogen, elixir-format
 msgid "Home"
+msgstr ""
+
+#: lib/fotohaecker_web/live/index_live/home/upload_form.ex:39
+#, elixir-autogen, elixir-format
+msgid "photo upload field"
 msgstr ""

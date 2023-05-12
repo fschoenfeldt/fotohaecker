@@ -158,7 +158,7 @@
       .sortby-options {
         @apply mb-2 flex gap-x-2;
         &__option {
-          @apply text-gray-500 underline dark:text-gray-400;
+          @apply text-gray-600 underline dark:text-gray-400;
           &--active {
             @apply no-underline;
           }
@@ -239,9 +239,9 @@
       }
     }
     &--green {
-      @apply border-green-600 bg-green-500 text-white shadow-sm;
+      @apply border-green-700 bg-green-600 text-white shadow-sm;
       &:hover {
-        @apply bg-green-600;
+        @apply bg-green-800;
       }
       &:focus {
         @apply ring-2 ring-green-500 ring-offset-2;
