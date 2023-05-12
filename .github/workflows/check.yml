@@ -41,4 +41,7 @@ jobs:
         run: mix deps.compile
 
       - name: Run check
-        run: mix check
+        run: mix check --except dialyzer
+
+      - name: Run dialyzer
+        run: mix dialyzer
