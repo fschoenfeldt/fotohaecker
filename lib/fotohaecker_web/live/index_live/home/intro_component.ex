@@ -7,6 +7,11 @@ defmodule FotohaeckerWeb.IndexLive.Home.IntroComponent do
 
   alias FotohaeckerWeb.IndexLive.Home.UploadForm
 
+  attr :photo_changeset, Ecto.Changeset, required: true
+  attr :submission_params, :map, required: true
+  attr :uploaded_photo, :any, required: true
+  attr :uploads, :map, required: true
+
   def render(assigns) do
     ~H"""
     <div class="intro">
@@ -16,6 +21,7 @@ defmodule FotohaeckerWeb.IndexLive.Home.IntroComponent do
       <UploadForm.render
         photo_changeset={@photo_changeset}
         submission_params={@submission_params}
+        uploaded_photo={@uploaded_photo}
         uploads={@uploads}
       />
     </div>

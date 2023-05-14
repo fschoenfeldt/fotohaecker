@@ -44,6 +44,32 @@ defmodule Fotohaecker.Content do
   end
 
   @doc """
+  Given a list of tags, returns a comma separated string of tags.
+
+  ## Examples
+
+      iex> from_tags(["tag1", "tag2"])
+      "tag1, tag2"
+
+  """
+  def from_tags(tags) when is_list(tags) do
+    Enum.join(tags, ", ")
+  end
+
+  @doc """
+  Given a comma separated string of tags, returns a list of tags.
+
+  ## Examples
+
+      iex> to_tags("tag1, tag2")
+      ["tag1", "tag2"]
+
+  """
+  def to_tags(tags_string) when is_binary(tags_string) do
+    String.split(tags_string, ", ")
+  end
+
+  @doc """
   Gets a single photo.
 
   Raises `Ecto.NoResultsError` if the Photo does not exist.
