@@ -15,7 +15,11 @@ defmodule Fotohaecker.TagDetection.Clarifai do
   def tags(image_path), do: run("general-image-recognition", image_path, &get_tags/1)
 
   defp run(modal_id, image_path, extract_fn) do
-    image = image_path |> File.read!() |> Base.encode64()
+    image =
+      image_path
+      |> File.read!()
+      |> Base.encode64()
+
     request = create_request(model_id: modal_id, image: image)
 
     case HTTPoison.request(request) do
@@ -56,7 +60,12 @@ defmodule Fotohaecker.TagDetection.Clarifai do
 
   @spec get_caption(any()) :: String.t()
   defp get_caption(%{"outputs" => outputs}),
-    do: outputs |> hd() |> Map.get("data") |> Map.get("text") |> Map.get("raw")
+    do:
+      outputs
+      |> hd()
+      |> Map.get("data")
+      |> Map.get("text")
+      |> Map.get("raw")
 
   defp get_caption(_unknown_api_response), do: nil
 

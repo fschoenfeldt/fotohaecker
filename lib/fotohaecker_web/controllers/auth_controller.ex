@@ -20,10 +20,12 @@ defmodule FotohaeckerWeb.AuthController do
   end
 
   def delete(conn, _params) do
+    locale = locale_from_session(conn)
+
     conn
     |> put_flash(:info, FotohaeckerWeb.Gettext.gettext("You have been logged out!"))
     |> clear_session()
-    |> redirect(to: "/fh")
+    |> redirect(to: Helpers.index_home_path(conn, :home, locale))
   end
 
   def callback(%{assigns: %{ueberauth_failure: _fails}} = conn, _params) do
@@ -54,6 +56,10 @@ defmodule FotohaeckerWeb.AuthController do
   end
 
   defp locale_from_session(conn) do
-    conn |> get_session() |> Map.get("locale", Gettext.get_locale(FotohaeckerWeb.Gettext))
+    fallback_locale = Gettext.get_locale(FotohaeckerWeb.Gettext)
+
+    conn
+    |> get_session()
+    |> Map.get("locale", fallback_locale)
   end
 end

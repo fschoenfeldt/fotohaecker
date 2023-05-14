@@ -1,5 +1,5 @@
 defmodule Fotohaecker.PhotoTest do
-  use Fotohaecker.DataCase
+  use Fotohaecker.DataCase, async: true
 
   alias Fotohaecker.Content.Photo
   doctest Fotohaecker.Content.Photo
