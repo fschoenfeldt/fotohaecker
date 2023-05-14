@@ -14,13 +14,13 @@ defmodule Fotohaecker.TagDetection.Clarifai do
   @impl TagDetectionBehaviour
   def tags(image_path), do: run("general-image-recognition", image_path, &get_tags/1)
 
-  defp run(modal_id, image_path, extract_fn) do
+  defp run(model_id, image_path, extract_fn) do
     image =
       image_path
       |> File.read!()
       |> Base.encode64()
 
-    request = create_request(model_id: modal_id, image: image)
+    request = create_request(model_id: model_id, image: image)
 
     case HTTPoison.request(request) do
       {:error, %HTTPoison.Error{reason: reason}} ->
