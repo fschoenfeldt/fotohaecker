@@ -12,7 +12,7 @@ defmodule Fotohaecker.ContentFixtures do
       attrs
       |> Enum.into(%{
         description: "some description",
-        file_name: "some file_name",
+        file_name: "some_file_name",
         tags: [],
         title: "some title",
         extension: ".jpg"

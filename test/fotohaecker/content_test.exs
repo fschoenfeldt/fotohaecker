@@ -97,6 +97,8 @@ defmodule Fotohaecker.ContentTest do
     test "delete_photo/1 deletes the photo" do
       photo = photo_fixture()
       assert {:ok, %Photo{}} = Content.delete_photo(photo)
+      # TODO write test
+      assert "photo files don't exist after deleting photo" == "TODO"
       assert_raise Ecto.NoResultsError, fn -> Content.get_photo!(photo.id) end
     end
 
