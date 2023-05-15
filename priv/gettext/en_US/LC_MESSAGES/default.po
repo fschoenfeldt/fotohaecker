@@ -138,17 +138,17 @@ msgstr ""
 msgid "logout"
 msgstr ""
 
-#: lib/fotohaecker_web/controllers/auth_controller.ex:35
+#: lib/fotohaecker_web/controllers/auth_controller.ex:30
 #, elixir-autogen, elixir-format
 msgid "Failed to authenticate."
 msgstr ""
 
-#: lib/fotohaecker_web/controllers/auth_controller.ex:45
+#: lib/fotohaecker_web/controllers/auth_controller.ex:40
 #, elixir-autogen, elixir-format
 msgid "Successfully authenticated."
 msgstr ""
 
-#: lib/fotohaecker_web/controllers/auth_controller.ex:26
+#: lib/fotohaecker_web/controllers/auth_controller.ex:21
 #, elixir-autogen, elixir-format
 msgid "You have been logged out!"
 msgstr ""
