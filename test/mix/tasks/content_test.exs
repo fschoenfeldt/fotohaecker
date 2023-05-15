@@ -4,8 +4,6 @@ defmodule Mix.Tasks.ContentTest do
   import ExUnit.CaptureIO
   import Fotohaecker.ContentFixtures
 
-  alias Fotohaecker.Content
-  alias Fotohaecker.Content.Photo
   alias Mix.Tasks.Content
 
   describe "run/0" do
@@ -39,16 +37,9 @@ defmodule Mix.Tasks.ContentTest do
     test "deletes photo with `mix content delete <photo_id>`" do
       photo = photo_fixture()
 
-      photo_paths = [
-        Photo.gen_path(photo.file_name) <> "_og" <> photo.extension,
-        Photo.gen_path(photo.file_name) <> "_preview" <> photo.extension,
-        Photo.gen_path(photo.file_name) <> "_thumb@1x" <> photo.extension,
-        Photo.gen_path(photo.file_name) <> "_thumb@2x" <> photo.extension,
-        Photo.gen_path(photo.file_name) <> "_thumb@3x" <> photo.extension
-      ]
+      photo_paths = Fotohaecker.Content.photo_paths(photo)
 
       # write empty binary files to the destination paths
-
       Enum.each(photo_paths, fn path ->
         File.write!(path, "")
       end)
@@ -62,6 +53,7 @@ defmodule Mix.Tasks.ContentTest do
               Content.run(["delete", "#{photo.id}"])
             end
           )
+          # credo:disable-for-next-line
           |> IO.puts()
         end)
 

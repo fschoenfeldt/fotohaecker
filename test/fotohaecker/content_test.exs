@@ -96,9 +96,18 @@ defmodule Fotohaecker.ContentTest do
 
     test "delete_photo/1 deletes the photo" do
       photo = photo_fixture()
+      photo_paths = Content.photo_paths(photo)
+      # write empty binary files to the destination paths
+      Enum.each(photo_paths, fn path ->
+        File.write!(path, "")
+      end)
+
       assert {:ok, %Photo{}} = Content.delete_photo(photo)
-      # TODO write test
-      assert "photo files don't exist after deleting photo" == "TODO"
+
+      assert photo_paths
+             |> Enum.map(fn path -> File.exists?(path) end)
+             |> Enum.all?(fn exists -> exists == false end)
+
       assert_raise Ecto.NoResultsError, fn -> Content.get_photo!(photo.id) end
     end
 

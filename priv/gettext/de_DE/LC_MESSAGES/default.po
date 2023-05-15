@@ -138,17 +138,17 @@ msgstr "Anmelden"
 msgid "logout"
 msgstr "Abmelden"
 
-#: lib/fotohaecker_web/controllers/auth_controller.ex:30
+#: lib/fotohaecker_web/controllers/auth_controller.ex:35
 #, elixir-autogen, elixir-format
 msgid "Failed to authenticate."
 msgstr "Anmeldung fehlgeschlagen."
 
-#: lib/fotohaecker_web/controllers/auth_controller.ex:40
+#: lib/fotohaecker_web/controllers/auth_controller.ex:45
 #, elixir-autogen, elixir-format
 msgid "Successfully authenticated."
 msgstr "Erfolgreich angemeldet."
 
-#: lib/fotohaecker_web/controllers/auth_controller.ex:21
+#: lib/fotohaecker_web/controllers/auth_controller.ex:26
 #, elixir-autogen, elixir-format
 msgid "You have been logged out!"
 msgstr "Sie wurden abgemeldet!"

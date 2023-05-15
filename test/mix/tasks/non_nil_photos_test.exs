@@ -1,8 +1,6 @@
 defmodule Mix.Tasks.NonNilPhotosTest do
   use Fotohaecker.DataCase, async: true
 
-  import Ecto.Query
-
   alias Fotohaecker.Content
   alias Fotohaecker.Content.Photo
   alias Mix.Tasks.NonNilPhotos

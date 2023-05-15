@@ -136,20 +136,23 @@ defmodule Fotohaecker.Content do
 
   """
   def delete_photo(%Photo{} = photo) do
-    # TODO delete photo file after deleting photo
-    photo_paths = [
+    paths = photo_paths(photo)
+
+    Enum.each(paths, fn path ->
+      File.rm!(path)
+    end)
+
+    Repo.delete(photo)
+  end
+
+  def photo_paths(%Photo{} = photo) do
+    [
       Photo.gen_path(photo.file_name) <> "_og" <> photo.extension,
       Photo.gen_path(photo.file_name) <> "_preview" <> photo.extension,
       Photo.gen_path(photo.file_name) <> "_thumb@1x" <> photo.extension,
       Photo.gen_path(photo.file_name) <> "_thumb@2x" <> photo.extension,
       Photo.gen_path(photo.file_name) <> "_thumb@3x" <> photo.extension
     ]
-
-    Enum.each(photo_paths, fn path ->
-      File.rm!(path)
-    end)
-
-    Repo.delete(photo)
   end
 
   @doc """

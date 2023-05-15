@@ -46,7 +46,7 @@ defmodule Mix.Tasks.Content do
 
         {:error, e} ->
           IO.puts("error deleting photo")
-          IO.inspect(e)
+          IO.puts(e)
       end
     else
       IO.puts("aborting")

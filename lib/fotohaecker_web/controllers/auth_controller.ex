@@ -1,5 +1,10 @@
 defmodule FotohaeckerWeb.AuthController do
-  @moduledoc false
+  @moduledoc """
+  Auth controller responsible for handling Ueberauth responses
+
+  Source:
+  https://github.com/ueberauth/ueberauth_example/blob/master/lib/ueberauth_example_web/controllers/auth_controller.ex
+  """
 
   use FotohaeckerWeb, :controller
 
