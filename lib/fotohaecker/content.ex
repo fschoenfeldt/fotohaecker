@@ -39,8 +39,34 @@ defmodule Fotohaecker.Content do
     do: from(p in Photo, order_by: [asc: p.inserted_at], limit: ^limit, offset: ^offset)
 
   def photos_count do
-    query = from p in Photo, select: count(p.id)
+    query = from(p in Photo, select: count(p.id))
     Repo.one(query)
+  end
+
+  @doc """
+  Given a list of tags, returns a comma separated string of tags.
+
+  ## Examples
+
+      iex> from_tags(["tag1", "tag2"])
+      "tag1, tag2"
+
+  """
+  def from_tags(tags) when is_list(tags) do
+    Enum.join(tags, ", ")
+  end
+
+  @doc """
+  Given a comma separated string of tags, returns a list of tags.
+
+  ## Examples
+
+      iex> to_tags("tag1, tag2")
+      ["tag1", "tag2"]
+
+  """
+  def to_tags(tags_string) when is_binary(tags_string) do
+    String.split(tags_string, ", ")
   end
 
   @doc """
@@ -110,10 +136,23 @@ defmodule Fotohaecker.Content do
 
   """
   def delete_photo(%Photo{} = photo) do
-    # TODO delete photo file after deleting photo
-    # :ok = File.rm(Photo.gen_path(photo.file_name) <> photo.extension)
-    # :ok = File.rm(Photo.gen_path(photo.file_name) <> "_thumb" <> photo.extension)
+    paths = photo_paths(photo)
+
+    Enum.each(paths, fn path ->
+      File.rm!(path)
+    end)
+
     Repo.delete(photo)
+  end
+
+  def photo_paths(%Photo{} = photo) do
+    [
+      Photo.gen_path(photo.file_name) <> "_og" <> photo.extension,
+      Photo.gen_path(photo.file_name) <> "_preview" <> photo.extension,
+      Photo.gen_path(photo.file_name) <> "_thumb@1x" <> photo.extension,
+      Photo.gen_path(photo.file_name) <> "_thumb@2x" <> photo.extension,
+      Photo.gen_path(photo.file_name) <> "_thumb@3x" <> photo.extension
+    ]
   end
 
   @doc """

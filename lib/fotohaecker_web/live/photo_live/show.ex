@@ -54,6 +54,7 @@ defmodule FotohaeckerWeb.PhotoLive.Show do
             <p class="text-sm text-gray-800" x-data x-text={alpine_format_date(@photo.inserted_at)}>
               <%= gettext("uploaded on %{date}", %{date: @photo.inserted_at}) %>
             </p>
+            <.tags photo={@photo} />
             <.download_link class="btn btn--green flex gap-2 w-max" href={path} photo={@photo}>
               <Heroicons.arrow_down_tray class="w-6 h-6 stroke-white" /> <%= gettext("Download") %>
             </.download_link>
@@ -115,6 +116,29 @@ defmodule FotohaeckerWeb.PhotoLive.Show do
       </svg>
       <%= gettext("back") %>
     </.link>
+    """
+  end
+
+  defp tags(assigns) do
+    ~H"""
+    <%= if length(@photo.tags) == 0 do %>
+      <p class="text-sm text-gray-800">
+        <%= gettext("no tags") %>
+      </p>
+    <% else %>
+      <div>
+        <p class="text-gray-800">
+          <%= gettext("tags") %>
+        </p>
+        <ul class="flex flex-wrap gap-2">
+          <%= for tag <- @photo.tags do %>
+            <li class="text-sm text-gray-800 bg-gray-50 border px-2 rounded">
+              <%= tag %>
+            </li>
+          <% end %>
+        </ul>
+      </div>
+    <% end %>
     """
   end
 

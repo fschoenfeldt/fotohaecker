@@ -10,20 +10,21 @@ defmodule FotohaeckerWeb.IndexLive.Home do
   alias FotohaeckerWeb.IndexLive.Home.PhotosComponent
 
   @submission_params_default %{
-    title: ""
+    title: "",
+    tags: [""]
   }
 
   def mount(_params, _session, socket) do
-    submission_params = @submission_params_default
-    photo_changeset = Content.change_photo(%Photo{}, submission_params)
+    photo_changeset = Content.change_photo(%Photo{}, @submission_params_default)
 
     socket =
       socket
       |> assign(:uploaded_files, [])
       # prepare upload, maybe refactor..
       |> allow_upload(:photo, accept: ~w(.jpg), max_entries: 1, max_file_size: 20_000_000)
-      |> assign(:submission_params, submission_params)
+      |> assign(:submission_params, @submission_params_default)
       |> assign(:photo_changeset, photo_changeset)
+      |> assign(:uploaded_photo, nil)
       # get latest photos, maybe refactor..
       |> assign(:photos, %{
         user_limit: 5,
@@ -58,6 +59,7 @@ defmodule FotohaeckerWeb.IndexLive.Home do
       <IntroComponent.render
         photo_changeset={@photo_changeset}
         submission_params={@submission_params}
+        uploaded_photo={@uploaded_photo}
         uploads={@uploads}
       />
       <PhotosComponent.render photos={@photos} />
@@ -80,12 +82,14 @@ defmodule FotohaeckerWeb.IndexLive.Home do
 
   def handle_event("submission_change", %{"photo" => submission_params}, socket) do
     # assign text input values
+    # TODO this should be moved to the Photo context to avoid duplication
     submission_params =
       submission_params
       |> Jason.encode!()
       |> Jason.decode!(keys: :atoms!)
       # maybe put file name if file provided
       |> maybe_put_file_name(socket.assigns.uploads.photo.entries)
+      |> Map.update!(:tags, &Content.to_tags/1)
 
     photo_changeset = Content.change_photo(%Photo{}, submission_params)
 
@@ -97,12 +101,57 @@ defmodule FotohaeckerWeb.IndexLive.Home do
     {:noreply, socket}
   end
 
+  def handle_event("submission_generate_tags", %{"value" => photo_id}, socket) do
+    photo = Content.get_photo(photo_id)
+
+    # construct file path
+    path = Photo.gen_path(photo.file_name) <> "_preview" <> photo.extension
+
+    case Fotohaecker.TagDetection.tags(path) do
+      {:ok, tags} ->
+        submission_params = Map.put(socket.assigns.submission_params, :tags, tags)
+        {:noreply, assign(socket, :submission_params, submission_params)}
+
+      {:error, message} ->
+        {:noreply,
+         put_flash(
+           socket,
+           :error,
+           gettext("Something went wrong generating tags: %{error}", error: message)
+         )}
+    end
+  end
+
+  def handle_event("submission_submit_tags", %{"photo" => %{"tags" => tags}} = _params, socket) do
+    tags = Content.to_tags(tags)
+
+    case Content.update_photo(socket.assigns.uploaded_photo, %{
+           tags: tags
+         }) do
+      {:ok, photo} ->
+        {:noreply,
+         socket
+         |> put_flash(:info, gettext("Tags updated successfully."))
+         |> push_navigate(to: photo_route(photo.id))}
+
+      {:error, changeset} ->
+        {:noreply,
+         put_flash(
+           socket,
+           :error,
+           gettext("Something went wrong updating your photo: %{error}", error: inspect(changeset))
+         )}
+    end
+  end
+
   def handle_event("submission_submit", %{"photo" => submission_params}, socket) do
     # assign text input values
+    # TODO this should be moved to the Photo context to avoid duplication
     submission_params =
       submission_params
       |> Jason.encode!()
       |> Jason.decode!(keys: :atoms!)
+      |> Map.update!(:tags, &Content.to_tags/1)
 
     upload_result =
       consume_uploaded_entries(socket, :photo, fn %{path: path}, entry ->
@@ -148,7 +197,8 @@ defmodule FotohaeckerWeb.IndexLive.Home do
           :noreply,
           socket
           |> put_flash(:info, gettext("Photo uploaded successfully."))
-          |> push_navigate(to: photo_route(photo.id))
+          |> assign(:submission_params, submission_params)
+          |> assign(:uploaded_photo, photo)
         }
 
       _unknown_upload_result ->
@@ -163,6 +213,7 @@ defmodule FotohaeckerWeb.IndexLive.Home do
     end
   end
 
+  # TODO this should be moved to the Photo context to avoid duplication
   defp maybe_put_file_name(params, entries) do
     if Enum.empty?(entries) do
       params

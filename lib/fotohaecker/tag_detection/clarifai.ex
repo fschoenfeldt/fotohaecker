@@ -5,7 +5,7 @@ defmodule Fotohaecker.TagDetection.Clarifai do
 
   @behaviour Fotohaecker.TagDetection.TagDetectionBehaviour
   alias Fotohaecker.TagDetection.TagDetectionBehaviour
-  @api_secret System.get_env("CLARIFAI_API_SECRET")
+  def api_secret, do: System.get_env("CLARIFAI_API_SECRET")
 
   @impl TagDetectionBehaviour
   def caption(image_path),
@@ -14,18 +14,19 @@ defmodule Fotohaecker.TagDetection.Clarifai do
   @impl TagDetectionBehaviour
   def tags(image_path), do: run("general-image-recognition", image_path, &get_tags/1)
 
-  defp run(modal_id, image_path, extract_fn) do
+  defp run(model_id, image_path, extract_fn) do
     image =
       image_path
       |> File.read!()
       |> Base.encode64()
 
-    request = create_request(model_id: modal_id, image: image)
+    request = create_request(model_id: model_id, image: image)
 
     case HTTPoison.request(request) do
       {:error, %HTTPoison.Error{reason: reason}} ->
         {:error, reason}
 
+      # TODO: we should handle unexpected responses here
       {:ok, %HTTPoison.Response{body: body}} ->
         {:ok,
          body
@@ -41,7 +42,7 @@ defmodule Fotohaecker.TagDetection.Clarifai do
       url: "https://api.clarifai.com/v2/models/#{model_id}/outputs",
       headers: [
         {"Accept", "application/json"},
-        {"Authorization", "Key #{@api_secret}"}
+        {"Authorization", "Key #{api_secret()}"}
       ],
       body:
         Jason.encode!(%{
@@ -59,24 +60,34 @@ defmodule Fotohaecker.TagDetection.Clarifai do
   end
 
   @spec get_caption(any()) :: String.t()
-  defp get_caption(%{"outputs" => outputs}),
-    do:
+  defp get_caption(%{"outputs" => outputs}) do
+    if Enum.empty?(outputs) do
+      "no_caption_found_sorry"
+    else
       outputs
       |> hd()
       |> Map.get("data")
       |> Map.get("text")
       |> Map.get("raw")
+    end
+  end
 
   defp get_caption(_unknown_api_response), do: nil
 
   @spec get_tags(any()) :: [String.t()]
-  defp get_tags(%{"outputs" => outputs}),
-    do:
+  defp get_tags(%{"outputs" => outputs}) do
+    if Enum.empty?(outputs) do
+      [
+        "no_tags_found_sorry"
+      ]
+    else
       outputs
       |> hd()
       |> Map.get("data", %{})
       |> Map.get("concepts", %{})
       |> Enum.map(fn concept -> concept["name"] end)
+    end
+  end
 
   defp get_tags(_unknown_api_response), do: []
 end

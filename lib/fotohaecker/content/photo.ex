@@ -42,6 +42,6 @@ defmodule Fotohaecker.Content.Photo do
     photo
     |> cast(attrs, [:title, :file_name, :tags, :extension])
     |> validate_length(:title, min: 1, max: 16)
-    |> validate_required([:title, :file_name, :extension])
+    |> validate_required([:title, :file_name, :tags, :extension])
   end
 end

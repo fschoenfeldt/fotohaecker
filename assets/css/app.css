@@ -110,6 +110,10 @@
   .btn {
     @apply rounded border border-gray-800 p-2 px-4 text-gray-800 dark:border-gray-200 dark:text-gray-200;
   }
+
+  button:disabled {
+    @apply cursor-not-allowed opacity-50;
+  }
 }
 
 @layer components {
@@ -245,6 +249,24 @@
       }
       &:focus {
         @apply ring-2 ring-green-500 ring-offset-2;
+      }
+    }
+    &--blue {
+      @apply border-blue-600 bg-blue-500 text-white shadow-sm;
+      &:hover {
+        @apply bg-blue-600;
+      }
+      &:focus {
+        @apply ring-2 ring-blue-500 ring-offset-2;
+      }
+    }
+    &--blue-outline {
+      @apply border-blue-600 text-blue-600;
+      &:hover {
+        @apply bg-blue-600 text-white;
+      }
+      &:focus {
+        @apply ring-2 ring-blue-500 ring-offset-2;
       }
     }
     &--red {

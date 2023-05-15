@@ -16,7 +16,8 @@ alias Fotohaecker.Repo
 photo = %Photo{
   title: "My first photo",
   file_name: "my-first-photo",
-  extension: ".jpg"
+  extension: ".jpg",
+  tags: []
 }
 
 amount_photos =
