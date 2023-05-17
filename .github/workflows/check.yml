@@ -41,7 +41,10 @@ jobs:
         run: mix deps.compile
 
       - name: Run check
-        run: mix check --except dialyzer
+        run: mix check --except dialyzer gettext
 
       - name: Run dialyzer
         run: mix dialyzer
+
+      - name: Run gettext
+        run: mix gettext.extract --check-up-to-date
