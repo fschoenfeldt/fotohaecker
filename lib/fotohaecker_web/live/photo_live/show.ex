@@ -2,6 +2,7 @@ defmodule FotohaeckerWeb.PhotoLive.Show do
   use FotohaeckerWeb, :live_view
 
   alias Fotohaecker.Content
+  alias Fotohaecker.Content.Photo
 
   defmodule PhotoNotFoundError do
     defexception message: dgettext("errors", "photo not found"), plug_status: 404
@@ -9,6 +10,7 @@ defmodule FotohaeckerWeb.PhotoLive.Show do
 
   @impl true
   def mount(_params, _session, socket) do
+    socket = assign(socket, :editing, nil)
     {:ok, socket}
   end
 
@@ -49,8 +51,7 @@ defmodule FotohaeckerWeb.PhotoLive.Show do
           </.download_link>
           <div class="col-span-4 m-4 md:pt-4 space-y-4">
             <.back_button />
-            <h1 class=""><%= title %></h1>
-
+            <.title photo={@photo} editing={@editing} />
             <p class="text-sm text-gray-800" x-data x-text={alpine_format_date(@photo.inserted_at)}>
               <%= gettext("uploaded on %{date}", %{date: @photo.inserted_at}) %>
             </p>
@@ -97,25 +98,89 @@ defmodule FotohaeckerWeb.PhotoLive.Show do
       phx-keydown="goto"
       phx-key="Enter"
       phx-value-target="index"
-      class="flex text-black fill-black"
+      class="w-max px-2 -mx-2 flex gap-1 items-center text-black fill-black"
     >
-      <svg
-        class="w-6 h-6"
-        fill="black"
-        stroke="black"
-        viewBox="0 0 24 24"
-        xmlns="http://www.w3.org/2000/svg"
-      >
-        <path
-          stroke-linecap="round"
-          stroke-linejoin="round"
-          stroke-width="2"
-          d="M10 19l-7-7m0 0l7-7m-7 7h18"
-        >
-        </path>
-      </svg>
+      <Heroicons.arrow_left mini class="w-4 h-4" />
       <%= gettext("back") %>
     </.link>
+    """
+  end
+
+  attr(:photo, Photo, required: true)
+  attr(:editing, :any, required: true)
+
+  defp title(%{editing: nil} = assigns) do
+    ~H"""
+    <div class="flex items-end gap-x-1">
+      <h1 class="">
+        <%= @photo.title %>
+      </h1>
+      <button
+        type="button"
+        class="group btn btn--dark p-1 border-none"
+        phx-click="activate_edit_mode"
+        phx-value-field="title"
+      >
+        <Heroicons.pencil_square mini class="w-4 h-4 group-hover:fill-white" />
+        <div class="sr-only">
+          <%= gettext("edit title") %>
+        </div>
+      </button>
+    </div>
+    """
+  end
+
+  defp title(%{editing: %{field: "title", changeset: _changeset} = _editing} = assigns) do
+    ~H"""
+    <.form
+      :let={f}
+      for={@editing.changeset}
+      class="border-2 border-dashed p-2 -mx-2 md:max-w-max"
+      phx-change="edit_change"
+      phx-submit="edit_submit"
+    >
+      <label class="block" for="photo_title">
+        <%= gettext("enter a new title") %>
+      </label>
+      <div class="flex flex-wrap items-center gap-2">
+        <%!-- # TODO: focus field after activating edit mode --%>
+        <input
+          id="photo_title"
+          class="p-2 bg-gray-100 text-2xl max-w-full"
+          name="photo[title]"
+          value={Map.get(@editing.photo, String.to_existing_atom(@editing.field))}
+          placeholder={gettext("photo title")}
+          phx-debounce="150"
+          phx-window-keydown="edit_mode_keydown"
+          required
+        />
+        <div class="flex gap-2">
+          <button
+            type="submit"
+            class="group btn btn--dark p-1 px-2 border-none flex items-center gap-x-1"
+            phx-disable-with={gettext("saving..")}
+          >
+            <Heroicons.check mini class="w-4 h-4 fill-gray-800 group-hover:fill-white" alt="" />
+            <div class="text-gray-800 group-hover:text-white">
+              <%= gettext("save") %>
+            </div>
+          </button>
+          <button
+            type="button"
+            class="group btn btn--dark p-1 px-2 border-none flex items-center gap-x-1"
+            phx-disable-with={gettext("canceling..")}
+            phx-click="edit_mode_keydown"
+            phx-value-key="Escape"
+          >
+            <Heroicons.no_symbol mini class="w-4 h-4 fill-gray-800 group-hover:fill-white" alt="" />
+            <div class="text-gray-800 group-hover:text-white">
+              <%= gettext("cancel") %>
+            </div>
+          </button>
+        </div>
+      </div>
+      <%= error_tag(f, :title) %>
+    </.form>
     """
   end
 
@@ -142,8 +207,56 @@ defmodule FotohaeckerWeb.PhotoLive.Show do
     """
   end
 
-  @impl true
   def handle_event("goto", %{"target" => "index"}, socket) do
     {:noreply, push_navigate(socket, to: home_route())}
+  end
+
+  def handle_event("activate_edit_mode", %{"field" => field} = _params, socket) do
+    socket =
+      assign(socket,
+        editing: %{
+          field: field,
+          photo: socket.assigns.photo,
+          changeset: Content.change_photo(socket.assigns.photo, %{})
+        }
+      )
+
+    {:noreply, socket}
+  end
+
+  def handle_event("edit_mode_keydown", %{"key" => "Escape"}, socket) do
+    socket = assign(socket, editing: nil)
+    {:noreply, socket}
+  end
+
+  def handle_event("edit_mode_keydown", _params, socket) do
+    {:noreply, socket}
+  end
+
+  def handle_event("edit_change", %{"photo" => params} = _params, socket) do
+    change_params =
+      params
+      |> Jason.encode!()
+      |> Jason.decode!(keys: :atoms!)
+
+    photo_changeset = Content.change_photo(socket.assigns.editing.photo, change_params)
+
+    {:noreply,
+     assign(socket, :editing, Map.put(socket.assigns.editing, :changeset, photo_changeset))}
+  end
+
+  def handle_event("edit_submit", %{"photo" => params} = _params, socket) do
+    change_params =
+      params
+      |> Jason.encode!()
+      |> Jason.decode!(keys: :atoms!)
+
+    {:ok, photo} = Content.update_photo(socket.assigns.editing.photo, change_params)
+
+    {:noreply,
+     socket
+     |> assign(:photo, photo)
+     |> assign(:editing, nil)
+     |> put_flash(:info, gettext("photo updated"))}
   end
 end

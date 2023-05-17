@@ -86,7 +86,7 @@ msgstr ""
 msgid "must be equal to %{number}"
 msgstr ""
 
-#: lib/fotohaecker_web/live/photo_live/show.ex:7
+#: lib/fotohaecker_web/live/photo_live/show.ex:8
 #, elixir-autogen, elixir-format
 msgid "photo not found"
-msgstr ""
+msgstr "Foto nicht gefunden"
