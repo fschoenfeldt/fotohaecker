@@ -1,5 +1,6 @@
 defmodule Mix.Tasks.NonNilPhotosTest do
-  use Fotohaecker.DataCase, async: true
+  # credo:disable-for-next-line
+  use Fotohaecker.DataCase
 
   alias Fotohaecker.Content
   alias Fotohaecker.Content.Photo

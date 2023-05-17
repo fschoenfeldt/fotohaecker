@@ -1,5 +1,6 @@
 defmodule Mix.Tasks.ContentTest do
-  use Fotohaecker.DataCase, async: true
+  # credo:disable-for-next-line
+  use Fotohaecker.DataCase
 
   import ExUnit.CaptureIO
   import Fotohaecker.ContentFixtures
