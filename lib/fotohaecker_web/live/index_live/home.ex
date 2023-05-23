@@ -81,15 +81,7 @@ defmodule FotohaeckerWeb.IndexLive.Home do
   end
 
   def handle_event("submission_change", %{"photo" => submission_params}, socket) do
-    # assign text input values
-    # TODO this should be moved to the Photo context to avoid duplication
-    submission_params =
-      submission_params
-      |> Jason.encode!()
-      |> Jason.decode!(keys: :atoms!)
-      # maybe put file name if file provided
-      |> maybe_put_file_name(socket.assigns.uploads.photo.entries)
-      |> Map.update!(:tags, &Content.to_tags/1)
+    submission_params = parse_params(socket, submission_params)
 
     photo_changeset = Content.change_photo(%Photo{}, submission_params)
 
@@ -145,13 +137,7 @@ defmodule FotohaeckerWeb.IndexLive.Home do
   end
 
   def handle_event("submission_submit", %{"photo" => submission_params}, socket) do
-    # assign text input values
-    # TODO this should be moved to the Photo context to avoid duplication
-    submission_params =
-      submission_params
-      |> Jason.encode!()
-      |> Jason.decode!(keys: :atoms!)
-      |> Map.update!(:tags, &Content.to_tags/1)
+    submission_params = parse_params(socket, submission_params)
 
     upload_result =
       consume_uploaded_entries(socket, :photo, fn %{path: path}, entry ->
@@ -211,6 +197,15 @@ defmodule FotohaeckerWeb.IndexLive.Home do
           )
         }
     end
+  end
+
+  defp parse_params(socket, params) do
+    params
+    |> Jason.encode!()
+    |> Jason.decode!(keys: :atoms!)
+    # maybe put file name if file provided
+    |> maybe_put_file_name(socket.assigns.uploads.photo.entries)
+    |> Map.update!(:tags, &Content.to_tags/1)
   end
 
   # TODO this should be moved to the Photo context to avoid duplication
