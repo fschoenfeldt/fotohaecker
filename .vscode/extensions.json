@@ -1,0 +1,17 @@
+{
+  "recommendations": [
+    "adrianwilczynski.alpine-js-intellisense",
+    "pantajoe.vscode-elixir-credo",
+    "iampeterbanjo.elixirlinter",
+    "jakebecker.elixir-ls",
+    "phoenixframework.phoenix",
+    "phoenix-liveview-snippets.phoenix-liveview-snippets",
+    "ms-playwright.playwright",
+    "csstools.postcss",
+    "esbenp.prettier-vscode",
+    "bradlc.vscode-tailwindcss",
+    "macieklad.tailwind-sass-syntax",
+    "gruntfuggly.todo-tree",
+    "webhint.vscode-webhint"
+  ]
+}
