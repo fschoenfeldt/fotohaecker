@@ -55,7 +55,7 @@ defmodule FotohaeckerWeb.PhotoLive.Show do
             <p class="text-sm text-gray-800" x-data x-text={alpine_format_date(@photo.inserted_at)}>
               <%= gettext("uploaded on %{date}", %{date: @photo.inserted_at}) %>
             </p>
-            <.tags photo={@photo} />
+            <.tags photo={@photo} editing={@editing} />
             <.download_link class="btn btn--green flex gap-2 w-max" href={path} photo={@photo}>
               <Heroicons.arrow_down_tray class="w-6 h-6 stroke-white" /> <%= gettext("Download") %>
             </.download_link>
@@ -109,28 +109,59 @@ defmodule FotohaeckerWeb.PhotoLive.Show do
   attr(:photo, Photo, required: true)
   attr(:editing, :any, required: true)
 
-  defp title(%{editing: nil} = assigns) do
+  defp title(%{editing: %{field: "title", changeset: _changeset} = _editing} = assigns) do
+    ~H"""
+    <.form_for editing={@editing} />
+    """
+  end
+
+  defp title(%{editing: _} = assigns) do
     ~H"""
     <div class="flex items-end gap-x-1">
       <h1 class="">
         <%= @photo.title %>
       </h1>
-      <button
-        type="button"
-        class="group btn btn--dark p-1 border-none"
-        phx-click="activate_edit_mode"
-        phx-value-field="title"
-      >
-        <Heroicons.pencil_square mini class="w-4 h-4 group-hover:fill-white" />
-        <div class="sr-only">
-          <%= gettext("edit title") %>
-        </div>
-      </button>
+      <.edit_button field="title" />
     </div>
     """
   end
 
-  defp title(%{editing: %{field: "title", changeset: _changeset} = _editing} = assigns) do
+  defp tags(%{editing: %{field: "tags", changeset: _changeset} = _editing} = assigns) do
+    ~H"""
+    <.form_for editing={@editing} input_class="w-full text-sm" />
+    """
+  end
+
+  defp tags(%{editing: _} = assigns) do
+    ~H"""
+    <div class="flex items-end gap-x-1">
+      <%= if length(@photo.tags) == 0 do %>
+        <p class="text-sm text-gray-800">
+          <%= gettext("no tags") %>
+        </p>
+      <% else %>
+        <div>
+          <p class="text-gray-800">
+            <%= gettext("tags") %>
+          </p>
+          <ul class="flex flex-wrap gap-2">
+            <%= for tag <- @photo.tags do %>
+              <li class="text-sm text-gray-800 bg-gray-50 border px-2 rounded">
+                <%= tag %>
+              </li>
+            <% end %>
+          </ul>
+        </div>
+      <% end %>
+      <.edit_button field="tags" />
+    </div>
+    """
+  end
+
+  attr(:editing, :any, required: true)
+  attr(:input_class, :string, default: "text-2xl")
+
+  defp form_for(assigns) do
     ~H"""
     <.form
       :let={f}
@@ -139,17 +170,17 @@ defmodule FotohaeckerWeb.PhotoLive.Show do
       phx-change="edit_change"
       phx-submit="edit_submit"
     >
-      <label class="block" for="photo_title">
-        <%= gettext("enter a new title") %>
+      <label class="block" for={"photo_#{@editing.field}"}>
+        <%= gettext("enter new %{field}", %{field: @editing.field}) %>
       </label>
       <div class="flex flex-wrap items-center gap-2">
         <%!-- # TODO: focus field after activating edit mode --%>
         <input
-          id="photo_title"
-          class="p-2 bg-gray-100 text-2xl max-w-full"
-          name="photo[title]"
-          value={Map.get(@editing.photo, String.to_existing_atom(@editing.field))}
-          placeholder={gettext("photo title")}
+          id={"photo_#{@editing.field}"}
+          class={["p-2 bg-gray-100 max-w-full", @input_class]}
+          name={"photo[#{@editing.field}]"}
+          value={field_value(@editing)}
+          placeholder={gettext("photo %{field}", %{field: @editing.field})}
           phx-debounce="150"
           phx-window-keydown="edit_mode_keydown"
           required
@@ -179,31 +210,35 @@ defmodule FotohaeckerWeb.PhotoLive.Show do
           </button>
         </div>
       </div>
-      <%= error_tag(f, :title) %>
+      <%= error_tag(f, String.to_existing_atom(@editing.field)) %>
     </.form>
     """
   end
 
-  defp tags(assigns) do
+  defp field_value(editing),
+    do:
+      editing.photo
+      |> Map.get(String.to_existing_atom(editing.field))
+      |> maybe_convert()
+
+  defp maybe_convert(field) when is_list(field), do: Content.from_tags(field)
+  defp maybe_convert(field), do: field
+
+  attr(:field, :string, required: true)
+
+  defp edit_button(assigns) do
     ~H"""
-    <%= if length(@photo.tags) == 0 do %>
-      <p class="text-sm text-gray-800">
-        <%= gettext("no tags") %>
-      </p>
-    <% else %>
-      <div>
-        <p class="text-gray-800">
-          <%= gettext("tags") %>
-        </p>
-        <ul class="flex flex-wrap gap-2">
-          <%= for tag <- @photo.tags do %>
-            <li class="text-sm text-gray-800 bg-gray-50 border px-2 rounded">
-              <%= tag %>
-            </li>
-          <% end %>
-        </ul>
+    <button
+      type="button"
+      class="group btn btn--dark p-1 border-none"
+      phx-click="activate_edit_mode"
+      phx-value-field={@field}
+    >
+      <Heroicons.pencil_square mini class="w-4 h-4 group-hover:fill-white" />
+      <div class="sr-only">
+        <%= gettext("edit field %{field}", %{field: @field}) %>
       </div>
-    <% end %>
+    </button>
     """
   end
 
@@ -238,6 +273,7 @@ defmodule FotohaeckerWeb.PhotoLive.Show do
       params
       |> Jason.encode!()
       |> Jason.decode!(keys: :atoms!)
+      |> Map.update(:tags, nil, fn tags -> Content.to_tags(tags) end)
 
     photo_changeset = Content.change_photo(socket.assigns.editing.photo, change_params)
 
@@ -250,6 +286,7 @@ defmodule FotohaeckerWeb.PhotoLive.Show do
       params
       |> Jason.encode!()
       |> Jason.decode!(keys: :atoms!)
+      |> Map.update(:tags, nil, fn tags -> Content.to_tags(tags) end)
 
     {:ok, photo} = Content.update_photo(socket.assigns.editing.photo, change_params)
 
