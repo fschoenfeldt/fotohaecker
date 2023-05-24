@@ -51,16 +51,21 @@ defmodule FotohaeckerWeb do
       use Phoenix.LiveView,
         layout: {FotohaeckerWeb.LayoutView, :live}
 
-      def handle_event("change_locale", %{"to" => locale}, socket) do
-        Gettext.put_locale(FotohaeckerWeb.Gettext, locale)
+      def handle_event(
+            "change_locale",
+            %{"to" => to},
+            socket
+          ) do
+        Gettext.put_locale(FotohaeckerWeb.Gettext, to)
+        from = Gettext.get_locale(FotohaeckerWeb.Gettext)
+        route = String.replace(socket.assigns.current_uri.path, from, to)
 
-        # right now, changing locale always redirects to homepage.
-        # this could be improved with a plug strategy
-        {:noreply, redirect(socket, to: FotohaeckerWeb.LiveHelpers.home_route())}
+        {:noreply, redirect(socket, to: route)}
       end
 
-      on_mount FotohaeckerWeb.OnMount.RestoreLocale
-      on_mount FotohaeckerWeb.OnMount.CurrentUser
+      on_mount(FotohaeckerWeb.OnMount.CurrentURI)
+      on_mount(FotohaeckerWeb.OnMount.CurrentUser)
+      on_mount(FotohaeckerWeb.OnMount.RestoreLocale)
 
       unquote(view_helpers())
     end
