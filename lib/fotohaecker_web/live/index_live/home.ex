@@ -199,6 +199,7 @@ defmodule FotohaeckerWeb.IndexLive.Home do
     end
   end
 
+  # TODO this should be moved to the Photo context to avoid duplication
   defp parse_params(socket, params) do
     params
     |> Jason.encode!()
@@ -208,16 +209,15 @@ defmodule FotohaeckerWeb.IndexLive.Home do
     |> Map.update!(:tags, &Content.to_tags/1)
   end
 
-  # TODO this should be moved to the Photo context to avoid duplication
   defp maybe_put_file_name(params, entries) do
     if Enum.empty?(entries) do
       params
     else
       %Phoenix.LiveView.UploadEntry{
-        uuid: filename
+        uuid: uuid
       } = hd(entries)
 
-      Map.put_new(params, :file_name, ~s(#{filename}.jpg))
+      Map.put_new(params, :file_name, ~s(#{uuid}.jpg))
     end
   end
 end

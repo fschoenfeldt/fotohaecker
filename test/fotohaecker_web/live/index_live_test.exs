@@ -36,37 +36,4 @@ defmodule FotohaeckerWeb.IndexLiveTest do
 
     assert actual =~ expected
   end
-
-  # test "upload works", %{conn: conn} do
-  #   {:ok, view, _html} = live(conn, "/fh")
-
-  #   photo_file =
-  #     file_input(view, ".upload_form", :photo, [
-  #       %{
-  #         last_modified: 1_594_171_879_000,
-  #         name: "my-first-photo_og.jpg",
-  #         content: File.read!("priv/static/uploads/my-first-photo_og.jpg"),
-  #         size: 1_396_009,
-  #         type: "image/jpeg"
-  #       }
-  #     ])
-
-  #   render_upload(photo_file, "my-first-photo_og.jpg")
-  #   |> IO.inspect()
-
-  #   # actual =
-  #   #   view
-  #   #   |> element(".upload_form")
-  #   #   |> render_submit(%{
-  #   #     photo: %{
-  #   #       title: "My photo",
-  #   #       tags: "tag 1, tag 2"
-  #   #     }
-  #   #   })
-  #   #   |> IO.inspect()
-
-  #   #    assert actual =~ expected
-  # end
-
-  # TODO: test upload
 end
