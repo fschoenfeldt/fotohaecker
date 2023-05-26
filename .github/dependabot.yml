@@ -5,7 +5,17 @@
 
 version: 2
 updates:
+  # mix / elixir
   - package-ecosystem: "mix" # See documentation for possible values
     directory: "/" # Location of package manifests
     schedule:
       interval: "weekly"
+    # limit 3 prs
+    open-pull-requests-limit: 3
+  # nodejs / npm
+  - package-ecosystem: "npm" # See documentation for possible values
+    directory: "/assets" # Location of package manifests
+    schedule:
+      interval: "weekly"
+    # limit 3 prs
+    open-pull-requests-limit: 3
