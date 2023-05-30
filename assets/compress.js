@@ -1,5 +1,4 @@
 const sharp = require("sharp");
-const fs = require("fs/promises");
 
 module.exports = (path, extension) => {
   const src = `${path}${extension}`;
