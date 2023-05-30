@@ -23,6 +23,24 @@ defmodule Mix.Tasks.Content do
     handle!(args)
   end
 
+  defp handle!(["delete", "orphaned"] = _args) do
+    orphaned = list_orphaned()
+
+    if confirm?("""
+       confirm deleting #{length(orphaned)} orphaned photos
+
+       (Y/n)
+       """) do
+      orphaned
+      |> Enum.each(fn file_name ->
+        IO.puts("deleting file: #{inspect(file_name)}")
+        File.rm!(Path.join(photo_dir(), file_name))
+      end)
+    else
+      IO.puts("aborting")
+    end
+  end
+
   defp handle!(["delete", photo_id] = _args) do
     photo =
       photo_id
@@ -51,6 +69,10 @@ defmodule Mix.Tasks.Content do
     else
       IO.puts("aborting")
     end
+  end
+
+  defp handle!(["list", "orphaned"] = _args) do
+    list_orphaned() |> Enum.each(&IO.puts/1)
   end
 
   defp handle!(["list"] = _args) do
@@ -86,4 +108,28 @@ defmodule Mix.Tasks.Content do
       "/uploads/#{photo.file_name}_og#{photo.extension}"
     )
   end
+
+  defp list_orphaned do
+    photo_file_names =
+      1_000_000
+      |> Content.list_photos()
+      |> Enum.map(& &1.file_name)
+
+    all_files =
+      photo_dir()
+      |> File.ls!()
+
+    Enum.reject(all_files, fn file ->
+      Enum.find(photo_file_names, &(file =~ &1))
+    end)
+  end
+
+  defp photo_dir(),
+    do:
+      [
+        :code.priv_dir(:fotohaecker),
+        "static",
+        "uploads"
+      ]
+      |> Path.join()
 end

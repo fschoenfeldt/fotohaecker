@@ -35,6 +35,35 @@ defmodule Mix.Tasks.ContentTest do
       assert actual == expected
     end
 
+    # is skipped because right now, it reads the actual file system not a test directory
+    @tag :skip
+    test "lists orphaned photo files with `mix content list orphaned`" do
+      photo = photo_fixture()
+
+      photo_paths = Fotohaecker.Content.photo_paths(photo)
+
+      # write empty binary files to the destination paths
+      Enum.each(photo_paths, fn path ->
+        File.write!(path, "")
+      end)
+
+      # write empty binary file that will be listed as orphaned
+      "this_is_orphaned"
+      |> Fotohaecker.Content.Photo.gen_path()
+      |> File.write!("")
+
+      actual =
+        capture_io(fn ->
+          Content.run(["list", "orphaned"])
+        end)
+
+      expected = "this_is_orphaned"
+
+      assert actual == expected
+    end
+
+    # TODO test "deletes photo with `mix content delete orphaned`"
+
     test "deletes photo with `mix content delete <photo_id>`" do
       photo = photo_fixture()
 
