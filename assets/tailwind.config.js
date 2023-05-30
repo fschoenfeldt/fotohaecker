@@ -1,10 +1,9 @@
-// See the Tailwind configuration guide for advanced usage
-// https://tailwindcss.com/docs/configuration
+/** @type {import('tailwindcss').Config} */
 
-let plugin = require("tailwindcss/plugin");
-const colors = require("tailwindcss/colors");
+import plugin from "tailwindcss/plugin";
+import colors from "tailwindcss/colors";
 
-module.exports = {
+export default {
   content: ["./js/**/*.js", "../lib/*_web.ex", "../lib/*_web/**/*.*ex"],
   theme: {
     colors: {
