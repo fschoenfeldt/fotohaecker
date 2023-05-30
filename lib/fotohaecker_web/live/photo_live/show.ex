@@ -286,9 +286,15 @@ defmodule FotohaeckerWeb.PhotoLive.Show do
       params
       |> Jason.encode!()
       |> Jason.decode!(keys: :atoms!)
-      |> Map.update(:tags, nil, fn tags -> Content.to_tags(tags) end)
 
-    {:ok, photo} = Content.update_photo(socket.assigns.editing.photo, change_params)
+    changes =
+      if change_params[:tags] !== nil do
+        Map.update(change_params, :tags, [], fn tags -> Content.to_tags(tags) end)
+      else
+        change_params
+      end
+
+    {:ok, photo} = Content.update_photo(socket.assigns.editing.photo, changes)
 
     {:noreply,
      socket
