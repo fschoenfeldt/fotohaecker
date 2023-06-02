@@ -24,6 +24,8 @@ jobs:
           version-type: strict
       - name: Run setup
         run: MIX_ENV=e2e mix setup
+      - name: Run e2e setup
+        run: mix e2e.setup
       - name: Run Playwright tests
         run: mix e2e
       - uses: actions/upload-artifact@v3

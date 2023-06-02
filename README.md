@@ -42,6 +42,13 @@ Now you can visit [`localhost:1337/fh`](http://localhost:1337/fh) from your brow
 mix check
 ```
 
+### E2E Tests
+
+```shell
+mix e2e.setup
+mix e2e
+```
+
 ## Deployment
 
 ### Setup `envrc.local`
