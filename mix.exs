@@ -84,7 +84,7 @@ defmodule Fotohaecker.MixProject do
         "ecto.setup",
         "assets.setup",
         "assets.build",
-        Mix.env() !== :prod && "e2e.setup"
+        Mix.env() === :e2e && "e2e.setup"
       ],
       "ecto.setup": ["ecto.create", "ecto.migrate", "run priv/repo/seeds.exs"],
       "ecto.reset": ["ecto.drop", "ecto.setup"],
@@ -100,7 +100,10 @@ defmodule Fotohaecker.MixProject do
         "esbuild default --minify",
         "phx.digest"
       ],
-      "e2e.setup": ["cmd --cd test/e2e pnpm i"],
+      "e2e.setup": [
+        "cmd --cd test/e2e pnpm i",
+        "cmd --cd test/e2e pnpm exec playwright install --with-deps"
+      ],
       e2e: [
         "ecto.drop --quiet",
         "ecto.create --quiet",

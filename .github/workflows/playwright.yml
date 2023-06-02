@@ -24,15 +24,8 @@ jobs:
           version-type: strict
       - name: Run setup
         run: MIX_ENV=e2e mix setup
-      - name: Change directory
-        run: cd test/e2e
-        working-directory: test/e2e
-      - name: Install dependencies
-        run: pnpm install
-      - name: Install Playwright Browsers
-        run: pnpm exec playwright install --with-deps
       - name: Run Playwright tests
-        run: pnpm test
+        run: mix e2e
       - uses: actions/upload-artifact@v3
         if: always()
         with:
