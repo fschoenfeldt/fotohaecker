@@ -10,7 +10,10 @@ defmodule Fotohaecker.MixProject do
       start_permanent: Mix.env() == :prod,
       aliases: aliases(),
       deps: deps(),
-      dialyzer: [plt_add_apps: [:mix]]
+      dialyzer: [plt_add_apps: [:mix]],
+      preferred_cli_env: [
+        e2e: :e2e
+      ]
     ]
   end
 
@@ -76,20 +79,34 @@ defmodule Fotohaecker.MixProject do
   # See the documentation for `Mix` for more info on aliases.
   defp aliases do
     [
-      setup: ["deps.get", "ecto.setup", "assets.setup", "assets.build"],
+      setup: [
+        "deps.get",
+        "ecto.setup",
+        "assets.setup",
+        "assets.build",
+        Mix.env() !== :prod && "e2e.setup"
+      ],
       "ecto.setup": ["ecto.create", "ecto.migrate", "run priv/repo/seeds.exs"],
       "ecto.reset": ["ecto.drop", "ecto.setup"],
       test: ["ecto.create --quiet", "ecto.migrate --quiet", "test"],
       "assets.setup": [
         "tailwind.install --if-missing",
         "esbuild.install --if-missing",
-        "cmd --cd assets npm install"
+        "cmd --cd assets pnpm i"
       ],
       "assets.build": ["tailwind default", "esbuild default"],
       "assets.deploy": [
         "tailwind default --minify",
         "esbuild default --minify",
         "phx.digest"
+      ],
+      "e2e.setup": ["cmd --cd test/e2e pnpm i"],
+      e2e: [
+        "ecto.drop --quiet",
+        "ecto.create --quiet",
+        "ecto.migrate --quiet",
+        "run priv/repo/seeds.exs",
+        "cmd --cd test/e2e pnpm test"
       ]
     ]
   end

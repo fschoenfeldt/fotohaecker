@@ -21,7 +21,7 @@ photo = %Photo{
 }
 
 amount_photos =
-  if Mix.env() == :dev do
+  if Mix.env() in [:dev, :e2e] do
     1..10
   else
     [1]

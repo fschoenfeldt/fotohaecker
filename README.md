@@ -12,6 +12,7 @@ This project uses [asdf](https://asdf-vm.com/#/) to manage development dependenc
 - [Erlang OTP](https://github.com/asdf-vm/asdf-erlang#install)
 - [NodeJS](https://github.com/asdf-vm/asdf-nodejs#install)
 - [Direnv](https://github.com/asdf-community/asdf-direnv#setup)
+- [pnpm](https://github.com/jonathanmorley/asdf-pnpm#installing)
 
 ### Install development dependencies
 

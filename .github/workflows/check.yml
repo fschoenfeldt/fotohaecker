@@ -17,6 +17,11 @@ jobs:
           version-file: .tool-versions
           version-type: strict
 
+      - name: Setup pnpm
+        uses: pnpm/action-setup@v2
+        with:
+          version: 8
+
       # - name: Cache Elixir deps
       #   uses: actions/cache@v3
       #   with:
