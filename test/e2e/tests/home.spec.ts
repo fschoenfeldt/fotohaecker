@@ -2,7 +2,7 @@ import { test, expect } from "@playwright/test";
 import { changeLanguage } from "../features/languageMenu";
 import { uploadPhoto } from "./helpers";
 
-test.describe.skip("Home page", () => {
+test.describe("Home page", () => {
   test.beforeEach(async ({ page }) => {
     await page.goto("/fh");
   });

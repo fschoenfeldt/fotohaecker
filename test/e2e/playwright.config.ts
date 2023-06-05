@@ -48,7 +48,7 @@ export default defineConfig({
       dependencies: ["setup"],
     },
 
-    /*     {
+    {
       name: "firefox",
       use: {
         ...devices["Desktop Firefox"],
@@ -65,10 +65,10 @@ export default defineConfig({
         storageState: "playwright/.auth/user.json",
       },
       dependencies: ["setup"],
-    }, */
+    },
 
     /* Test against mobile viewports. */
-    /*     {
+    {
       name: "Mobile Chrome",
       use: {
         ...devices["Pixel 6"],
@@ -83,7 +83,7 @@ export default defineConfig({
         storageState: "playwright/.auth/user.json",
       },
       dependencies: ["setup"],
-    }, */
+    },
 
     /* Test against branded browsers. */
     // {
