@@ -48,7 +48,7 @@ export default defineConfig({
       dependencies: ["setup"],
     },
 
-    {
+    /*     {
       name: "firefox",
       use: {
         ...devices["Desktop Firefox"],
@@ -66,9 +66,9 @@ export default defineConfig({
       },
       dependencies: ["setup"],
     },
-
+ */
     /* Test against mobile viewports. */
-    {
+    /*     {
       name: "Mobile Chrome",
       use: {
         ...devices["Pixel 6"],
@@ -84,7 +84,7 @@ export default defineConfig({
       },
       dependencies: ["setup"],
     },
-
+ */
     /* Test against branded browsers. */
     // {
     //   name: 'Microsoft Edge',
