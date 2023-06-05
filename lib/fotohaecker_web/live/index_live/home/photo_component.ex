@@ -18,7 +18,7 @@ defmodule FotohaeckerWeb.IndexLive.Home.PhotoComponent do
                             |> Enum.with_index(&("#{&1} #{&2 + 1}x"))
                             |> Enum.join(", ") do %>
       <%!-- #TODO href should be set --%>
-      <div
+      <li
         class="block"
         phx-click="navigate_to"
         phx-keydown="navigate_to"
@@ -38,7 +38,7 @@ defmodule FotohaeckerWeb.IndexLive.Home.PhotoComponent do
           alt={gettext("photo %{title} on Fotohäcker", %{title: title})}
           loading="lazy"
         />
-      </div>
+      </li>
     <% end %>
     """
   end

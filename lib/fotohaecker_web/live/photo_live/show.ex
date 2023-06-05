@@ -94,6 +94,7 @@ defmodule FotohaeckerWeb.PhotoLive.Show do
     ~H"""
     <%!-- #TODO: href should be set --%>
     <.link
+      data-testid="back-button"
       phx-click="goto"
       phx-keydown="goto"
       phx-key="Enter"
@@ -229,6 +230,7 @@ defmodule FotohaeckerWeb.PhotoLive.Show do
   defp edit_button(assigns) do
     ~H"""
     <button
+      data-testid={"edit-button-#{@field}"}
       type="button"
       class="group btn btn--dark p-1 border-none"
       phx-click="activate_edit_mode"
