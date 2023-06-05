@@ -22,8 +22,6 @@ jobs:
         with:
           version-file: .tool-versions
           version-type: strict
-      - name: Run setup
-        run: MIX_ENV=e2e mix setup
       - name: Cache Elixir deps
         uses: actions/cache@v3
         with:
@@ -31,8 +29,8 @@ jobs:
           key: elixir-deps-${{ runner.os }}-${{ hashFiles('mix.lock') }}-${{ hashFiles('.tool-versions') }}
           restore-keys: |
             elixir-deps-${{ runner.os }}
-      - name: Run e2e setup
-        run: mix e2e.setup
+      - name: Run setup
+        run: MIX_ENV=e2e mix setup
       - name: Cache E2E deps
         uses: actions/cache@v3
         with:
@@ -40,6 +38,8 @@ jobs:
           key: e2e-deps-${{ runner.os }}-${{ hashFiles('test/e2e/package.json') }}-${{ hashFiles('test/e2e/pnpm-lock.yaml') }}
           restore-keys: |
             e2e-deps-${{ runner.os }}
+      - name: Run e2e setup
+        run: mix e2e.setup
       - name: Run Playwright tests
         working-directory: test/e2e
         run: pnpm test
