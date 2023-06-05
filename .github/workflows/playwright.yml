@@ -27,7 +27,8 @@ jobs:
       - name: Run e2e setup
         run: mix e2e.setup
       - name: Run Playwright tests
-        run: pnpm --prefix test/e2e test
+        working-directory: test/e2e
+        run: pnpm test
         env:
           AUTH0_DOMAIN: ${{ secrets.AUTH0_DOMAIN }}
           AUTH0_CLIENT_ID: ${{ secrets.AUTH0_CLIENT_ID }}
