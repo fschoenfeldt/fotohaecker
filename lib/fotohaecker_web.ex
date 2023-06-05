@@ -57,10 +57,12 @@ defmodule FotohaeckerWeb do
             socket
           ) do
         Gettext.put_locale(FotohaeckerWeb.Gettext, to)
-        from = Gettext.get_locale(FotohaeckerWeb.Gettext)
-        route = String.replace(socket.assigns.current_uri.path, from, to)
 
-        {:noreply, redirect(socket, to: route)}
+        # TODO this didn't work when the current locale wasn't in the URI
+        # from = Gettext.get_locale(FotohaeckerWeb.Gettext)
+        # route = String.replace(socket.assigns.current_uri.path, from, to)
+        # {:noreply, redirect(socket, to: route)}
+        {:noreply, redirect(socket, to: FotohaeckerWeb.LiveHelpers.home_route())}
       end
 
       on_mount(FotohaeckerWeb.OnMount.CurrentURI)
