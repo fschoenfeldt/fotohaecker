@@ -10,10 +10,7 @@ defmodule Fotohaecker.MixProject do
       start_permanent: Mix.env() == :prod,
       aliases: aliases(),
       deps: deps(),
-      dialyzer: [plt_add_apps: [:mix]],
-      preferred_cli_env: [
-        e2e: :e2e
-      ]
+      dialyzer: [plt_add_apps: [:mix]]
     ]
   end
 
@@ -102,13 +99,6 @@ defmodule Fotohaecker.MixProject do
       "e2e.setup": [
         "cmd --cd test/e2e pnpm i",
         "cmd --cd test/e2e pnpm exec playwright install --with-deps"
-      ],
-      e2e: [
-        "ecto.drop --quiet",
-        "ecto.create --quiet",
-        "ecto.migrate --quiet",
-        "run priv/repo/seeds.exs",
-        "cmd --cd test/e2e pnpm test -- --trace on"
       ]
     ]
   end

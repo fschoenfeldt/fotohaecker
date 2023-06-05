@@ -1,4 +1,4 @@
-import { FullConfig, defineConfig, devices } from '@playwright/test';
+import { FullConfig, defineConfig, devices } from "@playwright/test";
 
 const PORT = 1338;
 
@@ -13,7 +13,7 @@ const PORT = 1338;
  */
 export default defineConfig({
   timeout: 10 * 1000,
-  testDir: './tests',
+  testDir: "./tests",
   /* Run tests in files in parallel */
   fullyParallel: true,
   /* Fail the build on CI if you accidentally left test.only in the source code. */
@@ -23,41 +23,66 @@ export default defineConfig({
   /* Opt out of parallel tests on CI. */
   workers: process.env.CI ? 1 : undefined,
   /* Reporter to use. See https://playwright.dev/docs/test-reporters */
-  reporter: 'html',
+  reporter: "html",
   /* Shared settings for all the projects below. See https://playwright.dev/docs/api/class-testoptions. */
   use: {
     /* Base URL to use in actions like `await page.goto('/')`. */
     baseURL: `http://localhost:${PORT}/fh`,
 
     /* Collect trace when retrying the failed test. See https://playwright.dev/docs/trace-viewer */
-    trace: 'on-first-retry',
+    trace: "on-first-retry",
   },
 
   /* Configure projects for major browsers */
   projects: [
+    // source: https://playwright.dev/docs/auth
+    // Setup project
+    { name: "setup", testMatch: /.*\.setup\.ts/ },
     {
-      name: 'chromium',
-      use: { ...devices['Desktop Chrome'] },
+      name: "chromium",
+      use: {
+        ...devices["Desktop Chrome"],
+        // Use prepared auth state.
+        storageState: "playwright/.auth/user.json",
+      },
+      dependencies: ["setup"],
     },
 
     {
-      name: 'firefox',
-      use: { ...devices['Desktop Firefox'] },
+      name: "firefox",
+      use: {
+        ...devices["Desktop Firefox"],
+        // Use prepared auth state.
+        storageState: "playwright/.auth/user.json",
+      },
+      dependencies: ["setup"],
     },
 
     {
-      name: 'webkit',
-      use: { ...devices['Desktop Safari'] },
+      name: "webkit",
+      use: {
+        ...devices["Desktop Safari"],
+        storageState: "playwright/.auth/user.json",
+      },
+      dependencies: ["setup"],
     },
 
     /* Test against mobile viewports. */
     {
-      name: 'Mobile Chrome',
-      use: { ...devices['Pixel 6'] },
+      name: "Mobile Chrome",
+      use: {
+        ...devices["Pixel 6"],
+        storageState: "playwright/.auth/user.json",
+      },
+      dependencies: ["setup"],
     },
     {
-      name: 'Mobile Safari',
-      use: { ...devices['iPhone 12'] },
+      name: "Mobile Safari",
+      use: {
+        ...devices["iPhone 12"],
+        storageState: "playwright/.auth/user.json",
+      },
+      dependencies: ["setup"],
     },
 
     /* Test against branded browsers. */
@@ -78,5 +103,5 @@ export default defineConfig({
     reuseExistingServer: !process.env.CI,
     timeout: 10 * 1000,
   },
-  globalTeardown: require.resolve('./teardown.ts'),
+  globalTeardown: require.resolve("./globalTeardown.ts"),
 });

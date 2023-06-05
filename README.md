@@ -45,8 +45,14 @@ mix check
 ### E2E Tests
 
 ```shell
+# install deps
 mix e2e.setup
-mix e2e
+# run tests
+pnpm --prefix test/e2e test
+# .. with traces
+pnpm --prefix test/e2e test -- --trace on
+# .. with traces and headed
+pnpm --prefix test/e2e test -- --trace on --headed
 ```
 
 ## Deployment

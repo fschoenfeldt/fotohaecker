@@ -119,7 +119,7 @@ defmodule FotohaeckerWeb.PhotoLive.Show do
   defp title(%{editing: _} = assigns) do
     ~H"""
     <div class="flex items-end gap-x-1">
-      <h1 class="">
+      <h1 data-testid="title" class="">
         <%= @photo.title %>
       </h1>
       <.edit_button field="title" />
@@ -145,7 +145,7 @@ defmodule FotohaeckerWeb.PhotoLive.Show do
           <p class="text-gray-800">
             <%= gettext("tags") %>
           </p>
-          <ul class="flex flex-wrap gap-2">
+          <ul data-testid="tags" class="flex flex-wrap gap-2">
             <%= for tag <- @photo.tags do %>
               <li class="text-sm text-gray-800 bg-gray-50 border px-2 rounded">
                 <%= tag %>
