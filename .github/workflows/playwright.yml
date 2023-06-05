@@ -42,7 +42,10 @@ jobs:
             e2e-deps-${{ runner.os }}-${{ hashFiles('test/e2e/package.json') }}-
             e2e-deps-${{ runner.os }}
       - name: Run e2e setup
-        run: mix e2e.setup
+        run: |
+          cd test/e2e
+          pnpm install
+          pnpm exec playwright install --with-deps
       - name: Run Playwright tests
         working-directory: test/e2e
         run: pnpm test
