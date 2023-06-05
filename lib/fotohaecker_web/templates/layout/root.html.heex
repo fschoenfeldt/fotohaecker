@@ -33,6 +33,7 @@
           <ul class="flex items-center justify-center gap-4">
             <li x-data="{expanded: false}">
               <button
+                data-testid="change-locale-button"
                 class="btn btn--light flex items-center gap-2"
                 type="button"
                 @click="expanded = !expanded"
@@ -43,6 +44,7 @@
                 </span>
               </button>
               <ul
+                data-testid="change-locale-menu"
                 x-cloak
                 x-show="expanded"
                 @click.away="expanded = false"

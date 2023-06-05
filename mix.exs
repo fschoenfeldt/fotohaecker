@@ -108,7 +108,7 @@ defmodule Fotohaecker.MixProject do
         "ecto.create --quiet",
         "ecto.migrate --quiet",
         "run priv/repo/seeds.exs",
-        "cmd --cd test/e2e pnpm test"
+        "cmd --cd test/e2e pnpm test -- --trace on"
       ]
     ]
   end

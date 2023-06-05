@@ -1,4 +1,4 @@
-import { defineConfig, devices } from '@playwright/test';
+import { FullConfig, defineConfig, devices } from '@playwright/test';
 
 const PORT = 1338;
 
@@ -12,6 +12,7 @@ const PORT = 1338;
  * See https://playwright.dev/docs/test-configuration.
  */
 export default defineConfig({
+  timeout: 10 * 1000,
   testDir: './tests',
   /* Run tests in files in parallel */
   fullyParallel: true,
@@ -50,14 +51,14 @@ export default defineConfig({
     },
 
     /* Test against mobile viewports. */
-    // {
-    //   name: 'Mobile Chrome',
-    //   use: { ...devices['Pixel 5'] },
-    // },
-    // {
-    //   name: 'Mobile Safari',
-    //   use: { ...devices['iPhone 12'] },
-    // },
+    {
+      name: 'Mobile Chrome',
+      use: { ...devices['Pixel 6'] },
+    },
+    {
+      name: 'Mobile Safari',
+      use: { ...devices['iPhone 12'] },
+    },
 
     /* Test against branded browsers. */
     // {
@@ -77,4 +78,5 @@ export default defineConfig({
     reuseExistingServer: !process.env.CI,
     timeout: 10 * 1000,
   },
+  globalTeardown: require.resolve('./teardown.ts'),
 });

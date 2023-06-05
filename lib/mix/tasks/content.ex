@@ -8,8 +8,8 @@ defmodule Mix.Tasks.Content do
 
   ## Actions
 
-      mix content delete <photo_id>
-      mix content list
+      mix content delete <photo_id | orphaned>
+      mix content list [orphaned]
   """
 
   use Mix.Task
@@ -23,6 +23,16 @@ defmodule Mix.Tasks.Content do
     handle!(args)
   end
 
+  defp handle!(["delete", "orphaned", "-y"] = _args) do
+    orphaned = list_orphaned()
+
+    orphaned
+    |> Enum.each(fn file_name ->
+      IO.puts("deleting file: #{inspect(file_name)}")
+      File.rm!(Path.join(photo_dir(), file_name))
+    end)
+  end
+
   defp handle!(["delete", "orphaned"] = _args) do
     orphaned = list_orphaned()
 
@@ -31,11 +41,7 @@ defmodule Mix.Tasks.Content do
 
        (Y/n)
        """) do
-      orphaned
-      |> Enum.each(fn file_name ->
-        IO.puts("deleting file: #{inspect(file_name)}")
-        File.rm!(Path.join(photo_dir(), file_name))
-      end)
+      handle!(["delete", "orphaned", "-y"])
     else
       IO.puts("aborting")
     end
