@@ -27,7 +27,7 @@ jobs:
       - name: Run e2e setup
         run: mix e2e.setup
       - name: Run Playwright tests
-        run: mix e2e
+        run: pnpm --prefix test/e2e test -- --trace on
       - uses: actions/upload-artifact@v3
         if: always()
         with:
