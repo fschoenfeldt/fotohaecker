@@ -28,6 +28,7 @@ jobs:
           path: deps
           key: elixir-deps-${{ runner.os }}-${{ hashFiles('mix.lock') }}-${{ hashFiles('.tool-versions') }}
           restore-keys: |
+            elixir-deps-${{ runner.os }}-${{ hashFiles('mix.lock') }}-
             elixir-deps-${{ runner.os }}
       - name: Run setup
         run: MIX_ENV=e2e mix setup
@@ -37,6 +38,8 @@ jobs:
           path: test/e2e/node_modules
           key: e2e-deps-${{ runner.os }}-${{ hashFiles('test/e2e/package.json') }}-${{ hashFiles('test/e2e/pnpm-lock.yaml') }}
           restore-keys: |
+            e2e-deps-${{ runner.os }}-${{ hashFiles('test/e2e/package.json') }}-${{ hashFiles('test/e2e/pnpm-lock.yaml') }}
+            e2e-deps-${{ runner.os }}-${{ hashFiles('test/e2e/package.json') }}-
             e2e-deps-${{ runner.os }}
       - name: Run e2e setup
         run: mix e2e.setup
