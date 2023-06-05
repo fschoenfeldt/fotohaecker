@@ -2,7 +2,7 @@ import { FullConfig } from "@playwright/test";
 import { spawn } from "child_process";
 
 async function globalTeardown(config: FullConfig) {
-  if process.env.CI {
+  if (process.env.CI) {
     return;
   }
   const orphaned = await deleteOrphanedPhotoFiles(config);
