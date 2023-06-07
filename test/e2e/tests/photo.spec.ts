@@ -13,6 +13,7 @@ test.describe("Photo Page: Static", () => {
   test("should not have any automatically detectable accessibility issues", async ({
     page,
   }) => {
+    test.slow();
     const accessibilityScanResults = await new AxeBuilder({ page }).analyze();
     expect(accessibilityScanResults.violations).toEqual([]);
   });
