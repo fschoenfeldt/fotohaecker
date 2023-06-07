@@ -41,3 +41,8 @@ export const changeLanguage = async (
   const languageButton = langMenu.getByText(targetLanguage);
   await languageButton.click();
 };
+
+export const userFixture = {
+  email: "test@fschoenfeldt.de",
+  password: "Sonne123",
+};

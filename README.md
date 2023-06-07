@@ -59,7 +59,15 @@ pnpm --prefix test/e2e test -- --trace on --headed
 
 #### If you want to use the VSCode Extension
 
-Add the `AUTH0_*` variables to your user settings as as per example in `.vscode/settings.json`
+Add the `AUTH0_*` variables to your vscode user settings:
+
+```json
+  "playwright.env": {
+    "AUTH0_DOMAIN": "",
+    "AUTH0_CLIENT_ID": "",
+    "AUTH0_CLIENT_SECRET": ""
+  }
+```
 
 ## Deployment
 

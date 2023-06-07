@@ -1,12 +1,14 @@
 import { test as setup, expect } from "@playwright/test";
+import { userFixture } from "./helpers";
 
 const authFile = "playwright/.auth/user.json";
 
 setup("authenticate", async ({ page }) => {
+  const { email, password } = userFixture;
   await page.goto("/fh");
   await page.locator("a", { hasText: "login" }).click();
-  await page.locator("#username").fill("test@fschoenfeldt.de");
-  await page.locator("#password").fill("Sonne123");
+  await page.locator("#username").fill(email);
+  await page.locator("#password").fill(password);
   await page.locator("#password").press("Enter");
 
   // in case of a new test user, authorize the application
