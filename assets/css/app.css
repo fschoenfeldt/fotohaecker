@@ -243,12 +243,12 @@
       }
     }
     &--green {
-      @apply border-green-700 bg-green-600 text-white shadow-sm;
+      @apply border-green-800 bg-green-700 text-white shadow-sm;
       &:hover {
-        @apply bg-green-800;
+        @apply bg-green-900;
       }
       &:focus {
-        @apply ring-2 ring-green-500 ring-offset-2;
+        @apply ring-2 ring-blue-500 ring-offset-2;
       }
     }
     &--blue {
@@ -270,12 +270,12 @@
       }
     }
     &--red {
-      @apply border-red-600 bg-red-500 text-white shadow-sm;
+      @apply border-red-700 bg-red-600 text-white shadow-sm;
       &:hover {
-        @apply bg-red-600;
+        @apply bg-red-700;
       }
       &:focus {
-        @apply ring-2 ring-red-500 ring-offset-2;
+        @apply ring-2 ring-blue-500 ring-offset-2;
       }
     }
   }

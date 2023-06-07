@@ -12,6 +12,7 @@ This project uses [asdf](https://asdf-vm.com/#/) to manage development dependenc
 - [Erlang OTP](https://github.com/asdf-vm/asdf-erlang#install)
 - [NodeJS](https://github.com/asdf-vm/asdf-nodejs#install)
 - [Direnv](https://github.com/asdf-community/asdf-direnv#setup)
+- [pnpm](https://github.com/jonathanmorley/asdf-pnpm#installing)
 
 ### Install development dependencies
 
@@ -39,6 +40,33 @@ Now you can visit [`localhost:1337/fh`](http://localhost:1337/fh) from your brow
 
 ```shell
 mix check
+```
+
+### E2E Tests
+
+#### Setup
+
+```shell
+# install deps
+mix e2e.setup
+# run tests
+pnpm --prefix test/e2e test
+# .. with traces
+pnpm --prefix test/e2e test -- --trace on
+# .. with traces and headed
+pnpm --prefix test/e2e test -- --trace on --headed
+```
+
+#### If you want to use the VSCode Extension
+
+Add the `AUTH0_*` variables to your vscode user settings:
+
+```json
+  "playwright.env": {
+    "AUTH0_DOMAIN": "",
+    "AUTH0_CLIENT_ID": "",
+    "AUTH0_CLIENT_SECRET": ""
+  }
 ```
 
 ## Deployment

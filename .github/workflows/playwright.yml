@@ -1,0 +1,64 @@
+name: Playwright Tests
+on:
+  push:
+    branches: [main, master]
+  pull_request:
+    branches: [main, master]
+jobs:
+  test:
+    timeout-minutes: 60
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - uses: actions/setup-node@v3
+        with:
+          node-version: 16
+      - name: Setup pnpm
+        uses: pnpm/action-setup@v2
+        with:
+          version: 8
+      - name: Setup Elixir
+        uses: erlef/setup-beam@v1
+        with:
+          version-file: .tool-versions
+          version-type: strict
+      - name: Cache Elixir Deps/Build
+        uses: actions/cache@v3
+        with:
+          path: |
+            deps
+            _build
+            assets/node_modules
+          key: elixir-deps-${{ runner.os }}-${{ hashFiles('mix.lock') }}-${{ hashFiles('.tool-versions') }}-${{ hashFiles('assets/pnpm-lock.yaml') }}-${{ hashFiles('lib/**/*.ex', 'lib/**/*.*ex', 'config/*.exs', 'mix.exs') }}
+          restore-keys: |
+            elixir-deps-${{ runner.os }}-${{ hashFiles('mix.lock') }}-
+            elixir-deps-${{ runner.os }}
+      - name: Run setup
+        run: MIX_ENV=e2e mix setup
+      - name: Cache E2E deps
+        uses: actions/cache@v3
+        with:
+          path: test/e2e/node_modules
+          key: e2e-deps-${{ runner.os }}-${{ hashFiles('test/e2e/package.json') }}-${{ hashFiles('test/e2e/pnpm-lock.yaml') }}
+          restore-keys: |
+            e2e-deps-${{ runner.os }}-${{ hashFiles('test/e2e/package.json') }}-${{ hashFiles('test/e2e/pnpm-lock.yaml') }}
+            e2e-deps-${{ runner.os }}-${{ hashFiles('test/e2e/package.json') }}-
+            e2e-deps-${{ runner.os }}
+      - name: Run e2e setup
+        run: |
+          cd test/e2e
+          pnpm install
+          pnpm exec playwright install --with-deps
+      - name: Run Playwright tests
+        working-directory: test/e2e
+        run: pnpm test
+        env:
+          AUTH0_DOMAIN: ${{ secrets.AUTH0_DOMAIN }}
+          AUTH0_CLIENT_ID: ${{ secrets.AUTH0_CLIENT_ID }}
+          AUTH0_CLIENT_SECRET: ${{ secrets.AUTH0_CLIENT_SECRET }}
+      - uses: actions/upload-artifact@v3
+        if: always()
+        with:
+          name: playwright-report
+          path: test/e2e/playwright-report/
+          retention-days: 30

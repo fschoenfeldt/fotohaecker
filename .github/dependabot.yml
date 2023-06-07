@@ -19,3 +19,10 @@ updates:
       interval: "weekly"
     # limit 3 prs
     open-pull-requests-limit: 3
+  # nodejs / npm
+  - package-ecosystem: "npm" # See documentation for possible values
+    directory: "/test/e2e" # Location of package manifests
+    schedule:
+      interval: "weekly"
+    # limit 3 prs
+    open-pull-requests-limit: 3
