@@ -2,6 +2,7 @@ import { test, expect } from "@playwright/test";
 import { changeLanguage, uploadPhoto } from "./helpers";
 import AxeBuilder from "@axe-core/playwright";
 
+// TODO: remove serial
 test.describe.serial("Photo Page: Static", () => {
   test.beforeEach(async ({ page }) => {
     await page.goto("/fh");
