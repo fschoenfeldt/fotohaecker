@@ -1,9 +1,17 @@
 import { test, expect } from "@playwright/test";
-import { changeLanguage, uploadPhoto, userFixture } from "./helpers";
+import { userFixture } from "./helpers";
+import AxeBuilder from "@axe-core/playwright";
 
-test.describe("Home page", () => {
+test.describe("User Settings page", () => {
   test.beforeEach(async ({ page }) => {
     await page.goto("/fh");
+  });
+
+  test("should not have any automatically detectable accessibility issues", async ({
+    page,
+  }) => {
+    const accessibilityScanResults = await new AxeBuilder({ page }).analyze();
+    expect(accessibilityScanResults.violations).toEqual([]);
   });
 
   test("can visit account settings page", async ({ page }) => {

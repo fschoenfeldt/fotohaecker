@@ -1,5 +1,6 @@
 import { test, expect } from "@playwright/test";
 import { changeLanguage, uploadPhoto } from "./helpers";
+import AxeBuilder from "@axe-core/playwright";
 
 test.describe("Photo Page: Static", () => {
   test.beforeEach(async ({ page }) => {
@@ -7,6 +8,13 @@ test.describe("Photo Page: Static", () => {
     const photo = page.locator("ul#photos > li:first-child");
     await photo.click();
     await expect(page).toHaveURL(/.*\/photos\/\d+/);
+  });
+
+  test("should not have any automatically detectable accessibility issues", async ({
+    page,
+  }) => {
+    const accessibilityScanResults = await new AxeBuilder({ page }).analyze();
+    expect(accessibilityScanResults.violations).toEqual([]);
   });
 
   test("can download photo", async ({ page, context }) => {
