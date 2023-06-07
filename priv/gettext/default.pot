@@ -97,7 +97,7 @@ msgstr ""
 msgid "title"
 msgstr ""
 
-#: lib/fotohaecker_web/templates/layout/root.html.heex:43
+#: lib/fotohaecker_web/templates/layout/root.html.heex:40
 #, elixir-autogen, elixir-format
 msgid "change language"
 msgstr ""
@@ -127,7 +127,7 @@ msgstr ""
 msgid "Something went wrong uploading your photo. Please try again."
 msgstr ""
 
-#: lib/fotohaecker_web/templates/layout/root.html.heex:103
+#: lib/fotohaecker_web/templates/layout/root.html.heex:100
 #, elixir-autogen, elixir-format
 msgid "login"
 msgstr ""
@@ -178,7 +178,7 @@ msgstr ""
 msgid "uploaded on %{date}"
 msgstr ""
 
-#: lib/fotohaecker_web/templates/layout/root.html.heex:88
+#: lib/fotohaecker_web/templates/layout/root.html.heex:85
 #, elixir-autogen, elixir-format
 msgid "your account"
 msgstr ""
