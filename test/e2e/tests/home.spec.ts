@@ -1,6 +1,5 @@
 import { test, expect } from "@playwright/test";
-import { changeLanguage } from "../features/languageMenu";
-import { uploadPhoto } from "./helpers";
+import { changeLanguage, uploadPhoto } from "./helpers";
 
 test.describe("Home page", () => {
   test.beforeEach(async ({ page }) => {

@@ -44,6 +44,8 @@ mix check
 
 ### E2E Tests
 
+#### Setup
+
 ```shell
 # install deps
 mix e2e.setup
@@ -54,6 +56,10 @@ pnpm --prefix test/e2e test -- --trace on
 # .. with traces and headed
 pnpm --prefix test/e2e test -- --trace on --headed
 ```
+
+#### If you want to use the VSCode Extension
+
+Add the `AUTH0_*` variables to your user settings as as per example in `.vscode/settings.json`
 
 ## Deployment
 

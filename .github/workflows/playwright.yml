@@ -22,15 +22,14 @@ jobs:
         with:
           version-file: .tool-versions
           version-type: strict
-      - name: Cache Elixir deps
+      - name: Cache Elixir Deps/Build
         uses: actions/cache@v3
         with:
-          id: elixir-deps
           path: |
             deps
             _build
             assets/node_modules
-          key: elixir-deps-${{ runner.os }}-${{ hashFiles('mix.lock') }}-${{ hashFiles('.tool-versions') }}-${{ hashFiles('lib/**/*.ex', 'lib/**/*.*ex', 'config/*.exs', 'mix.exs') }}
+          key: elixir-deps-${{ runner.os }}-${{ hashFiles('mix.lock') }}-${{ hashFiles('.tool-versions') }}-${{ hashFiles('assets/pnpm-lock.yaml') }}-${{ hashFiles('lib/**/*.ex', 'lib/**/*.*ex', 'config/*.exs', 'mix.exs') }}
           restore-keys: |
             elixir-deps-${{ runner.os }}-${{ hashFiles('mix.lock') }}-
             elixir-deps-${{ runner.os }}
@@ -39,7 +38,6 @@ jobs:
       - name: Cache E2E deps
         uses: actions/cache@v3
         with:
-          id: e2e-deps
           path: test/e2e/node_modules
           key: e2e-deps-${{ runner.os }}-${{ hashFiles('test/e2e/package.json') }}-${{ hashFiles('test/e2e/pnpm-lock.yaml') }}
           restore-keys: |

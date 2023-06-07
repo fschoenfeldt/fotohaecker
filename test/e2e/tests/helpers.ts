@@ -25,3 +25,19 @@ export const uploadPhoto = async (page: Page) => {
   await expect(uploadForm).toContainText(photo.title);
   await page.locator("button[type=submit]", { hasText: "submit" }).click();
 };
+
+/**
+ * Changes the language of the page
+ * @param page {Page}
+ * @param targetLanguage {string | RegExp}
+ */
+export const changeLanguage = async (
+  page: Page,
+  targetLanguage: string | RegExp = "german"
+) => {
+  const langButton = page.getByTestId("change-locale-button");
+  await langButton.click();
+  const langMenu = page.getByTestId("change-locale-menu");
+  const languageButton = langMenu.getByText(targetLanguage);
+  await languageButton.click();
+};

@@ -45,4 +45,3 @@ _uberspace/*.ini*
 
 # auth0
 auth0/config.json
-.vscode/settings.json
