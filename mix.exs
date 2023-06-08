@@ -61,7 +61,7 @@ defmodule Fotohaecker.MixProject do
       {:excellent_migrations, "~> 0.1", only: [:dev, :test], runtime: false},
       {:mix_test_watch, "~> 1.0", only: [:dev, :test], runtime: false},
       {:nodejs, "~> 2.0"},
-      {:httpoison, "~> 1.8"},
+      {:httpoison, "~> 2.1"},
       {:ueberauth, "~> 0.7"},
       {:ueberauth_auth0, "~> 2.0"},
       {:heroicons, "~> 0.5.0"}
