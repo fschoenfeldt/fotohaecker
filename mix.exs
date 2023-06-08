@@ -64,7 +64,8 @@ defmodule Fotohaecker.MixProject do
       {:httpoison, "~> 2.1"},
       {:ueberauth, "~> 0.7"},
       {:ueberauth_auth0, "~> 2.0"},
-      {:heroicons, "~> 0.5.0"}
+      {:heroicons, "~> 0.5.0"},
+      {:mox, "~> 1.0", only: :test}
     ]
   end
 
