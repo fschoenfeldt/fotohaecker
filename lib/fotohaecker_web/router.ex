@@ -29,7 +29,6 @@ defmodule FotohaeckerWeb.Router do
     live "/", IndexLive.Home, :home
     live "/:locale", IndexLive.Home, :home
     live "/:locale/photos/:id", PhotoLive.Show, :show
-    # live "/search", SearchLive.Search, :index
 
     scope "/auth" do
       get "/login", AuthController, :login
