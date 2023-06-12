@@ -65,7 +65,7 @@ defmodule FotohaeckerWeb do
         {:noreply, redirect(socket, to: FotohaeckerWeb.LiveHelpers.home_route())}
       end
 
-      on_mount(FotohaeckerWeb.OnMount.CurrentURI)
+      # on_mount(FotohaeckerWeb.OnMount.CurrentURI)
       on_mount(FotohaeckerWeb.OnMount.CurrentUser)
       on_mount(FotohaeckerWeb.OnMount.RestoreLocale)
 

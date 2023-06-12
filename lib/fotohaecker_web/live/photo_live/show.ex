@@ -52,7 +52,11 @@ defmodule FotohaeckerWeb.PhotoLive.Show do
           <div class="col-span-4 m-4 md:pt-4 space-y-4">
             <.back_button />
             <.title photo={@photo} editing={@editing} />
-            <p class="text-sm text-gray-800" x-data x-text={alpine_format_date(@photo.inserted_at)}>
+            <p
+              class="text-sm text-gray-800 dark:text-gray-100"
+              x-data
+              x-text={alpine_format_date(@photo.inserted_at)}
+            >
               <%= gettext("uploaded on %{date}", %{date: @photo.inserted_at}) %>
             </p>
             <.tags photo={@photo} editing={@editing} />
@@ -99,9 +103,9 @@ defmodule FotohaeckerWeb.PhotoLive.Show do
       phx-keydown="goto"
       phx-key="Enter"
       phx-value-target="index"
-      class="w-max px-2 -mx-2 flex gap-1 items-center text-black fill-black"
+      class="w-max px-2 -mx-2 flex gap-1 items-center text-gray-800 dark:text-gray-100 fill-black"
     >
-      <Heroicons.arrow_left mini class="w-4 h-4" />
+      <Heroicons.arrow_left mini class="w-4 h-4 fill-gray-800 dark:fill-gray-100" />
       <%= gettext("back") %>
     </.link>
     """
@@ -119,7 +123,7 @@ defmodule FotohaeckerWeb.PhotoLive.Show do
   defp title(%{editing: _} = assigns) do
     ~H"""
     <div class="flex items-end gap-x-1">
-      <h1 data-testid="title" class="">
+      <h1 data-testid="title" class="text-gray-800 dark:text-gray-100">
         <%= @photo.title %>
       </h1>
       <.edit_button field="title" />
@@ -137,17 +141,17 @@ defmodule FotohaeckerWeb.PhotoLive.Show do
     ~H"""
     <div class="flex items-end gap-x-1">
       <%= if length(@photo.tags) == 0 do %>
-        <p class="text-sm text-gray-800">
+        <p class="text-sm text-gray-800 dark:text-gray-100">
           <%= gettext("no tags") %>
         </p>
       <% else %>
         <div>
-          <p class="text-gray-800">
+          <p class="text-gray-800 dark:text-gray-100">
             <%= gettext("tags") %>
           </p>
           <ul data-testid="tags" class="flex flex-wrap gap-2">
             <%= for tag <- @photo.tags do %>
-              <li class="text-sm text-gray-800 bg-gray-50 border px-2 rounded">
+              <li class="text-sm text-gray-800 dark:text-gray-100 bg-gray-100 dark:bg-gray-800 border dark:border-gray-600 px-2 rounded">
                 <%= tag %>
               </li>
             <% end %>
@@ -171,7 +175,7 @@ defmodule FotohaeckerWeb.PhotoLive.Show do
       phx-change="edit_change"
       phx-submit="edit_submit"
     >
-      <label class="block" for={"photo_#{@editing.field}"}>
+      <label class="block text-gray-800 dark:text-gray-100" for={"photo_#{@editing.field}"}>
         <%= gettext("enter new %{field}", %{field: @editing.field}) %>
       </label>
       <div class="flex flex-wrap items-center gap-2">
@@ -192,8 +196,12 @@ defmodule FotohaeckerWeb.PhotoLive.Show do
             class="group btn btn--dark p-1 px-2 border-none flex items-center gap-x-1"
             phx-disable-with={gettext("saving..")}
           >
-            <Heroicons.check mini class="w-4 h-4 fill-gray-800 group-hover:fill-white" alt="" />
-            <div class="text-gray-800 group-hover:text-white">
+            <Heroicons.check
+              mini
+              class="w-4 h-4 fill-gray-800 dark:!fill-gray-200 group-hover:fill-white dark:group-hover:fill-gray-500"
+              alt=""
+            />
+            <div class="text-gray-800 dark:text-gray-200 group-hover:text-white">
               <%= gettext("save") %>
             </div>
           </button>
@@ -204,8 +212,12 @@ defmodule FotohaeckerWeb.PhotoLive.Show do
             phx-click="edit_mode_keydown"
             phx-value-key="Escape"
           >
-            <Heroicons.no_symbol mini class="w-4 h-4 fill-gray-800 group-hover:fill-white" alt="" />
-            <div class="text-gray-800 group-hover:text-white">
+            <Heroicons.no_symbol
+              mini
+              class="w-4 h-4 fill-gray-800 dark:!fill-gray-200 group-hover:fill-white dark:group-hover:fill-gray-500"
+              alt=""
+            />
+            <div class="text-gray-800 dark:text-gray-200 group-hover:text-white">
               <%= gettext("cancel") %>
             </div>
           </button>
@@ -236,7 +248,7 @@ defmodule FotohaeckerWeb.PhotoLive.Show do
       phx-click="activate_edit_mode"
       phx-value-field={@field}
     >
-      <Heroicons.pencil_square mini class="w-4 h-4 group-hover:fill-white" />
+      <Heroicons.pencil_square mini class="w-4 h-4 dark:fill-gray-200 group-hover:fill-white" />
       <div class="sr-only">
         <%= gettext("edit field %{field}", %{field: @field}) %>
       </div>
