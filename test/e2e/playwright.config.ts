@@ -100,7 +100,7 @@ export default defineConfig({
   webServer: {
     command: `cd ../../ && MIX_ENV=e2e PORT=${PORT} mix phx.server`,
     url: `http://localhost:${PORT}/fh`,
-    reuseExistingServer: !process.env.CI,
+    reuseExistingServer: false,
     timeout: 10 * 1000,
   },
   globalTeardown: require.resolve("./globalTeardown.ts"),
