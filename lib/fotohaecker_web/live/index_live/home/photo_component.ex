@@ -27,6 +27,7 @@ defmodule FotohaeckerWeb.IndexLive.Home.PhotoComponent do
         phx-value-photo_id={id}
         tabindex="0"
         aria-describedby={"photo-#{id}-title"}
+        aria-role="link"
       >
         <span class="sr-only">
           <%= gettext("go to photo %{title} on Fotohäcker", %{title: title}) %>
