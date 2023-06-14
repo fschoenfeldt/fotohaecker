@@ -41,7 +41,7 @@ defmodule Fotohaecker.Content.Photo do
   def changeset(photo, attrs) do
     photo
     |> cast(attrs, [:title, :file_name, :tags, :extension])
-    |> validate_length(:title, min: 1, max: 16)
+    |> validate_length(:title, min: 1, max: 32)
     |> validate_required([:title, :file_name, :tags, :extension])
   end
 end

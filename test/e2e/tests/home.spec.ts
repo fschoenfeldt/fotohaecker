@@ -35,14 +35,6 @@ test.describe("Home page", () => {
   });
 });
 
-test("can use search", async ({ page }) => {
-  await page.goto("/fh");
-
-  const searchInput = page.locator("form#search_form input[type='search']");
-  await searchInput.fill("test");
-  await expect(false).toBeTruthy();
-});
-
 test("can upload photo", async ({ page }) => {
   await uploadPhoto(page);
 });

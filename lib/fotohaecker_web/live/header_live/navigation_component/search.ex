@@ -5,10 +5,21 @@ defmodule FotohaeckerWeb.HeaderLive.NavigationComponent.Search do
   def search(assigns) do
     ~H"""
     <div class="w-full relative">
-      <form
+      <.form
+        action={
+          Routes.search_path(
+            FotohaeckerWeb.Endpoint,
+            :search,
+            Gettext.get_locale(FotohaeckerWeb.Gettext)
+          )
+        }
+        for={%{}}
         id="search_form"
         method="POST"
-        class="flex w-full bg-gray-800 border border-gray-700 rounded text-white placeholder:text-gray-400"
+        class={[
+          "flex w-full bg-gray-800 border border-gray-700 rounded text-white placeholder:text-gray-400",
+          @search_query !== "" && "rounded-b-none"
+        ]}
         phx-change="search"
         phx-target={@myself}
       >
@@ -18,7 +29,7 @@ defmodule FotohaeckerWeb.HeaderLive.NavigationComponent.Search do
         <input
           class={[
             "w-full bg-transparent rounded text-white placeholder:text-gray-400 border-transparent",
-            @search_results && length(@search_results) && "rounded-b-none"
+            @search_query !== "" && "rounded-b-none"
           ]}
           type="text"
           value={@search_query}
@@ -27,6 +38,10 @@ defmodule FotohaeckerWeb.HeaderLive.NavigationComponent.Search do
           name="search_query"
           id="search_query"
         />
+        <button :if={@search_query !== ""} type="submit" class="border-none" phx-target={@myself}>
+          <Heroicons.arrow_right class="w-4 h-4 stroke-gray-200" alt="" />
+          <span class="sr-only"><%= gettext("submit") %></span>
+        </button>
         <button
           :if={@search_query !== ""}
           type="button"
@@ -37,27 +52,39 @@ defmodule FotohaeckerWeb.HeaderLive.NavigationComponent.Search do
           <Heroicons.x_mark class="w-4 h-4 stroke-gray-200" alt="" />
           <span class="sr-only"><%= gettext("clear search") %></span>
         </button>
-      </form>
-      <ul
-        class="bg-gray-800 border border-gray-700 border-t-transparent rounded-b absolute top-[calc(2.5rem+2px)] z-10 w-full flex flex-col divide-y divide-gray-700"
+      </.form>
+      <div
+        class={[
+          "bg-gray-800 border border-gray-700 border-t-transparent rounded-b absolute top-[calc(2.5rem+4px)] z-10 w-full hidden",
+          @search_results && "!block"
+        ]}
         aria-live="polite"
       >
         <%= if (@search_results) && (length(@search_results) > 0) do %>
-          <span class="sr-only"><%= gettext("search results") %></span>
-          <li
-            :for={photo <- @search_results}
-            class="p-2 text-gray-200"
-            tabindex="0"
-            aria-role="link"
-            phx-click="navigate_to"
-            phx-keydown="navigate_to"
-            phx-key="Enter"
-            phx-value-photo_id={photo.id}
-          >
-            <%= photo.title %>
-          </li>
+          <div class="text-gray-200 p-2">
+            <%= gettext("%{amount} results", %{amount: length(@search_results)}) %>
+          </div>
+          <ul class="flex flex-col divide-y divide-gray-700" data-testid="result_list">
+            <span class="sr-only"><%= gettext("search results") %></span>
+            <li
+              :for={photo <- @search_results}
+              class="p-2 text-gray-200"
+              tabindex="0"
+              phx-click="navigate_to"
+              phx-keydown="navigate_to"
+              phx-key="Enter"
+              phx-value-photo_id={photo.id}
+            >
+              <%= photo.title %>
+            </li>
+          </ul>
         <% end %>
-      </ul>
+        <%= if (@search_results) && (length(@search_results) === 0) do %>
+          <div class="text-gray-200 p-2">
+            <%= gettext("No results") %>
+          </div>
+        <% end %>
+      </div>
     </div>
     """
   end

@@ -4,15 +4,19 @@ import { Page, expect } from "@playwright/test";
  * Uploads a photo to the server, redirects to the photo page
  * @param page {Page}
  */
-export const uploadPhoto = async (page: Page) => {
+export const uploadPhoto = async (page: Page, photo: any = {}) => {
   await page.goto("/fh");
-  const photo = {
-    title: "Test Photo",
-    file: "./fixtures/photo_fixture.jpg",
-  };
+  photo = Object.assign(
+    {
+      title: "Test Photo",
+      file: "./fixtures/photo_fixture.jpg",
+      tags: [""],
+    },
+    photo
+  );
 
   const uploadForm = page.locator("form.upload_form");
-  await uploadForm.locator("#photo_title").type("Test Photo");
+  await uploadForm.locator("#photo_title").type(photo.title);
   await uploadForm.locator("input[type=file]").setInputFiles(photo.file);
   await uploadForm.locator("button[type=submit]").click();
 
@@ -23,6 +27,7 @@ export const uploadPhoto = async (page: Page) => {
     "Photo uploaded successfully."
   );
   await expect(uploadForm).toContainText(photo.title);
+  await page.fill("#photo_tags", photo.tags.join(", "));
   await page.locator("button[type=submit]", { hasText: "submit" }).click();
 };
 

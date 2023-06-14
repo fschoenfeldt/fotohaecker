@@ -2,7 +2,9 @@ defmodule FotohaeckerWeb.HeaderLive.NavigationComponent do
   @moduledoc false
   use FotohaeckerWeb, :live_component
 
-  import FotohaeckerWeb.HeaderLive.NavigationComponent.{AccountSettings, LanguageSelect, Search}
+  import __MODULE__.AccountSettings
+  import __MODULE__.LanguageSelect
+  import __MODULE__.Search
 
   def mount(socket) do
     {:ok,
@@ -68,7 +70,7 @@ defmodule FotohaeckerWeb.HeaderLive.NavigationComponent do
   end
 
   def handle_event("search", %{"search_query" => search_query} = _unsigned_params, socket) do
-    search_results = Fotohaecker.Content.search_photos(search_query) |> IO.inspect()
+    search_results = Fotohaecker.Content.search_photos(search_query)
 
     socket =
       socket
