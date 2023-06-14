@@ -6,9 +6,10 @@ import { Page, expect } from "@playwright/test";
  */
 export const uploadPhoto = async (page: Page, photo: any = {}) => {
   await page.goto("/fh");
+
   photo = Object.assign(
     {
-      title: "Test Photo",
+      title: `Test Photo ${Math.random().toString(36)}`,
       file: "./fixtures/photo_fixture.jpg",
       tags: [""],
     },
@@ -29,6 +30,7 @@ export const uploadPhoto = async (page: Page, photo: any = {}) => {
   await expect(uploadForm).toContainText(photo.title);
   await page.fill("#photo_tags", photo.tags.join(", "));
   await page.locator("button[type=submit]", { hasText: "submit" }).click();
+  return { photo };
 };
 
 /**

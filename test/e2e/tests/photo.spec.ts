@@ -2,8 +2,7 @@ import { test, expect } from "@playwright/test";
 import { changeLanguage, uploadPhoto } from "./helpers";
 import AxeBuilder from "@axe-core/playwright";
 
-// TODO: remove serial
-test.describe.serial("Photo Page: Static", () => {
+test.describe("Photo Page: Static", () => {
   test.beforeEach(async ({ page }) => {
     await page.goto("/fh");
     const photo = page.locator("ul#photos > li:first-child");
@@ -38,7 +37,8 @@ test.describe.serial("Photo Page: Static", () => {
   });
 });
 
-test.describe("Photo Page: CRUD", () => {
+// TODO: remove serial
+test.describe.serial("Photo Page: CRUD", () => {
   test.beforeEach(async ({ page }) => {
     await uploadPhoto(page);
   });
