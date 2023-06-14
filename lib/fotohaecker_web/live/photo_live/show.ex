@@ -316,4 +316,8 @@ defmodule FotohaeckerWeb.PhotoLive.Show do
      |> assign(:editing, nil)
      |> put_flash(:info, gettext("photo updated"))}
   end
+
+  # TODO: DRY: dirty
+  def handle_event("navigate_to", params, socket),
+    do: FotohaeckerWeb.IndexLive.Home.handle_event("navigate_to", params, socket)
 end

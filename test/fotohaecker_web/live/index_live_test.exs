@@ -27,12 +27,12 @@ defmodule FotohaeckerWeb.IndexLiveTest do
       |> element(".upload_form")
       |> render_change(%{
         photo: %{
-          title: "Way too long title for a photo"
+          title: "Way too long title for a photo. Veeeeery Long!11"
         }
       })
 
     expected =
-      "<span class=\"invalid-feedback\" phx-feedback-for=\"photo[title]\">should be at most 16 character(s)</span>"
+      "<span class=\"invalid-feedback\" phx-feedback-for=\"photo[title]\">should be at most 32 character(s)</span>"
 
     assert actual =~ expected
   end

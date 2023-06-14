@@ -173,6 +173,9 @@
   #photo {
     @apply dark:bg-gray-800;
   }
+  #search {
+    @apply p-4 lg:p-8;
+  }
   .decorative-gradient {
     background-image: -webkit-gradient(
       linear,

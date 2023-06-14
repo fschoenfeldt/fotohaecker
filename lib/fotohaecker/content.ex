@@ -38,6 +38,27 @@ defmodule Fotohaecker.Content do
   defp list_photos_query(limit, offset, :asc_inserted_at = _order),
     do: from(p in Photo, order_by: [asc: p.inserted_at], limit: ^limit, offset: ^offset)
 
+  @doc """
+  Returns a list of photos that has a matching title or tag.
+
+  ## Examples
+
+      iex> search_photos("tag1")
+      [%Fotohaecker.Content.Photo{}]
+
+      iex> search_photos("title1")
+      [%Fotohaecker.Content.Photo{}]
+  """
+  def search_photos(search_query) do
+    query =
+      from p in Photo,
+        where:
+          like(p.title, ^"%#{search_query}%") or
+            fragment("tags LIKE '%' || ? || '%'", ^search_query)
+
+    Repo.all(query)
+  end
+
   def photos_count do
     query = from(p in Photo, select: count(p.id))
     Repo.one(query)

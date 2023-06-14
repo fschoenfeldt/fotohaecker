@@ -285,7 +285,43 @@ msgstr "Feld %{field} bearbeiten"
 msgid "photo %{field}"
 msgstr "Foto %{field}"
 
-#: lib/fotohaecker_web/live/header_live/navigation_component/search.ex:10
+#: lib/fotohaecker_web/live/header_live/navigation_component/search.ex:65
+#: lib/fotohaecker_web/live/search_live/search.ex:26
 #, elixir-autogen, elixir-format
-msgid "Search"
-msgstr ""
+msgid "%{amount} results"
+msgstr "%{amount} Ergebnisse"
+
+#: lib/fotohaecker_web/live/header_live/navigation_component/search.ex:84
+#, elixir-autogen, elixir-format
+msgid "No results"
+msgstr "Keine Ergebnisse"
+
+#: lib/fotohaecker_web/live/search_live/search.ex:32
+#, elixir-autogen, elixir-format
+msgid "No results found"
+msgstr "Keine Ergebnisse gefunden"
+
+#: lib/fotohaecker_web/live/header_live/navigation_component/search.ex:27
+#, elixir-autogen, elixir-format
+msgid "Search by title or tag"
+msgstr "Suche nach Titel oder Schlagwort"
+
+#: lib/fotohaecker_web/live/header_live/navigation_component/search.ex:53
+#, elixir-autogen, elixir-format
+msgid "clear search"
+msgstr "Suche löschen"
+
+#: lib/fotohaecker_web/live/header_live/navigation_component/search.ex:68
+#, elixir-autogen, elixir-format
+msgid "search results"
+msgstr "Suchergebnisse"
+
+#: lib/fotohaecker_web/live/search_live/search.ex:13
+#, elixir-autogen, elixir-format
+msgid "search results for %{search_query}"
+msgstr "Suchergebnisse für %{search_query}"
+
+#: lib/fotohaecker_web/live/header_live/navigation_component/search.ex:43
+#, elixir-autogen, elixir-format
+msgid "submit"
+msgstr "Absenden"

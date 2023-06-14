@@ -2,12 +2,10 @@ defmodule Fotohaecker.ContentTest do
   use Fotohaecker.DataCase, async: true
 
   alias Fotohaecker.Content
+  alias Fotohaecker.Content.Photo
+  import Fotohaecker.ContentFixtures
 
   describe "photos" do
-    alias Fotohaecker.Content.Photo
-
-    import Fotohaecker.ContentFixtures
-
     @invalid_attrs %{file_name: nil, tags: nil, title: nil}
 
     test "list_photos/0 returns all photos" do
@@ -120,6 +118,71 @@ defmodule Fotohaecker.ContentTest do
       Enum.map(1..20, fn _i -> photo_fixture() end)
       actual = Content.photos_count()
       expected = 20
+
+      assert actual == expected
+    end
+  end
+
+  describe "search_photos/1" do
+    test "works with title" do
+      data = [
+        %{title: "Test1", tags: ["tag1", "tag2"]},
+        %{title: "Test2", tags: ["tag1", "tag2"]}
+      ]
+
+      [photo_1, _photo_2] = Enum.map(data, fn attrs -> photo_fixture(attrs) end)
+
+      actual = Content.search_photos("Test1")
+
+      expected = [
+        photo_1
+      ]
+
+      assert actual == expected
+    end
+
+    test "works with tags" do
+      data = [
+        %{title: "Test1", tags: ["tag1", "tag2"]},
+        %{title: "Test2", tags: ["tag1", "tag2"]}
+      ]
+
+      [photo_1, photo_2] = Enum.map(data, fn attrs -> photo_fixture(attrs) end)
+
+      actual = Content.search_photos("tag1")
+
+      expected = [
+        photo_1,
+        photo_2
+      ]
+
+      assert actual == expected
+    end
+
+    test "works with tags and title combined" do
+      data = [
+        %{title: "Test1", tags: ["tag1", "tag2"]},
+        %{title: "tag1", tags: ["tag1", "tag2"]}
+      ]
+
+      expected = Enum.map(data, fn attrs -> photo_fixture(attrs) end)
+
+      actual = Content.search_photos("tag1")
+
+      assert actual == expected
+    end
+
+    test "works with no results" do
+      data = [
+        %{title: "Test1", tags: ["tag1", "tag2"]},
+        %{title: "tag1", tags: ["tag1", "tag2"]}
+      ]
+
+      Enum.map(data, fn attrs -> photo_fixture(attrs) end)
+
+      actual = Content.search_photos("tag3")
+
+      expected = []
 
       assert actual == expected
     end
