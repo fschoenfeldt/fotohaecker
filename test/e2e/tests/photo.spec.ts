@@ -37,21 +37,22 @@ test.describe("Photo Page: Static", () => {
   });
 });
 
-// TODO: remove serial
-test.describe.serial("Photo Page: CRUD", () => {
-  test.beforeEach(async ({ page }) => {
-    await uploadPhoto(page);
+test.describe("Photo Page: CRUD", () => {
+  test.beforeEach(async ({ page, context }) => {
+    const { photo } = await uploadPhoto(page);
+    context.photo = photo;
   });
 
-  test("can edit photo title", async ({ page, browserName }) => {
+  test("can edit photo title", async ({ page, browserName, context }) => {
+    await expect(page.getByTestId("title")).toContainText(context.photo.title);
+    await expect(page.getByTestId("tags")).toContainText("no tags");
+
     await page.getByTestId("edit-button-title").click();
-    if (browserName === "webkit") {
-      await page.waitForTimeout(300);
-    }
+
+    await page.waitForTimeout(300);
     await page.locator("#photo_title").fill("New Title");
-    if (browserName === "webkit") {
-      await page.waitForTimeout(300);
-    }
+    await page.waitForTimeout(300);
+
     await page
       .locator('form[phx-submit="edit_submit"] button[type="submit"]')
       .click();
@@ -59,15 +60,16 @@ test.describe.serial("Photo Page: CRUD", () => {
     await expect(page.locator(".alert--info")).toContainText("photo updated");
   });
 
-  test("can edit photo tags", async ({ page, browserName }) => {
+  test("can edit photo tags", async ({ page, browserName, context }) => {
+    await expect(page.getByTestId("title")).toContainText(context.photo.title);
+    await expect(page.getByTestId("tags")).toContainText("no tags");
+
     await page.getByTestId("edit-button-tags").click();
-    if (browserName === "webkit") {
-      await page.waitForTimeout(300);
-    }
-    await page.locator("#photo_tags").fill("fancy, new, tags");
-    if (browserName === "webkit") {
-      await page.waitForTimeout(300);
-    }
+
+    await page.waitForTimeout(300);
+    await page.locator("input#photo_tags").fill("fancy, new, tags");
+    await page.waitForTimeout(300);
+
     await page
       .locator('form[phx-submit="edit_submit"] button[type="submit"]')
       .click();

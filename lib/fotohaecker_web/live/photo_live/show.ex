@@ -141,7 +141,7 @@ defmodule FotohaeckerWeb.PhotoLive.Show do
     ~H"""
     <div class="flex items-end gap-x-1">
       <%= if length(@photo.tags) == 0 do %>
-        <p class="text-sm text-gray-800 dark:text-gray-100">
+        <p data-testid="tags" class="text-sm text-gray-800 dark:text-gray-100">
           <%= gettext("no tags") %>
         </p>
       <% else %>
