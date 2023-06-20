@@ -62,20 +62,17 @@ defmodule FotohaeckerWeb.HeaderLive.NavigationComponent.Search do
       >
         <%= if (@search_results) && (length(@search_results) > 0) do %>
           <div class="text-gray-200 p-2">
-            <%= gettext("%{amount} results", %{amount: length(@search_results)}) %>
+            <%= ngettext("1 result", "%{count} results", length(@search_results)) %>
           </div>
           <ul class="flex flex-col divide-y divide-gray-700" data-testid="result_list">
             <span class="sr-only"><%= gettext("search results") %></span>
             <li
               :for={photo <- @search_results}
-              class="p-2 text-gray-200"
-              tabindex="0"
-              phx-click="navigate_to"
-              phx-keydown="navigate_to"
-              phx-key="Enter"
-              phx-value-photo_id={photo.id}
+              class="p-2 text-gray-200 underline hover:text-gray-100 hover:bg-gray-700 cursor-pointer group"
             >
-              <%= photo.title %>
+              <.link class="link link--light" href={photo_route(photo.id)}>
+                <%= photo.title %>
+              </.link>
             </li>
           </ul>
         <% end %>
