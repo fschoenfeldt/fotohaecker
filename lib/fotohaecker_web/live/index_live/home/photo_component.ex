@@ -17,27 +17,24 @@ defmodule FotohaeckerWeb.IndexLive.Home.PhotoComponent do
                srcset    <- thumbs
                             |> Enum.with_index(&("#{&1} #{&2 + 1}x"))
                             |> Enum.join(", ") do %>
-      <%!-- #TODO href should be set --%>
-      <li
-        class="block"
-        phx-click="navigate_to"
-        phx-keydown="navigate_to"
-        phx-key="Enter"
-        id={"photo-#{id}"}
-        phx-value-photo_id={id}
-        tabindex="0"
-        aria-describedby={"photo-#{id}-title"}
-      >
-        <span class="sr-only">
-          <%= gettext("go to photo %{title} on Fotohäcker", %{title: title}) %>
-        </span>
-        <img
-          class="w-full"
-          src={hd(thumbs)}
-          srcset={srcset}
-          alt={gettext("photo %{title} on Fotohäcker", %{title: title})}
-          loading="lazy"
-        />
+      <li class="block" id={"photo-#{id}"}>
+        <a
+          href={photo_route(id)}
+          id={"photo__navigate-to-photo-#{id}"}
+          data-photo-id={id}
+          phx-hook="NavigateToPhoto"
+        >
+          <span class="sr-only">
+            <%= gettext("go to photo %{title} on Fotohäcker", %{title: title}) %>
+          </span>
+          <img
+            class="w-full"
+            src={hd(thumbs)}
+            srcset={srcset}
+            alt={gettext("photo %{title} on Fotohäcker", %{title: title})}
+            loading="lazy"
+          />
+        </a>
       </li>
     <% end %>
     """

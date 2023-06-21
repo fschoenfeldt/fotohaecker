@@ -25,6 +25,7 @@ import { Socket } from "phoenix";
 import { LiveSocket } from "phoenix_live_view";
 import topbar from "../vendor/topbar";
 import Alpine from "alpinejs";
+import { Hooks } from "./hooks";
 
 let csrfToken = document
   .querySelector("meta[name='csrf-token']")
@@ -38,6 +39,7 @@ let liveSocket = new LiveSocket("/fh/live", Socket, {
       }
     },
   },
+  hooks: Hooks,
 });
 
 // Show progress bar on live navigation and form submits
