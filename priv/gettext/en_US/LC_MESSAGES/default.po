@@ -36,7 +36,7 @@ msgstr ""
 msgid "oldest"
 msgstr ""
 
-#: lib/fotohaecker_web/live/index_live/home/photo_component.ex:38
+#: lib/fotohaecker_web/live/index_live/home/photo_component.ex:34
 #: lib/fotohaecker_web/live/index_live/home/upload_form.ex:43
 #: lib/fotohaecker_web/live/photo_live/show.ex:49
 #, elixir-autogen, elixir-format
@@ -83,7 +83,7 @@ msgstr ""
 msgid "german"
 msgstr ""
 
-#: lib/fotohaecker_web/live/index_live/home/photo_component.ex:32
+#: lib/fotohaecker_web/live/index_live/home/photo_component.ex:28
 #, elixir-autogen, elixir-format, fuzzy
 msgid "go to photo %{title} on Fotohäcker"
 msgstr ""
@@ -108,7 +108,7 @@ msgstr ""
 msgid "download the photo %{title} from Fotohäcker"
 msgstr ""
 
-#: lib/fotohaecker_web/live/index_live/home/photos_component.ex:62
+#: lib/fotohaecker_web/live/index_live/home/photos_component.ex:63
 #, elixir-autogen, elixir-format
 msgid "show more"
 msgstr ""
@@ -285,13 +285,12 @@ msgstr ""
 msgid "photo %{field}"
 msgstr ""
 
-#: lib/fotohaecker_web/live/header_live/navigation_component/search.ex:65
 #: lib/fotohaecker_web/live/search_live/search.ex:26
 #, elixir-autogen, elixir-format
 msgid "%{amount} results"
 msgstr ""
 
-#: lib/fotohaecker_web/live/header_live/navigation_component/search.ex:84
+#: lib/fotohaecker_web/live/header_live/navigation_component/search.ex:103
 #, elixir-autogen, elixir-format
 msgid "No results"
 msgstr ""
@@ -301,7 +300,7 @@ msgstr ""
 msgid "No results found"
 msgstr ""
 
-#: lib/fotohaecker_web/live/header_live/navigation_component/search.ex:27
+#: lib/fotohaecker_web/live/header_live/navigation_component/search.ex:61
 #, elixir-autogen, elixir-format
 msgid "Search by title or tag"
 msgstr ""
@@ -311,7 +310,7 @@ msgstr ""
 msgid "clear search"
 msgstr ""
 
-#: lib/fotohaecker_web/live/header_live/navigation_component/search.ex:68
+#: lib/fotohaecker_web/live/header_live/navigation_component/search.ex:93
 #, elixir-autogen, elixir-format
 msgid "search results"
 msgstr ""
@@ -325,3 +324,10 @@ msgstr ""
 #, elixir-autogen, elixir-format
 msgid "submit"
 msgstr ""
+
+#: lib/fotohaecker_web/live/header_live/navigation_component/search.ex:89
+#, elixir-autogen, elixir-format, fuzzy
+msgid "1 result"
+msgid_plural "%{count} results"
+msgstr[0] ""
+msgstr[1] ""
