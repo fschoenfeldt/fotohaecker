@@ -1,5 +1,5 @@
 defmodule FotohaeckerWeb.ErrorViewTest do
-  use FotohaeckerWeb.ConnCase, async: true
+  use FotohaeckerWeb.ConnCase, async: false
 
   # Bring render/3 and render_to_string/3 for testing custom views
   import Phoenix.View

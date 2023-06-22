@@ -1,5 +1,5 @@
 defmodule Fotohaecker.TagDetectionTest do
-  use ExUnit.Case, async: true
+  use ExUnit.Case, async: false
   alias Fotohaecker.TagDetection
   import Mox
 
