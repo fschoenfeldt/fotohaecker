@@ -20,7 +20,11 @@ defmodule FotohaeckerWeb.IndexLive.Home.UploadForm do
       multipart={true}
       phx-submit={submit_action(@uploaded_photo)}
       phx-change="submission_change"
-      class="upload_form"
+      class={[
+        "upload_form",
+        (length(@uploads.photo.entries) > 0 || @uploaded_photo) && "upload_form--fileselected",
+        @uploaded_photo && "upload_form--uploaded"
+      ]}
     >
       <%= if @uploaded_photo do %>
         <p>
@@ -37,7 +41,7 @@ defmodule FotohaeckerWeb.IndexLive.Home.UploadForm do
                                 |> Enum.with_index(&("#{&1} #{&2 + 1}x"))
                                 |> Enum.join(", ") do %>
           <img
-            class="w-full"
+            class="max-w-full"
             src={hd(thumbs)}
             srcset={srcset}
             alt={gettext("photo %{title} on Fotohäcker", %{title: @uploaded_photo.title})}
@@ -53,52 +57,91 @@ defmodule FotohaeckerWeb.IndexLive.Home.UploadForm do
           </.link>
         </div>
       <% else %>
-        <div>
-          <label for="photo_title">
-            <%= gettext("title") %>
-          </label>
-          <input
-            id="photo_title"
-            type="text"
-            name="photo[title]"
-            placeholder={gettext("photo title")}
-            required
-            value={@submission_params.title}
-            phx-debounce="150"
-          />
-          <%= error_tag(f, :title) %>
-        </div>
-        <div phx-drop-target={@uploads.photo.ref} class="dropzone">
-          <div class="dark:text-gray-200" aria-hidden="true">
-            <%= gettext("drag the photo here or use the file button below") %>
-          </div>
-          <label>
-            <.live_file_input upload={@uploads.photo} required />
-            <span class="sr-only">
-              <%= gettext("photo upload field") %>
-            </span>
-          </label>
+        <div class="lg:flex gap-4 w-full">
           <%= for entry <- @uploads.photo.entries do %>
-            <%= unless Enum.empty?(upload_errors(@uploads.photo, entry)) do %>
-              <div hidden>
-                <%= inspect(entry) %>
+            <.live_img_preview entry={entry} class="max-w-[50%] max-h-[30vh] hidden lg:block" />
+            <%!--<figure class="w-full">
+                <figcaption><%= entry.client_name %></figcaption>
+              </figure>--%>
+          <% end %>
+          <div class="w-full space-y-4">
+            <div>
+              <label for="photo_title">
+                <%= gettext("title") %>
+              </label>
+              <input
+                id="photo_title"
+                type="text"
+                name="photo[title]"
+                placeholder={gettext("photo title")}
+                required
+                value={@submission_params.title}
+                phx-debounce="150"
+              />
+              <%= error_tag(f, :title) %>
+            </div>
+            <div phx-drop-target={@uploads.photo.ref} class="dropzone">
+              <div class="dark:text-gray-200" aria-hidden="true">
+                <%= gettext("drag the photo here or use the file button below") %>
               </div>
-              <div class="">
-                <div class="text-red-500"><%= gettext("the selected file can't be uploaded:") %></div>
 
-                <ul class="list-disc list-inside">
-                  <%= for err <- upload_errors(@uploads.photo, entry) do %>
-                    <li class="text-red-500"><%= error_to_string(err) %></li>
-                  <% end %>
-                </ul>
+              <label>
+                <.live_file_input upload={@uploads.photo} required />
+                <span class="sr-only">
+                  <%= gettext("photo upload field") %>
+                </span>
+              </label>
+
+              <%= for entry <- @uploads.photo.entries do %>
+                <%= unless Enum.empty?(upload_errors(@uploads.photo, entry)) do %>
+                  <div hidden>
+                    <%= inspect(entry) %>
+                  </div>
+                  <div class="">
+                    <div class="text-red-500">
+                      <%= gettext("the selected file can't be uploaded:") %>
+                    </div>
+
+                    <ul class="list-disc list-inside">
+                      <%= for err <- upload_errors(@uploads.photo, entry) do %>
+                        <li class="text-red-500"><%= error_to_string(err) %></li>
+                      <% end %>
+                    </ul>
+                  </div>
+                <% end %>
+              <% end %>
+            </div>
+            <%= for entry <- @uploads.photo.entries do %>
+              <div>
+                <div aria-hidden="true">
+                  <%= gettext("upload progress:") %> <%= if entry.progress == 0,
+                    do: gettext("waiting for submission"),
+                    else: "#{entry.progress}%" %>
+                </div>
+                <progress
+                  role="progressbar"
+                  aria-valuemin="0"
+                  aria-valuenow={entry.progress}
+                  aria-valuemax="100"
+                  value={entry.progress}
+                  max="100"
+                  aria-label={gettext("upload progress")}
+                  class="w-full"
+                >
+                  <%= entry.progress %>%
+                </progress>
               </div>
             <% end %>
-          <% end %>
+            <input
+              type="hidden"
+              name="photo[tags]"
+              value={Content.from_tags(@submission_params.tags)}
+            />
+            <button class="btn btn--green" type="submit" phx-disable-with={gettext("uploading..")}>
+              <%= gettext("upload") %>
+            </button>
+          </div>
         </div>
-        <input type="hidden" name="photo[tags]" value={Content.from_tags(@submission_params.tags)} />
-        <button class="btn btn--green" type="submit" phx-disable-with={gettext("uploading..")}>
-          <%= gettext("upload") %>
-        </button>
       <% end %>
     </.form>
     """

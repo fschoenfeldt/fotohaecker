@@ -14,7 +14,10 @@ defmodule FotohaeckerWeb.IndexLive.Home.IntroComponent do
 
   def render(assigns) do
     ~H"""
-    <div class="intro">
+    <div class={[
+      "intro",
+      (length(@uploads.photo.entries) > 0 || @uploaded_photo) && "intro--fileselected"
+    ]}>
       <h1 class="">
         <%= gettext("Upload your photos, license-free.") %>
       </h1>
