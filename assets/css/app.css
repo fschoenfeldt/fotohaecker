@@ -152,14 +152,14 @@
       }
 
       .upload_form {
-        @apply h-max rounded-xl border border-gray-300 bg-white p-4 shadow-xl dark:bg-gray-800 md:w-max lg:self-center lg:justify-self-center transition-[width] duration-500 ease-in-out delay-200;
+        @apply h-max rounded-xl border border-gray-300 bg-white p-4 shadow-xl dark:bg-gray-800 md:w-max lg:self-center lg:justify-self-center transition-[width] duration-500 ease-in-out delay-200 overflow-hidden;
 
         &--fileselected {
-          @apply lg:w-full;
+          @apply md:w-full;
         }
 
         &--uploaded {
-          @apply lg:w-max;
+          @apply md:w-max;
         }
 
         &.phx-submit-loading {

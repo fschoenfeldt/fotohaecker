@@ -57,9 +57,12 @@ defmodule FotohaeckerWeb.IndexLive.Home.UploadForm do
           </.link>
         </div>
       <% else %>
-        <div class="lg:flex gap-4 w-full">
+        <div class="md:flex gap-4 w-full">
           <%= for entry <- @uploads.photo.entries do %>
-            <.live_img_preview entry={entry} class="max-w-[50%] max-h-[30vh] hidden lg:block" />
+            <.live_img_preview
+              entry={entry}
+              class="max-w-[50%] max-h-[30vh] hidden md:block object-cover"
+            />
             <%!--<figure class="w-full">
                 <figcaption><%= entry.client_name %></figcaption>
               </figure>--%>
