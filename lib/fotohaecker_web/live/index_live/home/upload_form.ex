@@ -41,7 +41,7 @@ defmodule FotohaeckerWeb.IndexLive.Home.UploadForm do
                                 |> Enum.with_index(&("#{&1} #{&2 + 1}x"))
                                 |> Enum.join(", ") do %>
           <img
-            class="max-w-full"
+            class="w-full max-h-[30vh] object-contain"
             src={hd(thumbs)}
             srcset={srcset}
             alt={gettext("photo %{title} on Fotohäcker", %{title: @uploaded_photo.title})}
@@ -152,7 +152,7 @@ defmodule FotohaeckerWeb.IndexLive.Home.UploadForm do
 
   defp tags_input(assigns) do
     ~H"""
-    <div id="photo_tags--wrapper">
+    <div id="photo_tags__wrapper space-y-2">
       <label for="photo_tags">
         <%= gettext("set tags for your uploaded photo") %>
       </label>
@@ -169,7 +169,7 @@ defmodule FotohaeckerWeb.IndexLive.Home.UploadForm do
           phx-click="submission_generate_tags"
           value={@photo_id}
           type="button"
-          class="btn btn--blue-outline flex gap-2 items-center text-sm flex-shrink-0 group"
+          class="btn btn--blue-outline flex gap-2 items-center text-sm flex-shrink-0 group w-full sm:w-auto justify-center sm:justify-start"
           disabled={length(@submission_params.tags) > 1}
         >
           <Heroicons.cpu_chip class="w-4 h-4 stroke-blue-600 group-hover:stroke-white" />
