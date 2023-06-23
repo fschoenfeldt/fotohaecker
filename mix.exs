@@ -10,7 +10,10 @@ defmodule Fotohaecker.MixProject do
       start_permanent: Mix.env() == :prod,
       aliases: aliases(),
       deps: deps(),
-      dialyzer: [plt_add_apps: [:mix]]
+      dialyzer: [plt_add_apps: [:mix]],
+      # this can lead to unexpected behaviour
+      # see: https://elixir-lang.org/blog/2023/06/19/elixir-v1-15-0-released/#:~:text=smoother%20development%20experience.-,Potential%20incompatibilities,-Due%20to%20the
+      prune_code_paths: false
     ]
   end
 
