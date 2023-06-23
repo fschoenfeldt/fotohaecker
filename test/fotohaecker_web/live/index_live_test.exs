@@ -1,5 +1,5 @@
 defmodule FotohaeckerWeb.IndexLiveTest do
-  use FotohaeckerWeb.ConnCase, async: true
+  use FotohaeckerWeb.ConnCase, async: false
 
   import Phoenix.ConnTest
   import Phoenix.LiveViewTest
