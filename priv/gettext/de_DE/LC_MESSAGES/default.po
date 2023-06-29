@@ -344,5 +344,5 @@ msgstr "Uploadfortschritt:"
 
 #: lib/fotohaecker_web/live/index_live/home/upload_form.ex:121
 #, elixir-autogen, elixir-format
-msgid "Warte auf Absenden"
-msgstr ""
+msgid "waiting for submission"
+msgstr "Warte auf Absenden"
