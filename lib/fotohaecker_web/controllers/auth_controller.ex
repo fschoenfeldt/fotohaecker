@@ -60,7 +60,7 @@ defmodule FotohaeckerWeb.AuthController do
     current_user = Plug.Conn.get_session(conn, :current_user)
 
     case Fotohaecker.Auth0Management.user_delete_account(current_user) do
-      {:ok, logs} ->
+      {:ok, _} ->
         conn
         |> put_flash(:info, gettext("Your account has been deleted!"))
         |> clear_session()

@@ -44,7 +44,7 @@ defmodule Fotohaecker.Auth0Management do
     end
   end
 
-  defp user_logs_request(id, {:error, _reason} = error) do
+  defp user_logs_request(_id, {:error, _reason} = error) do
     error
   end
 
@@ -55,7 +55,7 @@ defmodule Fotohaecker.Auth0Management do
     HTTPoison.get(url, headers)
   end
 
-  defp user_delete_account_request(id, {:error, _reason} = error) do
+  defp user_delete_account_request(_id, {:error, _reason} = error) do
     error
   end
 
@@ -81,7 +81,6 @@ defmodule Fotohaecker.Auth0Management do
   """
   @spec user_delete_account(map) :: {:ok, map} | {:error, term}
   def user_delete_account(%{id: user_id} = _user) do
-    user_id
-    |> user_delete_account_request(headers())
+    user_delete_account_request(user_id, headers())
   end
 end

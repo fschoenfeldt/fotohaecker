@@ -16,6 +16,7 @@ defmodule FotohaeckerWeb.UserLive.Index do
         <dd><%= @current_user.name %></dd>
       </dl>
       <.form
+        for={%{}}
         method="post"
         action={
           FotohaeckerWeb.Router.Helpers.auth_path(
