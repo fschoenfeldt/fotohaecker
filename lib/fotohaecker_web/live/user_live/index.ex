@@ -15,9 +15,21 @@ defmodule FotohaeckerWeb.UserLive.Index do
         <dt class="font-bold"><%= gettext("Name/Email") %></dt>
         <dd><%= @current_user.name %></dd>
       </dl>
-      <button type="button" class="btn" disabled>
-        <%= gettext("Delete Account (coming soon!)") %>
-      </button>
+      <.form
+        for={%{}}
+        method="post"
+        action={
+          FotohaeckerWeb.Router.Helpers.auth_path(
+            @socket,
+            :delete_account,
+            Gettext.get_locale(FotohaeckerWeb.Gettext)
+          )
+        }
+      >
+        <button type="submit" class="btn">
+          <%= gettext("Delete Account") %>
+        </button>
+      </.form>
       <.link
         class="btn btn--red flex items-center gap-2 max-w-max"
         href={Routes.auth_path(FotohaeckerWeb.Endpoint, :delete)}

@@ -133,7 +133,7 @@ msgstr "Etwas ist beim Hochladen Deines Fotos schiefgelaufen. Bitte versuche es 
 msgid "login"
 msgstr "Anmelden"
 
-#: lib/fotohaecker_web/live/user_live/index.ex:26
+#: lib/fotohaecker_web/live/user_live/index.ex:38
 #, elixir-autogen, elixir-format
 msgid "logout"
 msgstr "Abmelden"
@@ -152,11 +152,6 @@ msgstr "Erfolgreich angemeldet."
 #, elixir-autogen, elixir-format
 msgid "You have been logged out!"
 msgstr "Sie wurden abgemeldet!"
-
-#: lib/fotohaecker_web/live/user_live/index.ex:19
-#, elixir-autogen, elixir-format
-msgid "Delete Account (coming soon!)"
-msgstr "Account löschen (kommt bald!)"
 
 #: lib/fotohaecker_web/live/photo_live/show.ex:64
 #, elixir-autogen, elixir-format
@@ -346,3 +341,13 @@ msgstr "Uploadfortschritt:"
 #, elixir-autogen, elixir-format
 msgid "waiting for submission"
 msgstr "Warte auf Absenden"
+
+#: lib/fotohaecker_web/live/user_live/index.ex:30
+#, elixir-autogen, elixir-format, fuzzy
+msgid "Delete Account"
+msgstr "Account löschen"
+
+#: lib/fotohaecker_web/controllers/auth_controller.ex:65
+#, elixir-autogen, elixir-format
+msgid "Your account has been deleted!"
+msgstr "Dein Account wurde gelöscht!"

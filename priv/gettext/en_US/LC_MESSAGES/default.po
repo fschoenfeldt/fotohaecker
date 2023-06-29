@@ -133,7 +133,7 @@ msgstr ""
 msgid "login"
 msgstr ""
 
-#: lib/fotohaecker_web/live/user_live/index.ex:26
+#: lib/fotohaecker_web/live/user_live/index.ex:38
 #, elixir-autogen, elixir-format
 msgid "logout"
 msgstr ""
@@ -151,11 +151,6 @@ msgstr ""
 #: lib/fotohaecker_web/controllers/auth_controller.ex:26
 #, elixir-autogen, elixir-format
 msgid "You have been logged out!"
-msgstr ""
-
-#: lib/fotohaecker_web/live/user_live/index.ex:19
-#, elixir-autogen, elixir-format
-msgid "Delete Account (coming soon!)"
 msgstr ""
 
 #: lib/fotohaecker_web/live/photo_live/show.ex:64
@@ -345,4 +340,14 @@ msgstr ""
 #: lib/fotohaecker_web/live/index_live/home/upload_form.ex:121
 #, elixir-autogen, elixir-format
 msgid "waiting for submission"
+msgstr ""
+
+#: lib/fotohaecker_web/live/user_live/index.ex:30
+#, elixir-autogen, elixir-format, fuzzy
+msgid "Delete Account"
+msgstr ""
+
+#: lib/fotohaecker_web/controllers/auth_controller.ex:65
+#, elixir-autogen, elixir-format
+msgid "Your account has been deleted!"
 msgstr ""
