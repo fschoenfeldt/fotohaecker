@@ -37,7 +37,6 @@ test.describe("Photo Page: Static", () => {
     const homepageLink = await page
       .locator("header a", { hasText: "Fotohäcker" })
       .getAttribute("href");
-    console.log(homepageLink);
     expect(homepageLink).toContain("/de_DE");
   });
 });
