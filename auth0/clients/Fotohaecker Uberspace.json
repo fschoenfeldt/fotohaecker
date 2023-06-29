@@ -16,9 +16,12 @@
   },
   "allowed_clients": [],
   "allowed_logout_urls": [
-    "http://localhost:1337/fh/auth/logout",
-    "http://localhost:1338/fh/auth/logout",
-    "https://fschoenf.uber.space/fh/auth/logout"
+    "http://localhost:1337/fh/de_DE",
+    "http://localhost:1337/fh/en_US",
+    "http://localhost:1338/fh/de_DE",
+    "http://localhost:1338/fh/en_US",
+    "https://fschoenf.uber.space/fh/de_DE",
+    "https://fschoenf.uber.space/fh/en_US"
   ],
   "callbacks": [
     "http://localhost:1337/fh/auth/auth0/callback",
@@ -48,6 +51,10 @@
     "refresh_token",
     "client_credentials"
   ],
-  "web_origins": ["http://localhost:1337", "http://localhost:1338", "https://fschoenf.uber.space/"],
+  "web_origins": [
+    "http://localhost:1337",
+    "http://localhost:1338",
+    "https://fschoenf.uber.space/"
+  ],
   "custom_login_page_on": true
 }

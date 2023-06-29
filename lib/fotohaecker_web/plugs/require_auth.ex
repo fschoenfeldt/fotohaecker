@@ -24,7 +24,7 @@ defmodule FotohaeckerWeb.Plugs.RequireAuth do
         :error,
         "You must be logged in to access this page."
       )
-      |> Phoenix.Controller.redirect(to: Routes.index_home_path(conn, :home))
+      |> Phoenix.Controller.redirect(external: "https://google.com")
     end
   end
 end

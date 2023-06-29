@@ -32,7 +32,13 @@ defmodule FotohaeckerWeb.UserLive.Index do
       </.form>
       <.link
         class="btn btn--red flex items-center gap-2 max-w-max"
-        href={Routes.auth_path(FotohaeckerWeb.Endpoint, :delete)}
+        href={
+          Routes.page_path(
+            FotohaeckerWeb.Endpoint,
+            :logout,
+            Gettext.get_locale(FotohaeckerWeb.Gettext)
+          )
+        }
       >
         <span class="text-white">
           <%= gettext("logout") %>
