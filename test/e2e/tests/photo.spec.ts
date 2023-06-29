@@ -34,6 +34,11 @@ test.describe("Photo Page: Static", () => {
   test("can change language", async ({ page }) => {
     changeLanguage(page, "german");
     await expect(page).toHaveURL(/.*de_DE*/);
+    const homepageLink = await page
+      .locator("header a", { hasText: "Fotohäcker" })
+      .getAttribute("href");
+    console.log(homepageLink);
+    expect(homepageLink).toContain("/de_DE");
   });
 });
 

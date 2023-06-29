@@ -11,7 +11,10 @@ defmodule FotohaeckerWeb.HeaderLive.Header do
     <header class="bg-[#17181b] relative p-2 md:p-4" id={@id}>
       <div class="max-w-6xl mx-auto">
         <section class="flex justify-between items-center gap-8">
-          <a href={Routes.index_home_path(@socket, :home)} class="text-gray-100 text-xl">
+          <a
+            href={Routes.index_home_path(@socket, :home, Gettext.get_locale(FotohaeckerWeb.Gettext))}
+            class="text-gray-100 text-xl"
+          >
             Fotohäcker
           </a>
           <.live_component module={NavigationComponent} id="navigation" current_user={@current_user} />
