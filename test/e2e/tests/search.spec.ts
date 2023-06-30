@@ -53,5 +53,11 @@ test.describe("Search Page", () => {
 
     const accessibilityScanResults = await new AxeBuilder({ page }).analyze();
     expect(accessibilityScanResults.violations).toEqual([]);
+
+    await page.emulateMedia({ colorScheme: "dark" });
+    const accessibilityScanResultsDarkMode = await new AxeBuilder({
+      page,
+    }).analyze();
+    expect(accessibilityScanResultsDarkMode.violations).toEqual([]);
   });
 });
