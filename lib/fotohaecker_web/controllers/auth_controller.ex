@@ -19,13 +19,22 @@ defmodule FotohaeckerWeb.AuthController do
     |> redirect(external: Helpers.auth_path(conn, :request, provider))
   end
 
-  def delete(conn, _params) do
+  def logout(conn, _params) do
     locale = locale_from_session(conn)
+    domain = System.get_env("AUTH0_DOMAIN")
+    client_id = System.get_env("AUTH0_CLIENT_ID")
+
+    return_to =
+      conn
+      |> Helpers.index_home_url(:home, locale)
+      |> URI.encode_www_form()
+
+    logout_url = "https://#{domain}/v2/logout?returnTo=#{return_to}&client_id=#{client_id}"
 
     conn
     |> put_flash(:info, FotohaeckerWeb.Gettext.gettext("You have been logged out!"))
     |> clear_session()
-    |> redirect(to: Helpers.index_home_path(conn, :home, locale))
+    |> redirect(external: logout_url)
   end
 
   def callback(%{assigns: %{ueberauth_failure: _fails}} = conn, _params) do
