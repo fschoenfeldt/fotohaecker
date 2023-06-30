@@ -37,9 +37,9 @@ defmodule FotohaeckerWeb.Router do
     live "/:locale/photos/:id", PhotoLive.Show, :show
     post "/:locale/search", SearchController, :search
     live "/:locale/search", SearchLive.Search, :index
-    get "/:locale/logout", PageController, :logout
 
     scope "/auth" do
+      post "/logout", AuthController, :logout
       get "/login", AuthController, :login
       get "/:provider", AuthController, :request
       get "/:provider/callback", AuthController, :callback

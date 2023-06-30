@@ -99,7 +99,7 @@ defmodule FotohaeckerWeb.AuthController do
     end
   end
 
-  def locale_from_session(conn) do
+  defp locale_from_session(conn) do
     fallback_locale = Gettext.get_locale(FotohaeckerWeb.Gettext)
 
     conn

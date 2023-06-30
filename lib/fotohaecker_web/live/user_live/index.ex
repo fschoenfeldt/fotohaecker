@@ -30,20 +30,32 @@ defmodule FotohaeckerWeb.UserLive.Index do
           <%= gettext("Delete Account") %>
         </button>
       </.form>
-      <.link
-        class="btn btn--red flex items-center gap-2 max-w-max"
-        href={
-          Routes.page_path(
-            FotohaeckerWeb.Endpoint,
-            :logout,
-            Gettext.get_locale(FotohaeckerWeb.Gettext)
+
+      <.form
+        for={%{}}
+        method="post"
+        action={
+          FotohaeckerWeb.Router.Helpers.auth_path(
+            @socket,
+            :logout
           )
         }
       >
-        <span class="text-white">
+        <button
+          type="submit"
+          class="btn btn--red flex items-center gap-2 max-w-max"
+          href={
+            Routes.auth_path(
+              FotohaeckerWeb.Endpoint,
+              :logout
+            )
+          }
+        >
+          <%!-- <span class="text-white"> --%>
           <%= gettext("logout") %>
-        </span>
-      </.link>
+          <%!-- </span> --%>
+        </button>
+      </.form>
     </div>
     """
   end

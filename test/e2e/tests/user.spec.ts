@@ -25,7 +25,7 @@ test.describe("User Settings page", () => {
 
   test("can logout", async ({ page }) => {
     await page.locator("a", { hasText: "your account" }).click();
-    await page.locator("a", { hasText: "logout" }).click();
+    await page.locator("button", { hasText: "logout" }).click();
     await expect(page.locator(".alert--info")).toContainText("logged out");
     await page.locator(".alert--info").click();
     await expect(page.locator("a", { hasText: "login" })).toBeVisible();
