@@ -1,4 +1,4 @@
-lockfileVersion: '6.1'
+lockfileVersion: '6.0'
 
 settings:
   autoInstallPeers: true
@@ -7,15 +7,15 @@ settings:
 devDependencies:
   '@axe-core/playwright':
     specifier: ^4.7.2
-    version: 4.7.2(playwright-core@1.34.3)
+    version: 4.7.3(playwright-core@1.34.3)
   '@playwright/test':
     specifier: ^1.34.3
     version: 1.34.3
 
 packages:
 
-  /@axe-core/playwright@4.7.2(playwright-core@1.34.3):
-    resolution: {integrity: sha512-k5f6KGVkPsZ7wR56XnRZYS4b1Wd8wkVTpjqeScFYZMTJxKVv3FGKoBqQVBoCphWtP0oMWQc41zQgHO6gaYTcQw==}
+  /@axe-core/playwright@4.7.3(playwright-core@1.34.3):
+    resolution: {integrity: sha512-v2PRgAyGvop7bamrTpNJtc5b1R7giAPnMzZXrS/VDZBCY5+uwVYtCNgDvBsqp5P1QMZxUMoBN+CERJUTMjFN0A==}
     peerDependencies:
       playwright-core: '>= 1.0.0'
     dependencies:
