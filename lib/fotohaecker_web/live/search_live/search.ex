@@ -26,7 +26,7 @@ defmodule FotohaeckerWeb.SearchLive.Search do
       <p class="dark:text-gray-100">
         <%= gettext("%{amount} results", %{amount: length(@search_results)}) %>
       </p>
-      <ul class="grid grid-cols-6">
+      <ul class="grid gap-4 grid-cols-2 md:grid-cols-4 lg:grid-cols-6">
         <%= for photo <- @search_results do %>
           <PhotoComponent.render photo={photo} />
         <% end %>
