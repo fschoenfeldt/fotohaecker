@@ -22,8 +22,10 @@ defmodule FotohaeckerWeb.SearchLive.Search do
   def render(assigns) do
     ~H"""
     <div id="search">
-      <h1>Search results for "<%= @search_query %>"</h1>
-      <p><%= gettext("%{amount} results", %{amount: length(@search_results)}) %></p>
+      <h1 class="dark:text-gray-100">Search results for "<%= @search_query %>"</h1>
+      <p class="dark:text-gray-100">
+        <%= gettext("%{amount} results", %{amount: length(@search_results)}) %>
+      </p>
       <ul class="grid gap-4 grid-cols-2 md:grid-cols-4 lg:grid-cols-6">
         <%= for photo <- @search_results do %>
           <PhotoComponent.render photo={photo} />

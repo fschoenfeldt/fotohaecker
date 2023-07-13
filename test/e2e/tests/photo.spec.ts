@@ -18,6 +18,15 @@ test.describe("Photo Page: Static", () => {
     expect(accessibilityScanResults.violations).toEqual([]);
   });
 
+  test("should not have any automatically detectable accessibility issues in dark mode", async ({
+    page,
+  }) => {
+    test.slow();
+    await page.emulateMedia({ colorScheme: "dark" });
+    const accessibilityScanResults = await new AxeBuilder({ page }).analyze();
+    expect(accessibilityScanResults.violations).toEqual([]);
+  });
+
   test("can download photo", async ({ page, context }) => {
     const pagePromise = context.waitForEvent("page");
     await page.locator("a", { hasText: "Download" }).click();

@@ -15,6 +15,15 @@ test.describe("Home page", () => {
     expect(accessibilityScanResults.violations).toEqual([]);
   });
 
+  test("should not have any automatically detectable accessibility issues in dark mode", async ({
+    page,
+  }) => {
+    test.slow();
+    await page.emulateMedia({ colorScheme: "dark" });
+    const accessibilityScanResults = await new AxeBuilder({ page }).analyze();
+    expect(accessibilityScanResults.violations).toEqual([]);
+  });
+
   test("shows index page", async ({ page }) => {
     await expect(page).toHaveTitle("Home · Fotohaecker");
   });

@@ -133,7 +133,7 @@ msgstr "Etwas ist beim Hochladen Deines Fotos schiefgelaufen. Bitte versuche es 
 msgid "login"
 msgstr "Anmelden"
 
-#: lib/fotohaecker_web/live/user_live/index.ex:55
+#: lib/fotohaecker_web/live/user_live/index.ex:54
 #, elixir-autogen, elixir-format
 msgid "logout"
 msgstr "Abmelden"
@@ -280,7 +280,7 @@ msgstr "Feld %{field} bearbeiten"
 msgid "photo %{field}"
 msgstr "Foto %{field}"
 
-#: lib/fotohaecker_web/live/search_live/search.ex:26
+#: lib/fotohaecker_web/live/search_live/search.ex:27
 #, elixir-autogen, elixir-format
 msgid "%{amount} results"
 msgstr "%{amount} Ergebnisse"
@@ -290,7 +290,7 @@ msgstr "%{amount} Ergebnisse"
 msgid "No results"
 msgstr "Keine Ergebnisse"
 
-#: lib/fotohaecker_web/live/search_live/search.ex:32
+#: lib/fotohaecker_web/live/search_live/search.ex:34
 #, elixir-autogen, elixir-format
 msgid "No results found"
 msgstr "Keine Ergebnisse gefunden"
