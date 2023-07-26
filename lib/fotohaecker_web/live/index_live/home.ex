@@ -139,6 +139,9 @@ defmodule FotohaeckerWeb.IndexLive.Home do
   def handle_event("submission_submit", %{"photo" => submission_params}, socket) do
     submission_params = parse_params(socket, submission_params)
 
+    current_user_id =
+      if socket.assigns.current_user, do: socket.assigns.current_user.id, else: nil
+
     upload_result =
       consume_uploaded_entries(socket, :photo, fn %{path: path}, entry ->
         extension =
@@ -174,6 +177,7 @@ defmodule FotohaeckerWeb.IndexLive.Home do
         submission_params
         |> Map.put(:file_name, file_name)
         |> Map.put(:extension, extension)
+        |> Map.put(:user_id, current_user_id)
         |> Content.create_photo()
       end)
 

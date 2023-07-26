@@ -91,5 +91,23 @@ defmodule FotohaeckerWeb.LiveHelpers do
         id
       )
 
+  def user_route(id),
+    do:
+      Helpers.user_show_path(
+        FotohaeckerWeb.Endpoint,
+        :show,
+        Gettext.get_locale(FotohaeckerWeb.Gettext),
+        id
+      )
+
+  def user_url(id),
+    do:
+      Helpers.user_show_url(
+        FotohaeckerWeb.Endpoint,
+        :show,
+        Gettext.get_locale(FotohaeckerWeb.Gettext),
+        id
+      )
+
   def static(path), do: Helpers.static_path(FotohaeckerWeb.Endpoint, path)
 end

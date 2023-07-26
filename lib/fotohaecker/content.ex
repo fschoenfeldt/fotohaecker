@@ -38,6 +38,20 @@ defmodule Fotohaecker.Content do
   defp list_photos_query(limit, offset, :asc_inserted_at = _order),
     do: from(p in Photo, order_by: [asc: p.inserted_at], limit: ^limit, offset: ^offset)
 
+  def photos_by_user_query(user_id, limit, offset) do
+    from(p in Photo,
+      where: p.user_id == ^user_id,
+      order_by: [desc: p.inserted_at],
+      limit: ^limit,
+      offset: ^offset
+    )
+  end
+
+  def list_photos_by_user(user_id, limit \\ 10, offset \\ 0) do
+    query = photos_by_user_query(user_id, limit, offset)
+    Repo.all(query)
+  end
+
   @doc """
   Returns a list of photos that has a matching title or tag.
 

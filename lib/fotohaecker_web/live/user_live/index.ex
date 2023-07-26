@@ -1,9 +1,12 @@
 defmodule FotohaeckerWeb.UserLive.Index do
+  alias Fotohaecker.Auth0Management
   use FotohaeckerWeb, :live_view
 
   @impl Phoenix.LiveView
   def mount(_params, _session, socket) do
-    {:ok, socket}
+    {:ok, user} = Auth0Management.user_get(socket.assigns.current_user.id)
+    current_user = Map.merge(socket.assigns.current_user, user)
+    {:ok, assign(socket, :current_user, current_user)}
   end
 
   @impl Phoenix.LiveView
@@ -12,8 +15,17 @@ defmodule FotohaeckerWeb.UserLive.Index do
     <div id="user" class="max-w-6xl mx-auto space-y-2 pt-2">
       <h1 class="dark:text-gray-100"><%= gettext("Your Account") %></h1>
       <dl class="space-y-2">
+        <%!-- # TODO: DRY --%>
         <dt class="font-bold dark:text-gray-100"><%= gettext("Name/Email") %></dt>
         <dd class="dark:text-gray-100"><%= @current_user.name %></dd>
+        <dt class="font-bold dark:text-gray-100"><%= gettext("Nickname") %></dt>
+        <dd class="dark:text-gray-100"><%= @current_user["nickname"] %></dd>
+        <dt class="font-bold dark:text-gray-100"><%= gettext("Your Profile Link") %></dt>
+        <dd class="dark:text-gray-100">
+          <a href={user_route(@current_user.id)}>
+            <%= user_url(@current_user.id) %>
+          </a>
+        </dd>
       </dl>
       <.form
         for={%{}}

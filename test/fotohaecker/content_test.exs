@@ -29,7 +29,7 @@ defmodule Fotohaecker.ContentTest do
       assert actual == expected
     end
 
-    test "list_photos/2 " do
+    test "list_photos/2" do
       _photo_1 = photo_fixture(%{title: "test1"})
       photo_2 = photo_fixture(%{title: "test2"})
       photo_3 = photo_fixture(%{title: "test3"})
@@ -43,6 +43,37 @@ defmodule Fotohaecker.ContentTest do
         photo_3,
         photo_2
       ]
+
+      assert actual == expected
+    end
+
+    test "list_photos_by_user/2" do
+      user_id = "auth0|123456789"
+      photo_1 = photo_fixture(%{user_id: user_id})
+      photo_2 = photo_fixture(%{user_id: user_id})
+      photo_3 = photo_fixture(%{user_id: user_id})
+      photo_4 = photo_fixture(%{user_id: user_id})
+      photo_5 = photo_fixture(%{user_id: user_id})
+
+      actual = Content.list_photos_by_user(user_id, 3, 1)
+
+      expected = [
+        photo_4,
+        photo_3,
+        photo_2
+      ]
+
+      assert actual == expected
+    end
+
+    test "list_photos_by_user/2 empty result" do
+      user_id = "auth0|123456789"
+      another_user_id = "auth0|987654321"
+      photo_1 = photo_fixture(%{user_id: user_id})
+
+      actual = Content.list_photos_by_user(another_user_id, 3, 10)
+
+      expected = []
 
       assert actual == expected
     end
@@ -64,6 +95,24 @@ defmodule Fotohaecker.ContentTest do
       assert photo.file_name == "some file_name"
       assert photo.tags == []
       assert photo.title == "some title"
+    end
+
+    test "create_photo/1 with valid data and user_id creates a photo" do
+      user_id = "auth0|123456789"
+
+      valid_attrs = %{
+        file_name: "some file_name",
+        tags: [],
+        title: "some title",
+        extension: ".jpg",
+        user_id: user_id
+      }
+
+      assert {:ok, %Photo{} = photo} = Content.create_photo(valid_attrs)
+      assert photo.file_name == "some file_name"
+      assert photo.tags == []
+      assert photo.title == "some title"
+      assert photo.user_id == user_id
     end
 
     test "create_photo/1 with invalid data returns error changeset" do

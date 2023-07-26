@@ -66,6 +66,17 @@ defmodule Fotohaecker.Auth0Management do
     HTTPoison.delete(url, headers)
   end
 
+  defp user_get_request(_id, {:error, _reason} = error) do
+    error
+  end
+
+  defp user_get_request(id, {:ok, headers}) do
+    domain = System.get_env("AUTH0_DOMAIN")
+    url = "https://#{domain}/api/v2/users/#{id}"
+
+    HTTPoison.get(url, headers)
+  end
+
   @doc """
   Get user logs
   """
@@ -81,6 +92,32 @@ defmodule Fotohaecker.Auth0Management do
   """
   @spec user_delete_account(map) :: {:ok, map} | {:error, term}
   def user_delete_account(%{id: user_id} = _user) do
-    user_delete_account_request(user_id, headers())
+    case user_delete_account_request(user_id, headers()) do
+      {:ok, _} ->
+        # Delete all photos by user
+        # TODO: dirty limit
+        photos = Fotohaecker.Content.list_photos_by_user(user_id, 1000, 0)
+
+        {Enum.each(photos, fn photo ->
+           Fotohaecker.Content.delete_photo(photo)
+         end),
+         %{
+           user_id: user_id,
+           photos: photos
+         }}
+
+      error ->
+        error
+    end
+  end
+
+  @doc """
+  Get user
+  """
+  @spec user_get(String.t()) :: {:ok, map} | {:error, term}
+  def user_get(user_id) do
+    user_id
+    |> user_get_request(headers())
+    |> decode()
   end
 end

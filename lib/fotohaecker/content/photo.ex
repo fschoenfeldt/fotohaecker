@@ -13,7 +13,8 @@ defmodule Fotohaecker.Content.Photo do
           extension: String.t(),
           tags: [String.t()],
           inserted_at: NaiveDateTime.t(),
-          updated_at: NaiveDateTime.t()
+          updated_at: NaiveDateTime.t(),
+          user_id: String.t()
         }
 
   schema "photos" do
@@ -21,6 +22,7 @@ defmodule Fotohaecker.Content.Photo do
     field(:file_name, :string)
     field(:extension, :string)
     field(:tags, {:array, :string})
+    field(:user_id, :string)
 
     timestamps(type: :naive_datetime_usec)
   end
@@ -40,7 +42,7 @@ defmodule Fotohaecker.Content.Photo do
   @doc false
   def changeset(photo, attrs) do
     photo
-    |> cast(attrs, [:title, :file_name, :tags, :extension])
+    |> cast(attrs, [:title, :file_name, :tags, :extension, :user_id])
     |> validate_length(:title, min: 1, max: 32)
     |> validate_required([:title, :file_name, :tags, :extension])
   end

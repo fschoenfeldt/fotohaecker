@@ -30,6 +30,7 @@ defmodule FotohaeckerWeb.Router do
       end
 
       post "/delete_account", AuthController, :delete_account
+      live "/:id", UserLive.Show, :show
     end
 
     live "/", IndexLive.Home, :home
