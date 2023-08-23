@@ -135,6 +135,18 @@ In case you want to re-run the seed script, you can do this with the following c
 
 When in doubt, check the versions of the tools you are using. You can do this with the following commands:
 
+##### sqlite3
+
+When your system doesn't provide a sufficient GLIBC version to compile sqlite3, you can [use the preinstalled sqlite3 binary on your system](https://github.com/elixir-sqlite/exqlite#using-system-installed-libraries).
+
+For example on [uberspace](https://uberspace.de/en/), you'd need these environment variables:
+
+```shell
+    EXQLITE_USE_SYSTEM="1",
+    EXQLITE_SYSTEM_CFLAGS="-I/usr/include",
+    EXQLITE_SYSTEM_LDFLAGS="-L/lib64/sqlite -lsqlite3"
+```
+
 ###### Elixir/OTP
 
 Make sure to use the Elixir/OTP version closest to the one specified in the `.tool-versions` file. You can check the current version with the following command:
