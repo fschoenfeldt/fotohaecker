@@ -50,6 +50,7 @@ export const changeLanguage = async (
 };
 
 export const userFixture = {
+  id: "auth0|647dba8fe4e45a9886c854ad",
   email: "test@fschoenfeldt.de",
   password: "Sonne123",
 };

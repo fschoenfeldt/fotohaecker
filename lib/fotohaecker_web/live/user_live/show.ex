@@ -5,7 +5,8 @@ defmodule FotohaeckerWeb.UserLive.Show do
 
   @impl Phoenix.LiveView
   def mount(%{"id" => id} = _params, _session, socket) do
-    {:ok, user} = Auth0Management.user_get(id)
+    {:ok, user} = Auth0Management.user_get(id) |> IO.inspect(label: "user_get")
+    # TODO FIXME: what if user not found?
     user_photos = Fotohaecker.Content.list_photos_by_user(id)
 
     {:ok,
@@ -21,10 +22,11 @@ defmodule FotohaeckerWeb.UserLive.Show do
       <div class="bg-gray-800">
         <div class="max-w-6xl mx-auto space-y-2 py-8 px-8 xl:px-0">
           <img
+            data-testid="profile-picture"
             src={@user["picture"]}
             alt={gettext("Profile Picture of %{nickname}", %{nickname: @user["nickname"]})}
           />
-          <p class="text-gray-100"><%= @user["nickname"] %></p>
+          <h1 class="text-gray-100 font-sans"><%= @user["nickname"] %></h1>
         </div>
       </div>
 
