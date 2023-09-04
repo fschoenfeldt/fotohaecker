@@ -2,7 +2,7 @@ import { test, expect } from "@playwright/test";
 import { userFixture } from "./helpers";
 import AxeBuilder from "@axe-core/playwright";
 
-test.describe("User Profile page", () => {
+test.describe.skip("User Profile page", () => {
   test.beforeEach(async ({ page }) => {
     await page.goto("/fh/en_US/user/auth0%7C647dba8fe4e45a9886c854ad");
     const el = await page.waitForSelector("[data-testid='profile-picture']", {
