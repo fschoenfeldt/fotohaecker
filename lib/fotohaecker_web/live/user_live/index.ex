@@ -57,6 +57,7 @@ defmodule FotohaeckerWeb.UserLive.Index do
           type="submit"
           class="btn btn--red flex items-center gap-2 max-w-max"
           href={
+            # TODO this doesn't work!
             Routes.auth_path(
               FotohaeckerWeb.Endpoint,
               :logout
