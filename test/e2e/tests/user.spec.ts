@@ -10,18 +10,20 @@ test.describe("User Settings page", () => {
 
   test("should not have any automatically detectable accessibility issues", async ({
     page,
+    makeAxeBuilder,
   }) => {
     test.slow();
-    const accessibilityScanResults = await new AxeBuilder({ page }).analyze();
+    const accessibilityScanResults = await makeAxeBuilder().analyze();
     expect(accessibilityScanResults.violations).toEqual([]);
   });
 
   test("should not have any automatically detectable accessibility issues in dark mode", async ({
     page,
+    makeAxeBuilder,
   }) => {
     test.slow();
     await page.emulateMedia({ colorScheme: "dark" });
-    const accessibilityScanResults = await new AxeBuilder({ page }).analyze();
+    const accessibilityScanResults = await makeAxeBuilder().analyze();
     expect(accessibilityScanResults.violations).toEqual([]);
   });
 

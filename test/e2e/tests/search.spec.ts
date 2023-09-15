@@ -36,6 +36,7 @@ test.describe("Search", () => {
 test.describe("Search Page", () => {
   test("should not have any automatically detectable accessibility issues", async ({
     page,
+    makeAxeBuilder,
   }) => {
     test.slow();
     const photo = {
@@ -51,13 +52,11 @@ test.describe("Search Page", () => {
     await searchInput.press("Enter");
     await expect(page.locator("#search")).toContainText(photo.title);
 
-    const accessibilityScanResults = await new AxeBuilder({ page }).analyze();
+    const accessibilityScanResults = await makeAxeBuilder().analyze();
     expect(accessibilityScanResults.violations).toEqual([]);
 
     await page.emulateMedia({ colorScheme: "dark" });
-    const accessibilityScanResultsDarkMode = await new AxeBuilder({
-      page,
-    }).analyze();
+    const accessibilityScanResultsDarkMode = await makeAxeBuilder().analyze();
     expect(accessibilityScanResultsDarkMode.violations).toEqual([]);
   });
 });
