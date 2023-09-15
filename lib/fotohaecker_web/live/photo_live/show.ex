@@ -120,10 +120,15 @@ defmodule FotohaeckerWeb.PhotoLive.Show do
       </span>
       <span class="text-gray-700 dark:text-gray-300 italic">
         <%= if @photo.user_id !== nil do %>
-          <%= with {:ok, user} <- Auth0Management.user_get(@photo.user_id) do %>
-            <a href={user_route(@photo.user_id)}>
-              <%= gettext("by %{user}", %{user: user["nickname"]}) %>
-            </a>
+          <%= case Auth0Management.user_get(@photo.user_id) do %>
+            <% {:ok, user} -> %>
+              <a href={user_route(@photo.user_id)}>
+                <%= gettext("by %{user}", %{user: user["nickname"]}) %>
+              </a>
+            <% _ -> %>
+              <a href={user_route(@photo.user_id)}>
+                <%= gettext("by user_id %{user_id}", %{user_id: @photo.user_id}) %>
+              </a>
           <% end %>
         <% else %>
           <%= gettext("by an anonymous user") %>

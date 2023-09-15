@@ -5,14 +5,23 @@ defmodule FotohaeckerWeb.UserLive.Show do
 
   @impl Phoenix.LiveView
   def mount(%{"id" => id} = _params, _session, socket) do
-    {:ok, user} = Auth0Management.user_get(id) |> IO.inspect(label: "user_get")
-    # TODO FIXME: what if user not found?
-    user_photos = Fotohaecker.Content.list_photos_by_user(id)
+    maybe_user = Auth0Management.user_get(id)
 
-    {:ok,
-     socket
-     |> assign(:user, user)
-     |> assign(:user_photos, user_photos)}
+    socket =
+      case maybe_user do
+        {:ok, user} ->
+          user_photos = Fotohaecker.Content.list_photos_by_user(id)
+
+          socket
+          |> assign(:user, user)
+          |> assign(:user_photos, user_photos)
+
+        {:error, reason} ->
+          # in case of 404, we should rather redirect to 404 page instead of printing error
+          assign(socket, :error, reason)
+      end
+
+    {:ok, socket}
   end
 
   @impl Phoenix.LiveView
@@ -21,22 +30,31 @@ defmodule FotohaeckerWeb.UserLive.Show do
     <div id="user_show" class="">
       <div class="bg-gray-800">
         <div class="max-w-6xl mx-auto space-y-2 py-8 px-8 xl:px-0">
-          <img
-            data-testid="profile-picture"
-            src={@user["picture"]}
-            alt={gettext("Profile Picture of %{nickname}", %{nickname: @user["nickname"]})}
-          />
-          <h1 class="text-gray-100 font-sans"><%= @user["nickname"] %></h1>
+          <%= if !!assigns[:user] do %>
+            <img
+              data-testid="profile-picture"
+              src={@user["picture"]}
+              alt={gettext("Profile Picture of %{nickname}", %{nickname: @user["nickname"]})}
+            />
+            <h1 class="text-gray-100 font-sans"><%= @user["nickname"] %></h1>
+          <% end %>
+          <%= if !!assigns[:error] do %>
+            <h1 class="text-gray-100 font-sans">
+              <%= @error["statusCode"] %>: <%= @error["message"] %>
+            </h1>
+          <% end %>
         </div>
       </div>
 
-      <div class="max-w-6xl mx-auto space-y-2 pt-2 px-8 xl:px-0">
-        <ul data-testid="photo_list" class="grid gap-4 grid-cols-2 md:grid-cols-4">
-          <%= for photo <- @user_photos do %>
-            <PhotoComponent.render photo={photo} />
-          <% end %>
-        </ul>
-      </div>
+      <%= if !!assigns[:user] and !!assigns[:user_photos] do %>
+        <div class="max-w-6xl mx-auto space-y-2 pt-2 px-8 xl:px-0">
+          <ul data-testid="photo_list" class="grid gap-4 grid-cols-2 md:grid-cols-4">
+            <%= for photo <- @user_photos do %>
+              <PhotoComponent.render photo={photo} />
+            <% end %>
+          </ul>
+        </div>
+      <% end %>
     </div>
     """
   end

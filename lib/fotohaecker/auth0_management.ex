@@ -116,8 +116,21 @@ defmodule Fotohaecker.Auth0Management do
   """
   @spec user_get(String.t()) :: {:ok, map} | {:error, term}
   def user_get(user_id) do
-    user_id
-    |> user_get_request(headers())
-    |> decode()
+    response =
+      user_id
+      |> user_get_request(headers())
+      |> decode()
+
+    # check if the returned user matches our expectations
+    case response do
+      {:ok, %{"name" => _name, "picture" => _picture, "nickname" => _nickname}} ->
+        response
+
+      {:ok, resp} ->
+        {:error, resp}
+
+      error ->
+        error
+    end
   end
 end
