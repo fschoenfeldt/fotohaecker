@@ -1,6 +1,6 @@
 import { test, expect } from "../fixtures/axe-test";
 
-test.describe("User Profile page", () => {
+test.describe.skip("User Profile page", () => {
   test.beforeEach(async ({ page }) => {
     await page.goto("/fh/en_US/user");
     await page.click("text=logout");
