@@ -25,7 +25,6 @@ defmodule FotohaeckerWeb.UserLive.Index do
     <div id="user" class="max-w-6xl mx-auto space-y-2 pt-2">
       <h1 class="dark:text-gray-100"><%= gettext("Your Account") %></h1>
 
-      <%!-- # TODO: DRY --%>
       <%= if !!assigns[:error] do %>
         <p class="font-bold dark:text-gray-100">
           There was an error fetching your user information: <%= @error["statusCode"] %>: <%= @error[
@@ -33,6 +32,7 @@ defmodule FotohaeckerWeb.UserLive.Index do
           ] %>
         </p>
       <% else %>
+        <%!-- # TODO: DRY --%>
         <dl class="space-y-2">
           <dt class="font-bold dark:text-gray-100"><%= gettext("Name/Email") %></dt>
           <dd class="dark:text-gray-100"><%= @current_user.name %></dd>
