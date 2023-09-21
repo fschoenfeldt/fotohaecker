@@ -77,6 +77,17 @@ defmodule Fotohaecker.Auth0Management do
     HTTPoison.get(url, headers)
   end
 
+  def users_get_request({:error, _reason} = error) do
+    error
+  end
+
+  def users_get_request({:ok, headers}) do
+    domain = System.get_env("AUTH0_DOMAIN")
+    url = "https://#{domain}/api/v2/users"
+
+    HTTPoison.get(url, headers)
+  end
+
   @doc """
   Get user logs
   """
@@ -97,6 +108,8 @@ defmodule Fotohaecker.Auth0Management do
         # Delete all photos by user
         # TODO: dirty limit
         photos = Fotohaecker.Content.list_photos_by_user(user_id, 1000, 0)
+
+        Fotohaecker.Auth0Cache.delete(user_id)
 
         {Enum.each(photos, fn photo ->
            Fotohaecker.Content.delete_photo(photo)
@@ -132,5 +145,16 @@ defmodule Fotohaecker.Auth0Management do
       error ->
         error
     end
+  end
+
+  @doc """
+  Get all users
+  """
+  def users_get do
+    headers()
+    |> users_get_request()
+    |> decode()
+
+    # TODO: check if the returned users matches our expectations
   end
 end

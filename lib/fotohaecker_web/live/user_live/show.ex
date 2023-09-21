@@ -1,11 +1,11 @@
 defmodule FotohaeckerWeb.UserLive.Show do
   alias FotohaeckerWeb.IndexLive.Home.PhotoComponent
-  alias Fotohaecker.Auth0Management
+  alias Fotohaecker.Auth0Cache
   use FotohaeckerWeb, :live_view
 
   @impl Phoenix.LiveView
   def mount(%{"id" => id} = _params, _session, socket) do
-    maybe_user = Auth0Management.user_get(id)
+    maybe_user = Auth0Cache.user(id)
 
     socket =
       case maybe_user do
@@ -33,10 +33,10 @@ defmodule FotohaeckerWeb.UserLive.Show do
           <%= if !!assigns[:user] do %>
             <img
               data-testid="profile-picture"
-              src={@user["picture"]}
-              alt={gettext("Profile Picture of %{nickname}", %{nickname: @user["nickname"]})}
+              src={@user.picture}
+              alt={gettext("Profile Picture of %{nickname}", %{nickname: @user.nickname})}
             />
-            <h1 class="text-gray-100 font-sans"><%= @user["nickname"] %></h1>
+            <h1 class="text-gray-100 font-sans"><%= @user.nickname %></h1>
           <% end %>
           <%= if !!assigns[:error] do %>
             <h1 class="text-gray-100 font-sans">
