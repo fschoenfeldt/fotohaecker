@@ -10,11 +10,14 @@ defmodule Fotohaecker.Auth0Cache do
   def start_link(_initial_value) do
     Agent.start_link(
       fn ->
-        {:ok, users} = Auth0Management.users_get() |> IO.inspect(label: "start link debug")
+        case Auth0Management.users_get() do
+          {:ok, users} ->
+            Enum.map(users, &interesting_auth0_fields/1)
 
-        cache = Enum.map(users, &interesting_auth0_fields/1)
-
-        cache
+          _ ->
+            Logger.warning("error fetching users from auth0, user cache will be empty")
+            []
+        end
       end,
       name: __MODULE__
     )
