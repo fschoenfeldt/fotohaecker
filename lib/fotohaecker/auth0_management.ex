@@ -1,6 +1,8 @@
 defmodule Fotohaecker.Auth0Management do
   @moduledoc """
   Module to handle Auth0 Management API calls
+
+  TODO: this module should be a behaviour so we can mock it in tests
   """
 
   defp token do

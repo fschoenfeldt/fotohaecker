@@ -10,13 +10,20 @@ defmodule Fotohaecker.Auth0Cache do
   def start_link(_initial_value) do
     Agent.start_link(
       fn ->
-        case Auth0Management.users_get() do
-          {:ok, users} ->
-            Enum.map(users, &interesting_auth0_fields/1)
+        # TODO: hacky
+        if System.get_env("CI") == "true" do
+          Logger.info("Auth0Cache: ci, not fetching users from auth0")
+          []
+        else
+          # credo:disable-for-next-line
+          case Auth0Management.users_get() do
+            {:ok, users} ->
+              Enum.map(users, &interesting_auth0_fields/1)
 
-          _ ->
-            Logger.warning("error fetching users from auth0, user cache will be empty")
-            []
+            _result ->
+              Logger.warning("error fetching users from auth0, initial user cache will be empty")
+              []
+          end
         end
       end,
       name: __MODULE__
