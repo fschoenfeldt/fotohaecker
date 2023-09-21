@@ -10,7 +10,7 @@ defmodule Fotohaecker.Auth0Cache do
   def start_link(_initial_value) do
     Agent.start_link(
       fn ->
-        {:ok, users} = Auth0Management.users_get()
+        {:ok, users} = Auth0Management.users_get() |> IO.inspect(label: "start link debug")
 
         cache = Enum.map(users, &interesting_auth0_fields/1)
 
