@@ -1,6 +1,5 @@
 import { test, expect } from "../fixtures/axe-test";
 import { changeLanguage, uploadPhoto } from "./helpers";
-import AxeBuilder from "@axe-core/playwright";
 
 test.describe("Photo Page: Static", () => {
   test.beforeEach(async ({ page }) => {

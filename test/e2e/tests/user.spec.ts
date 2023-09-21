@@ -31,8 +31,7 @@ test.describe("User Settings page", () => {
     const { email, password } = userFixture;
 
     await expect(page.locator("h1")).toHaveText("Your Account");
-    // TODO: user info doesn't get displayed when rate limit is exceeded
-    // await expect(page.locator("div#user")).toContainText(email);
+    await expect(page.locator("div#user")).toContainText(email);
   });
 
   test("can logout", async ({ page }) => {
