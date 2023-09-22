@@ -137,17 +137,17 @@ msgstr ""
 msgid "logout"
 msgstr ""
 
-#: lib/fotohaecker_web/controllers/auth_controller.ex:44
+#: lib/fotohaecker_web/controllers/auth_controller.ex:45
 #, elixir-autogen, elixir-format
 msgid "Failed to authenticate."
 msgstr ""
 
-#: lib/fotohaecker_web/controllers/auth_controller.ex:54
+#: lib/fotohaecker_web/controllers/auth_controller.ex:55
 #, elixir-autogen, elixir-format
 msgid "Successfully authenticated."
 msgstr ""
 
-#: lib/fotohaecker_web/controllers/auth_controller.ex:35
+#: lib/fotohaecker_web/controllers/auth_controller.ex:36
 #, elixir-autogen, elixir-format
 msgid "You have been logged out!"
 msgstr ""
@@ -346,7 +346,7 @@ msgstr ""
 msgid "Delete Account"
 msgstr ""
 
-#: lib/fotohaecker_web/controllers/auth_controller.ex:74
+#: lib/fotohaecker_web/controllers/auth_controller.ex:75
 #, elixir-autogen, elixir-format
 msgid "Your account has been deleted!"
 msgstr ""
