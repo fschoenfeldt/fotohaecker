@@ -37,7 +37,7 @@ msgstr ""
 
 #: lib/fotohaecker_web/live/index_live/home/photo_component.ex:34
 #: lib/fotohaecker_web/live/index_live/home/upload_form.ex:47
-#: lib/fotohaecker_web/live/photo_live/show.ex:49
+#: lib/fotohaecker_web/live/photo_live/show.ex:50
 #, elixir-autogen, elixir-format
 msgid "photo %{title} on Fotohäcker"
 msgstr ""
@@ -62,7 +62,7 @@ msgstr ""
 msgid "uploading.."
 msgstr ""
 
-#: lib/fotohaecker_web/live/photo_live/show.ex:109
+#: lib/fotohaecker_web/live/photo_live/show.ex:104
 #, elixir-autogen, elixir-format
 msgid "back"
 msgstr ""
@@ -102,7 +102,7 @@ msgstr ""
 msgid "change language"
 msgstr ""
 
-#: lib/fotohaecker_web/live/photo_live/show.ex:90
+#: lib/fotohaecker_web/live/photo_live/show.ex:85
 #, elixir-autogen, elixir-format
 msgid "download the photo %{title} from Fotohäcker"
 msgstr ""
@@ -117,12 +117,12 @@ msgstr ""
 msgid "showing %{limit} out of %{amount} photos"
 msgstr ""
 
-#: lib/fotohaecker_web/live/index_live/home.ex:185
+#: lib/fotohaecker_web/live/index_live/home.ex:189
 #, elixir-autogen, elixir-format
 msgid "Photo uploaded successfully."
 msgstr ""
 
-#: lib/fotohaecker_web/live/index_live/home.ex:196
+#: lib/fotohaecker_web/live/index_live/home.ex:200
 #, elixir-autogen, elixir-format
 msgid "Something went wrong uploading your photo. Please try again."
 msgstr ""
@@ -132,43 +132,43 @@ msgstr ""
 msgid "login"
 msgstr ""
 
-#: lib/fotohaecker_web/live/user_live/index.ex:54
+#: lib/fotohaecker_web/live/user_live/index.ex:86
 #, elixir-autogen, elixir-format
 msgid "logout"
 msgstr ""
 
-#: lib/fotohaecker_web/controllers/auth_controller.ex:44
+#: lib/fotohaecker_web/controllers/auth_controller.ex:45
 #, elixir-autogen, elixir-format
 msgid "Failed to authenticate."
 msgstr ""
 
-#: lib/fotohaecker_web/controllers/auth_controller.ex:54
+#: lib/fotohaecker_web/controllers/auth_controller.ex:55
 #, elixir-autogen, elixir-format
 msgid "Successfully authenticated."
 msgstr ""
 
-#: lib/fotohaecker_web/controllers/auth_controller.ex:35
+#: lib/fotohaecker_web/controllers/auth_controller.ex:36
 #, elixir-autogen, elixir-format
 msgid "You have been logged out!"
 msgstr ""
 
-#: lib/fotohaecker_web/live/photo_live/show.ex:64
+#: lib/fotohaecker_web/live/photo_live/show.ex:59
 #, elixir-autogen, elixir-format
 msgid "Download"
 msgstr ""
 
-#: lib/fotohaecker_web/live/user_live/index.ex:15
+#: lib/fotohaecker_web/live/user_live/index.ex:37
 #, elixir-autogen, elixir-format
 msgid "Name/Email"
 msgstr ""
 
-#: lib/fotohaecker_web/live/user_live/index.ex:13
+#: lib/fotohaecker_web/live/user_live/index.ex:26
 #, elixir-autogen, elixir-format
 msgid "Your Account"
 msgstr ""
 
-#: lib/fotohaecker_web/live/photo_live/show.ex:60
-#: lib/fotohaecker_web/live/photo_live/show.ex:75
+#: lib/fotohaecker_web/live/photo_live/show.ex:70
+#: lib/fotohaecker_web/live/photo_live/show.ex:119
 #, elixir-autogen, elixir-format
 msgid "uploaded on %{date}"
 msgstr ""
@@ -208,7 +208,7 @@ msgstr ""
 msgid "generate using AI"
 msgstr ""
 
-#: lib/fotohaecker_web/live/photo_live/show.ex:145
+#: lib/fotohaecker_web/live/photo_live/show.ex:172
 #, elixir-autogen, elixir-format
 msgid "no tags"
 msgstr ""
@@ -219,7 +219,7 @@ msgid "photo tags"
 msgstr ""
 
 #: lib/fotohaecker_web/live/index_live/home/upload_form.ex:52
-#: lib/fotohaecker_web/live/photo_live/show.ex:197
+#: lib/fotohaecker_web/live/photo_live/show.ex:224
 #, elixir-autogen, elixir-format
 msgid "saving.."
 msgstr ""
@@ -239,42 +239,42 @@ msgstr ""
 msgid "submit and go to photo"
 msgstr ""
 
-#: lib/fotohaecker_web/live/photo_live/show.ex:150
+#: lib/fotohaecker_web/live/photo_live/show.ex:177
 #, elixir-autogen, elixir-format
 msgid "tags"
 msgstr ""
 
-#: lib/fotohaecker_web/live/photo_live/show.ex:221
+#: lib/fotohaecker_web/live/photo_live/show.ex:248
 #, elixir-autogen, elixir-format
 msgid "cancel"
 msgstr ""
 
-#: lib/fotohaecker_web/live/photo_live/show.ex:211
+#: lib/fotohaecker_web/live/photo_live/show.ex:238
 #, elixir-autogen, elixir-format
 msgid "canceling.."
 msgstr ""
 
-#: lib/fotohaecker_web/live/photo_live/show.ex:317
+#: lib/fotohaecker_web/live/photo_live/show.ex:344
 #, elixir-autogen, elixir-format
 msgid "photo updated"
 msgstr ""
 
-#: lib/fotohaecker_web/live/photo_live/show.ex:205
+#: lib/fotohaecker_web/live/photo_live/show.ex:232
 #, elixir-autogen, elixir-format
 msgid "save"
 msgstr ""
 
-#: lib/fotohaecker_web/live/photo_live/show.ex:253
+#: lib/fotohaecker_web/live/photo_live/show.ex:280
 #, elixir-autogen, elixir-format
 msgid "edit field %{field}"
 msgstr ""
 
-#: lib/fotohaecker_web/live/photo_live/show.ex:179
+#: lib/fotohaecker_web/live/photo_live/show.ex:206
 #, elixir-autogen, elixir-format
 msgid "enter new %{field}"
 msgstr ""
 
-#: lib/fotohaecker_web/live/photo_live/show.ex:188
+#: lib/fotohaecker_web/live/photo_live/show.ex:215
 #, elixir-autogen, elixir-format
 msgid "photo %{field}"
 msgstr ""
@@ -341,12 +341,42 @@ msgstr ""
 msgid "waiting for submission"
 msgstr ""
 
-#: lib/fotohaecker_web/live/user_live/index.ex:30
+#: lib/fotohaecker_web/live/user_live/index.ex:61
 #, elixir-autogen, elixir-format
 msgid "Delete Account"
 msgstr ""
 
-#: lib/fotohaecker_web/controllers/auth_controller.ex:74
+#: lib/fotohaecker_web/controllers/auth_controller.ex:75
 #, elixir-autogen, elixir-format
 msgid "Your account has been deleted!"
+msgstr ""
+
+#: lib/fotohaecker_web/live/user_live/index.ex:39
+#, elixir-autogen, elixir-format
+msgid "Nickname"
+msgstr ""
+
+#: lib/fotohaecker_web/live/user_live/show.ex:37
+#, elixir-autogen, elixir-format
+msgid "Profile Picture of %{nickname}"
+msgstr ""
+
+#: lib/fotohaecker_web/live/user_live/index.ex:41
+#, elixir-autogen, elixir-format
+msgid "Your Profile Link"
+msgstr ""
+
+#: lib/fotohaecker_web/live/photo_live/show.ex:126
+#, elixir-autogen, elixir-format
+msgid "by %{user}"
+msgstr ""
+
+#: lib/fotohaecker_web/live/photo_live/show.ex:134
+#, elixir-autogen, elixir-format
+msgid "by an anonymous user"
+msgstr ""
+
+#: lib/fotohaecker_web/live/photo_live/show.ex:130
+#, elixir-autogen, elixir-format
+msgid "by user_id %{user_id}"
 msgstr ""

@@ -20,7 +20,6 @@ defmodule Fotohaecker.MixProject do
   def application do
     [
       mod: {Fotohaecker.Application, []},
-      # applications: [:ueberauth_auth0],
       extra_applications: [:logger, :runtime_tools, :ueberauth_auth0]
     ]
   end

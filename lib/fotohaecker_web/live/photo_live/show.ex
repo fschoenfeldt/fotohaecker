@@ -1,4 +1,5 @@
 defmodule FotohaeckerWeb.PhotoLive.Show do
+  alias Fotohaecker.UserManagement
   use FotohaeckerWeb, :live_view
 
   alias Fotohaecker.Content
@@ -52,13 +53,7 @@ defmodule FotohaeckerWeb.PhotoLive.Show do
           <div class="col-span-4 m-4 md:pt-4 space-y-4">
             <.back_button />
             <.title photo={@photo} editing={@editing} />
-            <p
-              class="text-sm text-gray-800 dark:text-gray-100"
-              x-data
-              x-text={alpine_format_date(@photo.inserted_at)}
-            >
-              <%= gettext("uploaded on %{date}", %{date: @photo.inserted_at}) %>
-            </p>
+            <.upload_date_and_user photo={@photo} />
             <.tags photo={@photo} editing={@editing} />
             <.download_link class="btn btn--green flex gap-2 w-max" href={path} photo={@photo}>
               <Heroicons.arrow_down_tray class="w-6 h-6 stroke-white" /> <%= gettext("Download") %>
@@ -108,6 +103,38 @@ defmodule FotohaeckerWeb.PhotoLive.Show do
       <Heroicons.arrow_left mini class="w-4 h-4 fill-gray-800 dark:fill-gray-100" />
       <%= gettext("back") %>
     </.link>
+    """
+  end
+
+  attr(:photo, Photo, required: true)
+
+  defp upload_date_and_user(assigns) do
+    ~H"""
+    <p class="text-sm">
+      <span
+        x-data
+        x-text={alpine_format_date(@photo.inserted_at)}
+        class="text-gray-800 dark:text-gray-100"
+      >
+        <%= gettext("uploaded on %{date}", %{date: @photo.inserted_at}) %>
+      </span>
+      <span class="text-gray-700 dark:text-gray-300 italic">
+        <%= if @photo.user_id !== nil do %>
+          <%= case UserManagement.get(@photo.user_id) do %>
+            <% {:ok, user} -> %>
+              <a href={user_route(@photo.user_id)}>
+                <%= gettext("by %{user}", %{user: user.nickname}) %>
+              </a>
+            <% _ -> %>
+              <a href={user_route(@photo.user_id)}>
+                <%= gettext("by user_id %{user_id}", %{user_id: @photo.user_id}) %>
+              </a>
+          <% end %>
+        <% else %>
+          <%= gettext("by an anonymous user") %>
+        <% end %>
+      </span>
+    </p>
     """
   end
 

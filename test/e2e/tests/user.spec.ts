@@ -1,6 +1,5 @@
-import { test, expect } from "@playwright/test";
+import { test, expect } from "../fixtures/axe-test";
 import { userFixture } from "./helpers";
-import AxeBuilder from "@axe-core/playwright";
 
 test.describe("User Settings page", () => {
   test.beforeEach(async ({ page }) => {
@@ -10,18 +9,20 @@ test.describe("User Settings page", () => {
 
   test("should not have any automatically detectable accessibility issues", async ({
     page,
+    makeAxeBuilder,
   }) => {
     test.slow();
-    const accessibilityScanResults = await new AxeBuilder({ page }).analyze();
+    const accessibilityScanResults = await makeAxeBuilder().analyze();
     expect(accessibilityScanResults.violations).toEqual([]);
   });
 
   test("should not have any automatically detectable accessibility issues in dark mode", async ({
     page,
+    makeAxeBuilder,
   }) => {
     test.slow();
     await page.emulateMedia({ colorScheme: "dark" });
-    const accessibilityScanResults = await new AxeBuilder({ page }).analyze();
+    const accessibilityScanResults = await makeAxeBuilder().analyze();
     expect(accessibilityScanResults.violations).toEqual([]);
   });
 
@@ -29,7 +30,8 @@ test.describe("User Settings page", () => {
     const { email, password } = userFixture;
 
     await expect(page.locator("h1")).toHaveText("Your Account");
-    await expect(page.locator("div#user")).toContainText(email);
+    // can't check for mail because Auth0UserManagement isn't enabled.
+    // await expect(page.locator("div#user")).toContainText(email);
   });
 
   test("can logout", async ({ page }) => {

@@ -12,6 +12,7 @@ defmodule FotohaeckerWeb.AuthController do
 
   alias Fotohaecker.UserFromAuth
   alias FotohaeckerWeb.Router.Helpers
+  alias Fotohaecker.UserManagement
 
   def login(conn, %{"provider" => provider, "locale" => locale} = _params) do
     conn
@@ -68,7 +69,7 @@ defmodule FotohaeckerWeb.AuthController do
     locale = locale_from_session(conn)
     current_user = Plug.Conn.get_session(conn, :current_user)
 
-    case Fotohaecker.Auth0Management.user_delete_account(current_user) do
+    case UserManagement.delete(current_user.id) do
       {:ok, _} ->
         conn
         |> put_flash(:info, gettext("Your account has been deleted!"))
@@ -82,22 +83,22 @@ defmodule FotohaeckerWeb.AuthController do
     end
   end
 
-  def logs(conn, _params) do
-    locale = locale_from_session(conn)
-    current_user = Plug.Conn.get_session(conn, :current_user)
+  # def logs(conn, _params) do
+  #   locale = locale_from_session(conn)
+  #   current_user = Plug.Conn.get_session(conn, :current_user)
 
-    case Fotohaecker.Auth0Management.user_logs(current_user) do
-      {:ok, logs} ->
-        conn
-        |> put_status(200)
-        |> json(logs)
+  #   case Fotohaecker.UserManagement.logs(current_user.id) do
+  #     {:ok, logs} ->
+  #       conn
+  #       |> put_status(200)
+  #       |> json(logs)
 
-      {:error, reason} ->
-        conn
-        |> put_flash(:error, reason)
-        |> redirect(to: Helpers.index_home_path(conn, :home, locale))
-    end
-  end
+  #     {:error, reason} ->
+  #       conn
+  #       |> put_flash(:error, reason)
+  #       |> redirect(to: Helpers.index_home_path(conn, :home, locale))
+  #   end
+  # end
 
   defp locale_from_session(conn) do
     fallback_locale = Gettext.get_locale(FotohaeckerWeb.Gettext)

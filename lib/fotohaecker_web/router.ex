@@ -25,11 +25,15 @@ defmodule FotohaeckerWeb.Router do
       pipe_through :protected
       live "/", UserLive.Index, :index
 
-      if Mix.env() in [:dev, :test] do
-        get "/logs", AuthController, :logs
-      end
+      # if Mix.env() in [:dev, :test] do
+      #   get "/logs", AuthController, :logs
+      # end
 
       post "/delete_account", AuthController, :delete_account
+    end
+
+    scope "/:locale/user" do
+      live "/:id", UserLive.Show, :show
     end
 
     live "/", IndexLive.Home, :home

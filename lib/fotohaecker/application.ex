@@ -22,6 +22,10 @@ defmodule Fotohaecker.Application do
       %{
         id: NodeJS,
         start: {NodeJS, :start_link, [[path: "assets/", pool_size: 4]]}
+      },
+      %{
+        id: Fotohaecker.UserManagement,
+        start: {Fotohaecker.UserManagement, :start_link, []}
       }
     ]
 
