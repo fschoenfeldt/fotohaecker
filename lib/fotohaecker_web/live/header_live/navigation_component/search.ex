@@ -68,7 +68,7 @@ defmodule FotohaeckerWeb.HeaderLive.NavigationComponent.Search do
       type="text"
       value={@search_query}
       phx-debounce="500"
-      placeholder="Search..."
+      placeholder={gettext("Search…")}
       name="search_query"
       id="search_query"
     />

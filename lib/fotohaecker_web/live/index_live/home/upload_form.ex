@@ -95,6 +95,15 @@ defmodule FotohaeckerWeb.IndexLive.Home.UploadForm do
                 </span>
               </label>
 
+              <ul class="max-w-sm list-inside list-disc">
+                <li class="text-sm text-gray-700 dark:text-gray-200">
+                  <%= gettext("accepted file types: .jpg, .jpeg.") %>
+                </li>
+                <li class="text-sm text-gray-700 dark:text-gray-200">
+                  <%= gettext("metadata and exif data will be removed upon upload to ensure privacy.") %>
+                </li>
+              </ul>
+
               <%= for entry <- @uploads.photo.entries do %>
                 <%= unless Enum.empty?(upload_errors(@uploads.photo, entry)) do %>
                   <div hidden>
