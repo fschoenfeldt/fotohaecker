@@ -23,7 +23,10 @@ defmodule Fotohaecker.Application do
         id: NodeJS,
         start: {NodeJS, :start_link, [[path: "assets/", pool_size: 4]]}
       },
-      Fotohaecker.Auth0Cache
+      %{
+        id: Fotohaecker.UserManagement,
+        start: {Fotohaecker.UserManagement, :start_link, []}
+      }
     ]
 
     # See https://hexdocs.pm/elixir/Supervisor.html

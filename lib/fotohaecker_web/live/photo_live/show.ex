@@ -1,5 +1,5 @@
 defmodule FotohaeckerWeb.PhotoLive.Show do
-  alias Fotohaecker.Auth0Cache
+  alias Fotohaecker.UserManagement
   use FotohaeckerWeb, :live_view
 
   alias Fotohaecker.Content
@@ -120,7 +120,7 @@ defmodule FotohaeckerWeb.PhotoLive.Show do
       </span>
       <span class="text-gray-700 dark:text-gray-300 italic">
         <%= if @photo.user_id !== nil do %>
-          <%= case Auth0Cache.user(@photo.user_id) do %>
+          <%= case UserManagement.get(@photo.user_id) do %>
             <% {:ok, user} -> %>
               <a href={user_route(@photo.user_id)}>
                 <%= gettext("by %{user}", %{user: user.nickname}) %>

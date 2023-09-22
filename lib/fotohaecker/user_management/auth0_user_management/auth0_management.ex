@@ -1,9 +1,11 @@
-defmodule Fotohaecker.Auth0Management do
+defmodule Fotohaecker.UserManagement.Auth0UserManagement.Auth0Management do
   @moduledoc """
   Module to handle Auth0 Management API calls
 
   TODO: this module should be a behaviour so we can mock it in tests
   """
+
+  alias Fotohaecker.UserManagement.Auth0UserManagement.Auth0Cache
 
   defp token do
     domain = System.get_env("AUTH0_DOMAIN")
@@ -46,16 +48,16 @@ defmodule Fotohaecker.Auth0Management do
     end
   end
 
-  defp user_logs_request(_id, {:error, _reason} = error) do
-    error
-  end
+  # defp user_logs_request(_id, {:error, _reason} = error) do
+  #   error
+  # end
 
-  defp user_logs_request(id, {:ok, headers}) do
-    domain = System.get_env("AUTH0_DOMAIN")
-    url = "https://#{domain}/api/v2/users/#{id}/logs"
+  # defp user_logs_request(id, {:ok, headers}) do
+  #   domain = System.get_env("AUTH0_DOMAIN")
+  #   url = "https://#{domain}/api/v2/users/#{id}/logs"
 
-    HTTPoison.get(url, headers)
-  end
+  #   HTTPoison.get(url, headers)
+  # end
 
   defp user_delete_account_request(_id, {:error, _reason} = error) do
     error
@@ -79,39 +81,39 @@ defmodule Fotohaecker.Auth0Management do
     HTTPoison.get(url, headers)
   end
 
-  def users_get_request({:error, _reason} = error) do
+  defp users_get_request({:error, _reason} = error) do
     error
   end
 
-  def users_get_request({:ok, headers}) do
+  defp users_get_request({:ok, headers}) do
     domain = System.get_env("AUTH0_DOMAIN")
     url = "https://#{domain}/api/v2/users"
 
     HTTPoison.get(url, headers)
   end
 
-  @doc """
-  Get user logs
-  """
-  @spec user_logs(map) :: {:ok, map} | {:error, term}
-  def user_logs(%{id: user_id} = _user) do
-    user_id
-    |> user_logs_request(headers())
-    |> decode()
-  end
+  # @doc """
+  # Get user logs
+  # """
+  # @spec logs(String.t()) :: {:ok, map} | {:error, term}
+  # def logs(user_id) do
+  #   user_id
+  #   |> user_logs_request(headers())
+  #   |> decode()
+  # end
 
   @doc """
   Delete user account
   """
-  @spec user_delete_account(map) :: {:ok, map} | {:error, term}
-  def user_delete_account(%{id: user_id} = _user) do
+  @spec delete(String.t()) :: {:ok, map} | {:error, term}
+  def delete(user_id) do
     case user_delete_account_request(user_id, headers()) do
       {:ok, _} ->
         # Delete all photos by user
         # TODO: dirty limit
         photos = Fotohaecker.Content.list_photos_by_user(user_id, 1000, 0)
 
-        Fotohaecker.Auth0Cache.delete(user_id)
+        Auth0Cache.delete(user_id)
 
         {Enum.each(photos, fn photo ->
            Fotohaecker.Content.delete_photo(photo)
@@ -129,8 +131,8 @@ defmodule Fotohaecker.Auth0Management do
   @doc """
   Get user
   """
-  @spec user_get(String.t()) :: {:ok, map} | {:error, term}
-  def user_get(user_id) do
+  @spec get(String.t()) :: {:ok, map} | {:error, term}
+  def get(user_id) do
     response =
       user_id
       |> user_get_request(headers())
@@ -152,7 +154,7 @@ defmodule Fotohaecker.Auth0Management do
   @doc """
   Get all users
   """
-  def users_get do
+  def get_all do
     headers()
     |> users_get_request()
     |> decode()

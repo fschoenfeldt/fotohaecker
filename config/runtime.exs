@@ -13,6 +13,13 @@ if System.get_env("CLARIFAI_API_SECRET") do
   config :fotohaecker, Fotohaecker.TagDetection, Fotohaecker.TagDetection.Clarifai
 end
 
+if !!System.get_env("AUTH0_DOMAIN") and !!System.get_env("AUTH0_MANAGEMENT_CLIENT_ID") and
+     !!System.get_env("AUTH0_MANAGEMENT_CLIENT_SECRET") do
+  config :fotohaecker,
+         Fotohaecker.UserManagement,
+         Fotohaecker.UserManagement.Auth0UserManagement
+end
+
 # ## Using releases
 #
 # If you use `mix release`, you need to explicitly enable the server

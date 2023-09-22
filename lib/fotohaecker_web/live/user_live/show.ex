@@ -1,11 +1,11 @@
 defmodule FotohaeckerWeb.UserLive.Show do
   alias FotohaeckerWeb.IndexLive.Home.PhotoComponent
-  alias Fotohaecker.Auth0Cache
+  alias Fotohaecker.UserManagement
   use FotohaeckerWeb, :live_view
 
   @impl Phoenix.LiveView
   def mount(%{"id" => id} = _params, _session, socket) do
-    maybe_user = Auth0Cache.user(id)
+    maybe_user = UserManagement.get(id)
 
     socket =
       case maybe_user do
