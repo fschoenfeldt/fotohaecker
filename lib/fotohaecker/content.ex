@@ -188,11 +188,14 @@ defmodule Fotohaecker.Content do
       iex> is_photo_owner?(%Photo{user_id: nil}, nil)
       true
   """
-  def is_photo_owner?(%Photo{} = photo, user_id) when is_binary(user_id),
-    do: photo.user_id == user_id
-
   def is_photo_owner?(%Photo{} = photo, user) when is_map(user),
     do: is_photo_owner?(photo, user.id)
+
+  def is_photo_owner?(%Photo{user_id: nil} = _photo, user_id) when is_binary(user_id),
+    do: true
+
+  def is_photo_owner?(%Photo{} = photo, user_id) when is_binary(user_id),
+    do: photo.user_id == user_id
 
   def is_photo_owner?(%Photo{user_id: nil}, _user_or_id), do: true
 

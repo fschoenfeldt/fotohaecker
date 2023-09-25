@@ -288,4 +288,59 @@ defmodule Fotohaecker.ContentTest do
       assert Content.get_photo(photo.id) == nil
     end
   end
+
+  describe "is_photo_owner?/2" do
+    test "user is owner of his own photo" do
+      user_id = "auth0|123456789"
+
+      photo = %Photo{
+        user_id: user_id
+      }
+
+      assert Content.is_photo_owner?(photo, user_id)
+    end
+
+    test "user doesn't own photo of another user" do
+      user_id = "auth0|123456789"
+      another_user_id = "auth0|987654321"
+
+      photo = %Photo{
+        user_id: user_id
+      }
+
+      refute Content.is_photo_owner?(photo, another_user_id)
+    end
+
+    test "anonymous user is owner of anonymous photo" do
+      user_id = nil
+
+      photo = %Photo{
+        user_id: user_id
+      }
+
+      assert Content.is_photo_owner?(photo, user_id)
+    end
+
+    test "anonymous user isn't owner of another users photo" do
+      user_id = "auth0|123456789"
+      anonymous_user_id = nil
+
+      photo = %Photo{
+        user_id: user_id
+      }
+
+      refute Content.is_photo_owner?(photo, anonymous_user_id)
+    end
+
+    test "logged in user is user of anonymous photo" do
+      user_id = "auth0|123456789"
+      anonymous_user_id = nil
+
+      photo = %Photo{
+        user_id: anonymous_user_id
+      }
+
+      assert Content.is_photo_owner?(photo, user_id)
+    end
+  end
 end
