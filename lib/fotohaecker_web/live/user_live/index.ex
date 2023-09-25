@@ -72,17 +72,7 @@ defmodule FotohaeckerWeb.UserLive.Index do
           )
         }
       >
-        <button
-          type="submit"
-          class="btn btn--red flex items-center gap-2 max-w-max"
-          href={
-            # TODO this doesn't work!
-            Routes.auth_path(
-              FotohaeckerWeb.Endpoint,
-              :logout
-            )
-          }
-        >
+        <button type="submit" class="btn btn--red flex items-center gap-2 max-w-max">
           <%= gettext("logout") %>
         </button>
       </.form>
