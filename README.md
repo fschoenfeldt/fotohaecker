@@ -49,6 +49,8 @@ mix check
 ```shell
 # install deps
 mix e2e.setup
+# prepare db
+MIX_ENV=e2e mix ecto.setup
 # run tests
 pnpm --prefix test/e2e test
 # .. with traces

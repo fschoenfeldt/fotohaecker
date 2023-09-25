@@ -116,7 +116,7 @@ defmodule Fotohaecker.UserManagement.Auth0UserManagement.Auth0Management do
         Auth0Cache.delete(user_id)
 
         {Enum.each(photos, fn photo ->
-           Fotohaecker.Content.delete_photo(photo)
+           Fotohaecker.Content.delete_photo(photo, user_id)
          end),
          %{
            user_id: user_id,

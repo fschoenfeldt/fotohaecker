@@ -95,3 +95,20 @@ test.describe("Photo Page: CRUD", () => {
     await expect(page.locator(".alert--info")).toContainText("photo updated");
   });
 });
+
+test.describe("Photo Page: Permissions", () => {
+  test.beforeEach(async ({ page, context }) => {
+    page.goto("/fh/en_US/photos/-1");
+    await page.waitForLoadState("networkidle");
+  });
+
+  test("Can't edit photo title of a photo not owned", async ({ page }) => {
+    const nonexistentEditButton = await page.$("data-testid=edit-button-title");
+    expect(nonexistentEditButton).toBeNull();
+  });
+
+  test("Can't edit photo tags of a photo not owned", async ({ page }) => {
+    const nonexistentEditButton = await page.$("data-testid=edit-button-tags");
+    expect(nonexistentEditButton).toBeNull();
+  });
+});

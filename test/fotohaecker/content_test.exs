@@ -5,6 +5,18 @@ defmodule Fotohaecker.ContentTest do
   alias Fotohaecker.Content.Photo
   import Fotohaecker.ContentFixtures
 
+  # write empty binary files to the destination paths
+  # TODO: DRY: move this to a the fixtures module
+  defp write_photo_files(photo) do
+    photo_paths = Content.photo_paths(photo)
+
+    Enum.each(photo_paths, fn path ->
+      File.write!(path, "")
+    end)
+
+    photo_paths
+  end
+
   describe "photos" do
     @invalid_attrs %{file_name: nil, tags: nil, title: nil}
 
@@ -49,11 +61,11 @@ defmodule Fotohaecker.ContentTest do
 
     test "list_photos_by_user/2" do
       user_id = "auth0|123456789"
-      photo_1 = photo_fixture(%{user_id: user_id})
+      _photo_1 = photo_fixture(%{user_id: user_id})
       photo_2 = photo_fixture(%{user_id: user_id})
       photo_3 = photo_fixture(%{user_id: user_id})
       photo_4 = photo_fixture(%{user_id: user_id})
-      photo_5 = photo_fixture(%{user_id: user_id})
+      _photo_5 = photo_fixture(%{user_id: user_id})
 
       actual = Content.list_photos_by_user(user_id, 3, 1)
 
@@ -69,7 +81,7 @@ defmodule Fotohaecker.ContentTest do
     test "list_photos_by_user/2 empty result" do
       user_id = "auth0|123456789"
       another_user_id = "auth0|987654321"
-      photo_1 = photo_fixture(%{user_id: user_id})
+      _photo_1 = photo_fixture(%{user_id: user_id})
 
       actual = Content.list_photos_by_user(another_user_id, 3, 10)
 
@@ -81,6 +93,10 @@ defmodule Fotohaecker.ContentTest do
     test "get_photo!/1 returns the photo with given id" do
       photo = photo_fixture()
       assert Content.get_photo!(photo.id) == photo
+    end
+
+    test "get_photo/1 raises when photo does not exist" do
+      assert_raise Ecto.NoResultsError, fn -> Content.get_photo!("1337") end
     end
 
     test "create_photo/1 with valid data creates a photo" do
@@ -139,23 +155,6 @@ defmodule Fotohaecker.ContentTest do
       photo = photo_fixture()
       assert {:error, %Ecto.Changeset{}} = Content.update_photo(photo, @invalid_attrs)
       assert photo == Content.get_photo!(photo.id)
-    end
-
-    test "delete_photo/1 deletes the photo" do
-      photo = photo_fixture()
-      photo_paths = Content.photo_paths(photo)
-      # write empty binary files to the destination paths
-      Enum.each(photo_paths, fn path ->
-        File.write!(path, "")
-      end)
-
-      assert {:ok, %Photo{}} = Content.delete_photo(photo)
-
-      assert photo_paths
-             |> Enum.map(fn path -> File.exists?(path) end)
-             |> Enum.all?(fn exists -> exists == false end)
-
-      assert_raise Ecto.NoResultsError, fn -> Content.get_photo!(photo.id) end
     end
 
     test "change_photo/1 returns a photo changeset" do
@@ -234,6 +233,59 @@ defmodule Fotohaecker.ContentTest do
       expected = []
 
       assert actual == expected
+    end
+  end
+
+  describe "delete_photo/2" do
+    test "deletes the photo" do
+      user_id = "auth0|123456789"
+
+      photo =
+        photo_fixture(%{
+          user_id: user_id
+        })
+
+      photo_paths = write_photo_files(photo)
+
+      assert {:ok, %Photo{}} = Content.delete_photo(photo, user_id)
+
+      assert photo_paths
+             |> Enum.map(fn path -> File.exists?(path) end)
+             |> Enum.all?(fn exists -> exists == false end)
+
+      assert_raise Ecto.NoResultsError, fn -> Content.get_photo!(photo.id) end
+    end
+
+    test "refuses to delete if user is not owner" do
+      user_id = "auth0|123456789"
+      another_user_id = "auth0|987654321"
+
+      photo =
+        photo_fixture(%{
+          user_id: user_id
+        })
+
+      actual = Content.delete_photo(photo, another_user_id)
+      expected = {:error, "You are not allowed to delete this photo."}
+
+      assert actual == expected
+    end
+
+    test "allows deleting of anonymous photo by everyone" do
+      photo =
+        photo_fixture(%{
+          user_id: nil
+        })
+
+      write_photo_files(photo)
+
+      Content.delete_photo(photo, "auth0|123456789")
+
+      refute photo
+             |> Content.photo_paths()
+             |> File.exists?()
+
+      assert Content.get_photo(photo.id) == nil
     end
   end
 end

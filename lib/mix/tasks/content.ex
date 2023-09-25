@@ -63,7 +63,7 @@ defmodule Mix.Tasks.Content do
 
        (Y/n)
        """) do
-      Content.delete_photo(photo)
+      Content.delete_photo(photo, photo.user_id)
       |> case do
         {:ok, _} ->
           IO.puts("deleted photo")

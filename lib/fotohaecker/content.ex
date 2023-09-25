@@ -120,6 +120,17 @@ defmodule Fotohaecker.Content do
   """
   def get_photo!(id), do: Repo.get!(Photo, id)
 
+  @doc """
+  Gets a single photo.
+
+  ## Examples
+
+      iex> get_photo(123)
+      {:ok, %Photo{}}
+
+      iex> get_photo(456)
+      {:error, %Ecto.NoResultsError{}}
+  """
   def get_photo(id), do: Repo.get(Photo, id)
 
   @doc """
@@ -143,6 +154,8 @@ defmodule Fotohaecker.Content do
   @doc """
   Updates a photo.
 
+  # TODO: this function should be checking if the user is the owner of the photo!
+
   ## Examples
 
       iex> update_photo(photo, %{field: new_value})
@@ -159,18 +172,57 @@ defmodule Fotohaecker.Content do
   end
 
   @doc """
+  Checks if a user is the owner of a photo. Anonymous uploads are owned by everyone.
+
+  ## Examples
+
+      iex> is_photo_owner?(%Photo{user_id: "auth0|123456789"}, "auth0|123456789")
+      true
+
+      iex> is_photo_owner?(%Photo{user_id: "auth0|123456789"}, "other_user")
+      false
+
+      iex> is_photo_owner?(%Photo{user_id: nil}, "auth0|123456789")
+      true
+
+      iex> is_photo_owner?(%Photo{user_id: nil}, nil)
+      true
+  """
+  def is_photo_owner?(%Photo{} = photo, user_id) when is_binary(user_id),
+    do: photo.user_id == user_id
+
+  def is_photo_owner?(%Photo{} = photo, user) when is_map(user),
+    do: is_photo_owner?(photo, user.id)
+
+  def is_photo_owner?(%Photo{user_id: nil}, _user_or_id), do: true
+
+  def is_photo_owner?(%Photo{} = _photo, nil), do: false
+
+  @doc """
   Deletes a photo.
 
   ## Examples
 
-      iex> delete_photo(photo)
+      iex> delete_photo(photo, user_id)
       {:ok, %Fotohaecker.Content.Photo{}}
 
-      iex> delete_photo(photo)
-      {:error, %Ecto.Changeset{}}
+      iex> delete_photo(photo, user_id_that_does_not_own_photo)
+      {:error, "You are not allowed to delete this photo."}
 
   """
-  def delete_photo(%Photo{} = photo) do
+  def delete_photo(%Photo{user_id: nil} = photo, _user_or_id), do: delete_photo(photo)
+
+  def delete_photo(%Photo{} = photo, user_id) when is_binary(user_id) do
+    if is_photo_owner?(photo, user_id) do
+      delete_photo(photo)
+    else
+      {:error, "You are not allowed to delete this photo."}
+    end
+  end
+
+  def delete_photo(%Photo{} = photo, user) when is_map(user), do: delete_photo(photo, user.id)
+
+  defp delete_photo(%Photo{} = photo) do
     paths = photo_paths(photo)
 
     Enum.each(paths, fn path ->

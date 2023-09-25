@@ -52,12 +52,30 @@ defmodule FotohaeckerWeb.PhotoLive.Show do
           </.download_link>
           <div class="col-span-4 m-4 md:pt-4 space-y-4">
             <.back_button />
-            <.title photo={@photo} editing={@editing} />
+            <.title
+              photo={@photo}
+              editing={@editing}
+              is_photo_owner?={Content.is_photo_owner?(@photo, @current_user)}
+            />
             <.upload_date_and_user photo={@photo} />
-            <.tags photo={@photo} editing={@editing} />
-            <.download_link class="btn btn--green flex gap-2 w-max" href={path} photo={@photo}>
-              <Heroicons.arrow_down_tray class="w-6 h-6 stroke-white" /> <%= gettext("Download") %>
-            </.download_link>
+            <.tags
+              photo={@photo}
+              editing={@editing}
+              is_photo_owner?={Content.is_photo_owner?(@photo, @current_user)}
+            />
+            <div class="flex space-x-4">
+              <.download_link class="btn btn--green flex gap-2 w-max" href={path} photo={@photo}>
+                <Heroicons.arrow_down_tray class="w-6 h-6 stroke-white" /> <%= gettext("Download") %>
+              </.download_link>
+              <%!-- # TODO use form instead of liveview action, also add confirmation --%>
+              <button
+                :if={Content.is_photo_owner?(@photo, @current_user)}
+                class="btn btn--red flex gap-2 w-max"
+                phx-click="delete_photo"
+              >
+                <Heroicons.trash class="w-6 h-6 stroke-white" /> <%= gettext("Delete") %>
+              </button>
+            </div>
           </div>
         </div>
       <% end %>
@@ -140,6 +158,7 @@ defmodule FotohaeckerWeb.PhotoLive.Show do
 
   attr(:photo, Photo, required: true)
   attr(:editing, :any, required: true)
+  attr(:is_photo_owner?, :boolean, required: true)
 
   defp title(%{editing: %{field: "title", changeset: _changeset} = _editing} = assigns) do
     ~H"""
@@ -153,10 +172,14 @@ defmodule FotohaeckerWeb.PhotoLive.Show do
       <h1 data-testid="title" class="text-gray-800 dark:text-gray-100">
         <%= @photo.title %>
       </h1>
-      <.edit_button field="title" />
+      <.edit_button :if={@is_photo_owner?} field="title" />
     </div>
     """
   end
+
+  attr(:photo, Photo, required: true)
+  attr(:editing, :any, required: true)
+  attr(:is_photo_owner?, :boolean, required: true)
 
   defp tags(%{editing: %{field: "tags", changeset: _changeset} = _editing} = assigns) do
     ~H"""
@@ -185,7 +208,7 @@ defmodule FotohaeckerWeb.PhotoLive.Show do
           </ul>
         </div>
       <% end %>
-      <.edit_button field="tags" />
+      <.edit_button :if={@is_photo_owner?} field="tags" />
     </div>
     """
   end
@@ -342,6 +365,21 @@ defmodule FotohaeckerWeb.PhotoLive.Show do
      |> assign(:photo, photo)
      |> assign(:editing, nil)
      |> put_flash(:info, gettext("photo updated"))}
+  end
+
+  def handle_event("delete_photo", _params, socket) do
+    photo = socket.assigns.photo
+
+    case Content.delete_photo(photo, socket.assigns.current_user) do
+      {:ok, _} ->
+        {:noreply,
+         socket
+         |> put_flash(:info, gettext("photo deleted"))
+         |> push_navigate(to: home_route())}
+
+      {:error, message} ->
+        {:noreply, put_flash(socket, :error, message)}
+    end
   end
 
   # TODO: DRY: dirty
