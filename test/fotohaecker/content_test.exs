@@ -13,6 +13,8 @@ defmodule Fotohaecker.ContentTest do
     Enum.each(photo_paths, fn path ->
       File.write!(path, "")
     end)
+
+    photo_paths
   end
 
   describe "photos" do
@@ -243,12 +245,7 @@ defmodule Fotohaecker.ContentTest do
           user_id: user_id
         })
 
-      photo_paths = Content.photo_paths(photo)
-      # write empty binary files to the destination paths
-      # TODO: DRY: move this to a helper function
-      Enum.each(photo_paths, fn path ->
-        File.write!(path, "")
-      end)
+      photo_paths = write_photo_files(photo)
 
       assert {:ok, %Photo{}} = Content.delete_photo(photo, user_id)
 
