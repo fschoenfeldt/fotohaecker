@@ -13,6 +13,17 @@
 alias Fotohaecker.Content.Photo
 alias Fotohaecker.Repo
 
+if Mix.env() == :e2e do
+  Repo.insert(%Photo{
+    title: "This photo you can't delete",
+    file_name: "my-first-photo",
+    extension: ".jpg",
+    tags: [],
+    user_id: "1337",
+    id: -1
+  })
+end
+
 photo = %Photo{
   title: "My first photo",
   file_name: "my-first-photo",

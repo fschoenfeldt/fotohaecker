@@ -142,6 +142,7 @@ defmodule FotohaeckerWeb.IndexLive.Home do
     current_user_id =
       if socket.assigns.current_user, do: socket.assigns.current_user.id, else: nil
 
+    # TODO parts of this should be moved to the Photo context to avoid duplication
     upload_result =
       consume_uploaded_entries(socket, :photo, fn %{path: path}, entry ->
         extension =

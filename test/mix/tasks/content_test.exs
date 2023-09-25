@@ -65,7 +65,10 @@ defmodule Mix.Tasks.ContentTest do
     # TODO test "deletes photo with `mix content delete orphaned`"
 
     test "deletes photo with `mix content delete <photo_id>`" do
-      photo = photo_fixture()
+      photo =
+        photo_fixture(%{
+          user_id: "1337"
+        })
 
       photo_paths = Fotohaecker.Content.photo_paths(photo)
 
