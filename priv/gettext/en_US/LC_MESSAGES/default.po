@@ -133,7 +133,7 @@ msgstr ""
 msgid "login"
 msgstr ""
 
-#: lib/fotohaecker_web/live/user_live/index.ex:86
+#: lib/fotohaecker_web/live/user_live/index.ex:76
 #, elixir-autogen, elixir-format
 msgid "logout"
 msgstr ""
