@@ -7,6 +7,12 @@ import Config
 # any compile-time configuration in here, as it won't be applied.
 # The block below contains prod specific runtime configuration.
 
+if System.get_env("STRIPE_SECRET") do
+  config :stripity_stripe,
+    api_key: System.get_env("STRIPE_SECRET"),
+    connect_client_id: System.get_env("STRIPE_CONNECT_CLIENT_ID")
+end
+
 # Configure image detection here
 # in case you don't provide a config, the NoDetection module will be used
 if System.get_env("CLARIFAI_API_SECRET") do
