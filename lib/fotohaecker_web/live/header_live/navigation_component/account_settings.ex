@@ -6,7 +6,7 @@ defmodule FotohaeckerWeb.HeaderLive.NavigationComponent.AccountSettings do
     ~H"""
     <%= if @current_user do %>
       <.link class="btn btn--transparent flex items-center gap-2" href={@account_link}>
-        <img src={@current_user.avatar} class="w-6 rounded-full" alt="" />
+        <img src={@current_user.picture} class="w-6 rounded-full" alt="" />
         <span class="text-white sr-only sm:not-sr-only">
           <%= gettext("your account") %>
         </span>
