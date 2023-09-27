@@ -4,6 +4,7 @@ defmodule FotohaeckerWeb.OnMount.CurrentUser do
   """
 
   def on_mount(:default, _params, %{"current_user" => user} = _session, socket) do
+    {:ok, user} = Fotohaecker.UserManagement.get(user.id)
     {:cont, Phoenix.Component.assign(socket, :current_user, user)}
   end
 

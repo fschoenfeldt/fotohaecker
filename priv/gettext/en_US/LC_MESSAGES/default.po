@@ -133,7 +133,7 @@ msgstr ""
 msgid "login"
 msgstr ""
 
-#: lib/fotohaecker_web/live/user_live/index.ex:76
+#: lib/fotohaecker_web/live/user_live/index.ex:47
 #, elixir-autogen, elixir-format
 msgid "logout"
 msgstr ""
@@ -158,12 +158,12 @@ msgstr ""
 msgid "Download"
 msgstr ""
 
-#: lib/fotohaecker_web/live/user_live/index.ex:37
+#: lib/fotohaecker_web/live/user_live/index.ex:86
 #, elixir-autogen, elixir-format
 msgid "Name/Email"
 msgstr ""
 
-#: lib/fotohaecker_web/live/user_live/index.ex:26
+#: lib/fotohaecker_web/live/user_live/index.ex:25
 #, elixir-autogen, elixir-format
 msgid "Your Account"
 msgstr ""
@@ -342,7 +342,7 @@ msgstr ""
 msgid "waiting for submission"
 msgstr ""
 
-#: lib/fotohaecker_web/live/user_live/index.ex:61
+#: lib/fotohaecker_web/live/user_live/index.ex:63
 #, elixir-autogen, elixir-format, fuzzy
 msgid "Delete Account"
 msgstr ""
@@ -352,7 +352,7 @@ msgstr ""
 msgid "Your account has been deleted!"
 msgstr ""
 
-#: lib/fotohaecker_web/live/user_live/index.ex:39
+#: lib/fotohaecker_web/live/user_live/index.ex:88
 #, elixir-autogen, elixir-format
 msgid "Nickname"
 msgstr ""
@@ -362,7 +362,7 @@ msgstr ""
 msgid "Profile Picture of %{nickname}"
 msgstr ""
 
-#: lib/fotohaecker_web/live/user_live/index.ex:41
+#: lib/fotohaecker_web/live/user_live/index.ex:90
 #, elixir-autogen, elixir-format
 msgid "Your Profile Link"
 msgstr ""
