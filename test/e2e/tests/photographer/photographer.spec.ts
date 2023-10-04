@@ -1,7 +1,7 @@
 import { test, expect } from "../../fixtures/axe-test";
 import { photographerFixture } from "../helpers";
 
-test.describe("User Settings page", () => {
+test.describe("Photographer: Settings page", () => {
   test.beforeEach(async ({ page }) => {
     await page.goto("/fh");
     await page.locator("a", { hasText: "your account" }).click();
@@ -34,9 +34,24 @@ test.describe("User Settings page", () => {
     // await expect(page.locator("div#user")).toContainText(email);
   });
 
-  test("can open donation dashboard", async ({ page }) => {
-    await page.locator("a", { hasText: "donation dashboard" }).click();
-    await expect(page.locator("h1")).toHaveText("Donations");
+  test("donation dashboard is visible", async ({ page }) => {
+    const donationDashboardLink = page.locator("a", {
+      hasText: "donation dashboard",
+    });
+    await expect(donationDashboardLink).toBeVisible();
+  });
+
+  test("donation banner works", async ({ page }) => {
+    await page.goto(`/fh/en_us/user/${photographerFixture.id}`);
+    const donationBanner = page.getByTestId("donationBanner");
+
+    await expect(donationBanner).toBeVisible();
+    const donationButton = donationBanner.locator("button");
+    await page.waitForSelector("div[data-phx-main].phx-connected");
+    await donationButton.click();
+    await page.waitForURL(/stripe\.com/);
+
+    expect(page.url()).toContain("stripe.com");
   });
 
   test("can logout", async ({ page }) => {

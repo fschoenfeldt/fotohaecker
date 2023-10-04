@@ -15,7 +15,7 @@ const PORT = 1338;
 export default defineConfig({
   // timeout: 10 * 1000,
   testDir: "./tests",
-  testIgnore: "tests/photographer/**/*",
+  // testIgnore: "tests/photographer/**/*",
   /* Run tests in files in parallel */
   fullyParallel: true,
   /* Fail the build on CI if you accidentally left test.only in the source code. */
@@ -48,6 +48,7 @@ export default defineConfig({
         storageState: authFileUser,
       },
       dependencies: ["setup"],
+      testIgnore: "tests/photographer/**/*",
     },
 
     {
@@ -58,6 +59,7 @@ export default defineConfig({
         storageState: authFileUser,
       },
       dependencies: ["setup"],
+      testIgnore: "tests/photographer/**/*",
     },
 
     {
@@ -67,6 +69,7 @@ export default defineConfig({
         storageState: authFileUser,
       },
       dependencies: ["setup"],
+      testIgnore: "tests/photographer/**/*",
     },
 
     /* Test against mobile viewports. */
@@ -77,6 +80,7 @@ export default defineConfig({
         storageState: authFileUser,
       },
       dependencies: ["setup"],
+      testIgnore: "tests/photographer/**/*",
     },
     {
       name: "Mobile Safari",
@@ -85,6 +89,7 @@ export default defineConfig({
         storageState: authFileUser,
       },
       dependencies: ["setup"],
+      testIgnore: "tests/photographer/**/*",
     },
     {
       name: "setup photographer",
