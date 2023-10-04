@@ -37,7 +37,6 @@ defmodule FotohaeckerWeb.UserLive.Show do
               alt={gettext("Profile Picture of %{nickname}", %{nickname: @user.nickname})}
             />
             <h1 class="text-gray-100 font-sans"><%= @user.nickname %></h1>
-            <.donation_banner user={@user} />
           <% end %>
           <%= if !!assigns[:error] do %>
             <h1 class="text-gray-100 font-sans">
@@ -46,6 +45,8 @@ defmodule FotohaeckerWeb.UserLive.Show do
           <% end %>
         </div>
       </div>
+
+      <.donation_banner user={@user} />
 
       <%= if !!assigns[:user] and !!assigns[:user_photos] do %>
         <div class="max-w-6xl mx-auto space-y-2 pt-2 px-8 xl:px-0">
@@ -63,14 +64,14 @@ defmodule FotohaeckerWeb.UserLive.Show do
   defp donation_banner(assigns) do
     ~H"""
     <%= if Fotohaecker.Payment.is_fully_onboarded?(@user) do %>
-      <%= with {:ok, %{url: url}} <- @user |> Fotohaecker.Payment.stripe_account_id() |> Fotohaecker.Payment.checkout() do %>
-        <FotohaeckerWeb.UserLive.Index.external_link
-          url={url}
-          text={gettext("donate")}
-          class="btn btn--green"
-          class_icon="fill-white"
-        />
-      <% end %>
+      <div class="bg-green-100 py-2" data-testid="donationBanner">
+        <div class="flex items-center justify-between max-w-6xl mx-auto">
+          <p><%= gettext("Donate to %{user} to support their work", user: @user.nickname) %></p>
+          <button type="button" class="btn btn--green inline-block" phx-click="donate">
+            <%= gettext("donate") %>
+          </button>
+        </div>
+      </div>
     <% end %>
     """
   end
@@ -78,4 +79,24 @@ defmodule FotohaeckerWeb.UserLive.Show do
   # TODO: DRY: dirty
   def handle_event("navigate_to", params, socket),
     do: FotohaeckerWeb.IndexLive.Home.handle_event("navigate_to", params, socket)
+
+  def handle_event("donate", _params, socket) do
+    maybe_donation_link =
+      socket.assigns.user
+      |> Fotohaecker.Payment.stripe_account_id()
+      |> Fotohaecker.Payment.checkout()
+
+    case maybe_donation_link do
+      {:ok, %{url: url}} ->
+        {:noreply, redirect(socket, external: url)}
+
+      {:error, %{message: message}} ->
+        {:noreply,
+         put_flash(
+           socket,
+           :error,
+           gettext("error initializing donation: %{message}", message: message)
+         )}
+    end
+  end
 end

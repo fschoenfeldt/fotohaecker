@@ -114,9 +114,9 @@ defmodule FotohaeckerWeb.UserLive.Index do
       <div class="px-4 pb-4 space-y-4">
         <%= if Fotohaecker.Payment.has_stripe_account?(@current_user) do %>
           <%= with is_fully_onboarded? <- Fotohaecker.Payment.is_fully_onboarded?(@current_user) do %>
-            <p><%= gettext("Steps to enable donations:") %></p>
+            <p class="dark:text-gray-100"><%= gettext("Steps to enable donations:") %></p>
             <ol class="list-inside">
-              <li class="flex items-center gap-1">
+              <li class="flex items-center gap-1 dark:text-gray-100">
                 <Heroicons.check_circle mini class="h-6 w-6 inline fill-green-700" />
                 <%= gettext("Stripe Account created") %>
                 <button
@@ -127,7 +127,7 @@ defmodule FotohaeckerWeb.UserLive.Index do
                   <%= gettext("Delete Stripe Account") %>
                 </button>
               </li>
-              <li :if={is_fully_onboarded?} class="flex items-center gap-1">
+              <li :if={is_fully_onboarded?} class="flex items-center gap-1 dark:text-gray-100">
                 <Heroicons.check_circle mini class="h-6 w-6 inline fill-green-700" />
                 <%= gettext("onboarding completed") %>
               </li>
@@ -146,7 +146,7 @@ defmodule FotohaeckerWeb.UserLive.Index do
                 <% end %>
               </code>
             </details> --%>
-            <p :if={is_fully_onboarded?}>
+            <p :if={is_fully_onboarded?} class="dark:text-gray-100">
               <%= case Fotohaecker.Payment.create_login_link(@current_user.app_metadata["stripe_id"]) do %>
                 <% {:ok, %Stripe.LoginLink{url: url}} -> %>
                   <%= gettext("You're ready to receive donations!") %>
@@ -185,7 +185,10 @@ defmodule FotohaeckerWeb.UserLive.Index do
   def external_link(assigns) do
     ~H"""
     <.link href={@url} target="_blank" class={@class}>
-      <Heroicons.arrow_top_right_on_square mini class={[@class_icon, "h-4 w-4 inline fill-blue-700"]} />
+      <Heroicons.arrow_top_right_on_square
+        mini
+        class={[@class_icon, "h-4 w-4 inline fill-blue-700 dark:fill-blue-400"]}
+      />
       <%= @text %>
     </.link>
     """
