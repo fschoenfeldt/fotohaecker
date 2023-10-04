@@ -3,9 +3,12 @@ defmodule Fotohaecker.UserManagement.UserManagementBehaviour do
   Behaviour for user management.
   """
 
-  @callback start_link(map()) :: {:ok, pid()} | {:error, term()}
+  @type id :: String.t()
+
+  @callback start_link(id()) :: {:ok, pid()} | {:error, term()}
   @callback get_all() :: {:ok, [map()]} | {:error, term()}
-  @callback get(id :: String.t()) :: {:ok, map()} | {:error, term()}
-  @callback add(id :: String.t()) :: {:ok, map()} | {:error, term()}
-  @callback delete(id :: String.t()) :: {:ok, map()} | {:error, term()}
+  @callback get(id()) :: {:ok, map()} | {:error, term()}
+  @callback add(id()) :: {:ok, map()} | {:error, term()}
+  @callback delete(id()) :: {:ok, map()} | {:error, term()}
+  @callback update(id(), map()) :: {:ok, map()} | {:error, term()}
 end

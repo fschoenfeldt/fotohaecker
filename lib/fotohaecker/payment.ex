@@ -3,67 +3,126 @@ defmodule Fotohaecker.Payment do
   Payment within Fotohaecker.
   """
 
-  #   Glückwunsch, Sie haben Ihren Antrag fast abgeschlossen!
-  # Nachdem sich Ihre Nutzer/innen bei Stripe angemeldet haben, werden sie auf eine Seite Ihrer Wahl weitergeleitet (Standardeinstellung). Stellen Sie sicher, dass Sie den Test URI in Ihren Anwendungseinstellungen auf eine Seite weiterleiten, die für Ihren eigenen Server Sinn ergibt.
-  # Um den Erhalt eines access_token für Ihr Nutzerkonto abzuschließen, müssen Sie eine zusätzliche API-Anfrage mit dem von uns zurückgegebenen Autorisierungscode durchführen. Der Code wird ac_Oi0C7Ur2lm4RwxCFH2ml2i5PzDPQeoKd direkt von den GET-Parametern der Weiterleitung übernommen.
-  # Probieren Sie es beispielsweise mit dieser curl-Anfrage. Beachten Sie, dass Sie YOUR_SECRET_KEY mit dem Test Sicherheitsschlüssel des Anwendungsbesitzers ersetzen müssen.
-  # curl -X POST https://connect.stripe.com/oauth/token \
-  # -d client_secret=YOUR_SECRET_KEY \
-  # -d code=ac_Oi0C7Ur2lm4RwxCFH2ml2i5PzDPQeoKd \
-  # -d grant_type=authorization_code
-  # Sie müssen dies programmatisch durchführen (wir empfehlen eine OAuth-2.0-Bibliothek einer Drittpartei). Sehen Sie sich unsere OAuth-Anleitung an, um eine genauere Erläuterung zu erhalten! Oder gehen Sie zurück zu unserer Anleitung zum Loslegen, um einen Eindruck davon zu erhalten, welche Möglichkeiten Sie haben, nachdem sich Ihre Nutzer/innen bei Stripe angemeldet haben.
-
-  # accountid: ac_Oi0C7Ur2lm4RwxCFH2ml2i5PzDPQeoKd
-
-  @photographer_account_id "acct_1NuthYPxCsgTBxpz"
-
-  # def authorize_url do
-  #   Stripe.Connect.OAuth.authorize_url(%{
-  #     stripe_user: %{
-  #       "email" => "frederikschoenfeldt+stripetest@gmail.com",
-  #       "url" => "https://fschoenf.uber.space/fh/en_US/user/auth0%7C649d5a069846429298463b73",
-  #       "country" => "DE"
-  #     }
-  #   })
-  # end
-
-  def create_account(auth0_user_id \\ "auth0|6513ef7d56ab5fc22ace2926") do
+  @doc """
+  Creates a Stripe account for the given `auth0_user_id`. Puts the `auth0_user_id` in the metadata of the Stripe account.
+  Also updates the auth0 user with the stripe id inside the `app_metadata`.
+  """
+  def create_account(auth0_user_id) do
     {:ok, auth0_user} = Fotohaecker.UserManagement.get(auth0_user_id)
 
-    Stripe.Account.create(%{
-      type: "express",
-      email: auth0_user.email,
-      metadata: %{
-        "auth0_user_id" => auth0_user_id
-      }
-    })
+    if has_stripe_account?(auth0_user) do
+      {:error, %{message: "User already has a Stripe account"}}
+    else
+      {:ok, stripe_account} =
+        Stripe.Account.create(%{
+          type: "express",
+          email: auth0_user.email,
+          metadata: %{
+            "auth0_user_id" => auth0_user_id
+          }
+        })
+
+      {:ok, _user} =
+        Fotohaecker.UserManagement.update(auth0_user_id, %{
+          app_metadata: %{
+            stripe_id: stripe_account.id
+          }
+        })
+
+      {:ok, stripe_account}
+    end
   end
 
-  def create_onboarding(stripe_account_id \\ @photographer_account_id) do
+  @doc """
+  Given an `auth0_user_id`, deletes the Stripe account associated with it. Also deletes the `stripe_id` from the `app_metadata` of the auth0 user.
+  """
+  def delete_account(auth0_user_id) do
+    {:ok, auth0_user} = Fotohaecker.UserManagement.get(auth0_user_id)
+    stripe_account_id = stripe_account_id(auth0_user)
+
+    case Stripe.Account.delete(stripe_account_id) do
+      {:ok, deleted_account} ->
+        {:ok, _user} =
+          Fotohaecker.UserManagement.update(auth0_user_id, %{
+            app_metadata: %{
+              stripe_id: nil
+            }
+          })
+
+        {:ok, deleted_account}
+
+      error ->
+        error
+    end
+  end
+
+  def create_onboarding(auth0_user) when is_map(auth0_user),
+    do:
+      auth0_user
+      |> stripe_account_id()
+      |> create_onboarding()
+
+  # TODO: return url
+  def create_onboarding(stripe_account_id)
+      when is_binary(stripe_account_id) do
     Stripe.AccountLink.create(%{
       account: stripe_account_id,
-      refresh_url: "https://example.com/reauth",
-      return_url: "https://example.com/return",
+      refresh_url: "http://localhost:1337/fh/en_US/user",
+      return_url: "http://localhost:1337/fh/en_US/user",
       type: "account_onboarding"
     })
   end
 
-  def retrieve(account_id \\ @photographer_account_id) do
+  def retrieve(account_id) do
     Stripe.Account.retrieve(account_id)
   end
 
-  # def checkout(account_id, price_id \\ "price_1NusQeLrossD7mFggNUhM8KQ") do
-  #   Stripe.Session.create(%{
-  #     # TODO urls
-  #     success_url: "https://example.com",
-  #     cancel_url: "https://example.com",
-  #     mode: "payment",
-  #     line_items: [
-  #       %{
-  #         price: price_id,
-  #         quantity: 1
-  #       }
-  #     ]
-  #   })
-  # end
+  def create_login_link(account_id) do
+    Stripe.LoginLink.create(account_id, %{})
+  end
+
+  # TODO: maybe use auth0 user instead
+  # TODO: don't hardcode donation price id
+  def checkout(
+        stripe_account_id,
+        price_id \\ "price_1NusQeLrossD7mFggNUhM8KQ"
+      ) do
+    Stripe.Session.create(%{
+      success_url: "http://localhost:1337/fh/en_US/user",
+      cancel_url: "http://localhost:1337/fh/en_US/user",
+      mode: "payment",
+      line_items: [
+        %{
+          price: price_id,
+          quantity: 1
+        }
+      ],
+      payment_intent_data: %{
+        application_fee_amount: 123,
+        transfer_data: %{
+          destination: stripe_account_id
+        }
+      }
+    })
+  end
+
+  def has_stripe_account?(%{app_metadata: %{"stripe_id" => _stripe_id}} = _auth0_user), do: true
+  def has_stripe_account?(_auth0_user), do: false
+
+  def stripe_account_id(auth0_user), do: Map.get(auth0_user.app_metadata, "stripe_id")
+
+  def is_fully_onboarded?(auth0_user) do
+    maybe_user =
+      auth0_user
+      |> stripe_account_id()
+      |> retrieve()
+
+    case maybe_user do
+      {:ok, %Stripe.Account{charges_enabled: true}} ->
+        true
+
+      _everything_else ->
+        false
+    end
+  end
 end

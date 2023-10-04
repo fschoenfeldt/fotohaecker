@@ -37,6 +37,7 @@ defmodule FotohaeckerWeb.UserLive.Show do
               alt={gettext("Profile Picture of %{nickname}", %{nickname: @user.nickname})}
             />
             <h1 class="text-gray-100 font-sans"><%= @user.nickname %></h1>
+            <.donation_banner user={@user} />
           <% end %>
           <%= if !!assigns[:error] do %>
             <h1 class="text-gray-100 font-sans">
@@ -56,6 +57,21 @@ defmodule FotohaeckerWeb.UserLive.Show do
         </div>
       <% end %>
     </div>
+    """
+  end
+
+  defp donation_banner(assigns) do
+    ~H"""
+    <%= if Fotohaecker.Payment.is_fully_onboarded?(@user) do %>
+      <%= with {:ok, %{url: url}} <- @user |> Fotohaecker.Payment.stripe_account_id() |> Fotohaecker.Payment.checkout() do %>
+        <FotohaeckerWeb.UserLive.Index.external_link
+          url={url}
+          text={gettext("donate")}
+          class="btn btn--green"
+          class_icon="fill-white"
+        />
+      <% end %>
+    <% end %>
     """
   end
 
