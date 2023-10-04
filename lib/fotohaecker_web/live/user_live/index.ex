@@ -139,13 +139,13 @@ defmodule FotohaeckerWeb.UserLive.Index do
                 <% end %>
               </li>
             </ol>
-            <details>
+            <%!-- <details>
               <code>
                 <%= with {:ok, stripe_account} <- Fotohaecker.Payment.retrieve(@current_user.app_metadata["stripe_id"]) do %>
                   <%= inspect(stripe_account) %>
                 <% end %>
               </code>
-            </details>
+            </details> --%>
             <p :if={is_fully_onboarded?}>
               <%= case Fotohaecker.Payment.create_login_link(@current_user.app_metadata["stripe_id"]) do %>
                 <% {:ok, %Stripe.LoginLink{url: url}} -> %>
