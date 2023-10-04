@@ -109,7 +109,12 @@ defmodule FotohaeckerWeb.UserLive.Index do
     <div class="rounded border border-green-700 text-white space-y-4">
       <div class="flex space-x-2 items-center bg-green-700 p-2">
         <Heroicons.currency_euro mini class="h-8 w-8 fill-white" />
-        <h2 class="text-white font-sans"><%= gettext("Donations") %></h2>
+        <h2 class="text-white font-sans">
+          <%= gettext("Donations") %>
+          <span class="text-white text-base ms-2">
+            <%= gettext("Note: Donations are for demonstrative purposes only!") %>
+          </span>
+        </h2>
       </div>
       <div class="px-4 pb-4 space-y-4">
         <%= if Fotohaecker.Payment.has_stripe_account?(@current_user) do %>

@@ -132,7 +132,7 @@ msgstr ""
 msgid "login"
 msgstr ""
 
-#: lib/fotohaecker_web/live/user_live/index.ex:76
+#: lib/fotohaecker_web/live/user_live/index.ex:48
 #, elixir-autogen, elixir-format
 msgid "logout"
 msgstr ""
@@ -157,12 +157,12 @@ msgstr ""
 msgid "Download"
 msgstr ""
 
-#: lib/fotohaecker_web/live/user_live/index.ex:37
+#: lib/fotohaecker_web/live/user_live/index.ex:87
 #, elixir-autogen, elixir-format
 msgid "Name/Email"
 msgstr ""
 
-#: lib/fotohaecker_web/live/user_live/index.ex:26
+#: lib/fotohaecker_web/live/user_live/index.ex:25
 #, elixir-autogen, elixir-format
 msgid "Your Account"
 msgstr ""
@@ -341,7 +341,7 @@ msgstr ""
 msgid "waiting for submission"
 msgstr ""
 
-#: lib/fotohaecker_web/live/user_live/index.ex:61
+#: lib/fotohaecker_web/live/user_live/index.ex:64
 #, elixir-autogen, elixir-format
 msgid "Delete Account"
 msgstr ""
@@ -351,7 +351,7 @@ msgstr ""
 msgid "Your account has been deleted!"
 msgstr ""
 
-#: lib/fotohaecker_web/live/user_live/index.ex:39
+#: lib/fotohaecker_web/live/user_live/index.ex:89
 #, elixir-autogen, elixir-format
 msgid "Nickname"
 msgstr ""
@@ -361,7 +361,7 @@ msgstr ""
 msgid "Profile Picture of %{nickname}"
 msgstr ""
 
-#: lib/fotohaecker_web/live/user_live/index.ex:41
+#: lib/fotohaecker_web/live/user_live/index.ex:91
 #, elixir-autogen, elixir-format
 msgid "Your Profile Link"
 msgstr ""
@@ -404,4 +404,94 @@ msgstr ""
 #: lib/fotohaecker_web/live/photo_live/show.ex:377
 #, elixir-autogen, elixir-format
 msgid "photo deleted"
+msgstr ""
+
+#: lib/fotohaecker_web/live/user_live/index.ex:143
+#, elixir-autogen, elixir-format
+msgid "Click here to complete onboarding."
+msgstr ""
+
+#: lib/fotohaecker_web/live/user_live/index.ex:160
+#, elixir-autogen, elixir-format
+msgid "Click here to open your donation dashboard."
+msgstr ""
+
+#: lib/fotohaecker_web/live/user_live/index.ex:176
+#, elixir-autogen, elixir-format
+msgid "Create Stripe Account & setup donations"
+msgstr ""
+
+#: lib/fotohaecker_web/live/user_live/index.ex:132
+#, elixir-autogen, elixir-format
+msgid "Delete Stripe Account"
+msgstr ""
+
+#: lib/fotohaecker_web/live/user_live/show.ex:69
+#, elixir-autogen, elixir-format
+msgid "Donate to %{user} to support their work"
+msgstr ""
+
+#: lib/fotohaecker_web/live/user_live/index.ex:113
+#, elixir-autogen, elixir-format
+msgid "Donations"
+msgstr ""
+
+#: lib/fotohaecker_web/live/user_live/index.ex:122
+#, elixir-autogen, elixir-format
+msgid "Steps to enable donations:"
+msgstr ""
+
+#: lib/fotohaecker_web/live/user_live/index.ex:126
+#, elixir-autogen, elixir-format
+msgid "Stripe Account created"
+msgstr ""
+
+#: lib/fotohaecker_web/live/user_live/index.ex:209
+#, elixir-autogen, elixir-format
+msgid "Stripe Account successfully created!"
+msgstr ""
+
+#: lib/fotohaecker_web/live/user_live/index.ex:224
+#, elixir-autogen, elixir-format
+msgid "Stripe Account successfully deleted!"
+msgstr ""
+
+#: lib/fotohaecker_web/live/user_live/index.ex:163
+#, elixir-autogen, elixir-format
+msgid "There is a problem with your Stripe Account: %{message}"
+msgstr ""
+
+#: lib/fotohaecker_web/live/user_live/index.ex:171
+#, elixir-autogen, elixir-format
+msgid "You have not yet created a Stripe account. Please create one to receive donations."
+msgstr ""
+
+#: lib/fotohaecker_web/live/user_live/index.ex:157
+#, elixir-autogen, elixir-format
+msgid "You're ready to receive donations!"
+msgstr ""
+
+#: lib/fotohaecker_web/live/user_live/show.ex:71
+#, elixir-autogen, elixir-format
+msgid "donate"
+msgstr ""
+
+#: lib/fotohaecker_web/live/user_live/show.ex:98
+#, elixir-autogen, elixir-format
+msgid "error initializing donation: %{message}"
+msgstr ""
+
+#: lib/fotohaecker_web/live/user_live/index.ex:137
+#, elixir-autogen, elixir-format
+msgid "onboarding completed"
+msgstr ""
+
+#: lib/fotohaecker_web/live/user_live/index.ex:141
+#, elixir-autogen, elixir-format
+msgid "onboarding not completed."
+msgstr ""
+
+#: lib/fotohaecker_web/live/user_live/index.ex:115
+#, elixir-autogen, elixir-format
+msgid "Note: Donations are for demonstrative purposes only!"
 msgstr ""
