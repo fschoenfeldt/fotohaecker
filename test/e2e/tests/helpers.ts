@@ -54,3 +54,13 @@ export const userFixture = {
   email: "test@fschoenfeldt.de",
   password: "Sonne123",
 };
+
+export const authFileUser = "playwright/.auth/authUser.json";
+
+export const photographerFixture = {
+  id: "auth0|6513ef7d56ab5fc22ace2926",
+  email: "frederikschoenfeldt+photographer@gmail.com",
+  password: "Sonne123",
+};
+
+export const authFilePhotographer = "playwright/.auth/authPhotographer.json";

@@ -1,9 +1,7 @@
 import { test as setup, expect } from "@playwright/test";
-import { userFixture } from "./helpers";
+import { authFileUser, userFixture } from "./helpers";
 
-const authFile = "playwright/.auth/user.json";
-
-setup("authenticate", async ({ page }) => {
+setup("authenticate user", async ({ page }) => {
   const { email, password } = userFixture;
   await page.goto("/fh");
   await page.locator("a", { hasText: "login" }).click();
@@ -23,5 +21,5 @@ setup("authenticate", async ({ page }) => {
   await expect(authSuccessMessage).toBeVisible();
   await authSuccessMessage.click();
 
-  await page.context().storageState({ path: authFile });
+  await page.context().storageState({ path: authFileUser });
 });
