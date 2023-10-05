@@ -167,7 +167,7 @@ defmodule FotohaeckerWeb.UserLive.Index do
             </p>
           <% end %>
         <% else %>
-          <p>
+          <p class="dark:text-gray-100">
             <%= gettext(
               "You have not yet created a Stripe account. Please create one to receive donations."
             ) %>
