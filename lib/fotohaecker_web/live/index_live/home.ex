@@ -131,7 +131,9 @@ defmodule FotohaeckerWeb.IndexLive.Home do
          put_flash(
            socket,
            :error,
-           gettext("Something went wrong updating your photo: %{error}", error: inspect(changeset))
+           gettext("Something went wrong updating your photo: %{error}",
+             error: inspect(changeset)
+           )
          )}
     end
   end
