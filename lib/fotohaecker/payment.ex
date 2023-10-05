@@ -112,17 +112,21 @@ defmodule Fotohaecker.Payment do
   def stripe_account_id(auth0_user), do: Map.get(auth0_user.app_metadata, "stripe_id")
 
   def is_fully_onboarded?(auth0_user) do
-    maybe_user =
-      auth0_user
-      |> stripe_account_id()
-      |> retrieve()
+    if has_stripe_account?(auth0_user) do
+      maybe_user =
+        auth0_user
+        |> stripe_account_id()
+        |> retrieve()
 
-    case maybe_user do
-      {:ok, %Stripe.Account{charges_enabled: true}} ->
-        true
+      case maybe_user do
+        {:ok, %Stripe.Account{charges_enabled: true}} ->
+          true
 
-      _everything_else ->
-        false
+        _everything_else ->
+          false
+      end
+    else
+      false
     end
   end
 end
