@@ -73,12 +73,12 @@ msgstr ""
 msgid "drag the photo here or use the file button below"
 msgstr ""
 
-#: lib/fotohaecker_web/live/live_helpers.ex:73
+#: lib/fotohaecker_web/live/live_helpers.ex:74
 #, elixir-autogen, elixir-format
 msgid "english"
 msgstr ""
 
-#: lib/fotohaecker_web/live/live_helpers.ex:67
+#: lib/fotohaecker_web/live/live_helpers.ex:68
 #, elixir-autogen, elixir-format
 msgid "german"
 msgstr ""

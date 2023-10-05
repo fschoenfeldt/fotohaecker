@@ -36,10 +36,10 @@ defmodule FotohaeckerWeb.UserLive.Show do
               src={@user.picture}
               alt={gettext("Profile Picture of %{nickname}", %{nickname: @user.nickname})}
             />
-            <h1 class="text-gray-100 font-sans"><%= @user.nickname %></h1>
+            <h1 class="text-gray-100 font-sans break-words"><%= @user.nickname %></h1>
           <% end %>
           <%= if !!assigns[:error] do %>
-            <h1 class="text-gray-100 font-sans">
+            <h1 class="text-gray-100 font-sans break-words">
               <%= @error["statusCode"] %>: <%= @error["message"] %>
             </h1>
           <% end %>

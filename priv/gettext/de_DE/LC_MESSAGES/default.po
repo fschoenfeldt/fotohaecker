@@ -73,12 +73,12 @@ msgstr "zurück"
 msgid "drag the photo here or use the file button below"
 msgstr "Ziehe das Foto hierher oder verwende die Schaltfläche unten"
 
-#: lib/fotohaecker_web/live/live_helpers.ex:73
+#: lib/fotohaecker_web/live/live_helpers.ex:74
 #, elixir-autogen, elixir-format
 msgid "english"
 msgstr "englisch"
 
-#: lib/fotohaecker_web/live/live_helpers.ex:67
+#: lib/fotohaecker_web/live/live_helpers.ex:68
 #, elixir-autogen, elixir-format
 msgid "german"
 msgstr "deutsch"

@@ -21,7 +21,7 @@ defmodule FotohaeckerWeb.UserLive.Index do
   @impl Phoenix.LiveView
   def render(assigns) do
     ~H"""
-    <div id="user" class="max-w-6xl mx-auto space-y-2 pt-2">
+    <div id="user" class="max-w-6xl mx-2 md:mx-auto space-y-2 pt-2">
       <h1 class="dark:text-gray-100"><%= gettext("Your Account") %></h1>
 
       <.account_info error={Map.get(assigns, :error)} current_user={Map.get(assigns, :current_user)} />
@@ -90,7 +90,7 @@ defmodule FotohaeckerWeb.UserLive.Index do
       <dd class="dark:text-gray-100"><%= @current_user.nickname %></dd>
       <dt class="font-bold dark:text-gray-100"><%= gettext("Your Profile Link") %></dt>
       <dd class="dark:text-gray-100">
-        <a href={user_route(@current_user.id)}>
+        <a href={user_route(@current_user.id)} class="break-words">
           <%= user_url(@current_user.id) %>
         </a>
       </dd>

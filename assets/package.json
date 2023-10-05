@@ -3,14 +3,14 @@
     "@tailwindcss/forms": "^0.5.6",
     "postcss-import": "^15.1.0",
     "prettier": "^3.0.3",
-    "prettier-plugin-tailwindcss": "^0.5.4",
+    "prettier-plugin-tailwindcss": "^0.5.5",
     "tailwindcss": "^3.3.3"
   },
   "dependencies": {
-    "alpinejs": "^3.13.0",
+    "alpinejs": "^3.13.1",
     "phoenix": "file:../deps/phoenix",
     "phoenix_html": "file:../deps/phoenix_html",
     "phoenix_live_view": "file:../deps/phoenix_live_view",
-    "sharp": "^0.32.5"
+    "sharp": "^0.32.6"
   }
 }
