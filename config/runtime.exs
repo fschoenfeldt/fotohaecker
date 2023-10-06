@@ -1,4 +1,5 @@
 import Config
+require Logger
 
 # config/runtime.exs is executed for all environments, including
 # during releases. It is executed after compilation and before the
@@ -13,9 +14,12 @@ if System.get_env("STRIPE_SECRET") do
     connect_client_id: System.get_env("STRIPE_CONNECT_CLIENT_ID")
 
   # TODO price_id and callback_url should be configurable
-  config :fotohaecker, Fotohaecker.Payment, Fotohaecker.Payment.StripePayment
-  # price_id: "price_1NusQeLrossD7mFggNUhM8KQ",
-  # callback_url: "http://localhost:1337/fh/en_US/user"
+  config :fotohaecker, Fotohaecker.Payment,
+    implementation: Fotohaecker.Payment.StripePayment,
+    price_id: System.get_env("STRIPE_PRICE_ID"),
+    callback_base_url: System.get_env("STRIPE_CALLBACK_BASE_URL") || "http://localhost:1337"
+else
+  Logger.info("No STRIPE_SECRET found, using NoPayment")
 end
 
 # Configure image detection here
@@ -30,6 +34,10 @@ if !!System.get_env("AUTH0_DOMAIN") and !!System.get_env("AUTH0_MANAGEMENT_CLIEN
   config :fotohaecker,
          Fotohaecker.UserManagement,
          Fotohaecker.UserManagement.Auth0UserManagement
+else
+  Logger.info(
+    "No AUTH0_DOMAIN, AUTH0_MANAGEMENT_CLIENT_ID or AUTH0_MANAGEMENT_CLIENT_SECRET found, using NoUserManagement"
+  )
 end
 
 # ## Using releases

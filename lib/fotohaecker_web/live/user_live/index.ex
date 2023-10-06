@@ -25,7 +25,11 @@ defmodule FotohaeckerWeb.UserLive.Index do
       <h1 class="dark:text-gray-100"><%= gettext("Your Account") %></h1>
 
       <.account_info error={Map.get(assigns, :error)} current_user={Map.get(assigns, :current_user)} />
-      <.donation error={Map.get(assigns, :error)} current_user={Map.get(assigns, :current_user)} />
+      <.donation
+        is_implemented?={Fotohaecker.Payment.is_implemented?()}
+        error={Map.get(assigns, :error)}
+        current_user={Map.get(assigns, :current_user)}
+      />
       <.delete_logout socket={@socket} current_user={Map.get(assigns, :current_user)} />
     </div>
     """
@@ -95,6 +99,12 @@ defmodule FotohaeckerWeb.UserLive.Index do
         </a>
       </dd>
     </dl>
+    """
+  end
+
+  defp donation(%{is_implemented?: false} = assigns) do
+    ~H"""
+
     """
   end
 

@@ -5,6 +5,22 @@ defmodule Fotohaecker.Payment.StripePayment do
   @behaviour Fotohaecker.Payment.PaymentBehaviour
   alias Fotohaecker.Payment.PaymentBehaviour
 
+  defp price_id, do: Application.get_env(:fotohaecker, Fotohaecker.Payment)[:price_id]
+
+  defp base_url, do: Application.get_env(:fotohaecker, Fotohaecker.Payment)[:callback_base_url]
+
+  defp success_url,
+    do: "#{base_url()}/fh/en_US/user"
+
+  defp cancel_url,
+    do: "#{base_url()}/fh/en_US/"
+
+  defp refresh_url,
+    do: "#{base_url()}/fh/en_US/user"
+
+  defp return_url,
+    do: "#{base_url()}/fh/en_US/"
+
   @doc """
   Creates a Stripe account for the given `auth0_user_id`. Puts the `auth0_user_id` in the metadata of the Stripe account.
   Also updates the auth0 user with the stripe id inside the `app_metadata`.
@@ -71,13 +87,15 @@ defmodule Fotohaecker.Payment.StripePayment do
       when is_binary(stripe_account_id) do
     Stripe.AccountLink.create(%{
       account: stripe_account_id,
-      refresh_url: "http://localhost:1337/fh/en_US/user",
-      return_url: "http://localhost:1337/fh/en_US/user",
+      refresh_url: refresh_url(),
+      return_url: return_url(),
       type: "account_onboarding"
     })
   end
 
   @impl PaymentBehaviour
+  # TODO: why do I need to do this?
+  @dialyzer {:nowarn_function, retrieve: 1}
   def retrieve(account_id), do: Stripe.Account.retrieve(account_id)
 
   @impl PaymentBehaviour
@@ -90,24 +108,20 @@ defmodule Fotohaecker.Payment.StripePayment do
       |> payment_account_id()
       |> checkout()
 
-  # TODO: don't hardcode donation price id
   @impl PaymentBehaviour
-  def checkout(
-        stripe_account_id,
-        price_id \\ "price_1NusQeLrossD7mFggNUhM8KQ"
-      ) do
+  def checkout(stripe_account_id) do
     Stripe.Session.create(%{
-      success_url: "http://localhost:1337/fh/en_US/user",
-      cancel_url: "http://localhost:1337/fh/en_US/user",
+      success_url: success_url(),
+      cancel_url: cancel_url(),
       mode: "payment",
       line_items: [
         %{
-          price: price_id,
+          price: price_id(),
           quantity: 1
         }
       ],
       payment_intent_data: %{
-        application_fee_amount: 123,
+        application_fee_amount: 100,
         transfer_data: %{
           destination: stripe_account_id
         }

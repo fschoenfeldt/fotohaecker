@@ -6,6 +6,7 @@ defmodule Fotohaecker.Payment do
   """
 
   @behaviour Fotohaecker.Payment.PaymentBehaviour
+  alias Fotohaecker.Payment.NoPayment
   alias Fotohaecker.Payment.PaymentBehaviour
 
   @impl PaymentBehaviour
@@ -40,9 +41,13 @@ defmodule Fotohaecker.Payment do
   def is_fully_onboarded?(auth0_user_or_id),
     do: implementation().is_fully_onboarded?(auth0_user_or_id)
 
-  # TODO: fallback to default implementation
-  defp implementation,
-    do:
-      Application.get_env(:fotohaecker, __MODULE__) ||
-        raise("No implementation for #{__MODULE__}")
+  @impl PaymentBehaviour
+  def is_implemented?(), do: implementation() != NoPayment
+
+  defp implementation do
+    :fotohaecker
+    |> Application.get_env(__MODULE__, [])
+    |> Keyword.get(:implementation) ||
+      NoPayment
+  end
 end

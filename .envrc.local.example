@@ -23,3 +23,4 @@ export SECRET_KEY_BASE="run this command: mix phx.gen.secret"
 # in case you want to use stripe for payments
 export STRIPE_SECRET=""
 export STRIPE_CONNECT_CLIENT_ID=""
+export STRIPE_PRICE_ID=""
