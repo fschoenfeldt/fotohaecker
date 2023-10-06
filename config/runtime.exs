@@ -11,6 +11,11 @@ if System.get_env("STRIPE_SECRET") do
   config :stripity_stripe,
     api_key: System.get_env("STRIPE_SECRET"),
     connect_client_id: System.get_env("STRIPE_CONNECT_CLIENT_ID")
+
+  # TODO price_id and callback_url should be configurable
+  config :fotohaecker, Fotohaecker.Payment, Fotohaecker.Payment.StripePayment
+  # price_id: "price_1NusQeLrossD7mFggNUhM8KQ",
+  # callback_url: "http://localhost:1337/fh/en_US/user"
 end
 
 # Configure image detection here
@@ -19,6 +24,7 @@ if System.get_env("CLARIFAI_API_SECRET") do
   config :fotohaecker, Fotohaecker.TagDetection, Fotohaecker.TagDetection.Clarifai
 end
 
+# TODO remove double boolean
 if !!System.get_env("AUTH0_DOMAIN") and !!System.get_env("AUTH0_MANAGEMENT_CLIENT_ID") and
      !!System.get_env("AUTH0_MANAGEMENT_CLIENT_SECRET") do
   config :fotohaecker,

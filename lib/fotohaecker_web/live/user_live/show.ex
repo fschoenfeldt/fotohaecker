@@ -82,9 +82,7 @@ defmodule FotohaeckerWeb.UserLive.Show do
 
   def handle_event("donate", _params, socket) do
     maybe_donation_link =
-      socket.assigns.user
-      |> Fotohaecker.Payment.stripe_account_id()
-      |> Fotohaecker.Payment.checkout()
+      Fotohaecker.Payment.checkout(socket.assigns.user)
 
     case maybe_donation_link do
       {:ok, %{url: url}} ->

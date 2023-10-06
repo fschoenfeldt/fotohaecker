@@ -117,7 +117,7 @@ defmodule FotohaeckerWeb.UserLive.Index do
         </h2>
       </div>
       <div class="px-4 pb-4 space-y-4">
-        <%= if Fotohaecker.Payment.has_stripe_account?(@current_user) do %>
+        <%= if Fotohaecker.Payment.has_payment_account?(@current_user) do %>
           <%= with is_fully_onboarded? <- Fotohaecker.Payment.is_fully_onboarded?(@current_user) do %>
             <p class="dark:text-gray-100"><%= gettext("Steps to enable donations:") %></p>
             <ol class="list-inside">
@@ -144,13 +144,6 @@ defmodule FotohaeckerWeb.UserLive.Index do
                 <% end %>
               </li>
             </ol>
-            <%!-- <details>
-              <code>
-                <%= with {:ok, stripe_account} <- Fotohaecker.Payment.retrieve(@current_user.app_metadata["stripe_id"]) do %>
-                  <%= inspect(stripe_account) %>
-                <% end %>
-              </code>
-            </details> --%>
             <p :if={is_fully_onboarded?} class="dark:text-gray-100">
               <%= case Fotohaecker.Payment.create_login_link(@current_user.app_metadata["stripe_id"]) do %>
                 <% {:ok, %Stripe.LoginLink{url: url}} -> %>
