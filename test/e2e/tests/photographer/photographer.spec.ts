@@ -3,8 +3,16 @@ import { photographerFixture } from "../helpers";
 
 test.describe("Photographer: Settings page", () => {
   test.beforeEach(async ({ page }) => {
-    await page.goto("/fh");
-    await page.locator("a", { hasText: "your account" }).click();
+    // Skip this test if Payment isn't enabled.
+    if (process.env["STRIPE_SECRET"]) {
+      await page.goto("/fh");
+      await page.locator("a", { hasText: "your account" }).click();
+    } else {
+      console.info(
+        `Skipping Payment tests because environment variables are not set.`
+      );
+      test.skip();
+    }
   });
 
   test("should not have any automatically detectable accessibility issues", async ({
