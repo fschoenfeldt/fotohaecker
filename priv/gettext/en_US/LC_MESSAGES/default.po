@@ -133,7 +133,7 @@ msgstr ""
 msgid "login"
 msgstr ""
 
-#: lib/fotohaecker_web/live/user_live/index.ex:48
+#: lib/fotohaecker_web/live/user_live/index.ex:52
 #, elixir-autogen, elixir-format
 msgid "logout"
 msgstr ""
@@ -158,7 +158,7 @@ msgstr ""
 msgid "Download"
 msgstr ""
 
-#: lib/fotohaecker_web/live/user_live/index.ex:87
+#: lib/fotohaecker_web/live/user_live/index.ex:91
 #, elixir-autogen, elixir-format
 msgid "Name/Email"
 msgstr ""
@@ -342,7 +342,7 @@ msgstr ""
 msgid "waiting for submission"
 msgstr ""
 
-#: lib/fotohaecker_web/live/user_live/index.ex:64
+#: lib/fotohaecker_web/live/user_live/index.ex:68
 #, elixir-autogen, elixir-format, fuzzy
 msgid "Delete Account"
 msgstr ""
@@ -352,7 +352,7 @@ msgstr ""
 msgid "Your account has been deleted!"
 msgstr ""
 
-#: lib/fotohaecker_web/live/user_live/index.ex:89
+#: lib/fotohaecker_web/live/user_live/index.ex:93
 #, elixir-autogen, elixir-format
 msgid "Nickname"
 msgstr ""
@@ -362,7 +362,7 @@ msgstr ""
 msgid "Profile Picture of %{nickname}"
 msgstr ""
 
-#: lib/fotohaecker_web/live/user_live/index.ex:91
+#: lib/fotohaecker_web/live/user_live/index.ex:95
 #, elixir-autogen, elixir-format
 msgid "Your Profile Link"
 msgstr ""
@@ -407,22 +407,22 @@ msgstr ""
 msgid "photo deleted"
 msgstr ""
 
-#: lib/fotohaecker_web/live/user_live/index.ex:143
+#: lib/fotohaecker_web/live/user_live/index.ex:153
 #, elixir-autogen, elixir-format
 msgid "Click here to complete onboarding."
 msgstr ""
 
-#: lib/fotohaecker_web/live/user_live/index.ex:160
+#: lib/fotohaecker_web/live/user_live/index.ex:163
 #, elixir-autogen, elixir-format
 msgid "Click here to open your donation dashboard."
 msgstr ""
 
-#: lib/fotohaecker_web/live/user_live/index.ex:176
+#: lib/fotohaecker_web/live/user_live/index.ex:179
 #, elixir-autogen, elixir-format
 msgid "Create Stripe Account & setup donations"
 msgstr ""
 
-#: lib/fotohaecker_web/live/user_live/index.ex:132
+#: lib/fotohaecker_web/live/user_live/index.ex:142
 #, elixir-autogen, elixir-format, fuzzy
 msgid "Delete Stripe Account"
 msgstr ""
@@ -432,42 +432,42 @@ msgstr ""
 msgid "Donate to %{user} to support their work"
 msgstr ""
 
-#: lib/fotohaecker_web/live/user_live/index.ex:113
+#: lib/fotohaecker_web/live/user_live/index.ex:123
 #, elixir-autogen, elixir-format
 msgid "Donations"
 msgstr ""
 
-#: lib/fotohaecker_web/live/user_live/index.ex:122
+#: lib/fotohaecker_web/live/user_live/index.ex:132
 #, elixir-autogen, elixir-format
 msgid "Steps to enable donations:"
 msgstr ""
 
-#: lib/fotohaecker_web/live/user_live/index.ex:126
+#: lib/fotohaecker_web/live/user_live/index.ex:136
 #, elixir-autogen, elixir-format
 msgid "Stripe Account created"
 msgstr ""
 
-#: lib/fotohaecker_web/live/user_live/index.ex:209
+#: lib/fotohaecker_web/live/user_live/index.ex:212
 #, elixir-autogen, elixir-format
 msgid "Stripe Account successfully created!"
 msgstr ""
 
-#: lib/fotohaecker_web/live/user_live/index.ex:224
+#: lib/fotohaecker_web/live/user_live/index.ex:227
 #, elixir-autogen, elixir-format
 msgid "Stripe Account successfully deleted!"
 msgstr ""
 
-#: lib/fotohaecker_web/live/user_live/index.ex:163
+#: lib/fotohaecker_web/live/user_live/index.ex:166
 #, elixir-autogen, elixir-format
 msgid "There is a problem with your Stripe Account: %{message}"
 msgstr ""
 
-#: lib/fotohaecker_web/live/user_live/index.ex:171
+#: lib/fotohaecker_web/live/user_live/index.ex:174
 #, elixir-autogen, elixir-format
 msgid "You have not yet created a Stripe account. Please create one to receive donations."
 msgstr ""
 
-#: lib/fotohaecker_web/live/user_live/index.ex:157
+#: lib/fotohaecker_web/live/user_live/index.ex:160
 #, elixir-autogen, elixir-format
 msgid "You're ready to receive donations!"
 msgstr ""
@@ -477,22 +477,22 @@ msgstr ""
 msgid "donate"
 msgstr ""
 
-#: lib/fotohaecker_web/live/user_live/show.ex:98
+#: lib/fotohaecker_web/live/user_live/show.ex:96
 #, elixir-autogen, elixir-format
 msgid "error initializing donation: %{message}"
 msgstr ""
 
-#: lib/fotohaecker_web/live/user_live/index.ex:137
+#: lib/fotohaecker_web/live/user_live/index.ex:147
 #, elixir-autogen, elixir-format
 msgid "onboarding completed"
 msgstr ""
 
-#: lib/fotohaecker_web/live/user_live/index.ex:141
+#: lib/fotohaecker_web/live/user_live/index.ex:151
 #, elixir-autogen, elixir-format
 msgid "onboarding not completed."
 msgstr ""
 
-#: lib/fotohaecker_web/live/user_live/index.ex:115
+#: lib/fotohaecker_web/live/user_live/index.ex:125
 #, elixir-autogen, elixir-format
 msgid "Note: Donations are for demonstrative purposes only!"
 msgstr ""
