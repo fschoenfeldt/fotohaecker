@@ -7,7 +7,6 @@ defmodule FotohaeckerWeb.UserLive.ShowTest do
   @endpoint FotohaeckerWeb.Endpoint
 
   describe "shows user nickname" do
-
     setup do
       expect(Fotohaecker.UserManagement.UserManagementMock, :get, 2, fn "1337" ->
         {
@@ -38,7 +37,6 @@ defmodule FotohaeckerWeb.UserLive.ShowTest do
     end
   end
 
-
   test "shows error message if user is not found", %{conn: conn} do
     # get gets called twice because of `OnMount.CurrentUser`
     expect(Fotohaecker.UserManagement.UserManagementMock, :get, 2, fn _ ->
@@ -52,6 +50,7 @@ defmodule FotohaeckerWeb.UserLive.ShowTest do
         }
       }
     end)
+
     {:ok, _view, actual} = live(conn, "/fh/en_US/user/1338")
     expected = "404: The user does not exist."
 
