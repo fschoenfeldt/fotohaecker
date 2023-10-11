@@ -47,9 +47,8 @@ defmodule FotohaeckerWeb.UserLive.Show do
         </div>
       </div>
 
-
       <%= if !!assigns[:user] and !!assigns[:user_photos] do %>
-      <.donation_banner user={@user} />
+        <.donation_banner user={@user} />
         <div class="max-w-6xl mx-auto space-y-2 pt-2 px-8 xl:px-0">
           <ul data-testid="photo_list" class="grid gap-4 grid-cols-2 md:grid-cols-4">
             <%= for photo <- @user_photos do %>
