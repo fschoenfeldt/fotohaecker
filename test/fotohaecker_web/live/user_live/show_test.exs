@@ -39,7 +39,7 @@ defmodule FotohaeckerWeb.UserLive.ShowTest do
 
   test "shows error message if user is not found", %{conn: conn} do
     # get gets called twice because of `OnMount.CurrentUser`
-    expect(Fotohaecker.UserManagement.UserManagementMock, :get, 2, fn _ ->
+    expect(Fotohaecker.UserManagement.UserManagementMock, :get, 2, fn _user_id ->
       {
         :error,
         %{
