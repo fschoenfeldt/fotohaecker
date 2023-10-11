@@ -8,6 +8,7 @@ require Logger
 # any compile-time configuration in here, as it won't be applied.
 # The block below contains prod specific runtime configuration.
 
+# TODO: these env lists are getting out of hand…
 if System.get_env("STRIPE_SECRET") do
   config :stripity_stripe,
     api_key: System.get_env("STRIPE_SECRET"),
@@ -29,6 +30,7 @@ if System.get_env("CLARIFAI_API_SECRET") do
 end
 
 # TODO remove double boolean
+# TODO: these env lists are getting out of hand…
 if !!System.get_env("AUTH0_DOMAIN") and !!System.get_env("AUTH0_MANAGEMENT_CLIENT_ID") and
      !!System.get_env("AUTH0_MANAGEMENT_CLIENT_SECRET") do
   config :fotohaecker,
