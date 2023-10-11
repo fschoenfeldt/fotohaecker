@@ -357,7 +357,7 @@ msgstr "Dein Account wurde gelöscht!"
 msgid "Nickname"
 msgstr "Nickname"
 
-#: lib/fotohaecker_web/live/user_live/show.ex:37
+#: lib/fotohaecker_web/live/user_live/show.ex:38
 #, elixir-autogen, elixir-format
 msgid "Profile Picture of %{nickname}"
 msgstr "Profilbild von %{nickname}"
