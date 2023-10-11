@@ -36,6 +36,16 @@ To start your Phoenix server:
 
 Now you can visit [`localhost:1337/fh`](http://localhost:1337/fh) from your browser.
 
+### Additional Features
+
+#### Login via Auth0 (optional)
+
+Provide the according environment variables in your `.envrc.local`.
+
+#### Payment via Stripe (optional)
+
+Provide the according environment variables in your `.envrc.local`.
+
 ### Unit Tests / Quality
 
 ```shell
@@ -67,7 +77,10 @@ Add the `AUTH0_*` variables to your vscode user settings:
   "playwright.env": {
     "AUTH0_DOMAIN": "",
     "AUTH0_CLIENT_ID": "",
-    "AUTH0_CLIENT_SECRET": ""
+    "AUTH0_CLIENT_SECRET": "",
+    "STRIPE_SECRET": "",
+    "STRIPE_CONNECT_CLIENT_ID": "",
+    "STRIPE_PRICE_ID": "",
   }
 ```
 
