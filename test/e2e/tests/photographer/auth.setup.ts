@@ -21,5 +21,8 @@ setup("authenticate user", async ({ page }) => {
   await expect(authSuccessMessage).toBeVisible();
   await authSuccessMessage.click();
 
+  const yourAccountButton = page.locator("a", { hasText: "your account" });
+  expect(yourAccountButton).toBeVisible();
+
   await page.context().storageState({ path: authFilePhotographer });
 });

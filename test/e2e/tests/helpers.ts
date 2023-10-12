@@ -50,17 +50,17 @@ export const changeLanguage = async (
 };
 
 export const userFixture = {
-  id: "auth0|647dba8fe4e45a9886c854ad",
-  email: "test@fschoenfeldt.de",
-  password: "Sonne123",
+  id: process.env.E2E_USER_ID || "",
+  email: process.env.E2E_USER_EMAIL || "",
+  password: process.env.E2E_USER_PASSWORD || "",
 };
 
 export const authFileUser = "playwright/.auth/authUser.json";
 
 export const photographerFixture = {
-  id: "auth0|6513ef7d56ab5fc22ace2926",
-  email: "frederikschoenfeldt+photographer@gmail.com",
-  password: "Sonne123",
+  id: process.env.E2E_PHOTOGRAPHER_ID || "",
+  email: process.env.E2E_PHOTOGRAPHER_EMAIL || "",
+  password: process.env.E2E_PHOTOGRAPHER_PASSWORD || "",
 };
 
 export const authFilePhotographer = "playwright/.auth/authPhotographer.json";

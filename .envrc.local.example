@@ -11,6 +11,11 @@
 
 export SECRET_KEY_BASE="run this command: mix phx.gen.secret"
 
+# in case you want to use E2E tests
+export E2E_USER_ID=""
+export E2E_USER_EMAIL=""
+export E2E_USER_PASSWORD=""
+
 # in case you want to use auth0
 # export AUTH0_CLIENT_ID=""
 # export AUTH0_CLIENT_SECRET=""
@@ -24,3 +29,6 @@ export SECRET_KEY_BASE="run this command: mix phx.gen.secret"
 export STRIPE_SECRET=""
 export STRIPE_CONNECT_CLIENT_ID=""
 export STRIPE_PRICE_ID=""
+export E2E_PHOTOGRAPHER_ID=""
+export E2E_PHOTOGRAPHER_EMAIL=""
+export E2E_PHOTOGRAPHER_PASSWORD=""
