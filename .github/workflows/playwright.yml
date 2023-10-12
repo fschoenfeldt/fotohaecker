@@ -61,7 +61,6 @@ jobs:
           STRIPE_SECRET: ${{ secrets.STRIPE_SECRET }}
           STRIPE_CONNECT_CLIENT_ID: ${{ secrets.STRIPE_CONNECT_CLIENT_ID }}
           STRIPE_PRICE_ID: ${{ secrets.STRIPE_PRICE_ID }}
-          STRIPE_CALLBACK_BASE_URL: "http://localhost:1338"
           E2E_USER_ID: ${{ secrets.E2E_USER_ID }}
           E2E_USER_EMAIL: ${{ secrets.E2E_USER_EMAIL }}
           E2E_USER_PASSWORD: ${{ secrets.E2E_USER_PASSWORD }}

@@ -17,8 +17,7 @@ if System.get_env("STRIPE_SECRET") do
   # TODO price_id and callback_url should be configurable
   config :fotohaecker, Fotohaecker.Payment,
     implementation: Fotohaecker.Payment.StripePayment,
-    price_id: System.get_env("STRIPE_PRICE_ID"),
-    callback_base_url: System.get_env("STRIPE_CALLBACK_BASE_URL") || "http://localhost:1337"
+    price_id: System.get_env("STRIPE_PRICE_ID")
 else
   Logger.info("No STRIPE_SECRET found, using NoPayment")
 end

@@ -7,7 +7,7 @@ defmodule Fotohaecker.Payment.StripePayment do
 
   defp price_id, do: Application.get_env(:fotohaecker, Fotohaecker.Payment)[:price_id]
 
-  defp base_url, do: Application.get_env(:fotohaecker, Fotohaecker.Payment)[:callback_base_url]
+  defp base_url, do: FotohaeckerWeb.Endpoint.url()
 
   defp success_url,
     do: "#{base_url()}/fh/en_US/user"
