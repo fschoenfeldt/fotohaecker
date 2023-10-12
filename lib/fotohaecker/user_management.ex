@@ -42,6 +42,14 @@ defmodule Fotohaecker.UserManagement do
 
   @impl UserManagementBehaviour
   @doc """
+  Updates the user with the specified ID and the specified attributes.
+  """
+  def update(id, attributes) do
+    implementation().update(id, attributes)
+  end
+
+  @impl UserManagementBehaviour
+  @doc """
   Adds the user with the specified ID.
   """
   def add(id) do

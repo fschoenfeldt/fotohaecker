@@ -151,7 +151,8 @@ defmodule Fotohaecker.UserManagement.Auth0UserManagement.Auth0Cache do
       id: auth_0_user["user_id"],
       nickname: auth_0_user["nickname"],
       email: auth_0_user["email"],
-      picture: auth_0_user["picture"]
+      picture: auth_0_user["picture"],
+      app_metadata: auth_0_user["app_metadata"]
     }
   end
 end

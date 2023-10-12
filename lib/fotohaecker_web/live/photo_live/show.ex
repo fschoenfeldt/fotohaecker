@@ -42,7 +42,7 @@ defmodule FotohaeckerWeb.PhotoLive.Show do
                                                   "/uploads/#{file_name}_og#{extension}"),
                preview_path <- Routes.static_path(FotohaeckerWeb.Endpoint,
                                                   "/uploads/#{file_name}_preview#{extension}") do %>
-        <div class="md:grid gap-8 grid-cols-12">
+        <div class="grid md:gap-8 md:grid-cols-12">
           <.download_link class="col-span-8 bg-[#17181b] md:py-8" href={path} photo={@photo}>
             <img
               class="w-auto max-h-[calc(100vh-10rem)] mx-auto"

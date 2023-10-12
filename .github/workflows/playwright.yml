@@ -58,6 +58,15 @@ jobs:
           AUTH0_CLIENT_SECRET: ${{ secrets.AUTH0_CLIENT_SECRET }}
           AUTH0_MANAGEMENT_CLIENT_ID: ${{ secrets.AUTH0_MANAGEMENT_CLIENT_ID }}
           AUTH0_MANAGEMENT_CLIENT_SECRET: ${{ secrets.AUTH0_MANAGEMENT_CLIENT_SECRET }}
+          STRIPE_SECRET: ${{ secrets.STRIPE_SECRET }}
+          STRIPE_CONNECT_CLIENT_ID: ${{ secrets.STRIPE_CONNECT_CLIENT_ID }}
+          STRIPE_PRICE_ID: ${{ secrets.STRIPE_PRICE_ID }}
+          E2E_USER_ID: ${{ secrets.E2E_USER_ID }}
+          E2E_USER_EMAIL: ${{ secrets.E2E_USER_EMAIL }}
+          E2E_USER_PASSWORD: ${{ secrets.E2E_USER_PASSWORD }}
+          E2E_PHOTOGRAPHER_ID: ${{ secrets.E2E_PHOTOGRAPHER_ID }}
+          E2E_PHOTOGRAPHER_EMAIL: ${{ secrets.E2E_PHOTOGRAPHER_EMAIL }}
+          E2E_PHOTOGRAPHER_PASSWORD: ${{ secrets.E2E_PHOTOGRAPHER_PASSWORD }}
       - uses: actions/upload-artifact@v3
         if: always()
         with:

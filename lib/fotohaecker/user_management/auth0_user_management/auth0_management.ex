@@ -7,6 +7,106 @@ defmodule Fotohaecker.UserManagement.Auth0UserManagement.Auth0Management do
 
   alias Fotohaecker.UserManagement.Auth0UserManagement.Auth0Cache
 
+  # @doc """
+  # Get user logs
+  # """
+  # @spec logs(String.t()) :: {:ok, map} | {:error, term}
+  # def logs(user_id) do
+  #   user_id
+  #   |> user_logs_request(headers())
+  #   |> decode()
+  # end
+
+  @doc """
+  Delete user account
+  """
+  @spec delete(String.t()) :: {:ok, map} | {:error, term}
+  def delete(user_id) do
+    case user_delete_account_request(user_id, headers()) do
+      {:ok, _} ->
+        # Delete all photos by user
+        # TODO: dirty limit
+        photos = Fotohaecker.Content.list_photos_by_user(user_id, 1000, 0)
+
+        Auth0Cache.delete(user_id)
+
+        {Enum.each(photos, fn photo ->
+           Fotohaecker.Content.delete_photo(photo, user_id)
+         end),
+         %{
+           user_id: user_id,
+           photos: photos
+         }}
+
+      error ->
+        error
+    end
+  end
+
+  @doc """
+  Update user
+  """
+  @spec update(String.t(), map) :: {:ok, map} | {:error, term}
+  def update(user_id, params) do
+    params = Jason.encode(params)
+
+    case params do
+      {:ok, params} ->
+        response =
+          user_id
+          |> user_update_request(params, headers())
+          |> decode()
+
+        case response do
+          {:ok, %{"name" => _name, "picture" => _picture, "nickname" => _nickname}} ->
+            # TODO update instead of delete and add
+            Auth0Cache.delete(user_id)
+            Auth0Cache.add(user_id)
+            response
+
+          error ->
+            error
+        end
+
+      error ->
+        error
+    end
+  end
+
+  @doc """
+  Get user
+  """
+  @spec get(String.t()) :: {:ok, map} | {:error, term}
+  def get(user_id) do
+    response =
+      user_id
+      |> user_get_request(headers())
+      |> decode()
+
+    # check if the returned user matches our expectations
+    case response do
+      {:ok, %{"name" => _name, "picture" => _picture, "nickname" => _nickname}} ->
+        response
+
+      {:ok, resp} ->
+        {:error, resp}
+
+      error ->
+        error
+    end
+  end
+
+  @doc """
+  Get all users
+  """
+  def get_all do
+    headers()
+    |> users_get_request()
+    |> decode()
+
+    # TODO: check if the returned users matches our expectations
+  end
+
   defp token do
     domain = System.get_env("AUTH0_DOMAIN")
     url = "https://#{domain}/oauth/token"
@@ -70,6 +170,19 @@ defmodule Fotohaecker.UserManagement.Auth0UserManagement.Auth0Management do
     HTTPoison.delete(url, headers)
   end
 
+  defp user_update_request(_id, _params, {:error, _reason} = error) do
+    error
+  end
+
+  defp user_update_request(id, params, {:ok, headers}) do
+    domain = System.get_env("AUTH0_DOMAIN")
+    url = "https://#{domain}/api/v2/users/#{id}"
+
+    headers_with_content_type = Map.put(headers, "Content-Type", "application/json")
+
+    HTTPoison.patch(url, params, headers_with_content_type)
+  end
+
   defp user_get_request(_id, {:error, _reason} = error) do
     error
   end
@@ -90,75 +203,5 @@ defmodule Fotohaecker.UserManagement.Auth0UserManagement.Auth0Management do
     url = "https://#{domain}/api/v2/users"
 
     HTTPoison.get(url, headers)
-  end
-
-  # @doc """
-  # Get user logs
-  # """
-  # @spec logs(String.t()) :: {:ok, map} | {:error, term}
-  # def logs(user_id) do
-  #   user_id
-  #   |> user_logs_request(headers())
-  #   |> decode()
-  # end
-
-  @doc """
-  Delete user account
-  """
-  @spec delete(String.t()) :: {:ok, map} | {:error, term}
-  def delete(user_id) do
-    case user_delete_account_request(user_id, headers()) do
-      {:ok, _} ->
-        # Delete all photos by user
-        # TODO: dirty limit
-        photos = Fotohaecker.Content.list_photos_by_user(user_id, 1000, 0)
-
-        Auth0Cache.delete(user_id)
-
-        {Enum.each(photos, fn photo ->
-           Fotohaecker.Content.delete_photo(photo, user_id)
-         end),
-         %{
-           user_id: user_id,
-           photos: photos
-         }}
-
-      error ->
-        error
-    end
-  end
-
-  @doc """
-  Get user
-  """
-  @spec get(String.t()) :: {:ok, map} | {:error, term}
-  def get(user_id) do
-    response =
-      user_id
-      |> user_get_request(headers())
-      |> decode()
-
-    # check if the returned user matches our expectations
-    case response do
-      {:ok, %{"name" => _name, "picture" => _picture, "nickname" => _nickname}} ->
-        response
-
-      {:ok, resp} ->
-        {:error, resp}
-
-      error ->
-        error
-    end
-  end
-
-  @doc """
-  Get all users
-  """
-  def get_all do
-    headers()
-    |> users_get_request()
-    |> decode()
-
-    # TODO: check if the returned users matches our expectations
   end
 end

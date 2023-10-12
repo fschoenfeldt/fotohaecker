@@ -27,6 +27,7 @@ defmodule FotohaeckerWeb.UserLive.Show do
   @impl Phoenix.LiveView
   def render(assigns) do
     ~H"""
+    <%!-- # TODO: refactor me without double bools --%>
     <div id="user_show" class="">
       <div class="bg-gray-800">
         <div class="max-w-6xl mx-auto space-y-2 py-8 px-8 xl:px-0">
@@ -47,6 +48,7 @@ defmodule FotohaeckerWeb.UserLive.Show do
       </div>
 
       <%= if !!assigns[:user] and !!assigns[:user_photos] do %>
+        <.donation_banner user={@user} />
         <div class="max-w-6xl mx-auto space-y-2 pt-2 px-8 xl:px-0">
           <ul data-testid="photo_list" class="grid gap-4 grid-cols-2 md:grid-cols-4">
             <%= for photo <- @user_photos do %>
@@ -59,7 +61,40 @@ defmodule FotohaeckerWeb.UserLive.Show do
     """
   end
 
+  defp donation_banner(assigns) do
+    ~H"""
+    <%= if Fotohaecker.Payment.is_fully_onboarded?(@user) do %>
+      <div class="bg-green-100 py-2" data-testid="donationBanner">
+        <div class="flex items-center justify-between max-w-6xl mx-2 md:mx-auto">
+          <p><%= gettext("Donate to %{user} to support their work", user: @user.nickname) %></p>
+          <button type="button" class="btn btn--green inline-block" phx-click="donate">
+            <%= gettext("donate") %>
+          </button>
+        </div>
+      </div>
+    <% end %>
+    """
+  end
+
   # TODO: DRY: dirty
   def handle_event("navigate_to", params, socket),
     do: FotohaeckerWeb.IndexLive.Home.handle_event("navigate_to", params, socket)
+
+  def handle_event("donate", _params, socket) do
+    maybe_donation_link =
+      Fotohaecker.Payment.checkout(socket.assigns.user)
+
+    case maybe_donation_link do
+      {:ok, %{url: url}} ->
+        {:noreply, redirect(socket, external: url)}
+
+      {:error, %{message: message}} ->
+        {:noreply,
+         put_flash(
+           socket,
+           :error,
+           gettext("error initializing donation: %{message}", message: message)
+         )}
+    end
+  end
 end

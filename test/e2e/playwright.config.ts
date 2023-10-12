@@ -1,4 +1,5 @@
 import { FullConfig, defineConfig, devices } from "@playwright/test";
+import { authFilePhotographer, authFileUser } from "./tests/helpers";
 
 const PORT = 1338;
 
@@ -14,6 +15,7 @@ const PORT = 1338;
 export default defineConfig({
   // timeout: 10 * 1000,
   testDir: "./tests",
+  // testIgnore: "tests/photographer/**/*",
   /* Run tests in files in parallel */
   fullyParallel: true,
   /* Fail the build on CI if you accidentally left test.only in the source code. */
@@ -43,9 +45,10 @@ export default defineConfig({
       use: {
         ...devices["Desktop Chrome"],
         // Use prepared auth state.
-        storageState: "playwright/.auth/user.json",
+        storageState: authFileUser,
       },
       dependencies: ["setup"],
+      testIgnore: "tests/photographer/**/*",
     },
 
     {
@@ -53,18 +56,20 @@ export default defineConfig({
       use: {
         ...devices["Desktop Firefox"],
         // Use prepared auth state.
-        storageState: "playwright/.auth/user.json",
+        storageState: authFileUser,
       },
       dependencies: ["setup"],
+      testIgnore: "tests/photographer/**/*",
     },
 
     {
       name: "webkit",
       use: {
         ...devices["Desktop Safari"],
-        storageState: "playwright/.auth/user.json",
+        storageState: authFileUser,
       },
       dependencies: ["setup"],
+      testIgnore: "tests/photographer/**/*",
     },
 
     /* Test against mobile viewports. */
@@ -72,17 +77,33 @@ export default defineConfig({
       name: "Mobile Chrome",
       use: {
         ...devices["Pixel 6"],
-        storageState: "playwright/.auth/user.json",
+        storageState: authFileUser,
       },
       dependencies: ["setup"],
+      testIgnore: "tests/photographer/**/*",
     },
     {
       name: "Mobile Safari",
       use: {
         ...devices["iPhone 12"],
-        storageState: "playwright/.auth/user.json",
+        storageState: authFileUser,
       },
       dependencies: ["setup"],
+      testIgnore: "tests/photographer/**/*",
+    },
+    {
+      name: "setup photographer",
+      testDir: "./tests/photographer",
+      testMatch: /.*\.setup\.ts/,
+    },
+    {
+      name: "chromium photographer",
+      testDir: "./tests/photographer",
+      use: {
+        ...devices["Desktop Chrome"],
+        // Use prepared auth state.
+        storageState: authFilePhotographer,
+      },
     },
 
     /* Test against branded browsers. */

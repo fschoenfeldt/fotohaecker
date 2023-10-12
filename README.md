@@ -36,6 +36,16 @@ To start your Phoenix server:
 
 Now you can visit [`localhost:1337/fh`](http://localhost:1337/fh) from your browser.
 
+### Additional Features
+
+#### Login via Auth0 (optional)
+
+Provide the according environment variables in your `.envrc.local`.
+
+#### Payment via Stripe (optional)
+
+Provide the according environment variables in your `.envrc.local`.
+
 ### Unit Tests / Quality
 
 ```shell
@@ -61,15 +71,32 @@ pnpm --prefix test/e2e test -- --trace on --headed
 
 #### If you want to use the VSCode Extension
 
-Add the `AUTH0_*` variables to your vscode user settings:
+If you want to use the [playwright vscode extension](https://playwright.dev/docs/getting-started-vscode), add the following variables to your vscode user settings:
 
 ```json
   "playwright.env": {
     "AUTH0_DOMAIN": "",
     "AUTH0_CLIENT_ID": "",
-    "AUTH0_CLIENT_SECRET": ""
+    "AUTH0_CLIENT_SECRET": "",
+    "AUTH0_MANAGEMENT_CLIENT_ID": "",
+    "AUTH0_MANAGEMENT_CLIENT_SECRET": "",
+    "STRIPE_SECRET": "",
+    "STRIPE_CONNECT_CLIENT_ID": "",
+    "STRIPE_PRICE_ID": "",
+    "E2E_USER_ID": "",
+    "E2E_USER_EMAIL": "",
+    "E2E_USER_PASSWORD": "",
+    "E2E_PHOTOGRAPHER_ID": "",
+    "E2E_PHOTOGRAPHER_EMAIL": "",
+    "E2E_PHOTOGRAPHER_PASSWORD": ""
   }
 ```
+
+Notes:
+
+- For `_ID`, use the auth0 user id
+- for the `E2E_USER`, you have to insert a user that _hasn't_ set up donations yet.
+- for the `E2E_PHOTOGRAPHER`, you have to insert a user that _has_ set up donations.
 
 ## Deployment
 

@@ -23,4 +23,7 @@ defmodule Fotohaecker.UserManagement.Auth0UserManagement do
 
   @impl UserManagementBehaviour
   defdelegate delete(user_id), to: Auth0Management
+
+  @impl UserManagementBehaviour
+  defdelegate update(user_id, attrs), to: Auth0Management
 end

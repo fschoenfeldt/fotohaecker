@@ -1,4 +1,5 @@
 import Config
+require Logger
 
 # config/runtime.exs is executed for all environments, including
 # during releases. It is executed after compilation and before the
@@ -7,17 +8,37 @@ import Config
 # any compile-time configuration in here, as it won't be applied.
 # The block below contains prod specific runtime configuration.
 
+# TODO: these env lists are getting out of hand…
+if System.get_env("STRIPE_SECRET") do
+  config :stripity_stripe,
+    api_key: System.get_env("STRIPE_SECRET"),
+    connect_client_id: System.get_env("STRIPE_CONNECT_CLIENT_ID")
+
+  # TODO price_id and callback_url should be configurable
+  config :fotohaecker, Fotohaecker.Payment,
+    implementation: Fotohaecker.Payment.StripePayment,
+    price_id: System.get_env("STRIPE_PRICE_ID")
+else
+  Logger.info("No STRIPE_SECRET found, using NoPayment")
+end
+
 # Configure image detection here
 # in case you don't provide a config, the NoDetection module will be used
 if System.get_env("CLARIFAI_API_SECRET") do
   config :fotohaecker, Fotohaecker.TagDetection, Fotohaecker.TagDetection.Clarifai
 end
 
+# TODO remove double boolean
+# TODO: these env lists are getting out of hand…
 if !!System.get_env("AUTH0_DOMAIN") and !!System.get_env("AUTH0_MANAGEMENT_CLIENT_ID") and
      !!System.get_env("AUTH0_MANAGEMENT_CLIENT_SECRET") do
   config :fotohaecker,
          Fotohaecker.UserManagement,
          Fotohaecker.UserManagement.Auth0UserManagement
+else
+  Logger.info(
+    "No AUTH0_DOMAIN, AUTH0_MANAGEMENT_CLIENT_ID or AUTH0_MANAGEMENT_CLIENT_SECRET found, using NoUserManagement"
+  )
 end
 
 # ## Using releases
@@ -61,7 +82,7 @@ if config_env() == :prod do
   port = String.to_integer(System.get_env("PORT") || "4000")
 
   config :fotohaecker, FotohaeckerWeb.Endpoint,
-    url: [host: host, scheme: "https"],
+    url: [host: host, scheme: "https", port: 443],
     http: [
       # Enable IPv6 and bind on all interfaces.
       # Set it to  {0, 0, 0, 0, 0, 0, 0, 1} for local network only access.

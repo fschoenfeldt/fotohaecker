@@ -1,8 +1,8 @@
 import { test as setup, expect } from "@playwright/test";
-import { authFileUser, userFixture } from "./helpers";
+import { authFilePhotographer, photographerFixture } from "../helpers";
 
 setup("authenticate user", async ({ page }) => {
-  const { email, password } = userFixture;
+  const { email, password } = photographerFixture;
   await page.goto("/fh");
   await page.locator("a", { hasText: "login" }).click();
   await page.locator("#username").fill(email);
@@ -21,5 +21,8 @@ setup("authenticate user", async ({ page }) => {
   await expect(authSuccessMessage).toBeVisible();
   await authSuccessMessage.click();
 
-  await page.context().storageState({ path: authFileUser });
+  const yourAccountButton = page.locator("a", { hasText: "your account" });
+  expect(yourAccountButton).toBeVisible();
+
+  await page.context().storageState({ path: authFilePhotographer });
 });
