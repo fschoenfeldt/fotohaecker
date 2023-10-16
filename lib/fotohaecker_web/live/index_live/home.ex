@@ -213,7 +213,7 @@ defmodule FotohaeckerWeb.IndexLive.Home do
     |> Jason.decode!(keys: :atoms!)
     # maybe put file name if file provided
     |> maybe_put_file_name(socket.assigns.uploads.photo.entries)
-    |> Map.update!(:tags, &Content.to_tags/1)
+    |> maybe_put_tags()
   end
 
   defp maybe_put_file_name(params, entries) do
@@ -226,5 +226,13 @@ defmodule FotohaeckerWeb.IndexLive.Home do
 
       Map.put_new(params, :file_name, ~s(#{uuid}.jpg))
     end
+  end
+
+  defp maybe_put_tags(%{tags: tags} = params) do
+    Map.put(params, :tags, Content.to_tags(tags))
+  end
+
+  defp maybe_put_tags(params) do
+    Map.put(params, :tags, [])
   end
 end
