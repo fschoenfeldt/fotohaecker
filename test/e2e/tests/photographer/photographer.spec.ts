@@ -4,7 +4,8 @@ import { photographerFixture } from "../helpers";
 test.describe("Photographer: Settings page", () => {
   test.beforeEach(async ({ page }) => {
     // Skip this test if Payment isn't enabled.
-    if (process.env["STRIPE_SECRET"]) {
+    // TODO: this list isn't complete.
+    if (process.env["STRIPE_SECRET"] && process.env["AUTH0_CLIENT_ID"]) {
       await page.goto("/fh");
       await page.locator("a", { hasText: "your account" }).click();
     } else {
