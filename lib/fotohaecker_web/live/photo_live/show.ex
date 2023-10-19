@@ -144,9 +144,13 @@ defmodule FotohaeckerWeb.PhotoLive.Show do
                 <%= gettext("by %{user}", %{user: user.nickname}) %>
               </a>
             <% _ -> %>
-              <a href={user_route(@photo.user_id)}>
-                <%= gettext("by user_id %{user_id}", %{user_id: @photo.user_id}) %>
-              </a>
+              <%= if UserManagement.is_implemented?() do %>
+                <a href={user_route(@photo.user_id)}>
+                  <%= gettext("by user_id %{user_id}", %{user_id: @photo.user_id}) %>
+                </a>
+              <% else %>
+                <%= gettext("by user %{user_id}", %{user_id: @photo.user_id}) %>
+              <% end %>
           <% end %>
         <% else %>
           <%= gettext("by an anonymous user") %>
