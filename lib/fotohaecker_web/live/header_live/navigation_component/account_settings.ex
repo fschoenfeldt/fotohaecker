@@ -2,6 +2,12 @@ defmodule FotohaeckerWeb.HeaderLive.NavigationComponent.AccountSettings do
   @moduledoc false
   use FotohaeckerWeb, :component
 
+  def account_settings(%{user_management_implemented?: false} = assigns) do
+    ~H"""
+
+    """
+  end
+
   def account_settings(assigns) do
     ~H"""
     <%= if @current_user do %>

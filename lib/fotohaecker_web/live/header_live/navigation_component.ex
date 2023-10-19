@@ -48,6 +48,7 @@ defmodule FotohaeckerWeb.HeaderLive.NavigationComponent do
             current_user={@current_user}
             account_link={@account_link}
             login_link={@login_link}
+            user_management_implemented?={Fotohaecker.UserManagement.is_implemented?()}
           />
         </li>
       </ul>

@@ -6,6 +6,7 @@ defmodule Fotohaecker.UserManagement do
   """
 
   @behaviour Fotohaecker.UserManagement.UserManagementBehaviour
+  alias Fotohaecker.UserManagement.NoUserManagement
   alias Fotohaecker.UserManagement.UserManagementBehaviour
 
   @impl UserManagementBehaviour
@@ -64,11 +65,17 @@ defmodule Fotohaecker.UserManagement do
     implementation().start_link(initial_value)
   end
 
+  @impl UserManagementBehaviour
+  @doc """
+  Returns true if the user management is implemented.
+  """
+  def is_implemented?(), do: implementation() != NoUserManagement
+
   defp implementation,
     do:
       Application.get_env(
         :fotohaecker,
         __MODULE__,
-        Fotohaecker.UserManagement.NoUserManagement
+        NoUserManagement
       )
 end
