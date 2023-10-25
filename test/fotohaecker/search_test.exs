@@ -1,4 +1,4 @@
-defmodule Fotohaecker.ContentTest do
+defmodule Fotohaecker.SearchTest do
   alias Fotohaecker.ContentFixtures
   use Fotohaecker.DataCase, async: true
   import Mox
