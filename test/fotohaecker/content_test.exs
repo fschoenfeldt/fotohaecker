@@ -33,6 +33,16 @@ defmodule Fotohaecker.ContentTest do
       assert actual == expected
     end
 
+    test "list_photos/3 with ascending order" do
+      photos =
+        Enum.map(1..20, fn _i -> photo_fixture() end)
+
+      actual = Content.list_photos(3, 0, :asc_inserted_at)
+      expected = Enum.take(photos, 3)
+
+      assert actual == expected
+    end
+
     test "list_photos/1" do
       Enum.map(1..20, fn _i -> photo_fixture() end)
       actual = length(Content.list_photos(5))
@@ -97,6 +107,23 @@ defmodule Fotohaecker.ContentTest do
 
     test "get_photo/1 raises when photo does not exist" do
       assert_raise Ecto.NoResultsError, fn -> Content.get_photo!("1337") end
+    end
+
+    test "create_photo/0" do
+      {:error, actual} = Content.create_photo()
+
+      assert actual.errors == [
+               {:title, {"can't be blank", [validation: :required]}},
+               {
+                 :file_name,
+                 {"can't be blank", [validation: :required]}
+               },
+               {:tags, {"can't be blank", [validation: :required]}},
+               {
+                 :extension,
+                 {"can't be blank", [validation: :required]}
+               }
+             ]
     end
 
     test "create_photo/1 with valid data creates a photo" do
@@ -256,6 +283,29 @@ defmodule Fotohaecker.ContentTest do
       assert_raise Ecto.NoResultsError, fn -> Content.get_photo!(photo.id) end
     end
 
+    test "works with user as a map" do
+      user_id = "auth0|123456789"
+
+      photo =
+        photo_fixture(%{
+          user_id: user_id
+        })
+
+      photo_paths = write_photo_files(photo)
+
+      user = %{
+        id: user_id
+      }
+
+      assert {:ok, %Photo{}} = Content.delete_photo(photo, user)
+
+      assert photo_paths
+             |> Enum.map(fn path -> File.exists?(path) end)
+             |> Enum.all?(fn exists -> exists == false end)
+
+      assert_raise Ecto.NoResultsError, fn -> Content.get_photo!(photo.id) end
+    end
+
     test "refuses to delete if user is not owner" do
       user_id = "auth0|123456789"
       another_user_id = "auth0|987654321"
@@ -300,6 +350,20 @@ defmodule Fotohaecker.ContentTest do
       assert Content.is_photo_owner?(photo, user_id)
     end
 
+    test "works with user as a map" do
+      user_id = "auth0|123456789"
+
+      photo = %Photo{
+        user_id: user_id
+      }
+
+      user = %{
+        id: user_id
+      }
+
+      assert Content.is_photo_owner?(photo, user)
+    end
+
     test "user doesn't own photo of another user" do
       user_id = "auth0|123456789"
       another_user_id = "auth0|987654321"
@@ -341,6 +405,45 @@ defmodule Fotohaecker.ContentTest do
       }
 
       assert Content.is_photo_owner?(photo, user_id)
+    end
+  end
+
+  describe "to_tags/1" do
+    test "converts a string to a list of tags" do
+      actual = Content.to_tags("tag1, tag2, tag3")
+      expected = ["tag1", "tag2", "tag3"]
+
+      assert actual == expected
+    end
+
+    test "converts a string to a list of tags and removes duplicates" do
+      actual = Content.to_tags("tag1, tag2, tag3, tag1")
+      expected = ["tag1", "tag2", "tag3"]
+
+      assert actual == expected
+    end
+
+    test "converts a string to a list of tags and removes empty tags" do
+      actual = Content.to_tags("tag1, tag2, tag3, , ")
+      expected = ["tag1", "tag2", "tag3"]
+
+      assert actual == expected
+    end
+
+    test "works with empty string" do
+      actual = Content.to_tags("")
+      expected = []
+
+      assert actual == expected
+    end
+  end
+
+  describe "from_tags/1" do
+    test "converts a list of tags to a string" do
+      actual = Content.from_tags(["tag1", "tag2", "tag3"])
+      expected = "tag1, tag2, tag3"
+
+      assert actual == expected
     end
   end
 end

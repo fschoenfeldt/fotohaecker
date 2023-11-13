@@ -106,5 +106,11 @@ defmodule Mix.Tasks.ContentTest do
 
       assert actual == expected
     end
+
+    test "raises when unknown command" do
+      assert_raise(RuntimeError, fn ->
+        Content.run(["unknown"])
+      end)
+    end
   end
 end

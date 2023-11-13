@@ -94,7 +94,11 @@ defmodule Mix.Tasks.Content do
   end
 
   defp handle!(_args) do
-    raise "usage: mix content delete <photo_id | orphaned>"
+    raise """
+    usage:
+      mix content delete <photo_id | orphaned>
+      mix content list [orphaned]
+    """
   end
 
   defp confirm?(prompt) do
