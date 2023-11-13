@@ -101,7 +101,11 @@ defmodule Fotohaecker.Content do
 
   """
   def to_tags(tags_string) when is_binary(tags_string) do
-    String.split(tags_string, ", ")
+    tags_string
+    |> String.split(", ")
+    |> Enum.map(&String.trim/1)
+    |> Enum.reject(&(&1 == ""))
+    |> Enum.uniq()
   end
 
   @doc """
