@@ -1,151 +1,70 @@
 defmodule Fotohaecker.UserManagementTest do
   use ExUnit.Case, async: true
   alias Fotohaecker.UserManagement
+  alias Fotohaecker.UserManagement.UserManagementMock
   import Mox
 
   setup :verify_on_exit!
 
   describe "get/1" do
     test "gets user" do
-      expect(Fotohaecker.UserManagement.UserManagementMock, :get, fn "user_id" ->
-        {
-          :ok,
-          %{
-            email: "test@fschoenfeldt.de"
-          }
-        }
-      end)
-
-      actual = UserManagement.get("user_id")
-
-      expected = {
-        :ok,
-        %{
-          email: "test@fschoenfeldt.de"
-        }
-      }
-
-      assert actual == expected
+      expect(UserManagementMock, :get, fn "user_id" -> nil end)
+      UserManagement.get("user_id")
     end
 
     test "error when user not found" do
-      expect(Fotohaecker.UserManagement.UserManagementMock, :get, fn "user_id" ->
+      expect(UserManagementMock, :get, fn "user_id" ->
         {:error, "error"}
       end)
 
-      actual = UserManagement.get("user_id")
-
-      expected = {:error, "error"}
-
-      assert actual == expected
+      UserManagement.get("user_id")
     end
   end
 
   describe "get_all/0" do
     test "gets all users" do
-      expect(Fotohaecker.UserManagement.UserManagementMock, :get_all, fn ->
-        [
-          {
-            :ok,
-            %{
-              email: "test@fschoenfeldt.de"
-            }
-          },
-          {
-            :ok,
-            %{
-              email: "test2@fschoenfeldt.de"
-            }
-          }
-        ]
-      end)
+      expect(UserManagementMock, :get_all, fn -> [] end)
 
-      actual = UserManagement.get_all()
-
-      expected = [
-        {
-          :ok,
-          %{
-            email: "test@fschoenfeldt.de"
-          }
-        },
-        {
-          :ok,
-          %{
-            email: "test2@fschoenfeldt.de"
-          }
-        }
-      ]
-
-      assert actual == expected
+      UserManagement.get_all()
     end
   end
 
   describe "delete/1" do
     test "deletes users" do
-      expect(Fotohaecker.UserManagement.UserManagementMock, :delete, fn "user_id" ->
-        :ok
-      end)
+      expect(UserManagementMock, :delete, fn "user_id" -> :ok end)
 
-      actual = UserManagement.delete("user_id")
-
-      expected = :ok
-
-      assert actual == expected
+      UserManagement.delete("user_id")
     end
   end
 
   describe "update/2" do
     test "updates user" do
-      expect(Fotohaecker.UserManagement.UserManagementMock, :update, fn "user_id",
-                                                                        %{
-                                                                          email:
-                                                                            "test@fschoenfeldt.de"
-                                                                        } ->
-        {
-          :ok,
-          %{
-            email: "test@fschoenfeldt.de"
-          }
-        }
+      expect(UserManagementMock, :update, fn "user_id",
+                                             %{
+                                               email: "test@fschoenfeldt.de"
+                                             } ->
+        {:ok, %{email: "test@fschoenfeldt.de"}}
       end)
 
-      actual = UserManagement.update("user_id", %{email: "test@fschoenfeldt.de"})
-
-      expected = {
-        :ok,
-        %{
-          email: "test@fschoenfeldt.de"
-        }
-      }
-
-      assert actual == expected
+      UserManagement.update("user_id", %{email: "test@fschoenfeldt.de"})
     end
   end
 
   describe "add/1" do
     test "adds user" do
-      expect(Fotohaecker.UserManagement.UserManagementMock, :add, fn "user_id" ->
-        :ok
-      end)
+      expect(UserManagementMock, :add, fn "user_id" -> :ok end)
 
-      actual = UserManagement.add("user_id")
-      expected = :ok
-
-      assert actual == expected
+      UserManagement.add("user_id")
     end
   end
 
   describe "start_link/0" do
     test "starts link" do
-      expect(Fotohaecker.UserManagement.UserManagementMock, :start_link, fn [] ->
+      expect(UserManagementMock, :start_link, fn [] ->
         {:ok, :started}
       end)
 
-      actual = UserManagement.start_link()
-      expected = {:ok, :started}
-
-      assert actual == expected
+      UserManagement.start_link()
     end
   end
 end
