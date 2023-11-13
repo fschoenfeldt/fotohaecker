@@ -5,6 +5,32 @@ defmodule Fotohaecker.Search do
   require Logger
   alias Fotohaecker.UserManagement
 
+  @doc """
+  Search for users and photos.
+
+  ## Examples
+      iex> %{title: "search", file_name: "search", tags: [], extension: ".jpg"} |> Fotohaecker.Content.create_photo()
+      iex> [result] = Fotohaecker.Search.search("search")
+      iex> result.photo.title
+      "search"
+
+      iex> Mox.stub(Fotohaecker.UserManagement.UserManagementMock, :get_all, fn ->
+      ...>  [%{id: "auth0|123", nickname: "test"}]
+      ...> end)
+      iex> [result] = Fotohaecker.Search.search("test")
+      iex> result.user.nickname
+      "test"
+
+      iex> Mox.expect(Fotohaecker.UserManagement.UserManagementMock, :get_all, fn ->
+      ...>  [%{id: "auth0|777", nickname: "search"}]
+      ...> end)
+      iex> %{title: "search", file_name: "search", tags: [], extension: ".jpg"}
+      ...> |> Fotohaecker.Content.create_photo()
+      iex> results = Fotohaecker.Search.search("search")
+      iex> results |> length()
+      2
+  """
+  @spec search(String.t()) :: [map()] | []
   def search(query) do
     []
     |> with_users(query)

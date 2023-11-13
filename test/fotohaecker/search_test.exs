@@ -3,8 +3,25 @@ defmodule Fotohaecker.SearchTest do
   use Fotohaecker.DataCase, async: true
   import Mox
   alias Fotohaecker.Search
+  doctest Fotohaecker.Search
 
   setup :verify_on_exit!
+
+  setup do
+    Mox.stub(Fotohaecker.UserManagement.UserManagementMock, :get_all, fn ->
+      []
+    end)
+
+    on_exit(fn ->
+      Application.put_env(
+        :fotohaecker,
+        Fotohaecker.UserManagement,
+        Fotohaecker.UserManagement.UserManagementMock
+      )
+    end)
+
+    :ok
+  end
 
   describe "search/1" do
     test "finds user by name" do
@@ -70,6 +87,23 @@ defmodule Fotohaecker.SearchTest do
 
       assert hd(actual).type == :photo
       assert hd(actual).photo.title == "test"
+    end
+
+    test "returns no users when UserManagement is disabled" do
+      Mox.expect(Fotohaecker.UserManagement.UserManagementMock, :get_all, 0, fn ->
+        []
+      end)
+
+      Application.put_env(
+        :fotohaecker,
+        Fotohaecker.UserManagement,
+        Fotohaecker.UserManagement.NoUserManagement
+      )
+
+      actual = Fotohaecker.Search.search("test")
+      expected = []
+
+      assert actual == expected
     end
   end
 end
