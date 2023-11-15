@@ -5,6 +5,14 @@ defmodule Fotohaecker.Search do
   require Logger
   alias Fotohaecker.UserManagement
 
+  @type t :: %__MODULE__{
+          type: :photo | :user | nil,
+          photo: map() | nil,
+          user: map() | nil
+        }
+
+  defstruct type: nil, photo: nil, user: nil
+
   @doc """
   Search for users and photos.
 
@@ -15,14 +23,14 @@ defmodule Fotohaecker.Search do
       "search"
 
       iex> Mox.stub(Fotohaecker.UserManagement.UserManagementMock, :get_all, fn ->
-      ...>  [%{id: "auth0|123", nickname: "test"}]
+      ...>  {:ok, [%{id: "auth0|123", nickname: "test"}]}
       ...> end)
       iex> [result] = Fotohaecker.Search.search("test")
       iex> result.user.nickname
       "test"
 
       iex> Mox.expect(Fotohaecker.UserManagement.UserManagementMock, :get_all, fn ->
-      ...>  [%{id: "auth0|777", nickname: "search"}]
+      ...>  {:ok, [%{id: "auth0|777", nickname: "search"}]}
       ...> end)
       iex> %{title: "search", file_name: "search", tags: [], extension: ".jpg"}
       ...> |> Fotohaecker.Content.create_photo()
@@ -38,23 +46,26 @@ defmodule Fotohaecker.Search do
   end
 
   defp with_users(search_results, query) do
-    if UserManagement.is_implemented?() do
-      results =
-        UserManagement.get_all()
-        |> Enum.filter(fn user ->
-          String.contains?(user.nickname, query) or String.contains?(user.id, query)
-        end)
-        |> Enum.map(
-          &%{
-            type: :user,
-            user: &1
-          }
+    with true <- UserManagement.is_implemented?(),
+         {:ok, users} <- UserManagement.get_all() do
+      users
+      |> Enum.filter(fn user ->
+        String.contains?(user.nickname, query) or String.contains?(user.id, query)
+      end)
+      |> Enum.map(
+        &%__MODULE__{
+          type: :user,
+          user: &1
+        }
+      )
+      |> Kernel.++(search_results)
+    else
+      _not_implemented_or_error ->
+        Logger.debug(
+          "UserManagement is not implemented or an error occurred, skipping user search"
         )
 
-      search_results ++ results
-    else
-      Logger.debug("UserManagement is not implemented, skipping user search")
-      search_results
+        search_results
     end
   end
 
@@ -63,7 +74,7 @@ defmodule Fotohaecker.Search do
       (query
        |> Fotohaecker.Content.search_photos()
        |> Enum.map(
-         &%{
+         &%__MODULE__{
            type: :photo,
            photo: &1
          }

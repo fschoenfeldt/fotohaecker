@@ -1,6 +1,11 @@
-defmodule FotohaeckerWeb.HeaderLive.NavigationComponent.Search do
+defmodule FotohaeckerWeb.HeaderLive.NavigationComponent.SearchComponent do
   @moduledoc false
+  alias Fotohaecker.Search
   use FotohaeckerWeb, :component
+
+  attr :search_query, :string
+  attr :search_results, :list
+  attr :myself, :any
 
   def search(assigns) do
     ~H"""
@@ -75,6 +80,8 @@ defmodule FotohaeckerWeb.HeaderLive.NavigationComponent.Search do
     """
   end
 
+  attr :search_results, :list
+
   defp search_results(assigns) do
     ~H"""
     <div
@@ -91,10 +98,8 @@ defmodule FotohaeckerWeb.HeaderLive.NavigationComponent.Search do
         <%!-- # TODO: refactor this and use photos_component.ex  --%>
         <ul class="flex flex-col divide-y divide-gray-700" data-testid="result_list">
           <span class="sr-only"><%= gettext("search results") %></span>
-          <li :for={photo <- @search_results} class="hover:bg-gray-700">
-            <.link class="p-2 block h-full w-full link link--light" href={photo_route(photo.id)}>
-              <%= photo.title %>
-            </.link>
+          <li :for={search_result <- @search_results} class="hover:bg-gray-700">
+            <.search_result_item item={search_result} />
           </li>
         </ul>
       <% end %>
@@ -104,6 +109,22 @@ defmodule FotohaeckerWeb.HeaderLive.NavigationComponent.Search do
         </div>
       <% end %>
     </div>
+    """
+  end
+
+  defp search_result_item(%{item: %Search{type: :photo, photo: _photo}} = assigns) do
+    ~H"""
+    <.link class="p-2 block h-full w-full link link--light" href={photo_route(@item.photo.id)}>
+      <%= @item.photo.title %>
+    </.link>
+    """
+  end
+
+  defp search_result_item(%{item: %Search{type: :user, user: _user}} = assigns) do
+    ~H"""
+    <.link class="p-2 block h-full w-full link link--light" href={user_route(@item.user.id)}>
+      <%= @item.user.nickname %>
+    </.link>
     """
   end
 end

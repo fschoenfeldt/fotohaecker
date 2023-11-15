@@ -9,7 +9,7 @@ defmodule Fotohaecker.SearchTest do
 
   setup do
     Mox.stub(Fotohaecker.UserManagement.UserManagementMock, :get_all, fn ->
-      []
+      {:ok, []}
     end)
 
     on_exit(fn ->
@@ -26,32 +26,37 @@ defmodule Fotohaecker.SearchTest do
   describe "search/1" do
     test "finds user by name" do
       Mox.expect(Fotohaecker.UserManagement.UserManagementMock, :get_all, fn ->
-        [%{id: "auth0|123", nickname: "test"}, %{id: "auth0|456", nickname: "sigmund"}]
+        {:ok,
+         [
+           %{id: "auth0|123", nickname: "test"},
+           %{id: "auth0|456", nickname: "sigmund"}
+         ]}
       end)
 
       actual = Search.search("test")
-      expected = [%{type: :user, user: %{nickname: "test", id: "auth0|123"}}]
+      expected = [%Search{type: :user, user: %{nickname: "test", id: "auth0|123"}, photo: nil}]
 
       assert actual == expected
     end
 
     test "finds multiple users by name" do
       Mox.expect(Fotohaecker.UserManagement.UserManagementMock, :get_all, fn ->
-        [
-          %{id: "auth0|123", nickname: "test"},
-          %{id: "auth0|456", nickname: "test2"},
-          %{
-            id: "auth0|789",
-            nickname: "sigmund"
-          }
-        ]
+        {:ok,
+         [
+           %{id: "auth0|123", nickname: "test"},
+           %{id: "auth0|456", nickname: "test2"},
+           %{
+             id: "auth0|789",
+             nickname: "sigmund"
+           }
+         ]}
       end)
 
       actual = Search.search("test")
 
       expected = [
-        %{type: :user, user: %{nickname: "test", id: "auth0|123"}},
-        %{type: :user, user: %{nickname: "test2", id: "auth0|456"}}
+        %Search{type: :user, user: %{nickname: "test", id: "auth0|123"}},
+        %Search{type: :user, user: %{nickname: "test2", id: "auth0|456"}}
       ]
 
       assert actual == expected
@@ -59,7 +64,7 @@ defmodule Fotohaecker.SearchTest do
 
     test "returns empty list when no results found" do
       Mox.expect(Fotohaecker.UserManagement.UserManagementMock, :get_all, fn ->
-        [%{id: "auth0|123", nickname: "test"}, %{id: "auth0|456", nickname: "sigmund"}]
+        {:ok, [%{id: "auth0|123", nickname: "test"}, %{id: "auth0|456", nickname: "sigmund"}]}
       end)
 
       actual = Search.search("freud")
@@ -68,14 +73,26 @@ defmodule Fotohaecker.SearchTest do
       assert actual == expected
     end
 
+    test "returns empty list when UserManagment returns error" do
+      Mox.expect(Fotohaecker.UserManagement.UserManagementMock, :get_all, fn ->
+        {:error, "error"}
+      end)
+
+      actual = Search.search("test")
+      expected = []
+
+      assert actual == expected
+    end
+
     test "finds photo" do
       Mox.expect(Fotohaecker.UserManagement.UserManagementMock, :get_all, fn ->
-        [
-          %{
-            id: "auth0|789",
-            nickname: "sigmund"
-          }
-        ]
+        {:ok,
+         [
+           %{
+             id: "auth0|789",
+             nickname: "sigmund"
+           }
+         ]}
       end)
 
       ContentFixtures.photo_fixture(%{
@@ -91,7 +108,7 @@ defmodule Fotohaecker.SearchTest do
 
     test "returns no users when UserManagement is disabled" do
       Mox.expect(Fotohaecker.UserManagement.UserManagementMock, :get_all, 0, fn ->
-        []
+        {:ok, []}
       end)
 
       Application.put_env(
