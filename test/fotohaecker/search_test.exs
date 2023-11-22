@@ -62,6 +62,14 @@ defmodule Fotohaecker.SearchTest do
       assert actual == expected
     end
 
+    test "returns empty list or error? when empty string provided as input" do
+      assert false
+    end
+
+    test "returns empty list or error? when only white space provided as input" do
+      assert false
+    end
+
     test "returns empty list when no results found" do
       Mox.expect(Fotohaecker.UserManagement.UserManagementMock, :get_all, fn ->
         {:ok, [%{id: "auth0|123", nickname: "test"}, %{id: "auth0|456", nickname: "sigmund"}]}

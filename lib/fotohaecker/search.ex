@@ -45,12 +45,32 @@ defmodule Fotohaecker.Search do
     |> with_photos(query)
   end
 
+  @doc """
+  Group search results by type.
+
+  ## Examples
+      iex> [%Search{type: :photo, photo: %{title: "search"}}, %Search{type: :user, user: %{nickname: "search"}}]
+      ...> |> Fotohaecker.Search.group_by_type()
+      %{
+        :photo => [%Search{type: :photo, photo: %{title: "search"}}],
+        :user => [%Search{type: :user, user: %{nickname: "search"}}]
+      }
+      iex> []
+      ...> |> Fotohaecker.Search.group_by_type()
+      %{}
+  """
+  @spec group_by_type([t()]) :: map()
+  def group_by_type(search_results) do
+    Enum.group_by(search_results, & &1.type)
+  end
+
   defp with_users(search_results, query) do
     with true <- UserManagement.is_implemented?(),
          {:ok, users} <- UserManagement.get_all() do
       users
       |> Enum.filter(fn user ->
-        String.contains?(user.nickname, query) or String.contains?(user.id, query)
+        # or String.contains?(user.id, query)
+        String.contains?(user.nickname, query)
       end)
       |> Enum.map(
         &%__MODULE__{

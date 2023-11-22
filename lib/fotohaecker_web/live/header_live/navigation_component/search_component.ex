@@ -4,7 +4,7 @@ defmodule FotohaeckerWeb.HeaderLive.NavigationComponent.SearchComponent do
   use FotohaeckerWeb, :component
 
   attr :search_query, :string
-  attr :search_results, :list
+  attr :grouped_search_results, :list
   attr :myself, :any
 
   def search(assigns) do
@@ -30,7 +30,7 @@ defmodule FotohaeckerWeb.HeaderLive.NavigationComponent.SearchComponent do
       >
         <.search_input search_query={@search_query} />
         <.search_submit_or_cancel myself={@myself} search_query={@search_query} />
-        <.search_results search_results={@search_results} />
+        <.search_results grouped_search_results={@grouped_search_results} />
       </.form>
     </div>
     """
@@ -76,55 +76,125 @@ defmodule FotohaeckerWeb.HeaderLive.NavigationComponent.SearchComponent do
       placeholder={gettext("Search…")}
       name="search_query"
       id="search_query"
+      required
     />
     """
   end
 
-  attr :search_results, :list
+  attr :grouped_search_results, :map
 
   defp search_results(assigns) do
     ~H"""
-    <div
-      class={[
-        "bg-gray-800 border border-gray-700 border-t-transparent rounded-b absolute top-[calc(2.5rem+4px)] z-10 w-full hidden",
-        @search_results && "!block"
-      ]}
-      aria-live="polite"
-    >
-      <%= if (@search_results) && (length(@search_results) > 0) do %>
-        <div class="text-gray-200 p-2">
-          <%= ngettext("1 result", "%{count} results", length(@search_results)) %>
-        </div>
-        <%!-- # TODO: refactor this and use photos_component.ex  --%>
-        <ul class="flex flex-col divide-y divide-gray-700" data-testid="result_list">
-          <span class="sr-only"><%= gettext("search results") %></span>
-          <li :for={search_result <- @search_results} class="hover:bg-gray-700">
-            <.search_result_item item={search_result} />
-          </li>
-        </ul>
-      <% end %>
-      <%= if (@search_results) && (length(@search_results) === 0) do %>
-        <div class="text-gray-200 p-2">
-          <%= gettext("No results") %>
-        </div>
-      <% end %>
+    <%= with result_count <- @grouped_search_results &&
+                             @grouped_search_results
+                             |> Enum.flat_map(fn {_key, value} -> value end)
+                             |> length(),
+             has_results? <- !!result_count do %>
+      <div
+        class={[
+          "bg-gray-800 border border-gray-700 border-t-transparent rounded-b absolute top-[calc(2.5rem+4px)] z-10 w-full hidden",
+          has_results? && "!block"
+        ]}
+        aria-live="polite"
+      >
+        <.search_result_list
+          grouped_search_results={@grouped_search_results}
+          has_results?={has_results?}
+          result_count={result_count}
+        />
+      </div>
+    <% end %>
+    """
+  end
+
+  attr :grouped_search_results, :map
+  attr :has_results?, :boolean
+  attr :result_count, :integer
+
+  defp search_result_list(%{grouped_search_results: nil} = assigns) do
+    ~H"""
+
+    """
+  end
+
+  defp search_result_list(%{has_results?: false} = assigns) do
+    ~H"""
+    <div class="text-gray-200 p-2">
+      <%= gettext("No results") %>
     </div>
     """
   end
 
+  defp search_result_list(%{grouped_search_results: _grouped_search_results} = assigns) do
+    ~H"""
+    <div class="text-gray-200 p-2">
+      <%= ngettext(
+        "1 result",
+        "%{count} results",
+        @result_count
+      ) %>
+    </div>
+    <span class="sr-only"><%= gettext("search results") %></span>
+    <%= for group <- @grouped_search_results |> Map.keys() do %>
+      <.group_title group={group} />
+      <ul
+        class="flex flex-col divide-y divide-gray-700 list-inside list-disc"
+        data-testid={"result_list--#{Atom.to_string(group)}"}
+      >
+        <li
+          :for={%Search{} = search_result <- Map.get(@grouped_search_results, group)}
+          class="hover:bg-gray-700 text-white pl-2"
+        >
+          <.search_result_item item={search_result} />
+        </li>
+      </ul>
+    <% end %>
+    """
+  end
+
+  attr :item, Search
+
   defp search_result_item(%{item: %Search{type: :photo, photo: _photo}} = assigns) do
     ~H"""
-    <.link class="p-2 block h-full w-full link link--light" href={photo_route(@item.photo.id)}>
-      <%= @item.photo.title %>
-    </.link>
+    <.search_result_item_link href={photo_route(@item.photo.id)} title={@item.photo.title} />
     """
   end
 
   defp search_result_item(%{item: %Search{type: :user, user: _user}} = assigns) do
     ~H"""
-    <.link class="p-2 block h-full w-full link link--light" href={user_route(@item.user.id)}>
-      <%= @item.user.nickname %>
+    <.search_result_item_link href={user_route(@item.user.id)} title={@item.user.nickname} />
+    """
+  end
+
+  defp search_result_item_link(assigns) do
+    ~H"""
+    <.link class="py-2 inline-block w-[calc(100%-2rem)] h-full link link--light" href={@href}>
+      <%= @title %>
     </.link>
+    """
+  end
+
+  defp group_title(%{group: :user} = assigns) do
+    ~H"""
+    <div class="text-gray-200 p-2">
+      <%= gettext("Users") %>
+    </div>
+    """
+  end
+
+  defp group_title(%{group: :photo} = assigns) do
+    ~H"""
+    <div class="text-gray-200 p-2">
+      <%= gettext("Photos") %>
+    </div>
+    """
+  end
+
+  defp group_title(assigns) do
+    ~H"""
+    <div class="text-gray-200 p-2">
+      <%= Atom.to_string(@group) %>
+    </div>
     """
   end
 end

@@ -3,7 +3,9 @@ import { changeLanguage, uploadPhoto } from "./helpers";
 import AxeBuilder from "@axe-core/playwright";
 
 test.describe("Search", () => {
-  test("can see search suggestions below search input", async ({ page }) => {
+  test("photo: can see search suggestions below search input", async ({
+    page,
+  }) => {
     const photo = {
       title: "Test Photo Search",
       tags: ["test", "search"],
@@ -14,10 +16,12 @@ test.describe("Search", () => {
 
     const searchInput = page.locator("input#search_query");
     await searchInput.type("search");
-    await expect(page.getByTestId("result_list")).toContainText(photo.title);
+    await expect(page.getByTestId("result_list--photo")).toContainText(
+      photo.title
+    );
   });
 
-  test("can see submitted search results", async ({ page }) => {
+  test("photo: can submit search and see result", async ({ page }) => {
     const photo = {
       title: "Test Photo Search Two",
       tags: ["test2", "search2"],
@@ -30,6 +34,17 @@ test.describe("Search", () => {
     await searchInput.type("search2");
     await searchInput.press("Enter");
     await expect(page.locator("#search")).toContainText(photo.title);
+  });
+
+  // TODO
+  test("user: can see search suggestions below search input", async ({
+    page,
+  }) => {
+    expect(false).toBe(true);
+  });
+
+  test("user: can submit search and see result", async ({ page }) => {
+    expect(false).toBe(true);
   });
 });
 

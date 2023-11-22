@@ -9,29 +9,33 @@ defmodule FotohaeckerWeb.SearchComponentTest do
 
   describe "search/1" do
     test "renders with search results" do
-      search_results = [
-        %Search{
-          type: :user,
-          user: %{
-            id: "auth0|123",
-            nickname: "testuser"
+      grouped_search_results = %{
+        :user => [
+          %Search{
+            type: :user,
+            user: %{
+              id: "auth0|123",
+              nickname: "testuser"
+            }
           }
-        },
-        %Search{
-          type: :photo,
-          photo: %{
-            id: 1,
-            title: "testphoto"
+        ],
+        :photo => [
+          %Search{
+            type: :photo,
+            photo: %{
+              id: 1,
+              title: "testphoto"
+            }
           }
-        }
-      ]
+        ]
+      }
 
       search_query = "test"
       myself = __MODULE__
 
       actual =
         render_component(&SearchComponent.search/1,
-          search_results: search_results,
+          grouped_search_results: grouped_search_results,
           search_query: search_query,
           myself: myself
         )
@@ -43,18 +47,18 @@ defmodule FotohaeckerWeb.SearchComponentTest do
     end
 
     test "renders with no search results" do
-      search_results = []
+      grouped_search_results = %{}
       search_query = "test"
       myself = __MODULE__
 
       actual =
         render_component(&SearchComponent.search/1,
-          search_results: search_results,
+          grouped_search_results: grouped_search_results,
           search_query: search_query,
           myself: myself
         )
 
-      assert actual =~ "No results"
+      assert actual =~ "0 results"
     end
   end
 end
