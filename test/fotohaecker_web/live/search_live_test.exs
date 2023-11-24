@@ -5,58 +5,134 @@ defmodule FotohaeckerWeb.SearchLiveTest do
   import Phoenix.LiveViewTest
   @endpoint FotohaeckerWeb.Endpoint
 
-  test "search with parameter gets no results", %{conn: conn} do
-    conn = get(conn, "/fh/en_US/search?search_query=cat")
-    expected = "No results found"
-    actual = html_response(conn, 200)
-    assert actual =~ expected
+  setup do
+    Mox.stub(Fotohaecker.UserManagement.UserManagementMock, :get_all, fn ->
+      {:ok, []}
+    end)
+
+    on_exit(fn ->
+      Application.put_env(
+        :fotohaecker,
+        Fotohaecker.UserManagement,
+        Fotohaecker.UserManagement.UserManagementMock
+      )
+    end)
+
+    :ok
   end
 
-  test "search with parameter gets one result", %{conn: conn} do
-    _photo =
-      Fotohaecker.ContentFixtures.photo_fixture(%{
-        title: "Sigmund Freud"
-      })
+  describe "no results" do
+    test "disconnected mount works with no results", %{conn: conn} do
+      conn = get(conn, "/fh/en_US/search?search_query=cat")
+      expected = "0 results"
+      actual = html_response(conn, 200)
+      assert actual =~ expected
+    end
 
-    conn = get(conn, "/fh/en_US/search?search_query=sigmund")
-    expected = "go to photo Sigmund Freud on Fotohäcker"
-    actual = html_response(conn, 200)
-    assert actual =~ expected
+    test "connected mount works with no results", %{conn: conn} do
+      {:ok, _view, actual} = live(conn, "/fh/en_US/search?search_query=cat")
+      expected = "0 results"
+
+      assert actual =~ expected
+    end
   end
 
-  test "connected mount works with no results", %{conn: conn} do
-    {:ok, _view, actual} = live(conn, "/fh/en_US/search?search_query=cat")
-    expected = "No results found"
+  describe "one photo result" do
+    test "disconnected mount works with one result", %{conn: conn} do
+      _photo =
+        Fotohaecker.ContentFixtures.photo_fixture(%{
+          title: "my great photo"
+        })
 
-    assert actual =~ expected
+      conn = get(conn, "/fh/en_US/search?search_query=great")
+      expected = "go to photo my great photo on Fotohäcker"
+      actual = html_response(conn, 200)
+      assert actual =~ expected
+    end
+
+    test "connected mount works with one result", %{conn: conn} do
+      _photo =
+        Fotohaecker.ContentFixtures.photo_fixture(%{
+          title: "my great photo"
+        })
+
+      {:ok, _view, actual} = live(conn, "/fh/en_US/search?search_query=great")
+      expected = "go to photo my great photo on Fotohäcker"
+
+      assert actual =~ expected
+    end
+
+    test "can click on search result in search", %{conn: conn} do
+      _photo =
+        Fotohaecker.ContentFixtures.photo_fixture(%{
+          title: "my great photo"
+        })
+
+      {:ok, view, _html} = live(conn, "/fh/en_US/search?search_query=great")
+
+      {:ok, conn_new} =
+        view
+        |> element("#photo-1 > a")
+        |> render_click()
+        |> follow_redirect(conn, "/fh/en_US/photos/1")
+
+      assert conn_new.resp_body =~ "my great photo"
+    end
   end
 
-  test "connected mount works with one result", %{conn: conn} do
-    _photo =
-      Fotohaecker.ContentFixtures.photo_fixture(%{
-        title: "Sigmund Freud"
-      })
+  describe "one user result" do
+    test "disconnected mount works with one result", %{conn: conn} do
+      Mox.expect(Fotohaecker.UserManagement.UserManagementMock, :get_all, fn ->
+        {:ok,
+         [
+           %{id: "auth0|123", nickname: "test", picture: "test.jpg"},
+           %{id: "auth0|456", nickname: "sigmund", picture: "test.jpg"}
+         ]}
+      end)
 
-    {:ok, _view, actual} = live(conn, "/fh/en_US/search?search_query=sigmund")
-    expected = "go to photo Sigmund Freud on Fotohäcker"
+      conn = get(conn, "/fh/en_US/search?search_query=sigmund")
+      expected = "profile picture of sigmund"
+      actual = html_response(conn, 200)
+      assert actual =~ expected
+    end
 
-    assert actual =~ expected
-  end
+    test "connected mount works with one result", %{conn: conn} do
+      Mox.expect(Fotohaecker.UserManagement.UserManagementMock, :get_all, 2, fn ->
+        {:ok,
+         [
+           %{id: "auth0|123", nickname: "test", picture: "test.jpg"},
+           %{id: "auth0|456", nickname: "sigmund", picture: "test.jpg"}
+         ]}
+      end)
 
-  test "can click on search result in search", %{conn: conn} do
-    _photo =
-      Fotohaecker.ContentFixtures.photo_fixture(%{
-        title: "Sigmund Freud"
-      })
+      {:ok, _view, actual} = live(conn, "/fh/en_US/search?search_query=sigmund")
+      expected = "profile picture of sigmund"
 
-    {:ok, view, _html} = live(conn, "/fh/en_US/search?search_query=sigmund")
+      assert actual =~ expected
+    end
 
-    {:ok, conn_new} =
-      view
-      |> element("#photo-1 > a")
-      |> render_click()
-      |> follow_redirect(conn, "/fh/en_US/photos/1")
+    test "can click on search result in search", %{conn: conn} do
+      Mox.expect(Fotohaecker.UserManagement.UserManagementMock, :get_all, 2, fn ->
+        {:ok,
+         [
+           %{id: "auth0|123", nickname: "test", picture: "test.jpg"},
+           %{id: "auth0|456", nickname: "sigmund", picture: "test.jpg"}
+         ]}
+      end)
 
-    assert conn_new.resp_body =~ "Sigmund Freud"
+      Mox.expect(Fotohaecker.UserManagement.UserManagementMock, :get, 2, fn _user_id ->
+        {:ok, %{id: "auth0|456", nickname: "sigmund", picture: "test.jpg"}}
+      end)
+
+      {:ok, view, _html} = live(conn, "/fh/en_US/search?search_query=sigmund")
+
+      {:ok, conn_new} =
+        view
+        |> element("a", "sigmund")
+        |> render_click()
+        |> follow_redirect(conn, "/fh/en_US/user/auth0%7C456")
+
+      assert conn_new.resp_body =~ "sigmund"
+    end
   end
 end
