@@ -6,6 +6,11 @@ defmodule FotohaeckerWeb.SearchLive.Search do
 
   @impl Phoenix.LiveView
   def mount(%{"search_query" => search_query} = _params, _session, socket) do
+    grouped_search_results =
+      search_query
+      |> Fotohaecker.Search.search()
+      |> Fotohaecker.Search.group_by_type()
+
     socket =
       socket
       |> assign(
@@ -15,9 +20,7 @@ defmodule FotohaeckerWeb.SearchLive.Search do
       |> assign(:search_query, search_query)
       |> assign(
         :grouped_search_results,
-        search_query
-        |> Fotohaecker.Search.search()
-        |> Fotohaecker.Search.group_by_type()
+        grouped_search_results
       )
 
     {:ok, socket}
@@ -44,7 +47,10 @@ defmodule FotohaeckerWeb.SearchLive.Search do
           <.group_title group={group} />
           <%= case group do %>
             <% :photo -> %>
-              <ul class="grid gap-4 grid-cols-2 md:grid-cols-4 lg:grid-cols-6 max-w-[1200px]">
+              <ul
+                class="grid gap-4 grid-cols-2 md:grid-cols-4 lg:grid-cols-6 max-w-[1200px]"
+                data-testid="result_list--photo"
+              >
                 <%= with photos <- Map.get(@grouped_search_results, group) do %>
                   <%= for %Search{photo: photo} <- photos do %>
                     <PhotoComponent.render photo={photo} />
@@ -52,13 +58,17 @@ defmodule FotohaeckerWeb.SearchLive.Search do
                 <% end %>
               </ul>
             <% :user -> %>
-              <ul class="grid gap-4 grid-cols-1 md:grid-cols-2 lg:grid-cols-4 max-w-[1200px]">
+              <ul
+                class="grid gap-4 grid-cols-1 md:grid-cols-2 lg:grid-cols-4 max-w-[1200px]"
+                data-testid="result_list--user"
+              >
                 <%= with users <- Map.get(@grouped_search_results, group) do %>
                   <%= for %Search{user: user} <- users do %>
                     <li class="block border dark:border-gray-200 dark:hover:border-white">
                       <.link
                         href={user_route(user.id)}
-                        class="link dark:link--light flex items-center gap-2 hover:shadow-md dark:hover:shadow-none "
+                        class="link dark:link--light flex items-center gap-2 hover:shadow-md dark:hover:shadow-none"
+                        id={"user-" <> user.id}
                       >
                         <img
                           class="h-16 w-16"

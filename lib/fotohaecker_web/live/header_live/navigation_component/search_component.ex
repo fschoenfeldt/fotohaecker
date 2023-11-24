@@ -139,7 +139,7 @@ defmodule FotohaeckerWeb.HeaderLive.NavigationComponent.SearchComponent do
       <.group_title group={group} />
       <ul
         class="flex flex-col divide-y divide-gray-700 list-inside list-disc"
-        data-testid={"result_list--#{Atom.to_string(group)}"}
+        data-testid={"result_preview_list--#{Atom.to_string(group)}"}
       >
         <li
           :for={%Search{} = search_result <- Map.get(@grouped_search_results, group)}

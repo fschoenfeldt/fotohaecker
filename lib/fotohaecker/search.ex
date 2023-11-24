@@ -39,7 +39,13 @@ defmodule Fotohaecker.Search do
       2
   """
   @spec search(String.t()) :: [map()] | []
+  def search("") do
+    []
+  end
+
   def search(query) do
+    query = String.trim(query)
+
     []
     |> with_users(query)
     |> with_photos(query)

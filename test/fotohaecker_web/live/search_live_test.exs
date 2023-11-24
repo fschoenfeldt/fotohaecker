@@ -41,11 +41,11 @@ defmodule FotohaeckerWeb.SearchLiveTest do
     test "disconnected mount works with one result", %{conn: conn} do
       _photo =
         Fotohaecker.ContentFixtures.photo_fixture(%{
-          title: "Sigmund Freud"
+          title: "my great photo"
         })
 
-      conn = get(conn, "/fh/en_US/search?search_query=sigmund")
-      expected = "go to photo Sigmund Freud on Fotohäcker"
+      conn = get(conn, "/fh/en_US/search?search_query=great")
+      expected = "go to photo my great photo on Fotohäcker"
       actual = html_response(conn, 200)
       assert actual =~ expected
     end
@@ -53,11 +53,11 @@ defmodule FotohaeckerWeb.SearchLiveTest do
     test "connected mount works with one result", %{conn: conn} do
       _photo =
         Fotohaecker.ContentFixtures.photo_fixture(%{
-          title: "Sigmund Freud"
+          title: "my great photo"
         })
 
-      {:ok, _view, actual} = live(conn, "/fh/en_US/search?search_query=sigmund")
-      expected = "go to photo Sigmund Freud on Fotohäcker"
+      {:ok, _view, actual} = live(conn, "/fh/en_US/search?search_query=great")
+      expected = "go to photo my great photo on Fotohäcker"
 
       assert actual =~ expected
     end
@@ -65,10 +65,10 @@ defmodule FotohaeckerWeb.SearchLiveTest do
     test "can click on search result in search", %{conn: conn} do
       _photo =
         Fotohaecker.ContentFixtures.photo_fixture(%{
-          title: "Sigmund Freud"
+          title: "my great photo"
         })
 
-      {:ok, view, _html} = live(conn, "/fh/en_US/search?search_query=sigmund")
+      {:ok, view, _html} = live(conn, "/fh/en_US/search?search_query=great")
 
       {:ok, conn_new} =
         view
@@ -76,22 +76,63 @@ defmodule FotohaeckerWeb.SearchLiveTest do
         |> render_click()
         |> follow_redirect(conn, "/fh/en_US/photos/1")
 
-      assert conn_new.resp_body =~ "Sigmund Freud"
+      assert conn_new.resp_body =~ "my great photo"
     end
   end
 
-  # TODO
   describe "one user result" do
-    test "disconnected mount works with one result" do
-      assert false
+    test "disconnected mount works with one result", %{conn: conn} do
+      Mox.expect(Fotohaecker.UserManagement.UserManagementMock, :get_all, fn ->
+        {:ok,
+         [
+           %{id: "auth0|123", nickname: "test", picture: "test.jpg"},
+           %{id: "auth0|456", nickname: "sigmund", picture: "test.jpg"}
+         ]}
+      end)
+
+      conn = get(conn, "/fh/en_US/search?search_query=sigmund")
+      expected = "profile picture of sigmund"
+      actual = html_response(conn, 200)
+      assert actual =~ expected
     end
 
-    test "connected mount works with one result" do
-      assert false
+    test "connected mount works with one result", %{conn: conn} do
+      Mox.expect(Fotohaecker.UserManagement.UserManagementMock, :get_all, 2, fn ->
+        {:ok,
+         [
+           %{id: "auth0|123", nickname: "test", picture: "test.jpg"},
+           %{id: "auth0|456", nickname: "sigmund", picture: "test.jpg"}
+         ]}
+      end)
+
+      {:ok, _view, actual} = live(conn, "/fh/en_US/search?search_query=sigmund")
+      expected = "profile picture of sigmund"
+
+      assert actual =~ expected
     end
 
-    test "can click on search result in search" do
-      assert false
+    test "can click on search result in search", %{conn: conn} do
+      Mox.expect(Fotohaecker.UserManagement.UserManagementMock, :get_all, 2, fn ->
+        {:ok,
+         [
+           %{id: "auth0|123", nickname: "test", picture: "test.jpg"},
+           %{id: "auth0|456", nickname: "sigmund", picture: "test.jpg"}
+         ]}
+      end)
+
+      Mox.expect(Fotohaecker.UserManagement.UserManagementMock, :get, 2, fn _user_id ->
+        {:ok, %{id: "auth0|456", nickname: "sigmund", picture: "test.jpg"}}
+      end)
+
+      {:ok, view, _html} = live(conn, "/fh/en_US/search?search_query=sigmund")
+
+      {:ok, conn_new} =
+        view
+        |> element("a", "sigmund")
+        |> render_click()
+        |> follow_redirect(conn, "/fh/en_US/user/auth0%7C456")
+
+      assert conn_new.resp_body =~ "sigmund"
     end
   end
 end

@@ -1,6 +1,6 @@
 defmodule Fotohaecker.SearchTest do
   alias Fotohaecker.ContentFixtures
-  use Fotohaecker.DataCase, async: true
+  use Fotohaecker.DataCase, async: false
   import Mox
   alias Fotohaecker.Search
   doctest Fotohaecker.Search
@@ -62,12 +62,18 @@ defmodule Fotohaecker.SearchTest do
       assert actual == expected
     end
 
-    test "returns empty list or error? when empty string provided as input" do
-      assert false
+    test "returns empty list when empty string provided as input" do
+      actual = Search.search("")
+
+      expected = []
+      assert actual == expected
     end
 
     test "returns empty list or error? when only white space provided as input" do
-      assert false
+      actual = Search.search("   ")
+
+      expected = []
+      assert actual == expected
     end
 
     test "returns empty list when no results found" do

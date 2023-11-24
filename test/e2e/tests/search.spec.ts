@@ -16,7 +16,7 @@ test.describe("Search", () => {
 
     const searchInput = page.locator("input#search_query");
     await searchInput.type("search");
-    await expect(page.getByTestId("result_list--photo")).toContainText(
+    await expect(page.getByTestId("result_preview_list--photo")).toContainText(
       photo.title
     );
   });
@@ -33,18 +33,30 @@ test.describe("Search", () => {
     const searchInput = page.locator("input#search_query");
     await searchInput.type("search2");
     await searchInput.press("Enter");
-    await expect(page.locator("#search")).toContainText(photo.title);
+    await expect(page.getByTestId("result_list--photo")).toContainText(
+      photo.title
+    );
   });
 
-  // TODO
   test("user: can see search suggestions below search input", async ({
     page,
   }) => {
-    expect(false).toBe(true);
+    await page.goto("/fh");
+
+    const searchInput = page.locator("input#search_query");
+    await searchInput.type("test");
+    await expect(page.getByTestId("result_preview_list--user")).toContainText(
+      "test"
+    );
   });
 
   test("user: can submit search and see result", async ({ page }) => {
-    expect(false).toBe(true);
+    await page.goto("/fh");
+
+    const searchInput = page.locator("input#search_query");
+    await searchInput.type("test");
+    await searchInput.press("Enter");
+    await expect(page.getByTestId("result_list--user")).toContainText("test");
   });
 });
 
