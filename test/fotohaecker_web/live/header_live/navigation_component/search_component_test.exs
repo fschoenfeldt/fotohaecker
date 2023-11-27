@@ -37,6 +37,7 @@ defmodule FotohaeckerWeb.SearchComponentTest do
         render_component(&SearchComponent.search/1,
           grouped_search_results: grouped_search_results,
           search_query: search_query,
+          result_count: 2,
           myself: myself
         )
 
@@ -54,11 +55,12 @@ defmodule FotohaeckerWeb.SearchComponentTest do
       actual =
         render_component(&SearchComponent.search/1,
           grouped_search_results: grouped_search_results,
+          result_count: 0,
           search_query: search_query,
           myself: myself
         )
 
-      assert actual =~ "0 results"
+      assert actual =~ "No results"
     end
   end
 end
