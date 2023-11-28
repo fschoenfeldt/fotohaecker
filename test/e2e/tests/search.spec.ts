@@ -2,7 +2,7 @@ import { test, expect } from "../fixtures/axe-test";
 import { changeLanguage, uploadPhoto } from "./helpers";
 import AxeBuilder from "@axe-core/playwright";
 
-test.describe("Search", () => {
+test.describe("Search Input and Suggestions", () => {
   test("photo: can see search suggestions below search input", async ({
     page,
   }) => {
@@ -60,7 +60,7 @@ test.describe("Search", () => {
   });
 });
 
-test.describe("Search Page", () => {
+test.describe("Live Search and Results Page: Accessibility", () => {
   test("should not have any automatically detectable accessibility issues", async ({
     page,
     makeAxeBuilder,
@@ -76,14 +76,25 @@ test.describe("Search Page", () => {
 
     const searchInput = page.locator("input#search_query");
     await searchInput.type("search3");
-    await searchInput.press("Enter");
-    await expect(page.locator("#search")).toContainText(photo.title);
 
-    const accessibilityScanResults = await makeAxeBuilder().analyze();
+    // no violations in search result preview
+    let accessibilityScanResults = await makeAxeBuilder().analyze();
     expect(accessibilityScanResults.violations).toEqual([]);
 
     await page.emulateMedia({ colorScheme: "dark" });
-    const accessibilityScanResultsDarkMode = await makeAxeBuilder().analyze();
+    let accessibilityScanResultsDarkMode = await makeAxeBuilder().analyze();
+    expect(accessibilityScanResultsDarkMode.violations).toEqual([]);
+    await page.emulateMedia({ colorScheme: "light" });
+
+    await searchInput.press("Enter");
+    await expect(page.locator("#search")).toContainText(photo.title);
+
+    // no violations in search result
+    accessibilityScanResults = await makeAxeBuilder().analyze();
+    expect(accessibilityScanResults.violations).toEqual([]);
+
+    await page.emulateMedia({ colorScheme: "dark" });
+    accessibilityScanResultsDarkMode = await makeAxeBuilder().analyze();
     expect(accessibilityScanResultsDarkMode.violations).toEqual([]);
   });
 });

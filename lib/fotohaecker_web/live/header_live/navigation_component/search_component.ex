@@ -5,6 +5,7 @@ defmodule FotohaeckerWeb.HeaderLive.NavigationComponent.SearchComponent do
 
   attr :search_query, :string
   attr :grouped_search_results, :list
+  attr :result_count, :integer
   attr :myself, :any
 
   def search(assigns) do
@@ -30,7 +31,10 @@ defmodule FotohaeckerWeb.HeaderLive.NavigationComponent.SearchComponent do
       >
         <.search_input search_query={@search_query} />
         <.search_submit_or_cancel myself={@myself} search_query={@search_query} />
-        <.search_results grouped_search_results={@grouped_search_results} />
+        <.search_results
+          grouped_search_results={@grouped_search_results}
+          result_count={@result_count}
+        />
       </.form>
     </div>
     """
@@ -82,33 +86,27 @@ defmodule FotohaeckerWeb.HeaderLive.NavigationComponent.SearchComponent do
   end
 
   attr :grouped_search_results, :map
+  attr :result_count, :integer
 
   defp search_results(assigns) do
     ~H"""
-    <%= with result_count <- @grouped_search_results &&
-                             @grouped_search_results
-                             |> Enum.flat_map(fn {_key, value} -> value end)
-                             |> length(),
-             has_results? <- !!result_count do %>
-      <div
-        class={[
-          "bg-gray-800 border border-gray-700 border-t-transparent rounded-b absolute top-[calc(2.5rem+4px)] z-10 w-full hidden",
-          has_results? && "!block"
-        ]}
-        aria-live="polite"
-      >
-        <.search_result_list
-          grouped_search_results={@grouped_search_results}
-          has_results?={has_results?}
-          result_count={result_count}
-        />
-      </div>
-    <% end %>
+    <div
+      class={[
+        "bg-gray-800 border border-gray-700 border-t-transparent
+        rounded-b absolute top-[calc(2.5rem+4px)] z-10 w-full max-h-[calc(100vh-4rem)] overflow-y-scroll hidden",
+        !!@grouped_search_results && "!block"
+      ]}
+      aria-live="polite"
+    >
+      <.search_result_list
+        grouped_search_results={@grouped_search_results}
+        result_count={@result_count}
+      />
+    </div>
     """
   end
 
   attr :grouped_search_results, :map
-  attr :has_results?, :boolean
   attr :result_count, :integer
 
   defp search_result_list(%{grouped_search_results: nil} = assigns) do
@@ -117,7 +115,7 @@ defmodule FotohaeckerWeb.HeaderLive.NavigationComponent.SearchComponent do
     """
   end
 
-  defp search_result_list(%{has_results?: false} = assigns) do
+  defp search_result_list(%{result_count: 0} = assigns) do
     ~H"""
     <div class="text-gray-200 p-2">
       <%= gettext("No results") %>
@@ -138,12 +136,12 @@ defmodule FotohaeckerWeb.HeaderLive.NavigationComponent.SearchComponent do
     <%= for group <- @grouped_search_results |> Map.keys() do %>
       <.group_title group={group} />
       <ul
-        class="flex flex-col divide-y divide-gray-700 list-inside list-disc"
+        class="flex flex-col divide-y divide-gray-700"
         data-testid={"result_preview_list--#{Atom.to_string(group)}"}
       >
         <li
           :for={%Search{} = search_result <- Map.get(@grouped_search_results, group)}
-          class="hover:bg-gray-700 text-white pl-2"
+          class="flex items-center hover:bg-gray-700 text-white pl-2 before:content-['-'] before:block before:mr-2 before:text-gray-400]"
         >
           <.search_result_item item={search_result} />
         </li>
@@ -168,7 +166,10 @@ defmodule FotohaeckerWeb.HeaderLive.NavigationComponent.SearchComponent do
 
   defp search_result_item_link(assigns) do
     ~H"""
-    <.link class="py-2 inline-block w-[calc(100%-2rem)] h-full link link--light" href={@href}>
+    <.link
+      class="py-2 block w-full h-full link link--light text-ellipsis overflow-hidden"
+      href={@href}
+    >
       <%= @title %>
     </.link>
     """

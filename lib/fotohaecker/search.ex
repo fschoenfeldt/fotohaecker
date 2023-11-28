@@ -44,11 +44,16 @@ defmodule Fotohaecker.Search do
   end
 
   def search(query) do
-    query = String.trim(query)
+    # TODO: consider refactoring this into the called functions
+    case String.trim(query) do
+      "" ->
+        []
 
-    []
-    |> with_users(query)
-    |> with_photos(query)
+      trimmed_query ->
+        []
+        |> with_users(trimmed_query)
+        |> with_photos(trimmed_query)
+    end
   end
 
   @doc """
