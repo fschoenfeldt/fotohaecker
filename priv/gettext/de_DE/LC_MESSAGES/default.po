@@ -280,22 +280,22 @@ msgstr "Feld %{field} bearbeiten"
 msgid "photo %{field}"
 msgstr "Foto %{field}"
 
-#: lib/fotohaecker_web/live/header_live/navigation_component/search_component.ex:123
+#: lib/fotohaecker_web/live/header_live/navigation_component/search_component.ex:121
 #, elixir-autogen, elixir-format
 msgid "No results"
 msgstr "Keine Ergebnisse"
 
-#: lib/fotohaecker_web/live/header_live/navigation_component/search_component.ex:66
+#: lib/fotohaecker_web/live/header_live/navigation_component/search_component.ex:70
 #, elixir-autogen, elixir-format
 msgid "Search by title or tag"
 msgstr "Suche nach Titel oder Schlagwort"
 
-#: lib/fotohaecker_web/live/header_live/navigation_component/search_component.ex:58
+#: lib/fotohaecker_web/live/header_live/navigation_component/search_component.ex:62
 #, elixir-autogen, elixir-format
 msgid "clear search"
 msgstr "Suche löschen"
 
-#: lib/fotohaecker_web/live/header_live/navigation_component/search_component.ex:137
+#: lib/fotohaecker_web/live/header_live/navigation_component/search_component.ex:135
 #, elixir-autogen, elixir-format
 msgid "search results"
 msgstr "Suchergebnisse"
@@ -305,12 +305,12 @@ msgstr "Suchergebnisse"
 msgid "search results for %{search_query}"
 msgstr "Suchergebnisse für %{search_query}"
 
-#: lib/fotohaecker_web/live/header_live/navigation_component/search_component.ex:48
+#: lib/fotohaecker_web/live/header_live/navigation_component/search_component.ex:52
 #, elixir-autogen, elixir-format
 msgid "submit"
 msgstr "Absenden"
 
-#: lib/fotohaecker_web/live/header_live/navigation_component/search_component.ex:131
+#: lib/fotohaecker_web/live/header_live/navigation_component/search_component.ex:129
 #: lib/fotohaecker_web/live/search_live/search.ex:40
 #, elixir-autogen, elixir-format, fuzzy
 msgid "1 result"
@@ -383,7 +383,7 @@ msgstr "erlaubte Dateitypen: .jpg, .jpeg."
 msgid "metadata and exif data will be removed upon upload to ensure privacy."
 msgstr "Metadaten und EXIF-Daten werden beim Hochladen entfernt, um Deine Privatsphäre zu schützen."
 
-#: lib/fotohaecker_web/live/header_live/navigation_component/search_component.ex:76
+#: lib/fotohaecker_web/live/header_live/navigation_component/search_component.ex:80
 #, elixir-autogen, elixir-format
 msgid "Search…"
 msgstr "Suche…"
@@ -493,13 +493,13 @@ msgstr "Hinweis: Spenden dienen nur zu Demonstrationszwecken!"
 msgid "by user %{user_id}"
 msgstr "von user_id %{user_id}"
 
-#: lib/fotohaecker_web/live/header_live/navigation_component/search_component.ex:188
+#: lib/fotohaecker_web/live/header_live/navigation_component/search_component.ex:189
 #: lib/fotohaecker_web/live/search_live/search.ex:103
 #, elixir-autogen, elixir-format
 msgid "Photos"
 msgstr "Fotos"
 
-#: lib/fotohaecker_web/live/header_live/navigation_component/search_component.ex:180
+#: lib/fotohaecker_web/live/header_live/navigation_component/search_component.ex:181
 #: lib/fotohaecker_web/live/search_live/search.ex:95
 #, elixir-autogen, elixir-format
 msgid "Users"

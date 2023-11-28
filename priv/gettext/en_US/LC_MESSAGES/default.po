@@ -280,22 +280,22 @@ msgstr ""
 msgid "photo %{field}"
 msgstr ""
 
-#: lib/fotohaecker_web/live/header_live/navigation_component/search_component.ex:123
+#: lib/fotohaecker_web/live/header_live/navigation_component/search_component.ex:121
 #, elixir-autogen, elixir-format
 msgid "No results"
 msgstr ""
 
-#: lib/fotohaecker_web/live/header_live/navigation_component/search_component.ex:66
+#: lib/fotohaecker_web/live/header_live/navigation_component/search_component.ex:70
 #, elixir-autogen, elixir-format
 msgid "Search by title or tag"
 msgstr ""
 
-#: lib/fotohaecker_web/live/header_live/navigation_component/search_component.ex:58
+#: lib/fotohaecker_web/live/header_live/navigation_component/search_component.ex:62
 #, elixir-autogen, elixir-format
 msgid "clear search"
 msgstr ""
 
-#: lib/fotohaecker_web/live/header_live/navigation_component/search_component.ex:137
+#: lib/fotohaecker_web/live/header_live/navigation_component/search_component.ex:135
 #, elixir-autogen, elixir-format
 msgid "search results"
 msgstr ""
@@ -305,12 +305,12 @@ msgstr ""
 msgid "search results for %{search_query}"
 msgstr ""
 
-#: lib/fotohaecker_web/live/header_live/navigation_component/search_component.ex:48
+#: lib/fotohaecker_web/live/header_live/navigation_component/search_component.ex:52
 #, elixir-autogen, elixir-format
 msgid "submit"
 msgstr ""
 
-#: lib/fotohaecker_web/live/header_live/navigation_component/search_component.ex:131
+#: lib/fotohaecker_web/live/header_live/navigation_component/search_component.ex:129
 #: lib/fotohaecker_web/live/search_live/search.ex:40
 #, elixir-autogen, elixir-format, fuzzy
 msgid "1 result"
@@ -383,7 +383,7 @@ msgstr ""
 msgid "metadata and exif data will be removed upon upload to ensure privacy."
 msgstr ""
 
-#: lib/fotohaecker_web/live/header_live/navigation_component/search_component.ex:76
+#: lib/fotohaecker_web/live/header_live/navigation_component/search_component.ex:80
 #, elixir-autogen, elixir-format
 msgid "Search…"
 msgstr ""
@@ -493,13 +493,13 @@ msgstr ""
 msgid "by user %{user_id}"
 msgstr ""
 
-#: lib/fotohaecker_web/live/header_live/navigation_component/search_component.ex:188
+#: lib/fotohaecker_web/live/header_live/navigation_component/search_component.ex:189
 #: lib/fotohaecker_web/live/search_live/search.ex:103
 #, elixir-autogen, elixir-format
 msgid "Photos"
 msgstr ""
 
-#: lib/fotohaecker_web/live/header_live/navigation_component/search_component.ex:180
+#: lib/fotohaecker_web/live/header_live/navigation_component/search_component.ex:181
 #: lib/fotohaecker_web/live/search_live/search.ex:95
 #, elixir-autogen, elixir-format
 msgid "Users"
