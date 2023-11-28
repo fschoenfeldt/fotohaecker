@@ -14,7 +14,7 @@ defmodule FotohaeckerWeb.IndexLive.Home.PhotosComponent do
         <div class="dark:text-gray-50">
           <%= gettext("showing %{limit} out of %{amount} photos",
             amount: @photos.amount,
-            limit: @photos.user_limit
+            limit: @user_display_options.limit
           ) %>
         </div>
         <p class="sr-only"><%= gettext("sort by") %></p>
@@ -24,7 +24,7 @@ defmodule FotohaeckerWeb.IndexLive.Home.PhotosComponent do
               phx-click="sort_by"
               phx-value-order="desc_inserted_at"
               href="#"
-              class={"sortby-options__option" <> sort_active(@photos.user_order, :desc_inserted_at)}
+              class={"sortby-options__option" <> sort_active(@user_display_options.order, :desc_inserted_at)}
             >
               <%= gettext("latest") %> <span class="sr-only"><%= gettext("(active)") %></span>
             </a>
@@ -34,7 +34,7 @@ defmodule FotohaeckerWeb.IndexLive.Home.PhotosComponent do
               phx-click="sort_by"
               phx-value-order="asc_inserted_at"
               href="#"
-              class={"sortby-options__option" <> sort_active(@photos.user_order, :asc_inserted_at)}
+              class={"sortby-options__option" <> sort_active(@user_display_options.order, :asc_inserted_at)}
             >
               <%= gettext("oldest") %>
             </a>
@@ -57,10 +57,12 @@ defmodule FotohaeckerWeb.IndexLive.Home.PhotosComponent do
             <PhotoComponent.render photo={photo} />
           <% end %>
         </ul>
-        <%= if @photos.amount > @photos.user_limit do %>
+        <%= if @photos.amount > @user_display_options.limit do %>
           <div class="flex justify-center">
-            <%!-- TODO: a11y: Focus after pressing "show more"? --%>
-            <button phx-click="show_more_photos"><%= gettext("show more") %></button>
+            <%!-- #TODO: a11y: Focus after pressing "show more"? --%>
+            <button phx-click="show_more_photos" data-testid="show_more_photos_button">
+              <%= gettext("show more") %>
+            </button>
           </div>
         <% end %>
       <% end %>
