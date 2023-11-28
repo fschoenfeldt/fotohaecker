@@ -60,7 +60,11 @@ defmodule FotohaeckerWeb.IndexLive.Home.PhotosComponent do
         <%= if @photos.amount > @user_display_options.limit do %>
           <div class="flex justify-center">
             <%!-- #TODO: a11y: Focus after pressing "show more"? --%>
-            <button phx-click="show_more_photos" data-testid="show_more_photos_button">
+            <button
+              class="btn btn--dark"
+              phx-click="show_more_photos"
+              data-testid="show_more_photos_button"
+            >
               <%= gettext("show more") %>
             </button>
           </div>

@@ -93,7 +93,7 @@ defmodule FotohaeckerWeb.HeaderLive.NavigationComponent.SearchComponent do
     <div
       class={[
         "bg-gray-800 border border-gray-700 border-t-transparent
-        rounded-b absolute top-[calc(2.5rem+4px)] z-10 w-full max-h-[calc(100vh-4rem)] overflow-y-scroll hidden",
+        rounded-b absolute top-[calc(2.5rem+4px)] z-10 w-full max-h-[calc(100vh-4rem)] overflow-y-auto hidden",
         !!@grouped_search_results && "!block"
       ]}
       aria-live="polite"

@@ -29,7 +29,7 @@ defmodule FotohaeckerWeb.SearchLive.Search do
   @impl Phoenix.LiveView
   def render(assigns) do
     ~H"""
-    <div id="search">
+    <div id="search" class="space-y-1 md:space-y-2">
       <%= with result_count <- @grouped_search_results &&
                              @grouped_search_results
                              |> Enum.flat_map(fn {_key, value} -> value end)
@@ -48,7 +48,7 @@ defmodule FotohaeckerWeb.SearchLive.Search do
           <%= case group do %>
             <% :photo -> %>
               <ul
-                class="grid gap-4 grid-cols-2 md:grid-cols-4 lg:grid-cols-6 max-w-[1200px]"
+                class="grid gap-4 grid-cols-2 md:grid-cols-4 lg:grid-cols-5 max-w-[1200px]"
                 data-testid="result_list--photo"
               >
                 <%= with photos <- Map.get(@grouped_search_results, group) do %>
