@@ -108,7 +108,7 @@ msgstr "Sprache ändern"
 msgid "download the photo %{title} from Fotohäcker"
 msgstr "Foto %{title} auf Fotohäcker"
 
-#: lib/fotohaecker_web/live/index_live/home/photos_component.ex:63
+#: lib/fotohaecker_web/live/index_live/home/photos_component.ex:64
 #, elixir-autogen, elixir-format
 msgid "show more"
 msgstr "mehr zeigen"
@@ -118,12 +118,12 @@ msgstr "mehr zeigen"
 msgid "showing %{limit} out of %{amount} photos"
 msgstr "%{limit} von %{amount} Fotos angezeigt"
 
-#: lib/fotohaecker_web/live/index_live/home.ex:192
+#: lib/fotohaecker_web/live/index_live/home.ex:230
 #, elixir-autogen, elixir-format
 msgid "Photo uploaded successfully."
 msgstr "Foto erfolgreich hochgeladen."
 
-#: lib/fotohaecker_web/live/index_live/home.ex:203
+#: lib/fotohaecker_web/live/index_live/home.ex:241
 #, elixir-autogen, elixir-format
 msgid "Something went wrong uploading your photo. Please try again."
 msgstr "Etwas ist beim Hochladen Deines Fotos schiefgelaufen. Bitte versuche es erneut."
@@ -179,7 +179,7 @@ msgstr "hochgeladen am %{date}"
 msgid "your account"
 msgstr "Dein Account"
 
-#: lib/fotohaecker_web/live/index_live/home.ex:35
+#: lib/fotohaecker_web/live/index_live/home.ex:37
 #, elixir-autogen, elixir-format
 msgid "Home"
 msgstr "Startseite"
@@ -189,17 +189,17 @@ msgstr "Startseite"
 msgid "photo upload field"
 msgstr "Datei hochladen"
 
-#: lib/fotohaecker_web/live/index_live/home.ex:112
+#: lib/fotohaecker_web/live/index_live/home.ex:150
 #, elixir-autogen, elixir-format
 msgid "Something went wrong generating tags: %{error}"
 msgstr "Etwas ist beim Generieren der Schlagwörter schiefgelaufen: %{error}"
 
-#: lib/fotohaecker_web/live/index_live/home.ex:134
+#: lib/fotohaecker_web/live/index_live/home.ex:172
 #, elixir-autogen, elixir-format, fuzzy
 msgid "Something went wrong updating your photo: %{error}"
 msgstr "Etwas ist beim Hochladen Deines Fotos schiefgelaufen: %{error}"
 
-#: lib/fotohaecker_web/live/index_live/home.ex:126
+#: lib/fotohaecker_web/live/index_live/home.ex:164
 #, elixir-autogen, elixir-format, fuzzy
 msgid "Tags updated successfully."
 msgstr "Foto erfolgreich hochgeladen."
