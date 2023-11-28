@@ -27,29 +27,16 @@ defmodule FotohaeckerWeb.IndexLive.Home do
       |> assign(:uploaded_photo, nil)
       # get latest photos, maybe refactor..
       |> assign(:photos, %{
-        user_limit: 5,
-        user_order: :desc_inserted_at,
         amount: Content.photos_count(),
         photos: Content.list_photos(5)
+      })
+      |> assign(:user_display_options, %{
+        limit: 5,
+        order: :desc_inserted_at
       })
       |> assign(page_title: gettext("Home"))
 
     {:ok, socket}
-  end
-
-  defp assign_photos(socket, opts) do
-    order = Keyword.get(opts, :order, socket.assigns.photos.user_order)
-    limit = Keyword.get(opts, :limit, socket.assigns.photos.user_limit)
-
-    amount = Content.photos_count()
-    photos = Content.list_photos(limit, 0, order)
-
-    assign(socket, :photos, %{
-      user_limit: if(limit > amount, do: amount, else: limit),
-      user_order: order,
-      amount: amount,
-      photos: photos
-    })
   end
 
   def render(assigns) do
@@ -62,18 +49,69 @@ defmodule FotohaeckerWeb.IndexLive.Home do
         uploaded_photo={@uploaded_photo}
         uploads={@uploads}
       />
-      <PhotosComponent.render photos={@photos} />
+      <PhotosComponent.render photos={@photos} user_display_options={@user_display_options} />
     </div>
     """
   end
 
+  defp assign_photos(socket, opts) do
+    order =
+      opts
+      |> Map.get("order")
+      |> String.to_existing_atom()
+
+    limit =
+      opts
+      |> Map.get("limit")
+      |> String.to_integer()
+
+    amount = Content.photos_count()
+    photos = Content.list_photos(limit, 0, order)
+
+    user_display_options = %{
+      limit: if(limit > amount, do: amount, else: limit),
+      order: order
+    }
+
+    socket
+    |> assign(:photos, %{
+      amount: amount,
+      photos: photos
+    })
+    |> assign(:user_display_options, user_display_options)
+  end
+
+  def handle_params(%{"user_display_options" => user_display_options}, _uri, socket) do
+    {:noreply, assign_photos(socket, user_display_options)}
+  end
+
+  def handle_params(_params, _uri, socket) do
+    {:noreply, socket}
+  end
+
   def handle_event("sort_by", %{"order" => order}, socket) do
-    {:noreply, assign_photos(socket, order: String.to_existing_atom(order))}
+    new_user_display_options = Map.put(socket.assigns.user_display_options, :order, order)
+
+    {:noreply,
+     push_patch(socket,
+       to:
+         home_route(%{
+           "user_display_options" => new_user_display_options
+         })
+     )}
   end
 
   def handle_event("show_more_photos", _params, socket) do
-    current_limit = socket.assigns.photos.user_limit
-    {:noreply, assign_photos(socket, limit: current_limit + 10)}
+    new_limit = socket.assigns.user_display_options.limit + 10
+    new_user_display_options = Map.put(socket.assigns.user_display_options, :limit, new_limit)
+
+    {:noreply,
+     push_patch(socket,
+       to:
+         home_route(%{
+           "user_display_options" => new_user_display_options
+         })
+     )}
   end
 
   def handle_event("navigate_to", %{"photo_id" => id}, socket) do

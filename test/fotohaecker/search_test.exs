@@ -69,7 +69,7 @@ defmodule Fotohaecker.SearchTest do
       assert actual == expected
     end
 
-    test "returns empty list or error? when only white space provided as input" do
+    test "returns empty list when only white space provided as input" do
       ContentFixtures.photo_fixture(%{
         title: "test with double  whitespace"
       })

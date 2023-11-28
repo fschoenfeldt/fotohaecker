@@ -75,12 +75,13 @@ defmodule FotohaeckerWeb.LiveHelpers do
       static("/images/flags/#{locale}.svg")
     }
 
-  def home_route,
+  def home_route(params \\ %{}),
     do:
       Helpers.index_home_path(
         FotohaeckerWeb.Endpoint,
         :home,
-        Gettext.get_locale(FotohaeckerWeb.Gettext)
+        Gettext.get_locale(FotohaeckerWeb.Gettext),
+        params
       )
 
   def photo_route(id),

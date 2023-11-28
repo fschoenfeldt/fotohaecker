@@ -49,3 +49,25 @@ test.describe("Home page", () => {
 test("can upload photo", async ({ page }) => {
   await uploadPhoto(page);
 });
+
+test("can click on 'show more' button", async ({ page }) => {
+  // upload 6 photos
+  for (let i = 0; i < 6; i++) {
+    await uploadPhoto(page);
+  }
+
+  await page.goto("/fh");
+
+  // get current number of photos inside the list
+  const photosCountBefore = await page.locator("ul#photos > li").count();
+
+  await page.getByTestId("show_more_photos_button").click();
+
+  // TODO: test a11y (focus after click)
+  // --> https://github.com/fschoenfeldt/fotohaecker/issues/79
+
+  await page.waitForSelector("ul#photos > li:nth-child(6)");
+  const photosCountAfter = await page.locator("ul#photos > li").count();
+
+  expect(photosCountAfter).toBeGreaterThan(photosCountBefore);
+});
