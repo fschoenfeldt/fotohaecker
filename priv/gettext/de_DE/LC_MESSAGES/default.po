@@ -258,7 +258,7 @@ msgstr "Abbrechen.."
 #: lib/fotohaecker_web/live/photo_live/show.ex:371
 #, elixir-autogen, elixir-format, fuzzy
 msgid "photo updated"
-msgstr "Datei hochladen"
+msgstr "Foto aktualisiert"
 
 #: lib/fotohaecker_web/live/photo_live/show.ex:259
 #, elixir-autogen, elixir-format
