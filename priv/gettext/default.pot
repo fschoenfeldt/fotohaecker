@@ -107,7 +107,7 @@ msgstr ""
 msgid "download the photo %{title} from Fotohäcker"
 msgstr ""
 
-#: lib/fotohaecker_web/live/index_live/home/photos_component.ex:64
+#: lib/fotohaecker_web/live/index_live/home/photos_component.ex:68
 #, elixir-autogen, elixir-format
 msgid "show more"
 msgstr ""
