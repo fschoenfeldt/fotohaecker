@@ -430,6 +430,13 @@ defmodule Fotohaecker.ContentTest do
       assert actual == expected
     end
 
+    test "converts a string to a list of tags and removes whitespaces" do
+      actual = Content.to_tags("tag1  ,   tag2 , tag3")
+      expected = ["tag1", "tag2", "tag3"]
+
+      assert actual == expected
+    end
+
     test "works with empty string" do
       actual = Content.to_tags("")
       expected = []
