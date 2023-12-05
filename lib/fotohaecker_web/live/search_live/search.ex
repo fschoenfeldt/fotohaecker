@@ -8,7 +8,7 @@ defmodule FotohaeckerWeb.SearchLive.Search do
   def mount(%{"search_query" => search_query} = _params, _session, socket) do
     grouped_search_results =
       search_query
-      |> Fotohaecker.Search.search()
+      |> Fotohaecker.Search.search!()
       |> Fotohaecker.Search.group_by_type()
 
     socket =

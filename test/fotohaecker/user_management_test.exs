@@ -58,6 +58,26 @@ defmodule Fotohaecker.UserManagementTest do
     end
   end
 
+  describe "search/1" do
+    test "finds user" do
+      expect(UserManagementMock, :search, fn "search" ->
+        {:ok, [%{id: "auth0|123", nickname: "search"}]}
+      end)
+
+      UserManagement.search("search")
+    end
+  end
+
+  describe "search!/1" do
+    test "finds user" do
+      expect(UserManagementMock, :search!, fn "search" ->
+        [%{id: "auth0|123", nickname: "search"}]
+      end)
+
+      UserManagement.search!("search")
+    end
+  end
+
   describe "start_link/0" do
     test "starts link" do
       expect(UserManagementMock, :start_link, fn [] ->

@@ -40,6 +40,16 @@ defmodule Fotohaecker.UserManagement.NoUserManagement do
   end
 
   @impl UserManagementBehaviour
+  def search!(_query) do
+    []
+  end
+
+  @impl UserManagementBehaviour
+  def search(_query) do
+    {:ok, []}
+  end
+
+  @impl UserManagementBehaviour
   def start_link(_opts) do
     Agent.start_link(fn -> [] end, name: __MODULE__)
   end
