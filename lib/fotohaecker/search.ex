@@ -102,9 +102,9 @@ defmodule Fotohaecker.Search do
     end
   end
 
-  defp to_search_results(user_results) do
+  defp to_search_results(results) do
     Enum.map(
-      user_results,
+      results,
       &to_search_result/1
     )
   end
