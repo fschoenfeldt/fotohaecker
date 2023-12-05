@@ -64,7 +64,9 @@ test.describe("Photo Page: CRUD", () => {
     await page.getByTestId("edit-button-title").click();
 
     await page.waitForTimeout(300);
-    await page.locator("#photo_title").fill("New Title");
+    const titleInput = page.locator("#photo_title");
+    await expect(titleInput).toBeFocused();
+    await titleInput.fill("New Title");
     await page.waitForTimeout(300);
 
     await page
@@ -81,7 +83,9 @@ test.describe("Photo Page: CRUD", () => {
     await page.getByTestId("edit-button-tags").click();
 
     await page.waitForTimeout(300);
-    await page.locator("input#photo_tags").fill("fancy, new, tags");
+    const tagsInput = page.locator("input#photo_tags");
+    await expect(tagsInput).toBeFocused();
+    await tagsInput.fill("fancy, new, tags");
     await page.waitForTimeout(300);
 
     await page

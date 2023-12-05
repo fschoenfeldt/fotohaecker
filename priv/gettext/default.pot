@@ -254,7 +254,7 @@ msgstr ""
 msgid "canceling.."
 msgstr ""
 
-#: lib/fotohaecker_web/live/photo_live/show.ex:371
+#: lib/fotohaecker_web/live/photo_live/show.ex:372
 #, elixir-autogen, elixir-format
 msgid "photo updated"
 msgstr ""
@@ -264,7 +264,7 @@ msgstr ""
 msgid "save"
 msgstr ""
 
-#: lib/fotohaecker_web/live/photo_live/show.ex:307
+#: lib/fotohaecker_web/live/photo_live/show.ex:308
 #, elixir-autogen, elixir-format
 msgid "edit field %{field}"
 msgstr ""
@@ -392,7 +392,7 @@ msgstr ""
 msgid "Delete"
 msgstr ""
 
-#: lib/fotohaecker_web/live/photo_live/show.ex:381
+#: lib/fotohaecker_web/live/photo_live/show.ex:382
 #, elixir-autogen, elixir-format
 msgid "photo deleted"
 msgstr ""
