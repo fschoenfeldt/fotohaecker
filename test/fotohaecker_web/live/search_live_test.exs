@@ -6,8 +6,8 @@ defmodule FotohaeckerWeb.SearchLiveTest do
   @endpoint FotohaeckerWeb.Endpoint
 
   setup do
-    Mox.stub(Fotohaecker.UserManagement.UserManagementMock, :get_all, fn ->
-      {:ok, []}
+    Mox.stub(Fotohaecker.UserManagement.UserManagementMock, :search!, fn _term ->
+      []
     end)
 
     on_exit(fn ->
@@ -82,12 +82,11 @@ defmodule FotohaeckerWeb.SearchLiveTest do
 
   describe "one user result" do
     test "disconnected mount works with one result", %{conn: conn} do
-      Mox.expect(Fotohaecker.UserManagement.UserManagementMock, :get_all, fn ->
-        {:ok,
-         [
-           %{id: "auth0|123", nickname: "test", picture: "test.jpg"},
-           %{id: "auth0|456", nickname: "sigmund", picture: "test.jpg"}
-         ]}
+      Mox.expect(Fotohaecker.UserManagement.UserManagementMock, :search!, fn _term ->
+        [
+          %{id: "auth0|123", nickname: "test", picture: "test.jpg"},
+          %{id: "auth0|456", nickname: "sigmund", picture: "test.jpg"}
+        ]
       end)
 
       conn = get(conn, "/fh/en_US/search?search_query=sigmund")
@@ -97,12 +96,11 @@ defmodule FotohaeckerWeb.SearchLiveTest do
     end
 
     test "connected mount works with one result", %{conn: conn} do
-      Mox.expect(Fotohaecker.UserManagement.UserManagementMock, :get_all, 2, fn ->
-        {:ok,
-         [
-           %{id: "auth0|123", nickname: "test", picture: "test.jpg"},
-           %{id: "auth0|456", nickname: "sigmund", picture: "test.jpg"}
-         ]}
+      Mox.expect(Fotohaecker.UserManagement.UserManagementMock, :search!, 2, fn _term ->
+        [
+          %{id: "auth0|123", nickname: "test", picture: "test.jpg"},
+          %{id: "auth0|456", nickname: "sigmund", picture: "test.jpg"}
+        ]
       end)
 
       {:ok, _view, actual} = live(conn, "/fh/en_US/search?search_query=sigmund")
@@ -112,12 +110,11 @@ defmodule FotohaeckerWeb.SearchLiveTest do
     end
 
     test "can click on search result in search", %{conn: conn} do
-      Mox.expect(Fotohaecker.UserManagement.UserManagementMock, :get_all, 2, fn ->
-        {:ok,
-         [
-           %{id: "auth0|123", nickname: "test", picture: "test.jpg"},
-           %{id: "auth0|456", nickname: "sigmund", picture: "test.jpg"}
-         ]}
+      Mox.expect(Fotohaecker.UserManagement.UserManagementMock, :search!, 2, fn _term ->
+        [
+          %{id: "auth0|123", nickname: "test", picture: "test.jpg"},
+          %{id: "auth0|456", nickname: "sigmund", picture: "test.jpg"}
+        ]
       end)
 
       Mox.expect(Fotohaecker.UserManagement.UserManagementMock, :get, 2, fn _user_id ->

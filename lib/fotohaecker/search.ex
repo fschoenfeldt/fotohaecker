@@ -3,6 +3,7 @@ defmodule Fotohaecker.Search do
   The Search context.
   """
   require Logger
+  alias Fotohaecker.Content.Photo
   alias Fotohaecker.UserManagement
 
   @type t :: %__MODULE__{
@@ -18,42 +19,35 @@ defmodule Fotohaecker.Search do
 
   ## Examples
       iex> %{title: "search", file_name: "search", tags: [], extension: ".jpg"} |> Fotohaecker.Content.create_photo()
-      iex> [result] = Fotohaecker.Search.search("search")
+      iex> [result] = Fotohaecker.Search.search!("search")
       iex> result.photo.title
       "search"
 
-      iex> Mox.stub(Fotohaecker.UserManagement.UserManagementMock, :get_all, fn ->
-      ...>  {:ok, [%{id: "auth0|123", nickname: "test"}]}
+      iex> Mox.stub(Fotohaecker.UserManagement.UserManagementMock, :search!, fn _term ->
+      ...>  [%{id: "auth0|123", nickname: "test"}]
       ...> end)
-      iex> [result] = Fotohaecker.Search.search("test")
+      iex> [result] = Fotohaecker.Search.search!("test")
       iex> result.user.nickname
       "test"
 
-      iex> Mox.expect(Fotohaecker.UserManagement.UserManagementMock, :get_all, fn ->
-      ...>  {:ok, [%{id: "auth0|777", nickname: "search"}]}
+      iex> Mox.expect(Fotohaecker.UserManagement.UserManagementMock, :search!, fn _term ->
+      ...>  [%{id: "auth0|777", nickname: "search"}]
       ...> end)
       iex> %{title: "search", file_name: "search", tags: [], extension: ".jpg"}
       ...> |> Fotohaecker.Content.create_photo()
-      iex> results = Fotohaecker.Search.search("search")
+      iex> results = Fotohaecker.Search.search!("search")
       iex> results |> length()
       2
   """
-  @spec search(String.t()) :: [map()] | []
-  def search("") do
+  @spec search!(String.t()) :: [map()] | []
+  def search!("") do
     []
   end
 
-  def search(query) do
-    # TODO: consider refactoring this into the called functions
-    case String.trim(query) do
-      "" ->
-        []
-
-      trimmed_query ->
-        []
-        |> with_users(trimmed_query)
-        |> with_photos(trimmed_query)
-    end
+  def search!(term) do
+    []
+    |> with_users!(term)
+    |> with_photos!(term)
   end
 
   @doc """
@@ -75,40 +69,57 @@ defmodule Fotohaecker.Search do
     Enum.group_by(search_results, & &1.type)
   end
 
-  defp with_users(search_results, query) do
-    with true <- UserManagement.is_implemented?(),
-         {:ok, users} <- UserManagement.get_all() do
-      users
-      |> Enum.filter(fn user ->
-        # or String.contains?(user.id, query)
-        String.contains?(user.nickname, query)
-      end)
-      |> Enum.map(
-        &%__MODULE__{
-          type: :user,
-          user: &1
-        }
-      )
-      |> Kernel.++(search_results)
-    else
-      _not_implemented_or_error ->
-        Logger.debug(
-          "UserManagement is not implemented or an error occurred, skipping user search"
-        )
+  defp with_users!(search_results, "" = _term), do: search_results
+
+  defp with_users!(search_results, query) do
+    cond do
+      String.trim(query) == "" ->
+        with_users!(search_results, "")
+
+      UserManagement.is_implemented?() ->
+        query
+        |> UserManagement.search!()
+        |> to_search_results()
+        |> Kernel.++(search_results)
+
+      true ->
+        Logger.debug("UserManagement is not implemented, skipping user search")
 
         search_results
     end
   end
 
-  defp with_photos(search_results, query) do
-    search_results ++
-      (query
-       |> Fotohaecker.Content.search_photos()
-       |> Enum.map(
-         &%__MODULE__{
-           type: :photo,
-           photo: &1
-         }
-       ))
+  defp with_photos!(search_results, "" = _term), do: search_results
+
+  defp with_photos!(search_results, term) do
+    if String.trim(term) == "" do
+      with_photos!(search_results, "")
+    else
+      term
+      |> Fotohaecker.Content.search_photos()
+      |> to_search_results()
+      |> Kernel.++(search_results)
+    end
+  end
+
+  defp to_search_results(user_results) do
+    Enum.map(
+      user_results,
+      &to_search_result/1
+    )
+  end
+
+  defp to_search_result(%Photo{} = photo) do
+    %__MODULE__{
+      type: :photo,
+      photo: photo
+    }
+  end
+
+  defp to_search_result(user) when is_map(user) do
+    %__MODULE__{
+      type: :user,
+      user: user
+    }
   end
 end

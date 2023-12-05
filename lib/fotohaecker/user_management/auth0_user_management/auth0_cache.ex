@@ -130,6 +130,21 @@ defmodule Fotohaecker.UserManagement.Auth0UserManagement.Auth0Cache do
     Agent.update(__MODULE__, &maybe_delete_user(&1, user_id))
   end
 
+  def search(term) do
+    users_found =
+      Agent.get(__MODULE__, fn {:ok, users} ->
+        Enum.filter(users, &user_search(term, &1))
+      end)
+
+    {:ok, users_found}
+  end
+
+  def search!(term) do
+    {:ok, users_found} = search(term)
+
+    users_found
+  end
+
   defp maybe_add_user({:ok, users}, user_id, user) do
     maybe_user_found = Enum.find(users, &user_match(user_id, &1))
 
@@ -145,6 +160,10 @@ defmodule Fotohaecker.UserManagement.Auth0UserManagement.Auth0Cache do
   end
 
   defp user_match(user_id, user), do: user.id == user_id
+
+  defp user_search(term, user) do
+    String.contains?(user.nickname, term)
+  end
 
   defp interesting_auth0_fields(auth_0_user) do
     %{

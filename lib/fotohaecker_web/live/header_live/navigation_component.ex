@@ -89,13 +89,11 @@ defmodule FotohaeckerWeb.HeaderLive.NavigationComponent do
   end
 
   def handle_event("search", %{"search_query" => search_query} = _unsigned_params, socket) do
-    search_results = Fotohaecker.Search.search(search_query)
+    search_results = Fotohaecker.Search.search!(search_query)
     result_count = length(search_results)
 
     grouped_search_results =
-      search_query
-      |> Fotohaecker.Search.search()
-      |> Fotohaecker.Search.group_by_type()
+      Fotohaecker.Search.group_by_type(search_results)
 
     socket =
       socket

@@ -59,6 +59,22 @@ defmodule Fotohaecker.UserManagement do
 
   @impl UserManagementBehaviour
   @doc """
+  Searches for users with the specified term.
+  """
+  def search!(term) do
+    implementation().search!(term)
+  end
+
+  @impl UserManagementBehaviour
+  @doc """
+  Searches for users with the specified term.
+  """
+  def search(term) do
+    implementation().search(term)
+  end
+
+  @impl UserManagementBehaviour
+  @doc """
   Starts the user management process.
   """
   def start_link(initial_value \\ []) do
