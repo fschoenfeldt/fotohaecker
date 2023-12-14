@@ -31,7 +31,7 @@ config :swoosh, :api_client, false
 
 # Configure esbuild (the version is required)
 config :esbuild,
-  version: "0.17.19",
+  version: "0.19.9",
   default: [
     args:
       ~w(js/app.js --bundle --target=es2017 --outdir=../priv/static/assets --external:/fonts/* --external:/images/*),
@@ -49,7 +49,9 @@ config :phoenix, :json_library, Jason
 
 # Configure Tailwind
 config :tailwind,
-  version: "3.3.2",
+  # TODO we're stuck on this version, because with
+  # 3.3.6 we can't build the css anymore
+  version: "3.3.5",
   default: [
     args: ~w(
     --postcss
