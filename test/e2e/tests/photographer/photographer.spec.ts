@@ -1,10 +1,14 @@
 import { test, expect } from "../../fixtures/axe-test";
-import { photographerFixture } from "../helpers";
+import {
+  auth0UserManagementEnabled,
+  conditionalTest,
+  photographerFixture,
+  stripePaymentEnabled,
+} from "../helpers";
 
 test.describe("Photographer: Settings page", () => {
   test.beforeEach(async ({ page }) => {
-    // Skip this test if Payment isn't enabled.
-    if (process.env["STRIPE_SECRET"]) {
+    if (stripePaymentEnabled && auth0UserManagementEnabled) {
       await page.goto("/fh");
       await page.locator("a", { hasText: "your account" }).click();
     } else {
