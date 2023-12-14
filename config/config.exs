@@ -51,7 +51,7 @@ config :phoenix, :json_library, Jason
 config :tailwind,
   # TODO we're stuck on this version, because with
   # 3.3.6 we can't build the css anymore
-  version: "3.3.5",
+  version: "3.3.6",
   default: [
     args: ~w(
     --postcss
