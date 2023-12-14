@@ -1,10 +1,17 @@
 import { test, expect } from "../fixtures/axe-test";
-import { userFixture } from "./helpers";
+import { auth0UserManagementEnabled, userFixture } from "./helpers";
 
 test.describe("User Settings page", () => {
   test.beforeEach(async ({ page }) => {
-    await page.goto("/fh");
-    await page.locator("a", { hasText: "your account" }).click();
+    if (auth0UserManagementEnabled) {
+      await page.goto("/fh");
+      await page.locator("a", { hasText: "your account" }).click();
+    } else {
+      console.info(
+        `Skipping Auth tests because environment variables are not set.`
+      );
+      test.skip();
+    }
   });
 
   test("should not have any automatically detectable accessibility issues", async ({

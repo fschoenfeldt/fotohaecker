@@ -64,3 +64,15 @@ export const photographerFixture = {
 };
 
 export const authFilePhotographer = "playwright/.auth/authPhotographer.json";
+
+export const auth0UserManagementEnabled =
+  process.env.AUTH0_CLIENT_ID &&
+  process.env.AUTH0_CLIENT_SECRET &&
+  process.env.AUTH0_DOMAIN &&
+  process.env.AUTH0_MANAGEMENT_CLIENT_ID &&
+  process.env.AUTH0_MANAGEMENT_CLIENT_SECRET;
+
+export const stripePaymentEnabled =
+  process.env.STRIPE_SECRET &&
+  process.env.STRIPE_CONNECT_CLIENT_ID &&
+  process.env.STRIPE_PRICE_ID;

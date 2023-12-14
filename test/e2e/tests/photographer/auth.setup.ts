@@ -1,8 +1,12 @@
 import { test as setup, expect } from "@playwright/test";
-import { authFilePhotographer, photographerFixture } from "../helpers";
+import {
+  auth0UserManagementEnabled,
+  authFilePhotographer,
+  photographerFixture,
+} from "../helpers";
 
 setup("authenticate user", async ({ page }) => {
-  if (!process.env["AUTH0_CLIENT_ID"]) {
+  if (!auth0UserManagementEnabled) {
     console.info(
       `Skipping Auth tests because environment variables are not set.`
     );
