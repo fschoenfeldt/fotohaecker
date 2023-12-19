@@ -299,8 +299,9 @@ defmodule FotohaeckerWeb.PhotoLive.Show do
       data-testid={"edit-button-#{@field}"}
       type="button"
       class="group btn btn--dark p-1 border-none"
-      phx-click="activate_edit_mode"
-      phx-value-field={@field}
+      id={"activate_photo_#{@field}"}
+      phx-hook="EditPhotoField"
+      data-field={@field}
     >
       <Heroicons.pencil_square mini class="w-4 h-4 dark:fill-gray-200 group-hover:fill-white" />
       <div class="sr-only">
