@@ -28,6 +28,12 @@ if System.get_env("CLARIFAI_API_SECRET") do
   config :fotohaecker, Fotohaecker.TagDetection, Fotohaecker.TagDetection.Clarifai
 end
 
+# TODO: don't hardcode
+config :cors_plug,
+  origin: ["http://localhost:8080", "https://fschoenfeldt.de/"],
+  max_age: 86_400,
+  methods: ["GET"]
+
 # TODO remove double boolean
 # TODO: these env lists are getting out of hand…
 if !!System.get_env("AUTH0_DOMAIN") and !!System.get_env("AUTH0_MANAGEMENT_CLIENT_ID") and

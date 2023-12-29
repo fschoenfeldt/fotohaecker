@@ -11,11 +11,30 @@ defmodule FotohaeckerWeb.Router do
   end
 
   pipeline :api do
+    plug CORSPlug
+
     plug :accepts, ["json"]
   end
 
   pipeline :protected do
     plug FotohaeckerWeb.Plugs.RequireAuth
+  end
+
+  scope "/fh" do
+    scope "/api", FotohaeckerWeb do
+      pipe_through :api
+
+      scope "/content" do
+        get "/photos/:id", PhotoController, :show
+        get "/photos", PhotoController, :index
+      end
+
+      scope "/search" do
+        scope "/photos" do
+          get "/:search", PhotoController, :search
+        end
+      end
+    end
   end
 
   scope "/fh", FotohaeckerWeb do
@@ -50,11 +69,6 @@ defmodule FotohaeckerWeb.Router do
       post "/:provider/callback", AuthController, :callback
     end
   end
-
-  # Other scopes may use custom stacks.
-  # scope "/api", FotohaeckerWeb do
-  #   pipe_through :api
-  # end
 
   # Enables LiveDashboard only for development
   #

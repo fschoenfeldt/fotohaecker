@@ -32,7 +32,7 @@ defmodule FotohaeckerWeb.IndexLive.Home.UploadForm do
         </p>
         <%= with file_name <- @uploaded_photo.file_name,
                  extension <- @uploaded_photo.extension,
-                 # TODO DRY: uses same code as in photo_component.ex
+               # TODO DRY: don't hardcode paths here…
                   thumbs     <- Enum.map([1, 2, 3],
                                         &(Routes.static_path(FotohaeckerWeb.Endpoint,
                                         "/uploads/#{file_name}_thumb@#{&1}x#{extension}"))

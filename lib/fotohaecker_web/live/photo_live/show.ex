@@ -38,6 +38,7 @@ defmodule FotohaeckerWeb.PhotoLive.Show do
                title        <- @photo.title,
                file_name    <- @photo.file_name,
                extension    <- @photo.extension,
+               # TODO DRY: don't hardcode paths here…
                path         <- Routes.static_path(FotohaeckerWeb.Endpoint,
                                                   "/uploads/#{file_name}_og#{extension}"),
                preview_path <- Routes.static_path(FotohaeckerWeb.Endpoint,

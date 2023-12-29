@@ -112,6 +112,7 @@ defmodule Mix.Tasks.Content do
     response in ["", "y"]
   end
 
+  # TODO DRY: don't hardcode paths here…
   defp url(%Content.Photo{} = photo) do
     FotohaeckerWeb.Router.Helpers.static_url(
       FotohaeckerWeb.Endpoint,

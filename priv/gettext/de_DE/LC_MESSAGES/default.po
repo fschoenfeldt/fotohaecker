@@ -36,9 +36,9 @@ msgstr "keine Fotos, bis jetzt..."
 msgid "oldest"
 msgstr "Älteste"
 
-#: lib/fotohaecker_web/live/index_live/home/photo_component.ex:34
+#: lib/fotohaecker_web/live/index_live/home/photo_component.ex:35
 #: lib/fotohaecker_web/live/index_live/home/upload_form.ex:47
-#: lib/fotohaecker_web/live/photo_live/show.ex:50
+#: lib/fotohaecker_web/live/photo_live/show.ex:51
 #, elixir-autogen, elixir-format
 msgid "photo %{title} on Fotohäcker"
 msgstr "Foto %{title} auf Fotohäcker"
@@ -63,7 +63,7 @@ msgstr "hochladen"
 msgid "uploading.."
 msgstr "wird hochgeladen.."
 
-#: lib/fotohaecker_web/live/photo_live/show.ex:122
+#: lib/fotohaecker_web/live/photo_live/show.ex:123
 #, elixir-autogen, elixir-format
 msgid "back"
 msgstr "zurück"
@@ -73,17 +73,17 @@ msgstr "zurück"
 msgid "drag the photo here or use the file button below"
 msgstr "Ziehe das Foto hierher oder verwende die Schaltfläche unten"
 
-#: lib/fotohaecker_web/live/live_helpers.ex:74
+#: lib/fotohaecker_web/live/live_helpers.ex:75
 #, elixir-autogen, elixir-format
 msgid "english"
 msgstr "englisch"
 
-#: lib/fotohaecker_web/live/live_helpers.ex:68
+#: lib/fotohaecker_web/live/live_helpers.ex:69
 #, elixir-autogen, elixir-format
 msgid "german"
 msgstr "deutsch"
 
-#: lib/fotohaecker_web/live/index_live/home/photo_component.ex:28
+#: lib/fotohaecker_web/live/index_live/home/photo_component.ex:29
 #, elixir-autogen, elixir-format, fuzzy
 msgid "go to photo %{title} on Fotohäcker"
 msgstr "Foto %{title} auf Fotohäcker"
@@ -103,7 +103,7 @@ msgstr "Titel"
 msgid "change language"
 msgstr "Sprache ändern"
 
-#: lib/fotohaecker_web/live/photo_live/show.ex:103
+#: lib/fotohaecker_web/live/photo_live/show.ex:104
 #, elixir-autogen, elixir-format, fuzzy
 msgid "download the photo %{title} from Fotohäcker"
 msgstr "Foto %{title} auf Fotohäcker"
@@ -153,7 +153,7 @@ msgstr "Erfolgreich angemeldet."
 msgid "You have been logged out!"
 msgstr "Sie wurden abgemeldet!"
 
-#: lib/fotohaecker_web/live/photo_live/show.ex:68
+#: lib/fotohaecker_web/live/photo_live/show.ex:69
 #, elixir-autogen, elixir-format
 msgid "Download"
 msgstr "Herunterladen"
@@ -168,8 +168,8 @@ msgstr "Name bzw. E-Mail"
 msgid "Your Account"
 msgstr "Dein Account"
 
-#: lib/fotohaecker_web/live/photo_live/show.ex:88
-#: lib/fotohaecker_web/live/photo_live/show.ex:137
+#: lib/fotohaecker_web/live/photo_live/show.ex:89
+#: lib/fotohaecker_web/live/photo_live/show.ex:138
 #, elixir-autogen, elixir-format
 msgid "uploaded on %{date}"
 msgstr "hochgeladen am %{date}"
@@ -209,7 +209,7 @@ msgstr "Foto erfolgreich hochgeladen."
 msgid "generate using AI"
 msgstr "via KI generieren"
 
-#: lib/fotohaecker_web/live/photo_live/show.ex:199
+#: lib/fotohaecker_web/live/photo_live/show.ex:200
 #, elixir-autogen, elixir-format
 msgid "no tags"
 msgstr "keine Schlagwörter"
@@ -220,7 +220,7 @@ msgid "photo tags"
 msgstr "Schlagwörter des Fotos"
 
 #: lib/fotohaecker_web/live/index_live/home/upload_form.ex:52
-#: lib/fotohaecker_web/live/photo_live/show.ex:251
+#: lib/fotohaecker_web/live/photo_live/show.ex:252
 #, elixir-autogen, elixir-format
 msgid "saving.."
 msgstr "Speichern.."
@@ -240,42 +240,42 @@ msgstr "Überspringen und zum Foto gehen"
 msgid "submit and go to photo"
 msgstr "Absenden und zum Foto gehen"
 
-#: lib/fotohaecker_web/live/photo_live/show.ex:204
+#: lib/fotohaecker_web/live/photo_live/show.ex:205
 #, elixir-autogen, elixir-format
 msgid "tags"
 msgstr "Schlagwörter"
 
-#: lib/fotohaecker_web/live/photo_live/show.ex:275
+#: lib/fotohaecker_web/live/photo_live/show.ex:276
 #, elixir-autogen, elixir-format
 msgid "cancel"
 msgstr "Abbrechen"
 
-#: lib/fotohaecker_web/live/photo_live/show.ex:265
+#: lib/fotohaecker_web/live/photo_live/show.ex:266
 #, elixir-autogen, elixir-format
 msgid "canceling.."
 msgstr "Abbrechen.."
 
-#: lib/fotohaecker_web/live/photo_live/show.ex:372
+#: lib/fotohaecker_web/live/photo_live/show.ex:373
 #, elixir-autogen, elixir-format, fuzzy
 msgid "photo updated"
 msgstr "Foto aktualisiert"
 
-#: lib/fotohaecker_web/live/photo_live/show.ex:259
+#: lib/fotohaecker_web/live/photo_live/show.ex:260
 #, elixir-autogen, elixir-format
 msgid "save"
 msgstr "Speichern"
 
-#: lib/fotohaecker_web/live/photo_live/show.ex:308
+#: lib/fotohaecker_web/live/photo_live/show.ex:309
 #, elixir-autogen, elixir-format
 msgid "edit field %{field}"
 msgstr "Feld %{field} bearbeiten"
 
-#: lib/fotohaecker_web/live/photo_live/show.ex:233
+#: lib/fotohaecker_web/live/photo_live/show.ex:234
 #, elixir-autogen, elixir-format
 msgid "enter new %{field}"
 msgstr "Feld %{field} bearbeiten"
 
-#: lib/fotohaecker_web/live/photo_live/show.ex:242
+#: lib/fotohaecker_web/live/photo_live/show.ex:243
 #, elixir-autogen, elixir-format
 msgid "photo %{field}"
 msgstr "Foto %{field}"
@@ -358,17 +358,17 @@ msgstr "Profilbild von %{nickname}"
 msgid "Your Profile Link"
 msgstr "Dein Profil-Link"
 
-#: lib/fotohaecker_web/live/photo_live/show.ex:144
+#: lib/fotohaecker_web/live/photo_live/show.ex:145
 #, elixir-autogen, elixir-format
 msgid "by %{user}"
 msgstr "von %{user}"
 
-#: lib/fotohaecker_web/live/photo_live/show.ex:156
+#: lib/fotohaecker_web/live/photo_live/show.ex:157
 #, elixir-autogen, elixir-format
 msgid "by an anonymous user"
 msgstr "von einem anonymen Benutzer"
 
-#: lib/fotohaecker_web/live/photo_live/show.ex:149
+#: lib/fotohaecker_web/live/photo_live/show.ex:150
 #, elixir-autogen, elixir-format
 msgid "by user_id %{user_id}"
 msgstr "von user_id %{user_id}"
@@ -388,12 +388,12 @@ msgstr "Metadaten und EXIF-Daten werden beim Hochladen entfernt, um Deine Privat
 msgid "Search…"
 msgstr "Suche…"
 
-#: lib/fotohaecker_web/live/photo_live/show.ex:76
+#: lib/fotohaecker_web/live/photo_live/show.ex:77
 #, elixir-autogen, elixir-format, fuzzy
 msgid "Delete"
 msgstr "Löschen"
 
-#: lib/fotohaecker_web/live/photo_live/show.ex:382
+#: lib/fotohaecker_web/live/photo_live/show.ex:383
 #, elixir-autogen, elixir-format, fuzzy
 msgid "photo deleted"
 msgstr "Foto gelöscht"
@@ -488,7 +488,7 @@ msgstr "Einrichtung nicht abgeschlossen."
 msgid "Note: Donations are for demonstrative purposes only!"
 msgstr "Hinweis: Spenden dienen nur zu Demonstrationszwecken!"
 
-#: lib/fotohaecker_web/live/photo_live/show.ex:152
+#: lib/fotohaecker_web/live/photo_live/show.ex:153
 #, elixir-autogen, elixir-format, fuzzy
 msgid "by user %{user_id}"
 msgstr "von user_id %{user_id}"

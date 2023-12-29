@@ -4,6 +4,7 @@ defmodule FotohaeckerWeb.LiveHelpers do
   # import Phoenix.Component
 
   alias FotohaeckerWeb.Router.Helpers
+  alias Fotohaecker.Content.Photo
   # alias Phoenix.LiveView.JS
 
   require FotohaeckerWeb.Gettext
@@ -83,6 +84,48 @@ defmodule FotohaeckerWeb.LiveHelpers do
         Gettext.get_locale(FotohaeckerWeb.Gettext),
         params
       )
+
+  def photo_link(id), do: photo_url(id)
+
+  # TODO: this function name is maybe confusing with other *_url functions
+  defp photo_url(id),
+    do:
+      Helpers.photo_show_url(
+        FotohaeckerWeb.Endpoint,
+        :show,
+        Gettext.get_locale(FotohaeckerWeb.Gettext),
+        id
+      )
+
+  def photo_urls(%Photo{} = photo) do
+    %{
+      raw:
+        Helpers.static_url(
+          FotohaeckerWeb.Endpoint,
+          "/uploads/#{photo.file_name}_og#{photo.extension}"
+        ),
+      full:
+        Helpers.static_url(
+          FotohaeckerWeb.Endpoint,
+          "/uploads/#{photo.file_name}_preview#{photo.extension}"
+        ),
+      thumb1x:
+        Helpers.static_url(
+          FotohaeckerWeb.Endpoint,
+          "/uploads/#{photo.file_name}_thumb@1x#{photo.extension}"
+        ),
+      thumb2x:
+        Helpers.static_url(
+          FotohaeckerWeb.Endpoint,
+          "/uploads/#{photo.file_name}_thumb@2x#{photo.extension}"
+        ),
+      thumb3x:
+        Helpers.static_url(
+          FotohaeckerWeb.Endpoint,
+          "/uploads/#{photo.file_name}_thumb@3x#{photo.extension}"
+        )
+    }
+  end
 
   def photo_route(id),
     do:
