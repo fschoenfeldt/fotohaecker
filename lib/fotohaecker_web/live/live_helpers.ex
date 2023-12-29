@@ -85,10 +85,7 @@ defmodule FotohaeckerWeb.LiveHelpers do
         params
       )
 
-  def photo_link(id), do: photo_url(id)
-
-  # TODO: this function name is maybe confusing with other *_url functions
-  defp photo_url(id),
+  def photo_url(id),
     do:
       Helpers.photo_show_url(
         FotohaeckerWeb.Endpoint,

@@ -130,10 +130,10 @@ defmodule Fotohaecker.Content do
   ## Examples
 
       iex> get_photo(123)
-      {:ok, %Photo{}}
+      %Photo{}
 
       iex> get_photo(456)
-      {:error, %Ecto.NoResultsError{}}
+      nil
   """
   def get_photo(id), do: Repo.get(Photo, id)
 

@@ -1,5 +1,5 @@
 defmodule FotohaeckerWeb.PhotoControllerTest do
-  use FotohaeckerWeb.ConnCase, async: true
+  use FotohaeckerWeb.ConnCase, async: false
 
   import Fotohaecker.ContentFixtures
 
@@ -19,9 +19,59 @@ defmodule FotohaeckerWeb.PhotoControllerTest do
   end
 
   describe "index" do
-    test "lists all photos", %{conn: conn} do
+    test "lists all photos if none are present", %{conn: conn} do
       conn = get(conn, ~p"/fh/api/content/photos")
       assert json_response(conn, 200)["data"] == []
+    end
+
+    test "lists all photos", %{conn: conn} do
+      photo_fixture(%{
+        id: 1,
+        title: "some title"
+      })
+
+      photo_fixture(%{
+        id: 2,
+        title: "another title"
+      })
+
+      actual =
+        conn
+        |> get(~p"/fh/api/content/photos")
+        |> json_response(200)
+
+      expected = %{
+        "data" => [
+          %{
+            "id" => 2,
+            "links" => %{"html" => "http://localhost:4002/fh/en_US/photos/2"},
+            "tags" => [],
+            "title" => "another title",
+            "urls" => %{
+              "full" => "http://localhost:4002/uploads/some_file_name_preview.jpg",
+              "raw" => "http://localhost:4002/uploads/some_file_name_og.jpg",
+              "thumb1x" => "http://localhost:4002/uploads/some_file_name_thumb@1x.jpg",
+              "thumb2x" => "http://localhost:4002/uploads/some_file_name_thumb@2x.jpg",
+              "thumb3x" => "http://localhost:4002/uploads/some_file_name_thumb@3x.jpg"
+            }
+          },
+          %{
+            "id" => 1,
+            "links" => %{"html" => "http://localhost:4002/fh/en_US/photos/1"},
+            "tags" => [],
+            "title" => "some title",
+            "urls" => %{
+              "full" => "http://localhost:4002/uploads/some_file_name_preview.jpg",
+              "raw" => "http://localhost:4002/uploads/some_file_name_og.jpg",
+              "thumb1x" => "http://localhost:4002/uploads/some_file_name_thumb@1x.jpg",
+              "thumb2x" => "http://localhost:4002/uploads/some_file_name_thumb@2x.jpg",
+              "thumb3x" => "http://localhost:4002/uploads/some_file_name_thumb@3x.jpg"
+            }
+          }
+        ]
+      }
+
+      assert actual == expected
     end
   end
 
@@ -61,13 +111,15 @@ defmodule FotohaeckerWeb.PhotoControllerTest do
       assert actual == expected
     end
 
-    # TODO proper 404 handling
-    test "renders no result", %{conn: conn} do
-      assert_raise Ecto.NoResultsError, fn ->
+    test "renders 404", %{conn: conn} do
+      actual =
         conn
         |> get(~p"/fh/api/content/photos/1337")
-        |> json_response(200)
-      end
+        |> json_response(404)
+
+      expected = %{"errors" => [%{"status" => "404", "title" => "Not found"}]}
+
+      assert actual == expected
     end
   end
 

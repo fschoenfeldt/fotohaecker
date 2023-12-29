@@ -2,17 +2,27 @@ defmodule FotohaeckerWeb.PhotoController do
   use FotohaeckerWeb, :controller
 
   alias Fotohaecker.Content
+  alias Fotohaecker.Content.Photo
 
   action_fallback FotohaeckerWeb.FallbackController
 
-  # TODO proper 404 handling
-  def show(conn, %{"id" => id}) do
-    photo = Content.get_photo!(id)
-    render(conn, :show, photo: photo)
-  end
-
+  # TODO: result pagination
   def index(conn, _params) do
     photos = Content.list_photos()
+    render(conn, :index, photos: photos)
+  end
+
+  def show(conn, %{"id" => id}) do
+    with %Photo{} = photo <- Content.get_photo(id) do
+      render(conn, :show, photo: photo)
+    end
+  end
+
+  def search(conn, %{"search" => search}) do
+    # decode uri encoded search string
+    search = URI.decode(search)
+
+    photos = Fotohaecker.Search.search!(search)
     render(conn, :index, photos: photos)
   end
 
@@ -24,14 +34,6 @@ defmodule FotohaeckerWeb.PhotoController do
   #     |> render(:show, photo: photo)
   #   end
   # end
-
-  def search(conn, %{"search" => search}) do
-    # decode uri encoded search string
-    search = URI.decode(search)
-
-    photos = Fotohaecker.Search.search!(search)
-    render(conn, :index, photos: photos)
-  end
 
   # def update(conn, %{"id" => id, "photo" => photo_params}) do
   #   photo = Contents.get_photo!(id)

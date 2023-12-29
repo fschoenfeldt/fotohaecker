@@ -14,7 +14,6 @@ if System.get_env("STRIPE_SECRET") do
     api_key: System.get_env("STRIPE_SECRET"),
     connect_client_id: System.get_env("STRIPE_CONNECT_CLIENT_ID")
 
-  # TODO price_id and callback_url should be configurable
   config :fotohaecker, Fotohaecker.Payment,
     implementation: Fotohaecker.Payment.StripePayment,
     price_id: System.get_env("STRIPE_PRICE_ID")
@@ -28,9 +27,22 @@ if System.get_env("CLARIFAI_API_SECRET") do
   config :fotohaecker, Fotohaecker.TagDetection, Fotohaecker.TagDetection.Clarifai
 end
 
+cors =
+  if System.get_env("API_CORS_ORIGIN") do
+    "API_CORS_ORIGIN"
+    |> System.get_env()
+    |> Sting.split(",")
+  else
+    Logger.info(
+      "No API_CORS_ORIGIN configured, API probably won't be accessible from other domains"
+    )
+
+    []
+  end
+
 # TODO: don't hardcode
 config :cors_plug,
-  origin: ["http://localhost:8080", "https://fschoenfeldt.de/"],
+  origin: cors,
   max_age: 86_400,
   methods: ["GET"]
 

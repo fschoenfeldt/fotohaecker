@@ -26,7 +26,7 @@ defmodule FotohaeckerWeb.PhotoJSON do
       id: photo.id,
       title: photo.title,
       tags: photo.tags,
-      links: %{html: FotohaeckerWeb.LiveHelpers.photo_link(photo.id)},
+      links: %{html: FotohaeckerWeb.LiveHelpers.photo_url(photo.id)},
       urls: FotohaeckerWeb.LiveHelpers.photo_urls(photo)
     }
   end
