@@ -14,7 +14,6 @@ if System.get_env("STRIPE_SECRET") do
     api_key: System.get_env("STRIPE_SECRET"),
     connect_client_id: System.get_env("STRIPE_CONNECT_CLIENT_ID")
 
-  # TODO price_id and callback_url should be configurable
   config :fotohaecker, Fotohaecker.Payment,
     implementation: Fotohaecker.Payment.StripePayment,
     price_id: System.get_env("STRIPE_PRICE_ID")
@@ -27,6 +26,25 @@ end
 if System.get_env("CLARIFAI_API_SECRET") do
   config :fotohaecker, Fotohaecker.TagDetection, Fotohaecker.TagDetection.Clarifai
 end
+
+api_cors_origins =
+  if System.get_env("API_CORS_ORIGINS") do
+    "API_CORS_ORIGINS"
+    |> System.get_env()
+    |> String.split(",")
+  else
+    Logger.info(
+      "No API_CORS_ORIGINS configured, API probably won't be accessible from other domains"
+    )
+
+    []
+  end
+
+# TODO: don't hardcode
+config :cors_plug,
+  origin: api_cors_origins,
+  max_age: 86_400,
+  methods: ["GET"]
 
 # TODO remove double boolean
 # TODO: these env lists are getting out of hand…

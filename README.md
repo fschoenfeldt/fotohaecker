@@ -46,6 +46,12 @@ Provide the according environment variables in your `.envrc.local`.
 
 Provide the according environment variables in your `.envrc.local`.
 
+#### API
+
+You can access the API via [`localhost:1337/fh/api`](http://localhost:1337/fh/api).
+
+For accessing the API from the outside, provide the according environment variables in your `.envrc.local`.
+
 ### Unit Tests / Quality
 
 ```shell

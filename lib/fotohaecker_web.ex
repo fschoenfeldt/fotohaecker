@@ -16,7 +16,7 @@ defmodule FotohaeckerWeb do
 
   def controller do
     quote do
-      use Phoenix.Controller, namespace: FotohaeckerWeb
+      use Phoenix.Controller, namespace: FotohaeckerWeb, formats: [:json]
 
       import Plug.Conn
       import FotohaeckerWeb.Gettext
