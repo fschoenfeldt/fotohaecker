@@ -96,32 +96,20 @@ defmodule FotohaeckerWeb.LiveHelpers do
 
   def photo_urls(%Photo{} = photo) do
     %{
-      raw:
-        Helpers.static_url(
-          FotohaeckerWeb.Endpoint,
-          "/uploads/#{photo.file_name}_og#{photo.extension}"
-        ),
-      full:
-        Helpers.static_url(
-          FotohaeckerWeb.Endpoint,
-          "/uploads/#{photo.file_name}_preview#{photo.extension}"
-        ),
-      thumb1x:
-        Helpers.static_url(
-          FotohaeckerWeb.Endpoint,
-          "/uploads/#{photo.file_name}_thumb@1x#{photo.extension}"
-        ),
-      thumb2x:
-        Helpers.static_url(
-          FotohaeckerWeb.Endpoint,
-          "/uploads/#{photo.file_name}_thumb@2x#{photo.extension}"
-        ),
-      thumb3x:
-        Helpers.static_url(
-          FotohaeckerWeb.Endpoint,
-          "/uploads/#{photo.file_name}_thumb@3x#{photo.extension}"
-        )
+      raw: public_photo_src_url(photo, "og"),
+      full: public_photo_src_url(photo, "preview"),
+      thumb1x: public_photo_src_url(photo, "thumb@1x"),
+      thumb2x: public_photo_src_url(photo, "thumb@2x"),
+      thumb3x: public_photo_src_url(photo, "thumb@3x")
     }
+  end
+
+  defp public_photo_src_url(photo, type) do
+    FotohaeckerWeb.Endpoint.url() <>
+      Helpers.static_path(
+        FotohaeckerWeb.Endpoint,
+        "/uploads/#{photo.file_name}_#{type}#{photo.extension}"
+      )
   end
 
   def photo_route(id),
