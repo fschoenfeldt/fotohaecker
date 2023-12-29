@@ -27,14 +27,14 @@ if System.get_env("CLARIFAI_API_SECRET") do
   config :fotohaecker, Fotohaecker.TagDetection, Fotohaecker.TagDetection.Clarifai
 end
 
-cors =
-  if System.get_env("API_CORS_ORIGIN") do
-    "API_CORS_ORIGIN"
+api_cors_origins =
+  if System.get_env("API_CORS_ORIGINS") do
+    "API_CORS_ORIGINS"
     |> System.get_env()
-    |> Sting.split(",")
+    |> String.split(",")
   else
     Logger.info(
-      "No API_CORS_ORIGIN configured, API probably won't be accessible from other domains"
+      "No API_CORS_ORIGINS configured, API probably won't be accessible from other domains"
     )
 
     []
@@ -42,7 +42,7 @@ cors =
 
 # TODO: don't hardcode
 config :cors_plug,
-  origin: cors,
+  origin: api_cors_origins,
   max_age: 86_400,
   methods: ["GET"]
 
