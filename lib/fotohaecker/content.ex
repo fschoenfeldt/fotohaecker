@@ -233,7 +233,14 @@ defmodule Fotohaecker.Content do
     paths = photo_paths(photo)
 
     Enum.each(paths, fn path ->
-      File.rm!(path)
+      case File.rm(path) do
+        :ok ->
+          IO.puts("deleted file: #{path}")
+
+        {:error, reason} ->
+          IO.puts("error deleting file: #{path}")
+          IO.puts(reason)
+      end
     end)
 
     Repo.delete(photo)

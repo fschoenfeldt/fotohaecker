@@ -9,6 +9,8 @@ defmodule FotohaeckerWeb.IndexLive.Home do
   alias FotohaeckerWeb.IndexLive.Home.IntroComponent
   alias FotohaeckerWeb.IndexLive.Home.PhotosComponent
 
+  require Logger
+
   @submission_params_default %{
     title: "",
     tags: [""]
@@ -211,15 +213,20 @@ defmodule FotohaeckerWeb.IndexLive.Home do
           end)
 
         # delete original photo afterwards because it's not needed anymore
-        Task.await(task_compress, 10_000)
-        File.rm!(dest)
+        case Task.await(task_compress, 10_000) do
+          {:ok, _} ->
+            File.rm!(dest)
 
-        # insert into db
-        submission_params
-        |> Map.put(:file_name, file_name)
-        |> Map.put(:extension, extension)
-        |> Map.put(:user_id, current_user_id)
-        |> Content.create_photo()
+            # insert into db
+            submission_params
+            |> Map.put(:file_name, file_name)
+            |> Map.put(:extension, extension)
+            |> Map.put(:user_id, current_user_id)
+            |> Content.create_photo()
+
+          {:error, reason} ->
+            Logger.error("error compressing photo: #{inspect(reason)}")
+        end
       end)
 
     case upload_result do
