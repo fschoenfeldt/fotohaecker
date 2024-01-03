@@ -8,6 +8,8 @@ defmodule Fotohaecker.Content do
 
   alias Fotohaecker.Content.Photo
 
+  require Logger
+
   @doc """
   lists photos.
 
@@ -235,11 +237,11 @@ defmodule Fotohaecker.Content do
     Enum.each(paths, fn path ->
       case File.rm(path) do
         :ok ->
-          IO.puts("deleted file: #{path}")
+          Logger.debug("deleted file: #{path}")
 
         {:error, reason} ->
-          IO.puts("error deleting file: #{path}")
-          IO.puts(reason)
+          Logger.debug("error deleting file: #{path}")
+          Logger.debug(reason)
       end
     end)
 
