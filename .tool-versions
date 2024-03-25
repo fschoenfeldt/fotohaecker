@@ -1,5 +1,5 @@
 direnv 2.32.3
-nodejs lts-gallium
+nodejs 18.19.1
 elixir 1.15.6-otp-26
 erlang 26.1.1
-pnpm 8.6.7
+pnpm 8.15.5
