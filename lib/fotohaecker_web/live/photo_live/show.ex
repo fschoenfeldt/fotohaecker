@@ -76,7 +76,13 @@ defmodule FotohaeckerWeb.PhotoLive.Show do
               >
                 <Heroicons.trash class="w-6 h-6 stroke-white" /> <%= gettext("Delete") %>
               </button>
+              <button class="btn btn--blue">
+                modal test
+              </button>
             </div>
+            <.modal return_to={FotohaeckerWeb.LiveHelpers.photo_route(@photo.id)}>
+              modal content…
+            </.modal>
           </div>
         </div>
       <% end %>
