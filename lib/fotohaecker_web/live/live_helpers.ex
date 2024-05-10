@@ -35,11 +35,15 @@ defmodule FotohaeckerWeb.LiveHelpers do
     ~H"""
     <div id="modal" class="phx-modal fade-in" phx-remove={hide_modal()}>
       <div
+        x-data="modal"
         id="modal-content"
         class="phx-modal-content fade-in-scale"
         phx-click-away={JS.dispatch("click", to: "#close")}
         phx-window-keydown={JS.dispatch("click", to: "#close")}
         phx-key="escape"
+        role="dialog"
+        aria-modal="true"
+        aria-labelledby="modalLabel"
       >
         <%= if @return_to do %>
           <.link patch={@return_to} phx-click={hide_modal()} id="close" class="phx-modal-close">
@@ -47,6 +51,10 @@ defmodule FotohaeckerWeb.LiveHelpers do
           </.link>
         <% else %>
           <a id="close" href="#" class="phx-modal-close" phx-click={hide_modal()}>✖</a>
+        <% end %>
+
+        <%= if @title do %>
+          <h2 id="modalLabel" class="phx-modal-title"><%= @title %></h2>
         <% end %>
 
         <%= render_slot(@inner_block) %>
