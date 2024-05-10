@@ -6,6 +6,19 @@ defmodule FotohaeckerWeb.ErrorHelpers do
   use Phoenix.HTML
 
   @doc """
+  Generates a list of error messages from a changeset.
+
+  ## Examples
+
+      iex> changeset = Fotohaecker.ContentFixtures.photo_changeset(%{title: "a title that is too long for the changeset", extension: nil})
+      iex> ErrorHelpers.error_messages(changeset)
+      %{title: ["should be at most 32 character(s)"], extension: ["can't be blank"]}
+  """
+  def error_messages(changeset) do
+    Ecto.Changeset.traverse_errors(changeset, &translate_error/1)
+  end
+
+  @doc """
   Generates tag for inlined form input errors.
   """
   def error_tag(form, field) do

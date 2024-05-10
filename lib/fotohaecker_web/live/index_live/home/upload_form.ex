@@ -70,8 +70,9 @@ defmodule FotohaeckerWeb.IndexLive.Home.UploadForm do
           <div class="w-full space-y-4">
             <div>
               <label for="photo_title">
-                <%= gettext("title") %>
+                <%= gettext("title (maximum 32 characters)") %>
               </label>
+              <%!-- # TODO is there any way to get the `maxlength` out of the model? --%>
               <input
                 id="photo_title"
                 type="text"
@@ -80,6 +81,7 @@ defmodule FotohaeckerWeb.IndexLive.Home.UploadForm do
                 required
                 value={@submission_params.title}
                 phx-debounce="150"
+                maxlength="32"
               />
               <%= error_tag(f, :title) %>
             </div>
