@@ -65,6 +65,7 @@ test("can not upload photo with title longer than 32 characters", async ({
 });
 
 test("can click on 'show more' button", async ({ page }) => {
+  // TODO: this test is very slow because of the uploadPhoto function calls
   // upload 6 photos
   for (let i = 0; i < 6; i++) {
     await uploadPhoto(page);
