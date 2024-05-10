@@ -21,4 +21,20 @@ defmodule Fotohaecker.ContentFixtures do
 
     photo
   end
+
+  @doc """
+  Create a changeset for a photo.
+  """
+  def photo_changeset(attrs \\ %{}) do
+    attrs =
+      Enum.into(attrs, %{
+        description: "some description",
+        file_name: "some_file_name",
+        tags: [],
+        title: "some title",
+        extension: ".jpg"
+      })
+
+    Fotohaecker.Content.change_photo(%Fotohaecker.Content.Photo{}, attrs)
+  end
 end

@@ -259,6 +259,20 @@ defmodule Fotohaecker.Content do
   end
 
   @doc """
+  Uploads a photo, used in LiveView uploads.
+  """
+  def liveview_upload_photo(socket, submission_params, current_user_id, path, client_type) do
+    extension = Fotohaecker.Content.UploadPhoto.extension_from_type!(client_type)
+    file_name = Path.basename(path)
+    dest_name = Photo.gen_path(file_name)
+    dest = "#{dest_name}#{extension}"
+
+    submission_params
+    |> Fotohaecker.Content.UploadPhoto.add_photo_fields(file_name, extension, current_user_id)
+    |> Fotohaecker.Content.UploadPhoto.validate_and_upload_photo(socket, dest)
+  end
+
+  @doc """
   Returns an `%Ecto.Changeset{}` for tracking photo changes.
 
   ## Examples

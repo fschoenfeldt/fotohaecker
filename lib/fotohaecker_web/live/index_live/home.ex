@@ -179,58 +179,30 @@ defmodule FotohaeckerWeb.IndexLive.Home do
   end
 
   def handle_event("submission_submit", %{"photo" => submission_params}, socket) do
-    submission_params = parse_params(socket, submission_params)
-
     current_user_id =
       if socket.assigns.current_user, do: socket.assigns.current_user.id, else: nil
 
-    # TODO parts of this should be moved to the Photo context to avoid duplication
+    # extract mime type from file
+    {path, client_type} = client_type_from_upload(socket)
+
     upload_result =
-      consume_uploaded_entries(socket, :photo, fn %{path: path}, entry ->
-        extension =
-          case entry.client_type do
-            "image/jpeg" ->
-              ".jpg"
-
-            # "image/png" ->
-            #   ".png"
-
-            _type ->
-              raise "Unsupported Type. This error shouldn't happen as it's configured via LiveView Upload."
-          end
-
-        file_name = Path.basename(path)
-        dest_name = Photo.gen_path(file_name)
-        dest = "#{dest_name}#{extension}"
-
-        # write photo
-        File.cp!(path, dest)
-
-        # write thumb
-        task_compress =
-          Task.async(fn ->
-            NodeJS.call("compress", [Photo.gen_path(file_name), extension])
-          end)
-
-        # delete original photo afterwards because it's not needed anymore
-        case Task.await(task_compress, 10_000) do
-          {:ok, _} ->
-            File.rm!(dest)
-
-            # insert into db
-            submission_params
-            |> Map.put(:file_name, file_name)
-            |> Map.put(:extension, extension)
-            |> Map.put(:user_id, current_user_id)
-            |> Content.create_photo()
-
-          {:error, reason} ->
-            Logger.error("error compressing photo: #{inspect(reason)}")
-        end
-      end)
+      Content.liveview_upload_photo(
+        socket,
+        # TODO: this is dirty
+        parse_params(socket, submission_params),
+        current_user_id,
+        path,
+        client_type
+      )
 
     case upload_result do
       [%Photo{} = photo] ->
+        # TODO: this is dirty
+        submission_params = %{
+          title: photo.title,
+          tags: photo.tags
+        }
+
         {
           :noreply,
           socket
@@ -239,16 +211,30 @@ defmodule FotohaeckerWeb.IndexLive.Home do
           |> assign(:uploaded_photo, photo)
         }
 
-      _unknown_upload_result ->
-        {
-          :noreply,
-          put_flash(
-            socket,
-            :error,
-            gettext("Something went wrong uploading your photo. Please try again.")
+      [{:error, message}] ->
+        message =
+          FotohaeckerWeb.Gettext.dgettext(
+            "errors",
+            "Something went wrong uploading your photo: %{message}",
+            message: message
           )
-        }
+
+        {:noreply, put_flash(socket, :error, message)}
     end
+  end
+
+  defp client_type_from_upload(socket) do
+    [
+      {path,
+       %Phoenix.LiveView.UploadEntry{
+         client_type: client_type
+       }}
+    ] =
+      consume_uploaded_entries(socket, :photo, fn %{path: path}, entry ->
+        {:postpone, {path, entry}}
+      end)
+
+    {path, client_type}
   end
 
   # TODO this should be moved to the Photo context to avoid duplication

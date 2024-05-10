@@ -50,7 +50,22 @@ test("can upload photo", async ({ page }) => {
   await uploadPhoto(page);
 });
 
+test("can not upload photo with title longer than 32 characters", async ({
+  page,
+}) => {
+  await page.goto("/fh");
+
+  const title = "very long title".repeat(10);
+
+  const uploadForm = page.locator("form.upload_form");
+  await uploadForm.locator("#photo_title").type(title);
+  expect(await uploadForm.locator("#photo_title").inputValue()).toBe(
+    title.slice(0, 32)
+  );
+});
+
 test("can click on 'show more' button", async ({ page }) => {
+  // TODO: this test is very slow because of the uploadPhoto function calls
   // upload 6 photos
   for (let i = 0; i < 6; i++) {
     await uploadPhoto(page);
