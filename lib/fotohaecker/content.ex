@@ -258,6 +258,79 @@ defmodule Fotohaecker.Content do
     ]
   end
 
+  def liveview_upload_photo(socket, submission_params, current_user_id, path, client_type) do
+    # create neccessary photo fields
+    extension = extension_from_type!(client_type)
+    file_name = Path.basename(path)
+    dest_name = Photo.gen_path(file_name)
+    dest = "#{dest_name}#{extension}"
+
+    submission_params =
+      submission_params
+      |> Map.put(:file_name, file_name)
+      |> Map.put(:extension, extension)
+      |> Map.put(:user_id, current_user_id)
+
+    # call changeset again to check for valid params
+    case change_photo(%Photo{}, submission_params) do
+      %Ecto.Changeset{valid?: false} = changeset ->
+        error_messages =
+          changeset
+          # TODO shouldn't be called from outside of FotohaeckerWeb
+          |> FotohaeckerWeb.ErrorHelpers.error_messages()
+          |> inspect()
+
+        {:error, error_messages}
+
+      %Ecto.Changeset{valid?: true} ->
+        Phoenix.LiveView.consume_uploaded_entries(socket, :photo, fn %{path: path}, _entry ->
+          # write photo
+          File.cp!(path, dest)
+
+          # write thumb
+          task_compress =
+            Task.async(fn ->
+              NodeJS.call("compress", [Photo.gen_path(file_name), extension])
+            end)
+
+          case Task.await(task_compress, 10_000) do
+            {:ok, _} ->
+              # delete original photo afterwards because it's not needed anymore
+              File.rm!(dest)
+              # insert photo into db
+              create_photo(submission_params)
+
+            # TODO what if compressing fails?
+            {:error, reason} ->
+              Logger.error("error compressing photo: #{inspect(reason)}")
+
+              message = Gettext.dgettext(FotohaeckerWeb.Gettext, "errors", "compression failed")
+              {:error, message}
+          end
+        end)
+    end
+  end
+
+  defp extension_from_type!("image/jpeg"), do: ".jpg"
+
+  defp extension_from_type!(_unsupported_type),
+    do:
+      raise(
+        "Unsupported Type. This error shouldn't happen as it's configured via LiveView Upload."
+      )
+
+  # def consume_photo_upload_entry(
+  #       submission_params,
+  #       %{path: path},
+  #       %Phoenix.LiveView.UploadEntry{} = entry
+  #     ) do
+  #   # create neccessary photo fields
+  #   extension = extension_from_type!(entry.client_type)
+  #   file_name = Path.basename(path)
+  #   dest_name = Photo.gen_path(file_name)
+  #   dest = "#{dest_name}#{extension}"
+  # end
+
   @doc """
   Returns an `%Ecto.Changeset{}` for tracking photo changes.
 

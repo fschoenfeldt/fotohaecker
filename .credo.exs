@@ -168,6 +168,7 @@
           {Credo.Check.Refactor.ModuleDependencies,
            [
              excluded_namespaces: [
+               "Fotohaecker.Content",
                "FotohaeckerWeb",
                "FotohaeckerWeb.Endpoint",
                "Fotohaecker.TagDetection.Clarifai"

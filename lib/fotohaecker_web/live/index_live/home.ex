@@ -185,79 +185,42 @@ defmodule FotohaeckerWeb.IndexLive.Home do
     # extract mime type from file
     {path, client_type} = client_type_from_upload(socket)
 
-    # create neccessary photo fields
-    extension = extension_from_type!(client_type)
-    file_name = Path.basename(path)
-    dest_name = Photo.gen_path(file_name)
-    dest = "#{dest_name}#{extension}"
+    upload_result =
+      Content.liveview_upload_photo(
+        socket,
+        # TODO: this is dirty
+        parse_params(socket, submission_params),
+        current_user_id,
+        path,
+        client_type
+      )
 
-    submission_params =
-      socket
-      |> parse_params(submission_params)
-      |> Map.put(:file_name, file_name)
-      |> Map.put(:extension, extension)
-      |> Map.put(:user_id, current_user_id)
+    case upload_result do
+      [%Photo{} = photo] ->
+        # TODO: this is dirty
+        submission_params = %{
+          title: photo.title,
+          tags: photo.tags
+        }
 
-    # call changeset again to check for valid params
-    case Content.change_photo(%Photo{}, submission_params) do
-      %Ecto.Changeset{valid?: false} = changeset ->
-        error_messages =
-          changeset
-          |> error_messages()
-          |> inspect()
+        {
+          :noreply,
+          socket
+          |> put_flash(:info, gettext("Photo uploaded successfully."))
+          |> assign(:submission_params, submission_params)
+          |> assign(:uploaded_photo, photo)
+        }
 
-        {:error, error_messages}
+      [{:error, message}] ->
+        message =
+          Gettext.dgettext(
+            FotohaeckerWeb.Gettext,
+            "errors",
+            "Something went wrong uploading your photo: %{message}",
+            message: message
+          )
 
-      %Ecto.Changeset{valid?: true} ->
-        # TODO parts of this should be moved to the Photo context to avoid duplication
-        upload_result =
-          consume_uploaded_entries(socket, :photo, fn %{path: path}, _entry ->
-            # write photo
-            File.cp!(path, dest)
-
-            # write thumb
-            task_compress =
-              Task.async(fn ->
-                NodeJS.call("compress", [Photo.gen_path(file_name), extension])
-              end)
-
-            case Task.await(task_compress, 10_000) do
-              {:ok, _} ->
-                # delete original photo afterwards because it's not needed anymore
-                File.rm!(dest)
-                # insert photo into db
-                Content.create_photo(submission_params)
-
-              # TODO what if compressing fails?
-              {:error, reason} ->
-                Logger.error("error compressing photo: #{inspect(reason)}")
-
-                message = Gettext.dgettext(FotohaeckerWeb.Gettext, "errors", "compression failed")
-                {:error, message}
-            end
-          end)
-
-        case upload_result do
-          [%Photo{} = photo] ->
-            {
-              :noreply,
-              socket
-              |> put_flash(:info, gettext("Photo uploaded successfully."))
-              |> assign(:submission_params, submission_params)
-              |> assign(:uploaded_photo, photo)
-            }
-
-          [{:error, message}] ->
-            message =
-              Gettext.dgettext(
-                FotohaeckerWeb.Gettext,
-                "errors",
-                "Something went wrong uploading your photo: %{message}",
-                message: message
-              )
-
-            {:noreply, put_flash(socket, :error, message)}
-        end
+        {:noreply, put_flash(socket, :error, message)}
     end
   end
 
@@ -284,14 +247,6 @@ defmodule FotohaeckerWeb.IndexLive.Home do
     |> maybe_put_file_name(socket.assigns.uploads.photo.entries)
     |> maybe_put_tags()
   end
-
-  defp extension_from_type!("image/jpeg"), do: ".jpg"
-
-  defp extension_from_type!(_unsupported_type),
-    do:
-      raise(
-        "Unsupported Type. This error shouldn't happen as it's configured via LiveView Upload."
-      )
 
   defp maybe_put_file_name(params, entries) do
     if Enum.empty?(entries) do
