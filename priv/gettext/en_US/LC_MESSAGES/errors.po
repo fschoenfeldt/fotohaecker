@@ -100,3 +100,13 @@ msgstr ""
 #, elixir-autogen, elixir-format
 msgid "photo not found"
 msgstr ""
+
+#: lib/fotohaecker_web/live/index_live/home.ex:216
+#, elixir-autogen, elixir-format
+msgid "Something went wrong uploading your photo: %{message}"
+msgstr ""
+
+#: lib/fotohaecker/content/upload_photo.ex:68
+#, elixir-autogen, elixir-format, fuzzy
+msgid "photo compression failed"
+msgstr ""

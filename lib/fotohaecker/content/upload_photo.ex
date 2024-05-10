@@ -4,6 +4,7 @@ defmodule Fotohaecker.Content.UploadPhoto do
   """
   require Logger
 
+  require FotohaeckerWeb.Gettext
   alias Fotohaecker.Content
   alias Fotohaecker.Content.Photo
 
@@ -64,7 +65,7 @@ defmodule Fotohaecker.Content.UploadPhoto do
 
       {:error, reason} ->
         Logger.error("error compressing photo: #{inspect(reason)}")
-        message = Gettext.dgettext(FotohaeckerWeb.Gettext, "errors", "compression failed")
+        message = FotohaeckerWeb.Gettext.dgettext("errors", "photo compression failed")
         {:error, message}
     end
   end
