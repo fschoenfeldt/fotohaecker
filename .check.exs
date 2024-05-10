@@ -17,7 +17,7 @@
     # {:compiler, false},
     {:npm_test, false},
     {:sobelow, false},
-    {:doctor, false}
+    {:doctor, false},
 
     ## ...or have command & args adjusted (e.g. enable skip comments for sobelow)
     # {:sobelow, "mix sobelow --exit --skip"},
@@ -27,11 +27,11 @@
 
     ## ...or reconfigured (e.g. disable parallel execution of ex_unit in umbrella)
     # {:ex_unit, umbrella: [parallel: false]},
+    {:gettext, "mix gettext.extract --check-up-to-date",
+     fix: "mix gettext.extract --merge priv/gettext"}
 
     ## custom new tools may be added (Mix tasks or arbitrary commands)
     # {:my_task, "mix my_task", env: %{"MIX_ENV" => "prod"}},
     # {:my_tool, ["my_tool", "arg with spaces"]}
-    # {:gettext, "mix gettext.extract --check-up-to-date",
-    #  fix: "mix gettext.extract --merge priv/gettext", parallel: false, order: -1}
   ]
 ]
