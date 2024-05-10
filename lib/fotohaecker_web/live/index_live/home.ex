@@ -179,37 +179,39 @@ defmodule FotohaeckerWeb.IndexLive.Home do
   end
 
   def handle_event("submission_submit", %{"photo" => submission_params}, socket) do
-    submission_params = parse_params(socket, submission_params)
-
     current_user_id =
       if socket.assigns.current_user, do: socket.assigns.current_user.id, else: nil
 
-    # TODO parts of this should be moved to the Photo context to avoid duplication
-    upload_result =
-      consume_uploaded_entries(socket, :photo, fn %{path: path}, entry ->
-        # create neccessary photo fields
-        extension = extension_from_type!(entry.client_type)
-        file_name = Path.basename(path)
-        dest_name = Photo.gen_path(file_name)
-        dest = "#{dest_name}#{extension}"
+    # extract mime type from file
+    {path, client_type} = client_type_from_upload(socket)
 
-        submission_params =
-          submission_params
-          |> Map.put(:file_name, file_name)
-          |> Map.put(:extension, extension)
-          |> Map.put(:user_id, current_user_id)
+    # create neccessary photo fields
+    extension = extension_from_type!(client_type)
+    file_name = Path.basename(path)
+    dest_name = Photo.gen_path(file_name)
+    dest = "#{dest_name}#{extension}"
 
-        # call changeset again to check for valid params
-        case Content.change_photo(%Photo{}, submission_params) do
-          %Ecto.Changeset{valid?: false} = changeset ->
-            error_messages =
-              changeset
-              |> error_messages()
-              |> inspect()
+    submission_params =
+      socket
+      |> parse_params(submission_params)
+      |> Map.put(:file_name, file_name)
+      |> Map.put(:extension, extension)
+      |> Map.put(:user_id, current_user_id)
 
-            {:error, error_messages}
+    # call changeset again to check for valid params
+    case Content.change_photo(%Photo{}, submission_params) do
+      %Ecto.Changeset{valid?: false} = changeset ->
+        error_messages =
+          changeset
+          |> error_messages()
+          |> inspect()
 
-          %Ecto.Changeset{valid?: true} ->
+        {:error, error_messages}
+
+      %Ecto.Changeset{valid?: true} ->
+        # TODO parts of this should be moved to the Photo context to avoid duplication
+        upload_result =
+          consume_uploaded_entries(socket, :photo, fn %{path: path}, _entry ->
             # write photo
             File.cp!(path, dest)
 
@@ -233,30 +235,44 @@ defmodule FotohaeckerWeb.IndexLive.Home do
                 message = Gettext.dgettext(FotohaeckerWeb.Gettext, "errors", "compression failed")
                 {:error, message}
             end
+          end)
+
+        case upload_result do
+          [%Photo{} = photo] ->
+            {
+              :noreply,
+              socket
+              |> put_flash(:info, gettext("Photo uploaded successfully."))
+              |> assign(:submission_params, submission_params)
+              |> assign(:uploaded_photo, photo)
+            }
+
+          [{:error, message}] ->
+            message =
+              Gettext.dgettext(
+                FotohaeckerWeb.Gettext,
+                "errors",
+                "Something went wrong uploading your photo: %{message}",
+                message: message
+              )
+
+            {:noreply, put_flash(socket, :error, message)}
         end
+    end
+  end
+
+  defp client_type_from_upload(socket) do
+    [
+      {path,
+       %Phoenix.LiveView.UploadEntry{
+         client_type: client_type
+       }}
+    ] =
+      consume_uploaded_entries(socket, :photo, fn %{path: path}, entry ->
+        {:postpone, {path, entry}}
       end)
 
-    case upload_result do
-      [%Photo{} = photo] ->
-        {
-          :noreply,
-          socket
-          |> put_flash(:info, gettext("Photo uploaded successfully."))
-          |> assign(:submission_params, submission_params)
-          |> assign(:uploaded_photo, photo)
-        }
-
-      [{:error, message}] ->
-        message =
-          Gettext.dgettext(
-            FotohaeckerWeb.Gettext,
-            "errors",
-            "Something went wrong uploading your photo: %{message}",
-            message: message
-          )
-
-        {:noreply, put_flash(socket, :error, message)}
-    end
+    {path, client_type}
   end
 
   # TODO this should be moved to the Photo context to avoid duplication
