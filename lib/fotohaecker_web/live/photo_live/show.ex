@@ -22,7 +22,9 @@ defmodule FotohaeckerWeb.PhotoLive.Show do
         {:noreply,
          socket
          |> assign(:page_title, photo.title)
-         |> assign(:photo, photo)}
+         |> assign(:photo, photo)
+         # TODO: is this good?
+         |> assign(:show_delete_photo_confirmation_modal, false)}
 
       nil ->
         raise PhotoNotFoundError
@@ -72,7 +74,7 @@ defmodule FotohaeckerWeb.PhotoLive.Show do
               <button
                 :if={Content.is_photo_owner?(@photo, @current_user)}
                 class="btn btn--red flex gap-2 w-max"
-                phx-click="delete_photo"
+                phx-click="show_delete_photo_confirmation_modal"
               >
                 <Heroicons.trash class="w-6 h-6 stroke-white" /> <%= gettext("Delete") %>
               </button>
@@ -80,13 +82,40 @@ defmodule FotohaeckerWeb.PhotoLive.Show do
                 modal test
               </button>
             </div>
-            <.modal return_to={FotohaeckerWeb.LiveHelpers.photo_route(@photo.id)}>
-              modal content…
-            </.modal>
+            <%= if @show_delete_photo_confirmation_modal do %>
+              <.delete_photo_confirmation_modal photo={@photo} />
+            <% end %>
           </div>
         </div>
       <% end %>
     </div>
+    """
+  end
+
+  # TODO: when no javascript is available, show a link to delete the photo
+  attr(:photo, Photo)
+
+  defp delete_photo_confirmation_modal(assigns) do
+    ~H"""
+    <.modal title="modal title" return_to={FotohaeckerWeb.LiveHelpers.photo_route(@photo.id)}>
+      <%= gettext("Are you sure you want to delete this photo?") %>
+      <div class="flex gap-2">
+        <button
+          data-testid="confirm-delete-button"
+          class="btn btn--red flex gap-2 w-max"
+          phx-click="delete_photo"
+        >
+          <Heroicons.trash class="w-6 h-6 stroke-white" /> <%= gettext("Confirm Delete") %>
+        </button>
+        <button
+          data-testid="cancel-delete-button"
+          class="btn btn--gray flex gap-2 w-max"
+          phx-click={JS.dispatch("click", to: "#close")}
+        >
+          <Heroicons.x_circle class="w-6 h-6 stroke-black" /> <%= gettext("Cancel") %>
+        </button>
+      </div>
+    </.modal>
     """
   end
 
@@ -377,6 +406,10 @@ defmodule FotohaeckerWeb.PhotoLive.Show do
      |> assign(:photo, photo)
      |> assign(:editing, nil)
      |> put_flash(:info, gettext("photo updated"))}
+  end
+
+  def handle_event("show_delete_photo_confirmation_modal", _params, socket) do
+    {:noreply, assign(socket, :show_delete_photo_confirmation_modal, true)}
   end
 
   def handle_event("delete_photo", _params, socket) do
