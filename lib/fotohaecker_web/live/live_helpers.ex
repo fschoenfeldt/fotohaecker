@@ -53,7 +53,7 @@ defmodule FotohaeckerWeb.LiveHelpers do
           <a id="close" href="#" class="phx-modal-close" phx-click={hide_modal()}>✖</a>
         <% end %>
 
-        <%= if @title do %>
+        <%= if Map.get(assigns, :title) do %>
           <h2 id="modalLabel" class="phx-modal-title"><%= @title %></h2>
         <% end %>
 
