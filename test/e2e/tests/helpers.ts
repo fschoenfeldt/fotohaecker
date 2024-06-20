@@ -10,7 +10,7 @@ export const uploadPhoto = async (page: Page, photo: any = {}) => {
   photo = Object.assign(
     {
       title: `Test Photo ${Math.random().toString(36)}`,
-      file: "./fixtures/photo_fixture.jpg",
+      file: "test/e2e/fixtures/photo_fixture.jpg",
       tags: [""],
     },
     photo
@@ -55,7 +55,7 @@ export const userFixture = {
   password: process.env.E2E_USER_PASSWORD || "",
 };
 
-export const authFileUser = "playwright/.auth/authUser.json";
+export const authFileUser = "test/e2e/playwright/.auth/authUser.json";
 
 export const photographerFixture = {
   id: process.env.E2E_PHOTOGRAPHER_ID || "",
@@ -63,7 +63,8 @@ export const photographerFixture = {
   password: process.env.E2E_PHOTOGRAPHER_PASSWORD || "",
 };
 
-export const authFilePhotographer = "playwright/.auth/authPhotographer.json";
+export const authFilePhotographer =
+  "test/e2e/playwright/.auth/authPhotographer.json";
 
 export const auth0UserManagementEnabled =
   process.env.AUTH0_CLIENT_ID &&

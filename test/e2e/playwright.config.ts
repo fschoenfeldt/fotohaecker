@@ -121,6 +121,8 @@ export default defineConfig({
   webServer: {
     command: `cd ../../ && MIX_ENV=e2e PORT=${PORT} mix phx.server`,
     url: `http://localhost:${PORT}/fh`,
+    // TODO: teardown of webserver is not reliable enough yet
+    //       -> https://github.com/microsoft/playwright/issues/18041#issuecomment-1282807484
     reuseExistingServer: false,
     timeout: 30 * 1000,
   },
