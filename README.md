@@ -100,16 +100,9 @@ If you want to use the [playwright vscode extension](https://playwright.dev/docs
 
 Notes:
 
-- `E2E_USER`
-  - use a user that _hasn't_ set up donations yet (`lib/fotohaecker/payment/stripe_payment.ex:133~135`)
-  - `E2E_USER_ID` id of the user that is used for the e2e tests
-  - `E2E_USER_EMAIL` email of the user that is used for the e2e tests
-  - `E2E_USER_PASSWORD` password of the user that is used for the e2e tests
-- `E2E_PHOTOGRAPHER`
-  - use a user that _has_ set up donations (`lib/fotohaecker/payment/stripe_payment.ex:133~135`)
-  - `E2E_PHOTOGRAPHER_ID` id of the user that is used for the e2e tests
-  - `E2E_PHOTOGRAPHER_EMAIL` email of the user that is used for the e2e tests
-  - `E2E_PHOTOGRAPHER_PASSWORD` password of the user that is used for the e2e tests
+- For `_ID`, use the auth0 user id
+- for the `E2E_USER`, you have to insert a user that _hasn't_ set up donations yet.
+- for the `E2E_PHOTOGRAPHER`, you have to insert a user that _has_ set up donations.
 
 ## Deployment
 
