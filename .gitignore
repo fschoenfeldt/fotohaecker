@@ -45,3 +45,7 @@ _uberspace/*.ini*
 
 # auth0
 auth0/config.json
+
+# e2e tests by vscode extension
+/playwright/.cache/
+/playwright/.auth
