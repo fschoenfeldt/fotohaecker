@@ -70,16 +70,12 @@ defmodule FotohaeckerWeb.PhotoLive.Show do
               <.download_link class="btn btn--green flex gap-2 w-max" href={path} photo={@photo}>
                 <Heroicons.arrow_down_tray class="w-6 h-6 stroke-white" /> <%= gettext("Download") %>
               </.download_link>
-              <%!-- # TODO use form instead of liveview action, also add confirmation --%>
               <button
                 :if={Content.is_photo_owner?(@photo, @current_user)}
                 class="btn btn--red flex gap-2 w-max"
                 phx-click="show_delete_photo_confirmation_modal"
               >
                 <Heroicons.trash class="w-6 h-6 stroke-white" /> <%= gettext("Delete") %>
-              </button>
-              <button class="btn btn--blue">
-                modal test
               </button>
             </div>
             <%= if @show_delete_photo_confirmation_modal do %>
@@ -93,6 +89,7 @@ defmodule FotohaeckerWeb.PhotoLive.Show do
   end
 
   # TODO: when no javascript is available, show a link to delete the photo
+  #       -> https://github.com/fschoenfeldt/fotohaecker/issues/117
   attr(:photo, Photo)
 
   defp delete_photo_confirmation_modal(assigns) do

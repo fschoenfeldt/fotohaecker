@@ -45,17 +45,20 @@ defmodule FotohaeckerWeb.LiveHelpers do
         aria-modal="true"
         aria-labelledby="modalLabel"
       >
-        <%= if @return_to do %>
-          <.link patch={@return_to} phx-click={hide_modal()} id="close" class="phx-modal-close">
-            ✖
-          </.link>
-        <% else %>
-          <a id="close" href="#" class="phx-modal-close" phx-click={hide_modal()}>✖</a>
-        <% end %>
-
-        <%= if Map.get(assigns, :title) do %>
-          <h2 id="modalLabel" class="phx-modal-title"><%= @title %></h2>
-        <% end %>
+        <div class="flex justify-between">
+          <%= if Map.get(assigns, :title) do %>
+            <h2 id="modalLabel" class="phx-modal-title"><%= @title %></h2>
+          <% end %>
+          <%= if @return_to do %>
+            <.link patch={@return_to} phx-click={hide_modal()} id="close" class="phx-modal-close">
+              <Heroicons.x_mark class="w-6 h-6" />
+            </.link>
+          <% else %>
+            <a id="close" href="#" class="phx-modal-close" phx-click={hide_modal()}>
+              <Heroicons.x_mark class="w-6 h-6" />
+            </a>
+          <% end %>
+        </div>
 
         <%= render_slot(@inner_block) %>
       </div>
