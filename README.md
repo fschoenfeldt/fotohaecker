@@ -77,18 +77,7 @@ pnpm --prefix test/e2e test -- --trace on --headed
 
 #### If you want to use the VSCode Extension
 
-[Link to extension](https://marketplace.visualstudio.com/items?itemName=ms-playwright.playwright).
-
-##### Select Setup Step
-
-Make sure to select the setup steps inside the "project" view of the vscode extension:
-
-1. setup
-2. setup photographer
-
-##### Env Vars
-
-Add the following variables to your vscode user settings:
+If you want to use the [playwright vscode extension](https://playwright.dev/docs/getting-started-vscode), add the following variables to your vscode user settings:
 
 ```json
   "playwright.env": {
