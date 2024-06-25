@@ -33,6 +33,17 @@ export const uploadPhoto = async (page: Page, photo: any = {}) => {
   return { photo };
 };
 
+export const openDeletePhotoModal = async (page: Page) => {
+  await page.getByText("Delete").click();
+  const modal = page.locator("#modal");
+  return modal;
+};
+
+export const deletePhoto = async (page: Page) => {
+  const modal = await openDeletePhotoModal(page);
+  await modal.getByTestId("confirm-delete-button").click();
+};
+
 /**
  * Changes the language of the page
  * @param page {Page}

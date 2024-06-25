@@ -1,5 +1,10 @@
 import { test, expect } from "../fixtures/axe-test";
-import { changeLanguage, uploadPhoto } from "./helpers";
+import {
+  changeLanguage,
+  deletePhoto,
+  openDeletePhotoModal,
+  uploadPhoto,
+} from "./helpers";
 
 test.describe("Photo Page: Static", () => {
   test.beforeEach(async ({ page }) => {
@@ -97,6 +102,45 @@ test.describe("Photo Page: CRUD", () => {
       "tags",
     ]);
     await expect(page.locator(".alert--info")).toContainText("photo updated");
+  });
+
+  test("can delete photo", async ({ page, context }) => {
+    await deletePhoto(page);
+    await expect(page.locator(".alert--info")).toContainText("photo deleted");
+  });
+});
+
+test.describe("Photo Page: Delete Modal", () => {
+  test.beforeEach(async ({ page, context }) => {
+    const { photo } = await uploadPhoto(page);
+    context.photo = photo;
+  });
+
+  test("should not have any automatically detectable accessibility issues", async ({
+    page,
+    makeAxeBuilder,
+  }) => {
+    test.slow();
+    await openDeletePhotoModal(page);
+    // wait for animation finish
+    // TODO: flaky
+    await page.waitForTimeout(300);
+    const accessibilityScanResults = await makeAxeBuilder().analyze();
+    expect(accessibilityScanResults.violations).toEqual([]);
+  });
+
+  test("should not have any automatically detectable accessibility issues in dark mode", async ({
+    page,
+    makeAxeBuilder,
+  }) => {
+    test.slow();
+    await page.emulateMedia({ colorScheme: "dark" });
+    await openDeletePhotoModal(page);
+    // wait for animation finish
+    // TODO: flaky
+    await page.waitForTimeout(300);
+    const accessibilityScanResults = await makeAxeBuilder().analyze();
+    expect(accessibilityScanResults.violations).toEqual([]);
   });
 });
 
