@@ -63,9 +63,6 @@ defmodule FotohaeckerWeb.IndexLive.Home.UploadForm do
               entry={entry}
               class="max-w-[50%] max-h-[30vh] hidden md:block object-cover"
             />
-            <%!--<figure class="w-full">
-                <figcaption><%= entry.client_name %></figcaption>
-              </figure>--%>
           <% end %>
           <div class="w-full space-y-4">
             <div>

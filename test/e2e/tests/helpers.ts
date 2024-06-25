@@ -1,4 +1,5 @@
 import { Page, expect } from "@playwright/test";
+import path from "path";
 
 /**
  * Uploads a photo to the server, redirects to the photo page
@@ -10,7 +11,7 @@ export const uploadPhoto = async (page: Page, photo: any = {}) => {
   photo = Object.assign(
     {
       title: `Test Photo ${Math.random().toString(36)}`,
-      file: "test/e2e/fixtures/photo_fixture.jpg",
+      file: applyPathMagic("fixtures/photo_fixture.jpg", "tests/"),
       tags: [""],
     },
     photo
@@ -22,7 +23,6 @@ export const uploadPhoto = async (page: Page, photo: any = {}) => {
   await uploadForm.locator("button[type=submit]").click();
 
   await page.waitForSelector('[phx-submit="submission_submit_tags"]');
-  // await page.waitForLoadState("networkidle");
   await expect(page.locator(".alert--info")).toBeVisible();
   await expect(page.locator(".alert--info")).toContainText(
     "Photo uploaded successfully."
@@ -49,13 +49,32 @@ export const changeLanguage = async (
   await languageButton.click();
 };
 
+/**
+ * Joins the given path with the directory name.
+ * @param {string} join - The path to join with the directory name.
+ * @returns {string} - The joined path.
+ */
+const joinPath = (join: string): string => path.join(__dirname, join);
+
+/**
+ * Applies path magic by joining the given path and replacing the strip string.
+ * @param {string} filePath - The path to join and modify.
+ * @param {string} strip - The string to be replaced in the joined path.
+ * @returns {string} - The modified path.
+ */
+const applyPathMagic = (filePath: string, strip: string): string =>
+  joinPath(filePath).replace(strip, "");
+
 export const userFixture = {
   id: process.env.E2E_USER_ID || "",
   email: process.env.E2E_USER_EMAIL || "",
   password: process.env.E2E_USER_PASSWORD || "",
 };
 
-export const authFileUser = "test/e2e/playwright/.auth/authUser.json";
+export const authFileUser = applyPathMagic(
+  "playwright/.auth/authUser.json",
+  "tests/"
+);
 
 export const photographerFixture = {
   id: process.env.E2E_PHOTOGRAPHER_ID || "",
@@ -63,8 +82,10 @@ export const photographerFixture = {
   password: process.env.E2E_PHOTOGRAPHER_PASSWORD || "",
 };
 
-export const authFilePhotographer =
-  "test/e2e/playwright/.auth/authPhotographer.json";
+export const authFilePhotographer = applyPathMagic(
+  "playwright/.auth/authPhotographer.json",
+  "tests/"
+);
 
 export const auth0UserManagementEnabled =
   process.env.AUTH0_CLIENT_ID &&
