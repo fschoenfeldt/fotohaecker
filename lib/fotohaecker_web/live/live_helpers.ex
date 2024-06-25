@@ -1,6 +1,5 @@
 defmodule FotohaeckerWeb.LiveHelpers do
   @moduledoc false
-  import Phoenix.LiveView.Helpers
   import Phoenix.Component
 
   alias FotohaeckerWeb.Router.Helpers
@@ -52,6 +51,7 @@ defmodule FotohaeckerWeb.LiveHelpers do
           <%= if @return_to do %>
             <.link patch={@return_to} phx-click={hide_modal()} id="close" class="phx-modal-close">
               <Heroicons.x_mark class="w-6 h-6" />
+              <span class="sr-only"><%= FotohaeckerWeb.Gettext.gettext("close") %></span>
             </.link>
           <% else %>
             <a id="close" href="#" class="phx-modal-close" phx-click={hide_modal()}>

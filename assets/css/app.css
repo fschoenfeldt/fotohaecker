@@ -126,6 +126,9 @@
   button,
   .btn {
     @apply rounded border border-gray-800 p-2 px-4 text-gray-800 dark:border-gray-200 dark:text-gray-200;
+    > * {
+      @apply text-gray-800 dark:text-gray-200;
+    }
   }
 
   button:disabled {
@@ -394,14 +397,11 @@
   }
 
   .phx-modal-content {
-    @apply bg-gray-50 mx-auto p-4 md:p-6 rounded w-11/12 md:w-4/5 flex flex-col gap-y-4;
+    @apply bg-gray-50 mx-auto p-4 md:p-6 rounded w-11/12 md:w-4/5 flex flex-col gap-y-4 max-w-fit;
   }
 
   .phx-modal-close {
-    color: #aaa;
-    float: right;
-    font-size: 28px;
-    font-weight: bold;
+    @apply h-8 w-8 flex items-center justify-center;
   }
 
   .phx-modal-close:hover,

@@ -94,7 +94,10 @@ defmodule FotohaeckerWeb.PhotoLive.Show do
 
   defp delete_photo_confirmation_modal(assigns) do
     ~H"""
-    <.modal title="modal title" return_to={FotohaeckerWeb.LiveHelpers.photo_route(@photo.id)}>
+    <.modal
+      title={gettext("Delete photo")}
+      return_to={FotohaeckerWeb.LiveHelpers.photo_route(@photo.id)}
+    >
       <%= gettext("Are you sure you want to delete this photo?") %>
       <div class="flex gap-2">
         <button
@@ -102,11 +105,11 @@ defmodule FotohaeckerWeb.PhotoLive.Show do
           class="btn btn--red flex gap-2 w-max"
           phx-click="delete_photo"
         >
-          <Heroicons.trash class="w-6 h-6 stroke-white" /> <%= gettext("Confirm Delete") %>
+          <Heroicons.trash class="w-6 h-6 stroke-white" /> <%= gettext("Delete") %>
         </button>
         <button
           data-testid="cancel-delete-button"
-          class="btn btn--gray flex gap-2 w-max"
+          class="btn btn--dark flex gap-2 w-max"
           phx-click={JS.dispatch("click", to: "#close")}
         >
           <Heroicons.x_circle class="w-6 h-6 stroke-black" /> <%= gettext("Cancel") %>
