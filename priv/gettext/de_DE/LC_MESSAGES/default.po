@@ -48,17 +48,17 @@ msgstr "Foto %{title} auf Fotohäcker"
 msgid "sort by"
 msgstr "sortieren nach"
 
-#: lib/fotohaecker_web/live/index_live/home/upload_form.ex:116
+#: lib/fotohaecker_web/live/index_live/home/upload_form.ex:113
 #, elixir-autogen, elixir-format
 msgid "the selected file can't be uploaded:"
 msgstr "die ausgewählte Datei kann nicht hochgeladen werden:"
 
-#: lib/fotohaecker_web/live/index_live/home/upload_form.ex:155
+#: lib/fotohaecker_web/live/index_live/home/upload_form.ex:152
 #, elixir-autogen, elixir-format
 msgid "upload"
 msgstr "hochladen"
 
-#: lib/fotohaecker_web/live/index_live/home/upload_form.ex:154
+#: lib/fotohaecker_web/live/index_live/home/upload_form.ex:151
 #, elixir-autogen, elixir-format
 msgid "uploading.."
 msgstr "wird hochgeladen.."
@@ -68,7 +68,7 @@ msgstr "wird hochgeladen.."
 msgid "back"
 msgstr "zurück"
 
-#: lib/fotohaecker_web/live/index_live/home/upload_form.ex:90
+#: lib/fotohaecker_web/live/index_live/home/upload_form.ex:87
 #, elixir-autogen, elixir-format
 msgid "drag the photo here or use the file button below"
 msgstr "Ziehe das Foto hierher oder verwende die Schaltfläche unten"
@@ -88,7 +88,7 @@ msgstr "deutsch"
 msgid "go to photo %{title} on Fotohäcker"
 msgstr "Foto %{title} auf Fotohäcker"
 
-#: lib/fotohaecker_web/live/index_live/home/upload_form.ex:80
+#: lib/fotohaecker_web/live/index_live/home/upload_form.ex:77
 #, elixir-autogen, elixir-format
 msgid "photo title"
 msgstr "Fototitel"
@@ -174,7 +174,7 @@ msgstr "Dein Account"
 msgid "Home"
 msgstr "Startseite"
 
-#: lib/fotohaecker_web/live/index_live/home/upload_form.ex:96
+#: lib/fotohaecker_web/live/index_live/home/upload_form.ex:93
 #, elixir-autogen, elixir-format
 msgid "photo upload field"
 msgstr "Datei hochladen"
@@ -194,7 +194,7 @@ msgstr "Etwas ist beim Hochladen Deines Fotos schiefgelaufen: %{error}"
 msgid "Tags updated successfully."
 msgstr "Foto erfolgreich hochgeladen."
 
-#: lib/fotohaecker_web/live/index_live/home/upload_form.ex:187
+#: lib/fotohaecker_web/live/index_live/home/upload_form.ex:184
 #, elixir-autogen, elixir-format
 msgid "generate using AI"
 msgstr "via KI generieren"
@@ -204,7 +204,7 @@ msgstr "via KI generieren"
 msgid "no tags"
 msgstr "keine Schlagwörter"
 
-#: lib/fotohaecker_web/live/index_live/home/upload_form.ex:175
+#: lib/fotohaecker_web/live/index_live/home/upload_form.ex:172
 #, elixir-autogen, elixir-format
 msgid "photo tags"
 msgstr "Schlagwörter des Fotos"
@@ -215,7 +215,7 @@ msgstr "Schlagwörter des Fotos"
 msgid "saving.."
 msgstr "Speichern.."
 
-#: lib/fotohaecker_web/live/index_live/home/upload_form.ex:168
+#: lib/fotohaecker_web/live/index_live/home/upload_form.ex:165
 #, elixir-autogen, elixir-format
 msgid "set tags for your uploaded photo"
 msgstr "Setze Schlagwörter für Dein hochgeladenes Foto"
@@ -308,17 +308,17 @@ msgid_plural "%{count} results"
 msgstr[0] "1 Ergebnis"
 msgstr[1] "%{count} Ergebnisse"
 
-#: lib/fotohaecker_web/live/index_live/home/upload_form.ex:142
+#: lib/fotohaecker_web/live/index_live/home/upload_form.ex:139
 #, elixir-autogen, elixir-format
 msgid "upload progress"
 msgstr "Uploadfortschritt"
 
-#: lib/fotohaecker_web/live/index_live/home/upload_form.ex:131
+#: lib/fotohaecker_web/live/index_live/home/upload_form.ex:128
 #, elixir-autogen, elixir-format
 msgid "upload progress:"
 msgstr "Uploadfortschritt:"
 
-#: lib/fotohaecker_web/live/index_live/home/upload_form.ex:132
+#: lib/fotohaecker_web/live/index_live/home/upload_form.ex:129
 #, elixir-autogen, elixir-format
 msgid "waiting for submission"
 msgstr "Warte auf Absenden"
@@ -363,12 +363,12 @@ msgstr "von einem anonymen Benutzer"
 msgid "by user_id %{user_id}"
 msgstr "von user_id %{user_id}"
 
-#: lib/fotohaecker_web/live/index_live/home/upload_form.ex:102
+#: lib/fotohaecker_web/live/index_live/home/upload_form.ex:99
 #, elixir-autogen, elixir-format
 msgid "accepted file types: .jpg, .jpeg."
 msgstr "erlaubte Dateitypen: .jpg, .jpeg."
 
-#: lib/fotohaecker_web/live/index_live/home/upload_form.ex:105
+#: lib/fotohaecker_web/live/index_live/home/upload_form.ex:102
 #, elixir-autogen, elixir-format
 msgid "metadata and exif data will be removed upon upload to ensure privacy."
 msgstr "Metadaten und EXIF-Daten werden beim Hochladen entfernt, um Deine Privatsphäre zu schützen."
@@ -500,7 +500,7 @@ msgstr "Benutzer"
 msgid "profile picture of %{nickname}"
 msgstr "Profilbild von %{nickname}"
 
-#: lib/fotohaecker_web/live/index_live/home/upload_form.ex:73
+#: lib/fotohaecker_web/live/index_live/home/upload_form.ex:70
 #, elixir-autogen, elixir-format
 msgid "title (maximum 32 characters)"
 msgstr "Titel (maximal 32 Zeichen)"
