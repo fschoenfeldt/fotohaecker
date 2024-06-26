@@ -21,6 +21,12 @@ defmodule FotohaeckerWeb.Router do
   end
 
   scope "/fh" do
+    scope "/api/swagger", PhoenixSwagger do
+      forward "/", Plug.SwaggerUI,
+        otp_app: :fotohaecker,
+        swagger_file: "api.json"
+    end
+
     scope "/api", FotohaeckerWeb do
       pipe_through :api
 
@@ -97,5 +103,15 @@ defmodule FotohaeckerWeb.Router do
 
       forward "/mailbox", Plug.Swoosh.MailboxPreview
     end
+  end
+
+  def swagger_info do
+    %{
+      # basePath: "/fh/api",
+      info: %{
+        version: "1.0",
+        title: "Fotohaecker"
+      }
+    }
   end
 end

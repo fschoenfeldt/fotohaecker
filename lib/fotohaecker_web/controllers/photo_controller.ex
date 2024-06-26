@@ -1,15 +1,52 @@
 defmodule FotohaeckerWeb.PhotoController do
   use FotohaeckerWeb, :controller
+  use PhoenixSwagger
 
   alias Fotohaecker.Content
   alias Fotohaecker.Content.Photo
 
   action_fallback FotohaeckerWeb.FallbackController
 
+  def swagger_definitions do
+    %{
+      Photo:
+        swagger_schema do
+          title("Photo")
+          description("A photo")
+
+          properties do
+            id(:integer, "Photo ID", required: true)
+            title(:string, "Photo title", required: true)
+            description(:string, "Photo description")
+            url(:string, "Photo URL", required: true)
+            inserted_at(:string, "Creation timestamp", format: "date-time")
+            updated_at(:string, "Last update timestamp", format: "date-time")
+          end
+        end
+    }
+  end
+
+  swagger_path :index do
+    tag("Photo")
+    description("List all photos")
+    response(200, "OK", Schema.ref(:Photo))
+  end
+
   # TODO: result pagination
   def index(conn, _params) do
     photos = Content.list_photos()
     render(conn, :index, photos: photos)
+  end
+
+  swagger_path :show do
+    tag("Photo")
+    description("Get a photo by ID")
+
+    parameters do
+      id(:path, :integer, "Photo ID", required: true)
+    end
+
+    response(200, "OK", Schema.ref(:Photo))
   end
 
   def show(conn, %{"id" => id}) do
