@@ -70,7 +70,6 @@ defmodule FotohaeckerWeb.PhotoController do
   swagger_path :search_query do
     tag("Photo")
     description("Search for photos")
-    deprecated(true)
 
     parameters do
       query(:query, :string, "Search string", required: true)
