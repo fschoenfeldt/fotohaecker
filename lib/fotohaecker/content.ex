@@ -1,6 +1,8 @@
 defmodule Fotohaecker.Content do
   @moduledoc """
   The Content context.
+
+  For more information about content structure, see `content.md`.
   """
 
   import Ecto.Query, warn: false
