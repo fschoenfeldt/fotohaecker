@@ -1,0 +1,38 @@
+{
+  "title": "Fujicolor 100 Gold",
+  "description": "# Überschrift\n\nDies ist ein Absatz mit **fettgedrucktem** Text und *kursivem* Text.\n\n- Liste\n- mit\n- Punkten",
+  "user_id": "auth0|6513ef7d56ab5fc22ace2926",
+  "brand": "fujifilm",
+  "settings": {
+    "compatible": ["x_trans_iv", "x_trans_v"],
+    "base_simulation": "Classic Negative",
+    "dynamic_range": "DR400",
+    "grain_effect": {
+      "strength": "Strong",
+      "size": "Small"
+    },
+    "color_chrome_effect": "Off",
+    "color_chrome_fx_blue": "Off",
+    "white_balance": {
+      "preset": "Daylight",
+      "tint": {
+        "red": "+4",
+        "blue": "-5"
+      }
+    },
+    "highlight": -2,
+    "shadow": 1,
+    "color": 3,
+    "sharpness": -2,
+    "high_iso_nr": -4,
+    "clarity": -2,
+    "iso": {
+      "mode": "Auto",
+      "limit": 6400
+    },
+    "exposure_compensation": {
+      "min": "+2/3",
+      "max": "+1 1/3"
+    }
+  }
+}

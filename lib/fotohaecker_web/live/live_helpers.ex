@@ -129,6 +129,15 @@ defmodule FotohaeckerWeb.LiveHelpers do
         id
       )
 
+  def recipe_route(id),
+    do:
+      Helpers.recipe_show_path(
+        FotohaeckerWeb.Endpoint,
+        :show,
+        Gettext.get_locale(FotohaeckerWeb.Gettext),
+        id
+      )
+
   def user_route(id),
     do:
       Helpers.user_show_path(

@@ -17,7 +17,7 @@ defmodule FotohaeckerWeb.PhotoLive.Show do
 
   @impl true
   def handle_params(%{"id" => id}, _what, socket) do
-    case Content.get_photo(id) do
+    case Content.get_photo(id, [:recipe]) do
       %Content.Photo{} = photo ->
         {:noreply,
          socket
@@ -40,6 +40,7 @@ defmodule FotohaeckerWeb.PhotoLive.Show do
                title        <- @photo.title,
                file_name    <- @photo.file_name,
                extension    <- @photo.extension,
+               recipe       <- @photo.recipe,
                # TODO DRY: don't hardcode paths here…
                path         <- Routes.static_path(FotohaeckerWeb.Endpoint,
                                                   "/uploads/#{file_name}_og#{extension}"),
@@ -66,6 +67,9 @@ defmodule FotohaeckerWeb.PhotoLive.Show do
               editing={@editing}
               is_photo_owner?={Content.is_photo_owner?(@photo, @current_user)}
             />
+            <%= if Fotohaecker.RecipeManagement.is_implemented?() do %>
+              <.recipe_card recipe={recipe} />
+            <% end %>
             <div class="flex space-x-4">
               <.download_link class="btn btn--green flex gap-2 w-max" href={path} photo={@photo}>
                 <Heroicons.arrow_down_tray class="w-6 h-6 stroke-white" /> <%= gettext("Download") %>
@@ -250,6 +254,43 @@ defmodule FotohaeckerWeb.PhotoLive.Show do
       <% end %>
       <.edit_button :if={@is_photo_owner?} field="tags" />
     </div>
+    """
+  end
+
+  defp recipe_card(%{recipe: nil} = assigns) do
+    ~H"""
+
+    """
+  end
+
+  defp recipe_card(assigns) do
+    ~H"""
+    <p class="text-xs text-gray-600">Recipe used:</p>
+    <div class="rounded bg-gradient-to-br from-yellow-300 to-red-800 shadow-sm border-gray-400 relative !mt-1">
+      <div class="grain-effect"></div>
+      <div class="p-2 overflow-hidden relative">
+        <%!-- # FIXME: dont use absolute bs --%>
+        <div aria-hidden="true" class="bg-yellow-200 rounded-full w-12 h-12 p-4 absolute top-1/8">
+          <Heroicons.film class="w-1/2 h-1/2 top-1/4 left-1/4 stroke-red-800 absolute transform rotate-45 z-0" />
+        </div>
+
+        <div class="ms-14 p-2 rounded-md z-0 relative bg-yellow-300/75 backdrop-blur-md w-max">
+          <%= case @recipe.brand do %>
+            <% "fujifilm" -> %>
+              <%!-- # FIXME: use own logo --%>
+              <img
+                src="https://upload.wikimedia.org/wikipedia/commons/a/a1/Fujifilm_logo.svg"
+                alt="Fujifilm"
+                class="h-2 mb-1"
+              />
+          <% end %>
+          <.link href={recipe_route(@recipe.id)} class="text-md text-gray-800 dark:text-gray-100">
+            <%= @recipe.title %>
+          </.link>
+        </div>
+      </div>
+    </div>
+    <%!-- <%= inspect(@recipe) %> --%>
     """
   end
 

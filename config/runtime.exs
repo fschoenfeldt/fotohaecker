@@ -59,6 +59,25 @@ else
   )
 end
 
+if System.get_env("RECIPE_IMPLEMENTATION") do
+  if System.get_env("RECIPE_IMPLEMENTATION") == "json" do
+    if System.get_env("RECIPE_PATH") do
+      config :fotohaecker,
+             Fotohaecker.RecipeManagement,
+             Fotohaecker.RecipeManagement.JsonRecipeManagement
+
+      config :fotohaecker, Fotohaecker.RecipeManagement.JsonRecipeManagement,
+        recipe_path: System.get_env("RECIPE_PATH")
+    else
+      Logger.error(
+        "RECIPE_IMPLEMENTATION is set to json, but RECIPE_PATH is missingm, using NoRecipeManagement"
+      )
+    end
+  end
+else
+  Logger.info("No RECIPE_PATH and RECIPE_IMPLEMENTATION found, using NoRecipeManagement")
+end
+
 # ## Using releases
 #
 # If you use `mix release`, you need to explicitly enable the server
@@ -70,6 +89,10 @@ end
 # script that automatically sets the env var above.
 if System.get_env("PHX_SERVER") do
   config :fotohaecker, FotohaeckerWeb.Endpoint, server: true
+end
+
+if config_env() == :test do
+  config :fotohaecker, Fotohaecker.RecipeManagement.JsonRecipeManagement, warm: false
 end
 
 if config_env() == :prod do

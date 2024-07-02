@@ -142,6 +142,24 @@ defmodule Fotohaecker.Content do
   def get_photo(id), do: Repo.get(Photo, id)
 
   @doc """
+  Gets a single photo and preloads the given fields.
+
+  ## Examples
+
+      iex> get_photo!(123, [:recipe])
+      %Photo{recipe: %Recipe{}}
+
+      iex> get_photo!(456, [:recipe])
+      ** (Ecto.NoResultsError)
+
+  """
+  def get_photo(id, preload_fields),
+    do:
+      id
+      |> get_photo()
+      |> Repo.preload(preload_fields)
+
+  @doc """
   Creates a photo.
 
   ## Examples
@@ -285,5 +303,151 @@ defmodule Fotohaecker.Content do
   """
   def change_photo(%Photo{} = photo, attrs \\ %{}) do
     Photo.changeset(photo, attrs)
+  end
+
+  alias Fotohaecker.Content.Recipe
+
+  @doc """
+  Returns the list of recipe.
+
+  ## Examples
+
+      iex> list_recipe()
+      [%Recipe{}, ...]
+
+  """
+  def list_recipe do
+    Repo.all(Recipe)
+  end
+
+  @doc """
+  Gets a single recipe.
+
+  Raises `Ecto.NoResultsError` if the Recipe does not exist.
+
+  ## Examples
+
+      iex> get_recipe!(123)
+      %Recipe{}
+
+      iex> get_recipe!(456)
+      ** (Ecto.NoResultsError)
+
+  """
+  def get_recipe!(id), do: Repo.get!(Recipe, id)
+
+  @doc """
+  Gets a single recipe and preloads the given fields.
+
+  Raises `Ecto.NoResultsError` if the Recipe does not exist.
+
+  ## Examples
+
+      iex> get_recipe!(123, [:photos])
+      %Recipe{photos: [%Photo{}]}
+
+      iex> get_recipe!(456, [:photos])
+      ** (Ecto.NoResultsError)
+  """
+
+  def get_recipe!(id, preload_fields),
+    do:
+      id
+      |> get_recipe!()
+      |> Repo.preload(preload_fields)
+
+  @doc """
+  Gets a single recipe.
+
+  ## Examples
+
+      iex> get_recipe(123)
+      %Recipe{}
+
+      iex> get_recipe(456)
+      nil
+  """
+  def get_recipe(id), do: Repo.get(Recipe, id)
+
+  @doc """
+  Gets a single recipe and preloads the given fields.
+
+  ## Examples
+
+      iex> get_recipe!(123, [:photos])
+      %Recipe{photos: [%Photo{}]}
+
+      iex> get_recipe!(456, [:photos])
+      nil
+  """
+  def get_recipe(id, preload_fields),
+    do:
+      id
+      |> get_recipe()
+      |> Repo.preload(preload_fields)
+
+  @doc """
+  Creates a recipe.
+
+  ## Examples
+
+      iex> create_recipe(%{field: value})
+      {:ok, %Recipe{}}
+
+      iex> create_recipe(%{field: bad_value})
+      {:error, %Ecto.Changeset{}}
+
+  """
+  def create_recipe(attrs \\ %{}) do
+    %Recipe{}
+    |> Recipe.changeset(attrs)
+    |> Repo.insert()
+  end
+
+  @doc """
+  Updates a recipe.
+
+  ## Examples
+
+      iex> update_recipe(recipe, %{field: new_value})
+      {:ok, %Recipe{}}
+
+      iex> update_recipe(recipe, %{field: bad_value})
+      {:error, %Ecto.Changeset{}}
+
+  """
+  def update_recipe(%Recipe{} = recipe, attrs) do
+    recipe
+    |> Recipe.changeset(attrs)
+    |> Repo.update()
+  end
+
+  @doc """
+  Deletes a recipe.
+
+  ## Examples
+
+      iex> delete_recipe(recipe)
+      {:ok, %Recipe{}}
+
+      iex> delete_recipe(recipe)
+      {:error, %Ecto.Changeset{}}
+
+  """
+  def delete_recipe(%Recipe{} = recipe) do
+    Repo.delete(recipe)
+  end
+
+  @doc """
+  Returns an `%Ecto.Changeset{}` for tracking recipe changes.
+
+  ## Examples
+
+      iex> change_recipe(recipe)
+      %Ecto.Changeset{data: %Recipe{}}
+
+  """
+  def change_recipe(%Recipe{} = recipe, attrs \\ %{}) do
+    Recipe.changeset(recipe, attrs)
   end
 end

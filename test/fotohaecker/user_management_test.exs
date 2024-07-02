@@ -1,7 +1,9 @@
 defmodule Fotohaecker.UserManagementTest do
   use ExUnit.Case, async: true
+
   alias Fotohaecker.UserManagement
   alias Fotohaecker.UserManagement.UserManagementMock
+
   import Mox
 
   setup :verify_on_exit!

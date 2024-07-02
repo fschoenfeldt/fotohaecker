@@ -28,7 +28,8 @@ photo = %Photo{
   title: "My first photo",
   file_name: "my-first-photo",
   extension: ".jpg",
-  tags: []
+  tags: [],
+  recipe_id: 1
 }
 
 amount_photos =

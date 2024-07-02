@@ -18,6 +18,16 @@ Application.put_env(
   Fotohaecker.UserManagement.UserManagementMock
 )
 
+Mox.defmock(Fotohaecker.RecipeManagement.RecipeManagementMock,
+  for: Fotohaecker.RecipeManagement.RecipeManagementBehaviour
+)
+
+Application.put_env(
+  :fotohaecker,
+  Fotohaecker.RecipeManagement,
+  Fotohaecker.RecipeManagement.RecipeManagementMock
+)
+
 # defmodule TestHelperHelpers do
 #   @moduledoc false
 #   # TODO: these env lists are getting out of hand…

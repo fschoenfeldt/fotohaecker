@@ -24,6 +24,8 @@ defmodule Fotohaecker.Content.Photo do
     field(:tags, {:array, :string})
     field(:user_id, :string)
 
+    belongs_to(:recipe, Fotohaecker.Content.Recipe)
+
     timestamps(type: :naive_datetime_usec)
   end
 
@@ -42,7 +44,7 @@ defmodule Fotohaecker.Content.Photo do
   @doc false
   def changeset(photo, attrs) do
     photo
-    |> cast(attrs, [:title, :file_name, :tags, :extension, :user_id])
+    |> cast(attrs, [:title, :file_name, :tags, :extension, :user_id, :recipe_id])
     |> validate_length(:title, min: 1, max: 32)
     |> validate_required([:title, :file_name, :tags, :extension])
   end
