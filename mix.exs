@@ -10,7 +10,8 @@ defmodule Fotohaecker.MixProject do
       start_permanent: Mix.env() == :prod,
       aliases: aliases(),
       deps: deps(),
-      dialyzer: [plt_add_apps: [:mix]]
+      dialyzer: [plt_add_apps: [:mix]],
+      compilers: [:phoenix_swagger] ++ Mix.compilers()
     ]
   end
 
@@ -66,7 +67,9 @@ defmodule Fotohaecker.MixProject do
       {:heroicons, "~> 0.5.0"},
       {:mox, "~> 1.0", only: :test},
       {:stripity_stripe, "~> 2.0"},
-      {:cors_plug, "~> 3.0"}
+      {:cors_plug, "~> 3.0"},
+      {:phoenix_swagger, "~> 0.8"},
+      {:ex_json_schema, "~> 0.5"}
     ]
   end
 

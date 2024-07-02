@@ -17,6 +17,8 @@ config :fotohaecker, FotohaeckerWeb.Endpoint,
   # Binding to loopback ipv4 address prevents access from other machines.
   # Change to `ip: {0, 0, 0, 0}` to allow access from other machines.
   http: [ip: {0, 0, 0, 0}, port: 1337],
+  # TODO: test this url doesn't break anything
+  url: [host: "localhost", port: 1337],
   static_url: [path: "/fh"],
   check_origin: false,
   code_reloader: true,

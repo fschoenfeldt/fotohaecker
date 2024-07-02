@@ -29,6 +29,17 @@ defmodule Fotohaecker.Application do
       }
     ]
 
+    # Parse the swagger schema on startup as described here:
+    # - https://hexdocs.pm/phoenix_swagger/PhoenixSwagger.Validator.html#parse_swagger_schema/1
+    # - https://github.com/xerions/phoenix_swagger/issues/62#issuecomment-381932391
+    [
+      :code.priv_dir(:fotohaecker),
+      "static",
+      "schema.json"
+    ]
+    |> Path.join()
+    |> PhoenixSwagger.Validator.parse_swagger_schema()
+
     # See https://hexdocs.pm/elixir/Supervisor.html
     # for other strategies and supported options
     opts = [strategy: :one_for_one, name: Fotohaecker.Supervisor]

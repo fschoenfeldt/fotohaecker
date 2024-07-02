@@ -22,6 +22,7 @@
         # In the latter case `**/*.{ex,exs}` will be used.
         #
         included: [
+          "config/",
           "lib/",
           "src/",
           "test/",
@@ -168,6 +169,7 @@
           {Credo.Check.Refactor.ModuleDependencies,
            [
              excluded_namespaces: [
+               "Fotohaecker.Application",
                "Fotohaecker.Content",
                "FotohaeckerWeb",
                "FotohaeckerWeb.Endpoint",
