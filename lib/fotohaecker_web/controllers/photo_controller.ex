@@ -9,20 +9,7 @@ defmodule FotohaeckerWeb.PhotoController do
 
   def swagger_definitions do
     %{
-      Photo:
-        swagger_schema do
-          title("Photo")
-          description("A photo")
-
-          properties do
-            id(:integer, "Photo ID", required: true)
-            title(:string, "Photo title", required: true)
-            description(:string, "Photo description")
-            url(:string, "Photo URL", required: true)
-            inserted_at(:string, "Creation timestamp", format: "date-time")
-            updated_at(:string, "Last update timestamp", format: "date-time")
-          end
-        end
+      Photo: FotohaeckerWeb.PhotoJSON.schema()
     }
   end
 
@@ -32,7 +19,9 @@ defmodule FotohaeckerWeb.PhotoController do
     response(200, "OK", Schema.ref(:Photo))
   end
 
-  # TODO: result pagination
+  # TODO: add pagination
+  # see https://github.com/fschoenfeldt/fotohaecker/issues/119
+
   def index(conn, _params) do
     photos = Content.list_photos()
     render(conn, :index, photos: photos)
@@ -55,7 +44,42 @@ defmodule FotohaeckerWeb.PhotoController do
     end
   end
 
+  swagger_path :search do
+    tag("Photo")
+    description("Search for photos")
+    deprecated(true)
+
+    parameters do
+      search(:path, :string, "Search string", required: true)
+    end
+
+    response(200, "OK", Schema.ref(:Photo))
+  end
+
+  # TODO: add pagination
+  # see https://github.com/fschoenfeldt/fotohaecker/issues/119
+
   def search(conn, %{"search" => search}) do
+    # decode uri encoded search string
+    search = URI.decode(search)
+
+    photos = Fotohaecker.Search.search!(search)
+    render(conn, :index, photos: photos)
+  end
+
+  swagger_path :search_query do
+    tag("Photo")
+    description("Search for photos")
+    deprecated(true)
+
+    parameters do
+      query(:query, :string, "Search string", required: true)
+    end
+
+    response(200, "OK", Schema.ref(:Photo))
+  end
+
+  def search_query(conn, %{"query" => search}) do
     # decode uri encoded search string
     search = URI.decode(search)
 

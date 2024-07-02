@@ -169,6 +169,7 @@
           {Credo.Check.Refactor.ModuleDependencies,
            [
              excluded_namespaces: [
+               "Fotohaecker.Application",
                "Fotohaecker.Content",
                "FotohaeckerWeb",
                "FotohaeckerWeb.Endpoint",

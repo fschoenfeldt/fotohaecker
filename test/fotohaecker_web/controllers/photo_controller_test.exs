@@ -124,7 +124,7 @@ defmodule FotohaeckerWeb.PhotoControllerTest do
   end
 
   describe "search" do
-    test "finds photo", %{conn: conn} do
+    test "finds photo (deprecated endpoint)", %{conn: conn} do
       Mox.expect(Fotohaecker.UserManagement.UserManagementMock, :search!, fn _term ->
         []
       end)
@@ -166,7 +166,51 @@ defmodule FotohaeckerWeb.PhotoControllerTest do
       assert actual == expected
     end
 
-    test "returns empty list when empty string provided as input", %{conn: conn} do
+    test "finds photo", %{conn: conn} do
+      Mox.expect(Fotohaecker.UserManagement.UserManagementMock, :search!, fn _term ->
+        []
+      end)
+
+      photo_fixture(%{
+        id: 1,
+        title: "scottish coast",
+        tags: ["scotland", "coast"]
+      })
+
+      photo_fixture(%{
+        id: 2,
+        title: "spain"
+      })
+
+      actual =
+        conn
+        |> get(~p"/fh/api/search/photos?query=scotland")
+        |> json_response(200)
+
+      expected = %{
+        "data" => [
+          %{
+            "id" => 1,
+            "links" => %{"html" => "http://localhost:4002/fh/en_US/photos/1"},
+            "tags" => ["scotland", "coast"],
+            "title" => "scottish coast",
+            "urls" => %{
+              "full" => "http://localhost:4002/uploads/some_file_name_preview.jpg",
+              "raw" => "http://localhost:4002/uploads/some_file_name_og.jpg",
+              "thumb1x" => "http://localhost:4002/uploads/some_file_name_thumb@1x.jpg",
+              "thumb2x" => "http://localhost:4002/uploads/some_file_name_thumb@2x.jpg",
+              "thumb3x" => "http://localhost:4002/uploads/some_file_name_thumb@3x.jpg"
+            }
+          }
+        ]
+      }
+
+      assert actual == expected
+    end
+
+    test "returns empty list when empty string provided as input (deprecated endpoint)", %{
+      conn: conn
+    } do
       actual =
         conn
         |> get(~p"/fh/api/search/photos/%20")
@@ -174,6 +218,34 @@ defmodule FotohaeckerWeb.PhotoControllerTest do
 
       expected = %{
         "data" => []
+      }
+
+      assert actual == expected
+    end
+
+    test "returns empty list when empty string provided as input", %{
+      conn: conn
+    } do
+      actual =
+        conn
+        |> get(~p"/fh/api/search/photos?query=%20")
+        |> json_response(200)
+
+      expected = %{
+        "data" => []
+      }
+
+      assert actual == expected
+    end
+
+    test "returns error when unknown parameter is provided", %{conn: conn} do
+      actual =
+        conn
+        |> get(~p"/fh/api/search/photos?unknown=123")
+        |> json_response(400)
+
+      expected = %{
+        "error" => %{"message" => "Required property query was not present.", "path" => "#"}
       }
 
       assert actual == expected

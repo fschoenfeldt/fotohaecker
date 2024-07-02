@@ -12,6 +12,7 @@ defmodule FotohaeckerWeb.Router do
 
   pipeline :api do
     plug CORSPlug
+    plug PhoenixSwagger.Plug.Validate
 
     plug :accepts, ["json"]
   end
@@ -24,7 +25,7 @@ defmodule FotohaeckerWeb.Router do
     scope "/api/swagger", PhoenixSwagger do
       forward "/", Plug.SwaggerUI,
         otp_app: :fotohaecker,
-        swagger_file: "api.json"
+        swagger_file: "schema.json"
     end
 
     scope "/api", FotohaeckerWeb do
@@ -38,6 +39,7 @@ defmodule FotohaeckerWeb.Router do
       scope "/search" do
         scope "/photos" do
           get "/:search", PhotoController, :search
+          get "/", PhotoController, :search_query
         end
       end
     end

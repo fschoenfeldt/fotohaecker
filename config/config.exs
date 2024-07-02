@@ -81,7 +81,7 @@ config :ueberauth, Ueberauth.Strategy.Auth0.OAuth,
 # Configure Swagger
 config :fotohaecker, :phoenix_swagger,
   swagger_files: %{
-    "priv/static/api.json" => [
+    "priv/static/schema.json" => [
       # phoenix routes will be converted to swagger paths
       router: FotohaeckerWeb.Router,
       # (optional) endpoint config used to set host, port and https schemes.
