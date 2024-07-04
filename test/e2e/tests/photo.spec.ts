@@ -34,11 +34,12 @@ test.describe("Photo Page: Static", () => {
   });
 
   test("can download photo", async ({ page, context }) => {
-    const pagePromise = context.waitForEvent("page");
+    const downloadPromise = page.waitForEvent("download");
     await page.locator("a", { hasText: "Download" }).click();
-    const newPage = await pagePromise;
-    await newPage.waitForLoadState();
-    await expect(newPage).toHaveTitle(/.jpg/);
+
+    const download = await downloadPromise;
+    expect(download.suggestedFilename()).toContain("live_view_upload-");
+    expect(download.suggestedFilename()).toContain(".jpg");
   });
 
   test("can go back to home page", async ({ page }) => {
