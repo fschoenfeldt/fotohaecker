@@ -1,9 +1,9 @@
 defmodule FotohaeckerWeb.PhotoLive.Show do
-  alias Fotohaecker.UserManagement
   use FotohaeckerWeb, :live_view
 
   alias Fotohaecker.Content
   alias Fotohaecker.Content.Photo
+  alias Fotohaecker.UserManagement
 
   defmodule PhotoNotFoundError do
     defexception message: dgettext("errors", "photo not found"), plug_status: 404
@@ -16,19 +16,19 @@ defmodule FotohaeckerWeb.PhotoLive.Show do
   end
 
   @impl true
-  def handle_params(%{"id" => id}, _what, socket) do
+  def handle_params(%{"id" => id}, _uri, socket) do
     case Content.get_photo(id, [:recipe]) do
-      %Content.Photo{} = photo ->
+      nil ->
+        raise PhotoNotFoundError
+        {:noreply, socket}
+
+      photo ->
         {:noreply,
          socket
          |> assign(:page_title, photo.title)
          |> assign(:photo, photo)
          # TODO: is this good?
          |> assign(:show_delete_photo_confirmation_modal, false)}
-
-      nil ->
-        raise PhotoNotFoundError
-        {:noreply, socket}
     end
   end
 

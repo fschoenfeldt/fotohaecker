@@ -472,7 +472,12 @@ defmodule Fotohaecker.ContentTest do
     end
 
     test "create_recipe/1 with valid data creates a recipe" do
-      valid_attrs = %{title: "some title", user_id: "some user_id", settings: %{}}
+      valid_attrs = %{
+        title: "some title",
+        brand: "some brand",
+        user_id: "some user_id",
+        settings: %{}
+      }
 
       assert {:ok, %Recipe{} = recipe} = Content.create_recipe(valid_attrs)
       assert recipe.title == "some title"

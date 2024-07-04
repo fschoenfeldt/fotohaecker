@@ -69,7 +69,8 @@ defmodule Fotohaecker.MixProject do
       {:stripity_stripe, "~> 2.0"},
       {:cors_plug, "~> 3.0"},
       {:phoenix_swagger, "~> 0.8"},
-      {:ex_json_schema, "~> 0.5"}
+      {:ex_json_schema, "~> 0.5"},
+      {:earmark, "~> 1.4"}
     ]
   end
 

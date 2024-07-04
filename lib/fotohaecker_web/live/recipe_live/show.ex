@@ -1,29 +1,43 @@
 defmodule FotohaeckerWeb.RecipeLive.Show do
+  use FotohaeckerWeb, :live_view
+
   alias Fotohaecker.Content.Photo
   alias Fotohaecker.Content.Recipe
   alias Fotohaecker.Content
   alias FotohaeckerWeb.IndexLive.Home.PhotoComponent
 
-  use FotohaeckerWeb, :live_view
+  defmodule RecipeNotFoundError do
+    defexception message: dgettext("errors", "recipe not found"), plug_status: 404
+  end
 
-  def mount(params, _session, socket) do
-    # FIXME: error handing 404 when recipe not found
-    recipe =
-      Content.get_recipe!(params["id"], [
-        :photos
-      ])
+  def mount(_params, _session, socket) do
+    {:ok, socket}
+  end
 
-    {:ok, assign(socket, recipe: recipe)}
+  def handle_params(%{"id" => id}, _uri, socket) do
+    case Content.get_recipe(id, [
+           :photos
+         ]) do
+      nil ->
+        raise RecipeNotFoundError
+        {:noreply, socket}
+
+      recipe ->
+        {:ok, description_as_ast, _whatever} = Earmark.as_html(recipe.description)
+
+        {
+          :noreply,
+          assign(socket, recipe: recipe, description_as_ast: description_as_ast)
+        }
+    end
   end
 
   def render(assigns) do
     ~H"""
-    <%!-- # FIXME: think about tailwind typography --%>
     <div class="space-y-2 p-4">
       <article class="prose">
         <h1><%= gettext("Recipe") %>: <%= @recipe.title %></h1>
-        <%!-- # FIXME: render markdown! --%>
-        <p><%= @recipe.description %></p>
+        <p><%= Phoenix.HTML.raw(@description_as_ast) %></p>
         <h2><%= gettext("Settings") %>:</h2>
         <.recipe_settings recipe={@recipe} />
       </article>
@@ -57,8 +71,7 @@ defmodule FotohaeckerWeb.RecipeLive.Show do
 
   defp render_map(map) when is_map(map) do
     content =
-      map
-      |> Enum.map(fn {key, value} ->
+      Enum.map_join(map, fn {key, value} ->
         "<tr>" <>
           "<td>#{key}</td>" <>
           "<td>" <>
@@ -70,21 +83,18 @@ defmodule FotohaeckerWeb.RecipeLive.Show do
           "</td>" <>
           "</tr>"
       end)
-      |> Enum.join()
 
     "<table>" <> content <> "</table>"
   end
 
   defp render_list(list) when is_list(list) do
-    list
-    |> Enum.map(fn item ->
+    Enum.map_join(list, ",", fn item ->
       if is_map(item) do
         render_map(item)
       else
         to_string(item)
       end
     end)
-    |> Enum.join(", ")
   end
 
   # TODO: DRY: dirty

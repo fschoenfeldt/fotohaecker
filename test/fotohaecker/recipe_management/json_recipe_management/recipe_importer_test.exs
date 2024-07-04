@@ -30,14 +30,13 @@ defmodule Fotohaecker.RecipeManagement.JsonRecipeManagement.JsonRecipeImporterTe
        }}
     ] = JsonRecipeImporter.import_recipes_from_directory(test_directory)
 
-    assert file_path == "test/support/fixtures/content/recipes/valid/kodak_royal_gold_400.json"
-    assert title == "Kodak Royal Gold 400"
-    assert user_id == "auth0|613000000000000000000000"
+    assert file_path == "test/support/fixtures/content/recipes/valid/valid_recipe.json"
+    assert title == "Valid Recipe Title"
+    assert user_id == "auth0|1234567890"
 
     assert settings == %{
              "base_simulation" => "Classic Negative",
-             "highlight" => -1,
-             "shadow" => 1
+             "compatible" => ["x_trans_iv", "x_trans_v"]
            }
   end
 
