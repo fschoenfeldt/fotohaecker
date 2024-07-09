@@ -47,7 +47,7 @@ defmodule FotohaeckerWeb.PhotoLive.Show do
                preview_path <- Routes.static_path(FotohaeckerWeb.Endpoint,
                                                   "/uploads/#{file_name}_preview#{extension}") do %>
         <div class="grid md:gap-8 md:grid-cols-12">
-          <.download_link class="col-span-8 bg-[#17181b] md:py-8" href={path} photo={@photo}>
+          <.download_link override_class="col-span-8 bg-[#17181b] md:py-8" href={path} photo={@photo}>
             <img
               class="w-auto max-h-[calc(100vh-10rem)] mx-auto"
               src={preview_path}
@@ -59,23 +59,23 @@ defmodule FotohaeckerWeb.PhotoLive.Show do
             <.title
               photo={@photo}
               editing={@editing}
-              is_photo_owner?={Content.is_photo_owner?(@photo, @current_user)}
+              photo_owner?={Content.photo_owner?(@photo, @current_user)}
             />
             <.upload_date_and_user photo={@photo} />
             <.tags
               photo={@photo}
               editing={@editing}
-              is_photo_owner?={Content.is_photo_owner?(@photo, @current_user)}
+              photo_owner?={Content.photo_owner?(@photo, @current_user)}
             />
             <%= if Fotohaecker.RecipeManagement.is_implemented?() do %>
               <.recipe_card recipe={recipe} />
             <% end %>
             <div class="flex space-x-4">
-              <.download_link class="btn btn--green flex gap-2 w-max" href={path} photo={@photo}>
+              <.download_link href={path} photo={@photo}>
                 <Heroicons.arrow_down_tray class="w-6 h-6 stroke-white" /> <%= gettext("Download") %>
               </.download_link>
               <button
-                :if={Content.is_photo_owner?(@photo, @current_user)}
+                :if={Content.photo_owner?(@photo, @current_user)}
                 class="btn btn--red flex gap-2 w-max"
                 phx-click="show_delete_photo_confirmation_modal"
               >
@@ -129,18 +129,26 @@ defmodule FotohaeckerWeb.PhotoLive.Show do
   end
 
   slot(:inner_block, required: true)
-  attr(:class, :string)
+  attr(:class, :string, default: "")
+  attr(:override_class, :string, default: nil)
   attr(:href, :string, required: true)
   attr(:photo, Content.Photo, required: true)
   attr(:target, :string, default: "_blank")
 
   defp download_link(assigns) do
+    default_class = "btn btn--green flex gap-2 w-max "
+    class_to_use = assigns.override_class || default_class <> assigns.class
+
+    assigns =
+      assign(assigns, :class_to_use, class_to_use)
+
     ~H"""
     <.link
-      class={@class}
+      class={@class_to_use}
       href={@href}
       target={@target}
       title={gettext("download the photo %{title} from Fotohäcker", %{title: @photo.title})}
+      download={@photo.file_name <> @photo.extension}
     >
       <%= render_slot(@inner_block) %>
     </.link>
@@ -202,7 +210,7 @@ defmodule FotohaeckerWeb.PhotoLive.Show do
 
   attr(:photo, Photo, required: true)
   attr(:editing, :any, required: true)
-  attr(:is_photo_owner?, :boolean, required: true)
+  attr(:photo_owner?, :boolean, required: true)
 
   defp title(%{editing: %{field: "title", changeset: _changeset} = _editing} = assigns) do
     ~H"""
@@ -216,14 +224,14 @@ defmodule FotohaeckerWeb.PhotoLive.Show do
       <h1 data-testid="title" class="text-gray-800 dark:text-gray-100">
         <%= @photo.title %>
       </h1>
-      <.edit_button :if={@is_photo_owner?} field="title" />
+      <.edit_button :if={@photo_owner?} field="title" />
     </div>
     """
   end
 
   attr(:photo, Photo, required: true)
   attr(:editing, :any, required: true)
-  attr(:is_photo_owner?, :boolean, required: true)
+  attr(:photo_owner?, :boolean, required: true)
 
   defp tags(%{editing: %{field: "tags", changeset: _changeset} = _editing} = assigns) do
     ~H"""
@@ -252,7 +260,7 @@ defmodule FotohaeckerWeb.PhotoLive.Show do
           </ul>
         </div>
       <% end %>
-      <.edit_button :if={@is_photo_owner?} field="tags" />
+      <.edit_button :if={@photo_owner?} field="tags" />
     </div>
     """
   end

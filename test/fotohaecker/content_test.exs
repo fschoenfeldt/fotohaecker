@@ -339,7 +339,7 @@ defmodule Fotohaecker.ContentTest do
     end
   end
 
-  describe "is_photo_owner?/2" do
+  describe "photo_owner?/2" do
     test "user is owner of his own photo" do
       user_id = "auth0|123456789"
 
@@ -347,7 +347,7 @@ defmodule Fotohaecker.ContentTest do
         user_id: user_id
       }
 
-      assert Content.is_photo_owner?(photo, user_id)
+      assert Content.photo_owner?(photo, user_id)
     end
 
     test "works with user as a map" do
@@ -361,7 +361,7 @@ defmodule Fotohaecker.ContentTest do
         id: user_id
       }
 
-      assert Content.is_photo_owner?(photo, user)
+      assert Content.photo_owner?(photo, user)
     end
 
     test "user doesn't own photo of another user" do
@@ -372,7 +372,7 @@ defmodule Fotohaecker.ContentTest do
         user_id: user_id
       }
 
-      refute Content.is_photo_owner?(photo, another_user_id)
+      refute Content.photo_owner?(photo, another_user_id)
     end
 
     test "anonymous user is owner of anonymous photo" do
@@ -382,7 +382,7 @@ defmodule Fotohaecker.ContentTest do
         user_id: user_id
       }
 
-      assert Content.is_photo_owner?(photo, user_id)
+      assert Content.photo_owner?(photo, user_id)
     end
 
     test "anonymous user isn't owner of another users photo" do
@@ -393,7 +393,7 @@ defmodule Fotohaecker.ContentTest do
         user_id: user_id
       }
 
-      refute Content.is_photo_owner?(photo, anonymous_user_id)
+      refute Content.photo_owner?(photo, anonymous_user_id)
     end
 
     test "logged in user is user of anonymous photo" do
@@ -404,7 +404,7 @@ defmodule Fotohaecker.ContentTest do
         user_id: anonymous_user_id
       }
 
-      assert Content.is_photo_owner?(photo, user_id)
+      assert Content.photo_owner?(photo, user_id)
     end
   end
 

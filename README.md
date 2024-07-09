@@ -65,8 +65,8 @@ mix check
 ```shell
 # install deps
 mix e2e.setup
-# prepare db
-MIX_ENV=e2e mix ecto.setup
+# prepare db and compile app
+MIX_ENV=e2e mix ecto.reset && MIX_ENV=e2e mix compile
 # run tests
 pnpm --prefix test/e2e test
 # .. with traces

@@ -202,30 +202,30 @@ defmodule Fotohaecker.Content do
 
   ## Examples
 
-      iex> is_photo_owner?(%Photo{user_id: "auth0|123456789"}, "auth0|123456789")
+      iex> photo_owner?(%Photo{user_id: "auth0|123456789"}, "auth0|123456789")
       true
 
-      iex> is_photo_owner?(%Photo{user_id: "auth0|123456789"}, "other_user")
+      iex> photo_owner?(%Photo{user_id: "auth0|123456789"}, "other_user")
       false
 
-      iex> is_photo_owner?(%Photo{user_id: nil}, "auth0|123456789")
+      iex> photo_owner?(%Photo{user_id: nil}, "auth0|123456789")
       true
 
-      iex> is_photo_owner?(%Photo{user_id: nil}, nil)
+      iex> photo_owner?(%Photo{user_id: nil}, nil)
       true
   """
-  def is_photo_owner?(%Photo{} = photo, user) when is_map(user),
-    do: is_photo_owner?(photo, user.id)
+  def photo_owner?(%Photo{} = photo, user) when is_map(user),
+    do: photo_owner?(photo, user.id)
 
-  def is_photo_owner?(%Photo{user_id: nil} = _photo, user_id) when is_binary(user_id),
+  def photo_owner?(%Photo{user_id: nil} = _photo, user_id) when is_binary(user_id),
     do: true
 
-  def is_photo_owner?(%Photo{} = photo, user_id) when is_binary(user_id),
+  def photo_owner?(%Photo{} = photo, user_id) when is_binary(user_id),
     do: photo.user_id == user_id
 
-  def is_photo_owner?(%Photo{user_id: nil}, _user_or_id), do: true
+  def photo_owner?(%Photo{user_id: nil}, _user_or_id), do: true
 
-  def is_photo_owner?(%Photo{} = _photo, nil), do: false
+  def photo_owner?(%Photo{} = _photo, nil), do: false
 
   @doc """
   Deletes a photo.
@@ -242,7 +242,7 @@ defmodule Fotohaecker.Content do
   def delete_photo(%Photo{user_id: nil} = photo, _user_or_id), do: delete_photo(photo)
 
   def delete_photo(%Photo{} = photo, user_id) when is_binary(user_id) do
-    if is_photo_owner?(photo, user_id) do
+    if photo_owner?(photo, user_id) do
       delete_photo(photo)
     else
       {:error, "You are not allowed to delete this photo."}
