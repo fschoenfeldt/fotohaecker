@@ -111,7 +111,6 @@ defmodule FotohaeckerWeb.HeaderLive.NavigationComponent.SearchComponent do
 
   defp search_result_list(%{grouped_search_results: nil} = assigns) do
     ~H"""
-
     """
   end
 

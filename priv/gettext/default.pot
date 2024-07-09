@@ -62,7 +62,7 @@ msgstr ""
 msgid "uploading.."
 msgstr ""
 
-#: lib/fotohaecker_web/live/photo_live/show.ex:162
+#: lib/fotohaecker_web/live/photo_live/show.ex:170
 #, elixir-autogen, elixir-format
 msgid "back"
 msgstr ""
@@ -97,7 +97,7 @@ msgstr ""
 msgid "change language"
 msgstr ""
 
-#: lib/fotohaecker_web/live/photo_live/show.ex:143
+#: lib/fotohaecker_web/live/photo_live/show.ex:150
 #, elixir-autogen, elixir-format
 msgid "download the photo %{title} from Fotohäcker"
 msgstr ""
@@ -158,7 +158,7 @@ msgid "Your Account"
 msgstr ""
 
 #: lib/fotohaecker_web/live/photo_live/show.ex:128
-#: lib/fotohaecker_web/live/photo_live/show.ex:177
+#: lib/fotohaecker_web/live/photo_live/show.ex:185
 #, elixir-autogen, elixir-format
 msgid "uploaded on %{date}"
 msgstr ""
@@ -198,7 +198,7 @@ msgstr ""
 msgid "generate using AI"
 msgstr ""
 
-#: lib/fotohaecker_web/live/photo_live/show.ex:239
+#: lib/fotohaecker_web/live/photo_live/show.ex:247
 #, elixir-autogen, elixir-format
 msgid "no tags"
 msgstr ""
@@ -209,7 +209,7 @@ msgid "photo tags"
 msgstr ""
 
 #: lib/fotohaecker_web/live/index_live/home/upload_form.ex:52
-#: lib/fotohaecker_web/live/photo_live/show.ex:332
+#: lib/fotohaecker_web/live/photo_live/show.ex:340
 #, elixir-autogen, elixir-format
 msgid "saving.."
 msgstr ""
@@ -229,42 +229,42 @@ msgstr ""
 msgid "submit and go to photo"
 msgstr ""
 
-#: lib/fotohaecker_web/live/photo_live/show.ex:244
+#: lib/fotohaecker_web/live/photo_live/show.ex:252
 #, elixir-autogen, elixir-format
 msgid "tags"
 msgstr ""
 
-#: lib/fotohaecker_web/live/photo_live/show.ex:356
+#: lib/fotohaecker_web/live/photo_live/show.ex:364
 #, elixir-autogen, elixir-format
 msgid "cancel"
 msgstr ""
 
-#: lib/fotohaecker_web/live/photo_live/show.ex:346
+#: lib/fotohaecker_web/live/photo_live/show.ex:354
 #, elixir-autogen, elixir-format
 msgid "canceling.."
 msgstr ""
 
-#: lib/fotohaecker_web/live/photo_live/show.ex:453
+#: lib/fotohaecker_web/live/photo_live/show.ex:461
 #, elixir-autogen, elixir-format
 msgid "photo updated"
 msgstr ""
 
-#: lib/fotohaecker_web/live/photo_live/show.ex:340
+#: lib/fotohaecker_web/live/photo_live/show.ex:348
 #, elixir-autogen, elixir-format
 msgid "save"
 msgstr ""
 
-#: lib/fotohaecker_web/live/photo_live/show.ex:389
+#: lib/fotohaecker_web/live/photo_live/show.ex:397
 #, elixir-autogen, elixir-format
 msgid "edit field %{field}"
 msgstr ""
 
-#: lib/fotohaecker_web/live/photo_live/show.ex:314
+#: lib/fotohaecker_web/live/photo_live/show.ex:322
 #, elixir-autogen, elixir-format
 msgid "enter new %{field}"
 msgstr ""
 
-#: lib/fotohaecker_web/live/photo_live/show.ex:323
+#: lib/fotohaecker_web/live/photo_live/show.ex:331
 #, elixir-autogen, elixir-format
 msgid "photo %{field}"
 msgstr ""
@@ -347,17 +347,17 @@ msgstr ""
 msgid "Your Profile Link"
 msgstr ""
 
-#: lib/fotohaecker_web/live/photo_live/show.ex:184
+#: lib/fotohaecker_web/live/photo_live/show.ex:192
 #, elixir-autogen, elixir-format
 msgid "by %{user}"
 msgstr ""
 
-#: lib/fotohaecker_web/live/photo_live/show.ex:196
+#: lib/fotohaecker_web/live/photo_live/show.ex:204
 #, elixir-autogen, elixir-format
 msgid "by an anonymous user"
 msgstr ""
 
-#: lib/fotohaecker_web/live/photo_live/show.ex:189
+#: lib/fotohaecker_web/live/photo_live/show.ex:197
 #, elixir-autogen, elixir-format
 msgid "by user_id %{user_id}"
 msgstr ""
@@ -383,7 +383,7 @@ msgstr ""
 msgid "Delete"
 msgstr ""
 
-#: lib/fotohaecker_web/live/photo_live/show.ex:467
+#: lib/fotohaecker_web/live/photo_live/show.ex:475
 #, elixir-autogen, elixir-format
 msgid "photo deleted"
 msgstr ""
@@ -478,7 +478,7 @@ msgstr ""
 msgid "Note: Donations are for demonstrative purposes only!"
 msgstr ""
 
-#: lib/fotohaecker_web/live/photo_live/show.ex:192
+#: lib/fotohaecker_web/live/photo_live/show.ex:200
 #, elixir-autogen, elixir-format
 msgid "by user %{user_id}"
 msgstr ""
@@ -546,7 +546,7 @@ msgstr ""
 msgid "Unknown recipe brand, ask a developer to implement component"
 msgstr ""
 
-#: lib/fotohaecker_web/live/photo_live/show.ex:288
+#: lib/fotohaecker_web/live/photo_live/show.ex:296
 #, elixir-autogen, elixir-format
 msgid "Brand: %{brand}"
 msgstr ""

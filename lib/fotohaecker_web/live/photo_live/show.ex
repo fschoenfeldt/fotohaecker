@@ -267,7 +267,6 @@ defmodule FotohaeckerWeb.PhotoLive.Show do
 
   defp recipe_card(%{recipe: nil} = assigns) do
     ~H"""
-
     """
   end
 

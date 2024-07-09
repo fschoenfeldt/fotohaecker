@@ -4,7 +4,6 @@ defmodule FotohaeckerWeb.HeaderLive.NavigationComponent.AccountSettings do
 
   def account_settings(%{user_management_implemented?: false} = assigns) do
     ~H"""
-
     """
   end
 

@@ -104,13 +104,11 @@ defmodule FotohaeckerWeb.UserLive.Index do
 
   defp donation(%{is_implemented?: false} = assigns) do
     ~H"""
-
     """
   end
 
   defp donation(%{error: error} = assigns) when is_tuple(error) do
     ~H"""
-
     """
   end
 
