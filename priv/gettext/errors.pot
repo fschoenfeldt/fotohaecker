@@ -107,3 +107,8 @@ msgstr ""
 #, elixir-autogen, elixir-format
 msgid "photo compression failed"
 msgstr ""
+
+#: lib/fotohaecker_web/live/recipe_live/show.ex:10
+#, elixir-autogen, elixir-format
+msgid "recipe not found"
+msgstr ""

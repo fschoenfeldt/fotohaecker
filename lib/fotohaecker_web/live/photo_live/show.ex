@@ -283,6 +283,10 @@ defmodule FotohaeckerWeb.PhotoLive.Show do
                 alt="Fujifilm"
                 class="h-2 mb-1"
               />
+            <% _ -> %>
+              <p class="text-xs text-gray-800 dark:text-gray-100">
+                <%= gettext("Brand: %{brand}", %{brand: @recipe.brand}) %>
+              </p>
           <% end %>
           <.link href={recipe_route(@recipe.id)} class="text-md text-gray-800 dark:text-gray-100">
             <%= @recipe.title %>

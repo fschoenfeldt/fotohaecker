@@ -11,7 +11,7 @@ defmodule Fotohaecker.MixProject do
       aliases: aliases(),
       deps: deps(),
       dialyzer: [plt_add_apps: [:mix]],
-      compilers: [:phoenix_swagger] ++ Mix.compilers()
+      compilers: Mix.compilers() ++ [:phoenix_swagger]
     ]
   end
 

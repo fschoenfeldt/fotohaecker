@@ -22,6 +22,12 @@ defmodule FotohaeckerWeb.RecipeLive.Show do
         raise RecipeNotFoundError
         {:noreply, socket}
 
+      %Recipe{description: nil} = recipe ->
+        {
+          :noreply,
+          assign(socket, recipe: recipe, description_as_ast: nil)
+        }
+
       recipe ->
         {:ok, description_as_ast, _whatever} = Earmark.as_html(recipe.description)
 

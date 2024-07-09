@@ -36,6 +36,7 @@ defmodule Fotohaecker.Application do
     # Parse the swagger schema on startup as described here:
     # - https://hexdocs.pm/phoenix_swagger/PhoenixSwagger.Validator.html#parse_swagger_schema/1
     # - https://github.com/xerions/phoenix_swagger/issues/62#issuecomment-381932391
+    # credo:disable-for-next-line
     Task.start_link(fn ->
       [
         :code.priv_dir(:fotohaecker),

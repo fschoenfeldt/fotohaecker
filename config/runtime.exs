@@ -70,7 +70,7 @@ if System.get_env("RECIPE_IMPLEMENTATION") do
         recipe_path: System.get_env("RECIPE_PATH")
     else
       Logger.error(
-        "RECIPE_IMPLEMENTATION is set to json, but RECIPE_PATH is missingm, using NoRecipeManagement"
+        "RECIPE_IMPLEMENTATION is set to json, but RECIPE_PATH is missing, using NoRecipeManagement"
       )
     end
   end

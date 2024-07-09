@@ -53,7 +53,11 @@ defmodule Fotohaecker.ContentFixtures do
           "base_simulation" => "Classic Negative",
           "highlight" => -1,
           "shadow" => 1
-        }
+        },
+        description: """
+        ## Some subtitle for this recipe
+        sic semper tyrannis
+        """
       })
       |> Fotohaecker.Content.create_recipe()
 
