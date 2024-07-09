@@ -98,6 +98,8 @@ export const authFilePhotographer = applyPathMagic(
   "tests/"
 );
 
+export const recipeManagementEnabled = !!process.env.RECIPE_IMPLEMENTATION;
+
 export const auth0UserManagementEnabled =
   process.env.AUTH0_CLIENT_ID &&
   process.env.AUTH0_CLIENT_SECRET &&
