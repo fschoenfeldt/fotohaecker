@@ -4,8 +4,13 @@ import path from "path";
 /**
  * Uploads a photo to the server, redirects to the photo page
  * @param page {Page}
+ * @param photo {object} - The photo object to upload, overrides the default values
+ * @returns {Promise<{photo: object, goToPhoto: Function}>} - The uploaded photo object and a function to navigate to the photo page if needed
  */
-export const uploadPhoto = async (page: Page, photo: any = {}) => {
+export const uploadPhoto = async (
+  page: Page,
+  photo: any = {}
+): Promise<{ photo: object; goToPhoto: Function }> => {
   await page.goto("/fh");
 
   photo = Object.assign(
@@ -30,7 +35,11 @@ export const uploadPhoto = async (page: Page, photo: any = {}) => {
   await expect(uploadForm).toContainText(photo.title);
   await page.fill("#photo_tags", photo.tags.join(", "));
   await page.locator("button[type=submit]", { hasText: "submit" }).click();
-  return { photo };
+
+  return {
+    photo,
+    goToPhoto: async () => await page.goto(page.url()),
+  };
 };
 
 export const openDeletePhotoModal = async (page: Page) => {

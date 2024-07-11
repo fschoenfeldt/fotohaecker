@@ -34,6 +34,7 @@ test.describe("Photo Page: Static", () => {
   });
 
   test("can download photo", async ({ page, context }) => {
+    await uploadPhoto(page);
     const downloadPromise = page.waitForEvent("download");
     await page.locator("a", { hasText: "Download" }).click();
 
