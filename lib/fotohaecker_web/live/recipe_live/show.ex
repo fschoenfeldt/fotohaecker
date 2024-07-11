@@ -38,15 +38,34 @@ defmodule FotohaeckerWeb.RecipeLive.Show do
     end
   end
 
+  # TODO: DRY: date function
   def render(assigns) do
     ~H"""
     <div class="space-y-2 p-4">
-      <article class="prose">
-        <h1><%= gettext("Recipe") %>: <%= @recipe.title %></h1>
-        <p><%= Phoenix.HTML.raw(@description_as_ast) %></p>
-        <h2><%= gettext("Settings") %>:</h2>
-        <.recipe_settings recipe={@recipe} />
-      </article>
+      <%= with post_date <- Date.to_iso8601(@recipe.inserted_at) do %>
+        <article
+          class="prose"
+          x-data={"
+        {
+          inserted_at: new Date('#{post_date}').toLocaleDateString('#{FotohaeckerWeb.Gettext |> Gettext.get_locale() |> String.replace("_", "-")}', {
+            year: 'numeric',
+            month: 'long',
+            day: 'numeric'
+          })
+        }
+        "}
+        >
+          <h1><%= gettext("Recipe") %>: <%= @recipe.title %></h1>
+          <p>
+            <%= gettext("Posted on") %>
+            <span x-text="inserted_at"><%= post_date %></span>,
+            <.user_profile_link recipe={@recipe} />
+          </p>
+          <p><%= Phoenix.HTML.raw(@description_as_ast) %></p>
+          <h2><%= gettext("Settings") %>:</h2>
+          <.recipe_settings recipe={@recipe} />
+        </article>
+      <% end %>
       <h2><%= gettext("Photos using this recipe") %>:</h2>
       <ul
         class="grid gap-4 grid-cols-2 md:grid-cols-4 lg:grid-cols-5 max-w-[1200px]"

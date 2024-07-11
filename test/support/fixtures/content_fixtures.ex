@@ -47,7 +47,7 @@ defmodule Fotohaecker.ContentFixtures do
       |> Enum.into(%{
         title: "any title",
         brand: "any brand",
-        user_id: "some user_id",
+        user_id: "some_user_id",
         settings: %{
           "compatible" => "xtrans-iv",
           "base_simulation" => "Classic Negative",

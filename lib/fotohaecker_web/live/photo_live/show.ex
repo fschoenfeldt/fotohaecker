@@ -3,7 +3,6 @@ defmodule FotohaeckerWeb.PhotoLive.Show do
 
   alias Fotohaecker.Content
   alias Fotohaecker.Content.Photo
-  alias Fotohaecker.UserManagement
 
   defmodule PhotoNotFoundError do
     defexception message: dgettext("errors", "photo not found"), plug_status: 404
@@ -123,6 +122,7 @@ defmodule FotohaeckerWeb.PhotoLive.Show do
     """
   end
 
+  # TODO: DRY: doesn't respect the locale, see lib/fotohaecker_web/live/recipe_live/show.ex
   defp alpine_format_date(%NaiveDateTime{} = date) do
     js_date = "${new Date('#{date}').toLocaleDateString()}"
     "`#{gettext("uploaded on %{date}", %{date: js_date})}`"
@@ -184,26 +184,7 @@ defmodule FotohaeckerWeb.PhotoLive.Show do
       >
         <%= gettext("uploaded on %{date}", %{date: @photo.inserted_at}) %>
       </span>
-      <span class="text-gray-700 dark:text-gray-300 italic">
-        <%= if @photo.user_id !== nil do %>
-          <%= case UserManagement.get(@photo.user_id) do %>
-            <% {:ok, user} -> %>
-              <a href={user_route(@photo.user_id)}>
-                <%= gettext("by %{user}", %{user: user.nickname}) %>
-              </a>
-            <% _ -> %>
-              <%= if UserManagement.is_implemented?() do %>
-                <a href={user_route(@photo.user_id)}>
-                  <%= gettext("by user_id %{user_id}", %{user_id: @photo.user_id}) %>
-                </a>
-              <% else %>
-                <%= gettext("by user %{user_id}", %{user_id: @photo.user_id}) %>
-              <% end %>
-          <% end %>
-        <% else %>
-          <%= gettext("by an anonymous user") %>
-        <% end %>
-      </span>
+      <.user_profile_link photo={@photo} />
     </p>
     """
   end

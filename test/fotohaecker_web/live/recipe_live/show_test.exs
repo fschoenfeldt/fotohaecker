@@ -8,6 +8,30 @@ defmodule FotohaeckerWeb.RecipeLive.ShowTest do
 
   @endpoint FotohaeckerWeb.Endpoint
 
+  setup do
+    Mox.stub(
+      Fotohaecker.UserManagement.UserManagementMock,
+      :get,
+      fn "some_user_id" ->
+        {:ok,
+         %{
+           id: "some_user_id",
+           nickname: "test"
+         }}
+      end
+    )
+
+    on_exit(fn ->
+      Application.put_env(
+        :fotohaecker,
+        Fotohaecker.UserManagement,
+        Fotohaecker.UserManagement.UserManagementMock
+      )
+    end)
+
+    :ok
+  end
+
   test "disconnected mount works", %{conn: conn} do
     recipe =
       Fotohaecker.ContentFixtures.recipe_fixture(%{

@@ -1,9 +1,11 @@
 defmodule FotohaeckerWeb.LiveHelpers do
   @moduledoc false
   import Phoenix.Component
+  use Phoenix.Component
 
   alias FotohaeckerWeb.Router.Helpers
   alias Fotohaecker.Content.Photo
+  alias Fotohaecker.Content.Recipe
   alias Phoenix.LiveView.JS
 
   require FotohaeckerWeb.Gettext
@@ -70,6 +72,48 @@ defmodule FotohaeckerWeb.LiveHelpers do
     js
     |> JS.hide(to: "#modal", transition: "fade-out")
     |> JS.hide(to: "#modal-content", transition: "fade-out-scale")
+  end
+
+  @doc """
+  Renders a user profile link for a given photo if `Fotohaecker.UserManagement` is implemented, otherwise prints 'anonymous user'.
+  """
+  attr :photo, Photo
+  attr :recipe, Recipe
+  # TODO: test
+  # TODO: maybe don't extract user_id here but have it passed in as an argument
+  def user_profile_link(assigns) do
+    ~H"""
+    <span class="text-gray-700 dark:text-gray-300 italic">
+      <%= with maybe_user_id_from_photo   <- assigns
+                                             |> Map.get(:photo, %{})
+                                             |> Map.get(:user_id),
+               maybe_user_id_from_recipe  <- assigns
+                                             |> Map.get(:recipe, %{})
+                                             |> Map.get(:user_id),
+               user_id                    <- maybe_user_id_from_photo || maybe_user_id_from_recipe do %>
+        <%= if user_id === nil do %>
+          <%= FotohaeckerWeb.Gettext.gettext("by an anonymous user") %>
+        <% else %>
+          <%= case Fotohaecker.UserManagement.get(user_id) do %>
+            <% {:ok, user} -> %>
+              <a href={user_route(user_id)}>
+                <%= FotohaeckerWeb.Gettext.gettext("by %{user}", %{user: user.nickname}) %>
+              </a>
+            <% _ -> %>
+              <%= if Fotohaecker.UserManagement.is_implemented?() do %>
+                <a href={user_route(user_id)}>
+                  <%= FotohaeckerWeb.Gettext.gettext("by user_id %{user_id}", %{
+                    user_id: user_id
+                  }) %>
+                </a>
+              <% else %>
+                <%= FotohaeckerWeb.Gettext.gettext("by user %{user_id}", %{user_id: user_id}) %>
+              <% end %>
+          <% end %>
+        <% end %>
+      <% end %>
+    </span>
+    """
   end
 
   def locale_gui("de_DE" = locale),
