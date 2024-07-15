@@ -11,8 +11,8 @@ defmodule FotohaeckerWeb.HeaderLive.NavigationComponent.LanguageSelect do
         type="button"
         @click="expanded = !expanded"
       >
-        <Heroicons.language mini class="h-4 w-4 !fill-white" />
-        <span class="sr-only sm:not-sr-only text-white">
+        <Heroicons.language mini class="h-4 w-4 !fill-gray-800" />
+        <span class="sr-only sm:not-sr-only text-gray-800">
           <%= gettext("change language") %>
         </span>
       </button>
@@ -34,7 +34,7 @@ defmodule FotohaeckerWeb.HeaderLive.NavigationComponent.LanguageSelect do
                 tabindex="0"
                 @click="expanded = false"
                 @keydown.enter="expanded = false"
-                class="flex text-gray-700 dark:text-white gap-2"
+                class="flex text-gray-700 dark:text-gray-800 gap-2"
               >
                 <img src={url} class="w-10" alt="" />
                 <%= name %>

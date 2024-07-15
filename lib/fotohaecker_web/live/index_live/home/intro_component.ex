@@ -18,7 +18,7 @@ defmodule FotohaeckerWeb.IndexLive.Home.IntroComponent do
       "intro",
       (length(@uploads.photo.entries) > 0 || @uploaded_photo) && "intro--fileselected"
     ]}>
-      <h1 class="">
+      <h1 class="font-anton">
         <%= gettext("Upload your photos, license-free.") %>
       </h1>
       <UploadForm.render

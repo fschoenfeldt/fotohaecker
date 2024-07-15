@@ -74,6 +74,25 @@
         url("/fh/fonts/anton/anton-v23-latin-regular.woff") format("woff"); /* Chrome 6+, Firefox 3.6+, IE 9+, Safari 5.1+ */
   }
 
+  /* titillium-web-regular - latin */
+  @font-face {
+    font-display: swap; /* Check https://developer.mozilla.org/en-US/docs/Web/CSS/@font-face/font-display for other options. */
+    font-family: "Titillium Web";
+    font-style: normal;
+    font-weight: 400;
+    src: url("/fh/fonts/titillium-web/titillium-web-v17-latin-regular.woff2")
+      format("woff2"); /* Chrome 36+, Opera 23+, Firefox 39+, Safari 12+, iOS 10+ */
+  }
+  /* titillium-web-700 - latin */
+  @font-face {
+    font-display: swap; /* Check https://developer.mozilla.org/en-US/docs/Web/CSS/@font-face/font-display for other options. */
+    font-family: "Titillium Web";
+    font-style: normal;
+    font-weight: 700;
+    src: url("/fh/fonts/titillium-web/titillium-web-v17-latin-700.woff2")
+      format("woff2"); /* Chrome 36+, Opera 23+, Firefox 39+, Safari 12+, iOS 10+ */
+  }
+
   * {
     @apply text-signature-grey;
     font-family: "Merriweather", ui-serif, Georgia, Cambria, "Times New Roman",
@@ -91,8 +110,7 @@
     @apply font-bold;
   }
 
-  h1,
-  h2 {
+  .font-anton {
     font-family:
       "Anton",
       ui-sans-serif,
@@ -111,11 +129,30 @@
       "Noto Color Emoji";
   }
 
+  .font-titillium {
+    font-family:
+      "Titillium Web",
+      ui-sans-serif,
+      system-ui,
+      -apple-system,
+      BlinkMacSystemFont,
+      "Segoe UI",
+      Roboto,
+      "Helvetica Neue",
+      Arial,
+      "Noto Sans",
+      sans-serif,
+      "Apple Color Emoji",
+      "Segoe UI Emoji",
+      "Segoe UI Symbol",
+      "Noto Color Emoji";
+  }
+
   h1 {
-    @apply text-4xl;
+    @apply text-4xl font-titillium;
   }
   h2 {
-    @apply text-3xl;
+    @apply text-3xl font-titillium;
   }
 
   /* https://alpinejs.dev/directives/cloak */

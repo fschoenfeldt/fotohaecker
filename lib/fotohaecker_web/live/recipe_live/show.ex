@@ -44,7 +44,7 @@ defmodule FotohaeckerWeb.RecipeLive.Show do
     <div class="space-y-2 p-4">
       <%= with post_date <- Date.to_iso8601(@recipe.inserted_at) do %>
         <article
-          class="prose"
+          class="prose max-w-3xl mx-auto"
           x-data={"
         {
           inserted_at: new Date('#{post_date}').toLocaleDateString('#{FotohaeckerWeb.Gettext |> Gettext.get_locale() |> String.replace("_", "-")}', {
@@ -61,20 +61,35 @@ defmodule FotohaeckerWeb.RecipeLive.Show do
             <span x-text="inserted_at"><%= post_date %></span>,
             <.user_profile_link recipe={@recipe} />
           </p>
-          <p><%= Phoenix.HTML.raw(@description_as_ast) %></p>
+          <%!-- Cover image, for now it's the first image using this recipe… --%>
+          <%= with [%Content.Photo{} = photo | _] <- @recipe.photos,
+               file_name                          <- photo.file_name,
+               extension                          <- photo.extension,
+               # TODO DRY: don't hardcode paths here…
+               preview_path                       <- Routes.static_path(FotohaeckerWeb.Endpoint,
+                                                                          "/uploads/#{file_name}_preview#{extension}") do %>
+            <%!-- # FIXME: if possible, use generic photo component with a11y?  --%>
+            <img src={preview_path} alt="Cover photo" />
+            <% else _ -> %>
+              <%!-- # FIXME: is this text neccessary? --%>
+              <p><%= gettext("no cover photo.") %></p>
+          <% end %>
+          <%= Phoenix.HTML.raw(@description_as_ast) %>
           <h2><%= gettext("Settings") %>:</h2>
           <.recipe_settings recipe={@recipe} />
         </article>
       <% end %>
-      <h2><%= gettext("Photos using this recipe") %>:</h2>
-      <ul
-        class="grid gap-4 grid-cols-2 md:grid-cols-4 lg:grid-cols-5 max-w-[1200px]"
-        data-testid="recipe_list--photo"
-      >
-        <%= for %Photo{} = photo <- @recipe.photos do %>
-          <PhotoComponent.render photo={photo} />
-        <% end %>
-      </ul>
+      <div class="max-w-3xl mx-auto">
+        <h2><%= gettext("Photos using this recipe") %>:</h2>
+        <ul
+          class="grid gap-4 grid-cols-2 md:grid-cols-4 lg:grid-cols-5 max-w-[1200px]"
+          data-testid="recipe_list--photo"
+        >
+          <%= for %Photo{} = photo <- @recipe.photos do %>
+            <PhotoComponent.render photo={photo} />
+          <% end %>
+        </ul>
+      </div>
     </div>
     """
   end

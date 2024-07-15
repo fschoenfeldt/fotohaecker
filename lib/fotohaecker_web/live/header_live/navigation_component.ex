@@ -43,7 +43,7 @@ defmodule FotohaeckerWeb.HeaderLive.NavigationComponent do
               href={
                 Routes.index_home_path(@socket, :home, Gettext.get_locale(FotohaeckerWeb.Gettext))
               }
-              class="text-gray-100 text-xl px-2"
+              class="text-gray-800 text-xl px-2 font-bold"
             >
               Fotohäcker
             </a>

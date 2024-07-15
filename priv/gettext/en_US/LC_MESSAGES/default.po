@@ -484,13 +484,13 @@ msgstr ""
 msgid "by user %{user_id}"
 msgstr ""
 
-#: lib/fotohaecker_web/live/header_live/navigation_component/search_component.ex:188
+#: lib/fotohaecker_web/live/header_live/navigation_component/search_component.ex:185
 #: lib/fotohaecker_web/live/search_live/search.ex:103
 #, elixir-autogen, elixir-format
 msgid "Photos"
 msgstr ""
 
-#: lib/fotohaecker_web/live/header_live/navigation_component/search_component.ex:180
+#: lib/fotohaecker_web/live/header_live/navigation_component/search_component.ex:177
 #: lib/fotohaecker_web/live/search_live/search.ex:95
 #, elixir-autogen, elixir-format
 msgid "Users"
@@ -526,7 +526,7 @@ msgstr ""
 msgid "close"
 msgstr ""
 
-#: lib/fotohaecker_web/live/recipe_live/show.ex:69
+#: lib/fotohaecker_web/live/recipe_live/show.ex:83
 #, elixir-autogen, elixir-format
 msgid "Photos using this recipe"
 msgstr ""
@@ -536,13 +536,13 @@ msgstr ""
 msgid "Recipe"
 msgstr ""
 
-#: lib/fotohaecker_web/live/recipe_live/show.ex:65
-#: lib/fotohaecker_web/live/recipe_live/show.ex:93
+#: lib/fotohaecker_web/live/recipe_live/show.ex:78
+#: lib/fotohaecker_web/live/recipe_live/show.ex:108
 #, elixir-autogen, elixir-format
 msgid "Settings"
 msgstr ""
 
-#: lib/fotohaecker_web/live/recipe_live/show.ex:91
+#: lib/fotohaecker_web/live/recipe_live/show.ex:106
 #, elixir-autogen, elixir-format
 msgid "Unknown recipe brand, ask a developer to implement component"
 msgstr ""
@@ -555,4 +555,9 @@ msgstr ""
 #: lib/fotohaecker_web/live/recipe_live/show.ex:60
 #, elixir-autogen, elixir-format
 msgid "Posted on"
+msgstr ""
+
+#: lib/fotohaecker_web/live/recipe_live/show.ex:75
+#, elixir-autogen, elixir-format
+msgid "no cover photo."
 msgstr ""

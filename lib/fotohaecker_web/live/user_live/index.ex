@@ -21,7 +21,7 @@ defmodule FotohaeckerWeb.UserLive.Index do
   @impl Phoenix.LiveView
   def render(assigns) do
     ~H"""
-    <div id="user" class="max-w-6xl mx-2 md:mx-auto space-y-2 pt-2">
+    <div id="user" class="max-w-6xl mx-2 md:mx-auto space-y-8 pt-2">
       <h1 class="dark:text-gray-100"><%= gettext("Your Account") %></h1>
 
       <.account_info error={Map.get(assigns, :error)} current_user={Map.get(assigns, :current_user)} />
@@ -117,7 +117,7 @@ defmodule FotohaeckerWeb.UserLive.Index do
     <div class="rounded border border-green-700 text-white space-y-4">
       <div class="flex space-x-2 items-center bg-green-700 p-2">
         <Heroicons.currency_euro mini class="h-8 w-8 fill-white" />
-        <h2 class="text-white font-sans">
+        <h2 class="text-white">
           <%= gettext("Donations") %>
           <span class="text-white text-base ms-2">
             <%= gettext("Note: Donations are for demonstrative purposes only!") %>

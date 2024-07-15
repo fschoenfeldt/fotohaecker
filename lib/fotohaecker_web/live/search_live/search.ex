@@ -91,7 +91,7 @@ defmodule FotohaeckerWeb.SearchLive.Search do
   # TODO: dry
   defp group_title(%{group: :user} = assigns) do
     ~H"""
-    <h2 class="font-sans dark:text-gray-100">
+    <h2 class="dark:text-gray-100">
       <%= gettext("Users") %>
     </h2>
     """
@@ -99,7 +99,7 @@ defmodule FotohaeckerWeb.SearchLive.Search do
 
   defp group_title(%{group: :photo} = assigns) do
     ~H"""
-    <h2 class="font-sans dark:text-gray-100">
+    <h2 class="dark:text-gray-100">
       <%= gettext("Photos") %>
     </h2>
     """
@@ -107,7 +107,7 @@ defmodule FotohaeckerWeb.SearchLive.Search do
 
   defp group_title(assigns) do
     ~H"""
-    <h2 class="font-sans dark:text-gray-100">
+    <h2 class="dark:text-gray-100">
       <%= Atom.to_string(@group) %>
     </h2>
     """
