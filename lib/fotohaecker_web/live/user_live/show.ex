@@ -66,7 +66,9 @@ defmodule FotohaeckerWeb.UserLive.Show do
     <%= if Fotohaecker.Payment.is_fully_onboarded?(@user) do %>
       <div class="bg-green-100 py-2" data-testid="donationBanner">
         <div class="flex gap-4 flex-wrap items-center justify-between max-w-6xl mx-2 md:mx-auto">
-          <p><%= gettext("Donate to %{user} to support their work", user: @user.nickname) %></p>
+          <p class="text-gray-800">
+            <%= gettext("Donate to %{user} to support their work", user: @user.nickname) %>
+          </p>
           <button type="button" class="btn btn--green inline-block" phx-click="donate">
             <%= gettext("donate") %>
           </button>

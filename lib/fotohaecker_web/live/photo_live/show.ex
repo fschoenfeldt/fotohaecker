@@ -45,8 +45,12 @@ defmodule FotohaeckerWeb.PhotoLive.Show do
                                                   "/uploads/#{file_name}_og#{extension}"),
                preview_path <- Routes.static_path(FotohaeckerWeb.Endpoint,
                                                   "/uploads/#{file_name}_preview#{extension}") do %>
-        <div class="grid md:gap-8 md:grid-cols-12">
-          <.download_link override_class="col-span-8 bg-gray-100 md:py-8" href={path} photo={@photo}>
+        <div class="grid md:gap-8 md:grid-cols-12 h-full relative">
+          <.download_link
+            override_class="col-span-8 bg-gray-100 dark:bg-gray-900 md:py-8 md:px-4 flex items-center"
+            href={path}
+            photo={@photo}
+          >
             <img
               class="w-auto max-h-[calc(100vh-10rem)] mx-auto"
               src={preview_path}
@@ -253,7 +257,7 @@ defmodule FotohaeckerWeb.PhotoLive.Show do
 
   defp recipe_card(assigns) do
     ~H"""
-    <p class="text-xs text-gray-600">Recipe used:</p>
+    <p class="text-xs text-gray-600 dark:text-gray-200">Recipe used:</p>
     <div class="rounded bg-gradient-to-br from-yellow-300 to-red-800 shadow-sm border-gray-400 relative !mt-1">
       <div class="grain-effect"></div>
       <div class="p-2 overflow-hidden relative">
@@ -272,11 +276,11 @@ defmodule FotohaeckerWeb.PhotoLive.Show do
                 class="h-2 mb-1"
               />
             <% _ -> %>
-              <p class="text-xs text-gray-800 dark:text-gray-100">
+              <p class="text-xs text-gray-800">
                 <%= gettext("Brand: %{brand}", %{brand: @recipe.brand}) %>
               </p>
           <% end %>
-          <.link href={recipe_route(@recipe.id)} class="text-md text-gray-800 dark:text-gray-100">
+          <.link href={recipe_route(@recipe.id)} class="text-md text-gray-800">
             <%= @recipe.title %>
           </.link>
         </div>
@@ -305,7 +309,7 @@ defmodule FotohaeckerWeb.PhotoLive.Show do
         <%!-- # TODO: focus field after activating edit mode --%>
         <input
           id={"photo_#{@editing.field}"}
-          class={["p-2 bg-gray-100 max-w-full", @input_class]}
+          class={["p-2 bg-gray-100 max-w-full text-gray-800", @input_class]}
           name={"photo[#{@editing.field}]"}
           value={field_value(@editing)}
           placeholder={gettext("photo %{field}", %{field: @editing.field})}

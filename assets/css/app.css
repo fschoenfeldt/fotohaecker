@@ -94,7 +94,7 @@
   }
 
   * {
-    @apply text-signature-grey;
+    @apply text-signature-grey dark:text-white;
     font-family: "Merriweather", ui-serif, Georgia, Cambria, "Times New Roman",
       Times, serif;
   }
@@ -209,7 +209,7 @@
       }
 
       .upload_form {
-        @apply h-max rounded-xl border border-gray-300 bg-white p-4 shadow-xl dark:bg-gray-800 md:w-max lg:self-center lg:justify-self-center transition-[width] duration-500 ease-in-out delay-200 overflow-hidden space-y-2;
+        @apply h-max rounded-xl border border-gray-300 dark:border-gray-500 bg-white p-4 shadow-xl dark:bg-gray-800 md:w-max lg:self-center lg:justify-self-center transition-[width] duration-500 ease-in-out delay-200 overflow-hidden space-y-2;
 
         &--fileselected {
           @apply md:w-full;
@@ -244,7 +244,7 @@
       }
     }
     .photos {
-      @apply relative z-0 mx-auto max-w-6xl space-y-4 rounded-2xl rounded-b-none border bg-gray-100 p-4 shadow dark:bg-gray-800 md:p-10 2xl:mt-8;
+      @apply relative z-0 mx-auto max-w-6xl space-y-4 rounded-2xl rounded-b-none border dark:border-gray-500 bg-gray-100 p-4 border-b-0 dark:bg-gray-800 md:p-10 2xl:mt-8;
       .sortby-options {
         @apply mb-2 flex gap-x-2;
         &__option {
@@ -260,6 +260,10 @@
   #search {
     @apply p-4 lg:p-8;
   }
+
+  #photo {
+  }
+
   .decorative-gradient {
     background-image: -webkit-gradient(
       linear,
@@ -339,6 +343,9 @@
       @apply border-gray-800 text-gray-800;
       &:hover {
         @apply bg-gray-800 text-gray-200;
+        svg {
+          @apply stroke-gray-200;
+        }
       }
       &:focus {
         @apply ring-2 ring-blue-500 ring-offset-2;
@@ -397,7 +404,7 @@
   }
 
   .alert {
-    @apply fixed right-4 top-4 z-50 w-1/2 rounded border p-4 text-gray-700 shadow;
+    @apply fixed right-4 top-4 z-50 w-[calc(100%-2rem)] md:w-auto rounded border p-4 text-gray-700 shadow;
     &:empty {
       @apply hidden;
     }

@@ -187,12 +187,12 @@ msgstr "Etwas ist beim Generieren der Schlagwörter schiefgelaufen: %{error}"
 #: lib/fotohaecker_web/live/index_live/home.ex:174
 #, elixir-autogen, elixir-format, fuzzy
 msgid "Something went wrong updating your photo: %{error}"
-msgstr "Etwas ist beim Hochladen Deines Fotos schiefgelaufen: %{error}"
+msgstr "Bei der Aktualisierung Ihres Fotos ist ein Fehler aufgetreten: %{error}"
 
 #: lib/fotohaecker_web/live/index_live/home.ex:166
 #, elixir-autogen, elixir-format, fuzzy
 msgid "Tags updated successfully."
-msgstr "Foto erfolgreich hochgeladen."
+msgstr "Tags erfolgreich aktualisiert."
 
 #: lib/fotohaecker_web/live/index_live/home/upload_form.ex:184
 #, elixir-autogen, elixir-format
@@ -529,35 +529,35 @@ msgstr "schließen"
 #: lib/fotohaecker_web/live/recipe_live/show.ex:83
 #, elixir-autogen, elixir-format
 msgid "Photos using this recipe"
-msgstr ""
+msgstr "Fotos mit diesem Rezept"
 
 #: lib/fotohaecker_web/live/recipe_live/show.ex:58
 #, elixir-autogen, elixir-format
 msgid "Recipe"
-msgstr ""
+msgstr "Rezept"
 
 #: lib/fotohaecker_web/live/recipe_live/show.ex:78
 #: lib/fotohaecker_web/live/recipe_live/show.ex:108
 #, elixir-autogen, elixir-format
 msgid "Settings"
-msgstr ""
+msgstr "Einstellungen"
 
 #: lib/fotohaecker_web/live/recipe_live/show.ex:106
 #, elixir-autogen, elixir-format
 msgid "Unknown recipe brand, ask a developer to implement component"
-msgstr ""
+msgstr "Unbekannter Hersteller vom Rezept, frage einen Entwickler, diese Komponente zu implementieren"
 
 #: lib/fotohaecker_web/live/photo_live/show.ex:276
 #, elixir-autogen, elixir-format
 msgid "Brand: %{brand}"
-msgstr ""
+msgstr "Hersteller: %{Brand}"
 
 #: lib/fotohaecker_web/live/recipe_live/show.ex:60
 #, elixir-autogen, elixir-format
 msgid "Posted on"
-msgstr ""
+msgstr "Gepostet am"
 
 #: lib/fotohaecker_web/live/recipe_live/show.ex:75
 #, elixir-autogen, elixir-format
 msgid "no cover photo."
-msgstr ""
+msgstr "Kein Titelbild."

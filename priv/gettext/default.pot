@@ -37,7 +37,7 @@ msgstr ""
 
 #: lib/fotohaecker_web/live/index_live/home/photo_component.ex:35
 #: lib/fotohaecker_web/live/index_live/home/upload_form.ex:47
-#: lib/fotohaecker_web/live/photo_live/show.ex:53
+#: lib/fotohaecker_web/live/photo_live/show.ex:57
 #, elixir-autogen, elixir-format
 msgid "photo %{title} on Fotohäcker"
 msgstr ""
@@ -62,7 +62,7 @@ msgstr ""
 msgid "uploading.."
 msgstr ""
 
-#: lib/fotohaecker_web/live/photo_live/show.ex:170
+#: lib/fotohaecker_web/live/photo_live/show.ex:174
 #, elixir-autogen, elixir-format
 msgid "back"
 msgstr ""
@@ -97,7 +97,7 @@ msgstr ""
 msgid "change language"
 msgstr ""
 
-#: lib/fotohaecker_web/live/photo_live/show.ex:150
+#: lib/fotohaecker_web/live/photo_live/show.ex:154
 #, elixir-autogen, elixir-format
 msgid "download the photo %{title} from Fotohäcker"
 msgstr ""
@@ -142,7 +142,7 @@ msgstr ""
 msgid "You have been logged out!"
 msgstr ""
 
-#: lib/fotohaecker_web/live/photo_live/show.ex:74
+#: lib/fotohaecker_web/live/photo_live/show.ex:78
 #, elixir-autogen, elixir-format
 msgid "Download"
 msgstr ""
@@ -157,8 +157,8 @@ msgstr ""
 msgid "Your Account"
 msgstr ""
 
-#: lib/fotohaecker_web/live/photo_live/show.ex:128
-#: lib/fotohaecker_web/live/photo_live/show.ex:185
+#: lib/fotohaecker_web/live/photo_live/show.ex:132
+#: lib/fotohaecker_web/live/photo_live/show.ex:189
 #, elixir-autogen, elixir-format
 msgid "uploaded on %{date}"
 msgstr ""
@@ -198,7 +198,7 @@ msgstr ""
 msgid "generate using AI"
 msgstr ""
 
-#: lib/fotohaecker_web/live/photo_live/show.ex:228
+#: lib/fotohaecker_web/live/photo_live/show.ex:232
 #, elixir-autogen, elixir-format
 msgid "no tags"
 msgstr ""
@@ -209,7 +209,7 @@ msgid "photo tags"
 msgstr ""
 
 #: lib/fotohaecker_web/live/index_live/home/upload_form.ex:52
-#: lib/fotohaecker_web/live/photo_live/show.ex:320
+#: lib/fotohaecker_web/live/photo_live/show.ex:324
 #, elixir-autogen, elixir-format
 msgid "saving.."
 msgstr ""
@@ -229,42 +229,42 @@ msgstr ""
 msgid "submit and go to photo"
 msgstr ""
 
-#: lib/fotohaecker_web/live/photo_live/show.ex:233
+#: lib/fotohaecker_web/live/photo_live/show.ex:237
 #, elixir-autogen, elixir-format
 msgid "tags"
 msgstr ""
 
-#: lib/fotohaecker_web/live/photo_live/show.ex:344
+#: lib/fotohaecker_web/live/photo_live/show.ex:348
 #, elixir-autogen, elixir-format
 msgid "cancel"
 msgstr ""
 
-#: lib/fotohaecker_web/live/photo_live/show.ex:334
+#: lib/fotohaecker_web/live/photo_live/show.ex:338
 #, elixir-autogen, elixir-format
 msgid "canceling.."
 msgstr ""
 
-#: lib/fotohaecker_web/live/photo_live/show.ex:441
+#: lib/fotohaecker_web/live/photo_live/show.ex:445
 #, elixir-autogen, elixir-format
 msgid "photo updated"
 msgstr ""
 
-#: lib/fotohaecker_web/live/photo_live/show.ex:328
+#: lib/fotohaecker_web/live/photo_live/show.ex:332
 #, elixir-autogen, elixir-format
 msgid "save"
 msgstr ""
 
-#: lib/fotohaecker_web/live/photo_live/show.ex:377
+#: lib/fotohaecker_web/live/photo_live/show.ex:381
 #, elixir-autogen, elixir-format
 msgid "edit field %{field}"
 msgstr ""
 
-#: lib/fotohaecker_web/live/photo_live/show.ex:302
+#: lib/fotohaecker_web/live/photo_live/show.ex:306
 #, elixir-autogen, elixir-format
 msgid "enter new %{field}"
 msgstr ""
 
-#: lib/fotohaecker_web/live/photo_live/show.ex:311
+#: lib/fotohaecker_web/live/photo_live/show.ex:315
 #, elixir-autogen, elixir-format
 msgid "photo %{field}"
 msgstr ""
@@ -377,13 +377,13 @@ msgstr ""
 msgid "Search…"
 msgstr ""
 
-#: lib/fotohaecker_web/live/photo_live/show.ex:81
-#: lib/fotohaecker_web/live/photo_live/show.ex:111
+#: lib/fotohaecker_web/live/photo_live/show.ex:85
+#: lib/fotohaecker_web/live/photo_live/show.ex:115
 #, elixir-autogen, elixir-format
 msgid "Delete"
 msgstr ""
 
-#: lib/fotohaecker_web/live/photo_live/show.ex:455
+#: lib/fotohaecker_web/live/photo_live/show.ex:459
 #, elixir-autogen, elixir-format
 msgid "photo deleted"
 msgstr ""
@@ -408,7 +408,7 @@ msgstr ""
 msgid "Delete Stripe Account"
 msgstr ""
 
-#: lib/fotohaecker_web/live/user_live/show.ex:69
+#: lib/fotohaecker_web/live/user_live/show.ex:70
 #, elixir-autogen, elixir-format
 msgid "Donate to %{user} to support their work"
 msgstr ""
@@ -453,12 +453,12 @@ msgstr ""
 msgid "You're ready to receive donations!"
 msgstr ""
 
-#: lib/fotohaecker_web/live/user_live/show.ex:71
+#: lib/fotohaecker_web/live/user_live/show.ex:73
 #, elixir-autogen, elixir-format
 msgid "donate"
 msgstr ""
 
-#: lib/fotohaecker_web/live/user_live/show.ex:96
+#: lib/fotohaecker_web/live/user_live/show.ex:98
 #, elixir-autogen, elixir-format
 msgid "error initializing donation: %{message}"
 msgstr ""
@@ -505,17 +505,17 @@ msgstr ""
 msgid "title (maximum 32 characters)"
 msgstr ""
 
-#: lib/fotohaecker_web/live/photo_live/show.ex:104
+#: lib/fotohaecker_web/live/photo_live/show.ex:108
 #, elixir-autogen, elixir-format
 msgid "Are you sure you want to delete this photo?"
 msgstr ""
 
-#: lib/fotohaecker_web/live/photo_live/show.ex:118
+#: lib/fotohaecker_web/live/photo_live/show.ex:122
 #, elixir-autogen, elixir-format
 msgid "Cancel"
 msgstr ""
 
-#: lib/fotohaecker_web/live/photo_live/show.ex:101
+#: lib/fotohaecker_web/live/photo_live/show.ex:105
 #, elixir-autogen, elixir-format
 msgid "Delete photo"
 msgstr ""
@@ -546,7 +546,7 @@ msgstr ""
 msgid "Unknown recipe brand, ask a developer to implement component"
 msgstr ""
 
-#: lib/fotohaecker_web/live/photo_live/show.ex:276
+#: lib/fotohaecker_web/live/photo_live/show.ex:280
 #, elixir-autogen, elixir-format
 msgid "Brand: %{brand}"
 msgstr ""

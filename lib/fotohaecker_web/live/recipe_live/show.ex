@@ -44,7 +44,7 @@ defmodule FotohaeckerWeb.RecipeLive.Show do
     <div class="space-y-2 p-4">
       <%= with post_date <- Date.to_iso8601(@recipe.inserted_at) do %>
         <article
-          class="prose max-w-3xl mx-auto"
+          class="prose dark:prose-invert max-w-3xl mx-auto"
           x-data={"
         {
           inserted_at: new Date('#{post_date}').toLocaleDateString('#{FotohaeckerWeb.Gettext |> Gettext.get_locale() |> String.replace("_", "-")}', {

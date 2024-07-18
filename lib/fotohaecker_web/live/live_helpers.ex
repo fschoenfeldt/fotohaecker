@@ -38,7 +38,7 @@ defmodule FotohaeckerWeb.LiveHelpers do
       <div
         x-data="modal"
         id="modal-content"
-        class="phx-modal-content fade-in-scale"
+        class="phx-modal-content fade-in-scale text-signature-grey"
         phx-click-away={JS.dispatch("click", to: "#close")}
         phx-window-keydown={JS.dispatch("click", to: "#close")}
         phx-key="escape"
@@ -48,7 +48,7 @@ defmodule FotohaeckerWeb.LiveHelpers do
       >
         <div class="flex justify-between">
           <%= if Map.get(assigns, :title) do %>
-            <h2 id="modalLabel" class="phx-modal-title"><%= @title %></h2>
+            <h2 class="text-signature-grey" id="modalLabel" class="phx-modal-title"><%= @title %></h2>
           <% end %>
           <%= if @return_to do %>
             <.link patch={@return_to} phx-click={hide_modal()} id="close" class="phx-modal-close">
