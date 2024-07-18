@@ -34,11 +34,13 @@ test.describe("Photo Page: Static", () => {
   });
 
   test("can download photo", async ({ page, context }) => {
-    const pagePromise = context.waitForEvent("page");
+    await uploadPhoto(page);
+    const downloadPromise = page.waitForEvent("download");
     await page.locator("a", { hasText: "Download" }).click();
-    const newPage = await pagePromise;
-    await newPage.waitForLoadState();
-    await expect(newPage).toHaveTitle(/.jpg/);
+
+    const download = await downloadPromise;
+    expect(download.suggestedFilename()).toContain("live_view_upload-");
+    expect(download.suggestedFilename()).toContain(".jpg");
   });
 
   test("can go back to home page", async ({ page }) => {
@@ -102,6 +104,46 @@ test.describe("Photo Page: CRUD", () => {
       "tags",
     ]);
     await expect(page.locator(".alert--info")).toContainText("photo updated");
+  });
+
+  test("should not have any automatically detectable accessibility issues while editing tags", async ({
+    context,
+    page,
+    makeAxeBuilder,
+  }) => {
+    test.slow();
+
+    await expect(page.getByTestId("title")).toContainText(context.photo.title);
+    await expect(page.getByTestId("tags")).toContainText("no tags");
+
+    await page.getByTestId("edit-button-tags").click();
+    await page.locator("input#photo_tags").fill("fancy, accessible, tags");
+
+    await page.waitForTimeout(300);
+
+    const accessibilityScanResults = await makeAxeBuilder().analyze();
+    expect(accessibilityScanResults.violations).toEqual([]);
+  });
+
+  test("should not have any automatically detectable accessibility issues while editing tags in dark mode", async ({
+    context,
+    page,
+    makeAxeBuilder,
+  }) => {
+    test.slow();
+
+    await page.emulateMedia({ colorScheme: "dark" });
+
+    await expect(page.getByTestId("title")).toContainText(context.photo.title);
+    await expect(page.getByTestId("tags")).toContainText("no tags");
+
+    await page.getByTestId("edit-button-tags").click();
+    await page.locator("input#photo_tags").fill("fancy, accessible, tags");
+
+    await page.waitForTimeout(300);
+
+    const accessibilityScanResults = await makeAxeBuilder().analyze();
+    expect(accessibilityScanResults.violations).toEqual([]);
   });
 
   test("can delete photo", async ({ page, context }) => {

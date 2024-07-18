@@ -1,6 +1,8 @@
 defmodule Fotohaecker.Content do
   @moduledoc """
   The Content context.
+
+  For more information about content structure, see `content.md`.
   """
 
   import Ecto.Query, warn: false
@@ -140,6 +142,24 @@ defmodule Fotohaecker.Content do
   def get_photo(id), do: Repo.get(Photo, id)
 
   @doc """
+  Gets a single photo and preloads the given fields.
+
+  ## Examples
+
+      iex> get_photo!(123, [:recipe])
+      %Photo{recipe: %Recipe{}}
+
+      iex> get_photo!(456, [:recipe])
+      ** (Ecto.NoResultsError)
+
+  """
+  def get_photo(id, preload_fields),
+    do:
+      id
+      |> get_photo()
+      |> Repo.preload(preload_fields)
+
+  @doc """
   Creates a photo.
 
   ## Examples
@@ -182,30 +202,30 @@ defmodule Fotohaecker.Content do
 
   ## Examples
 
-      iex> is_photo_owner?(%Photo{user_id: "auth0|123456789"}, "auth0|123456789")
+      iex> photo_owner?(%Photo{user_id: "auth0|123456789"}, "auth0|123456789")
       true
 
-      iex> is_photo_owner?(%Photo{user_id: "auth0|123456789"}, "other_user")
+      iex> photo_owner?(%Photo{user_id: "auth0|123456789"}, "other_user")
       false
 
-      iex> is_photo_owner?(%Photo{user_id: nil}, "auth0|123456789")
+      iex> photo_owner?(%Photo{user_id: nil}, "auth0|123456789")
       true
 
-      iex> is_photo_owner?(%Photo{user_id: nil}, nil)
+      iex> photo_owner?(%Photo{user_id: nil}, nil)
       true
   """
-  def is_photo_owner?(%Photo{} = photo, user) when is_map(user),
-    do: is_photo_owner?(photo, user.id)
+  def photo_owner?(%Photo{} = photo, user) when is_map(user),
+    do: photo_owner?(photo, user.id)
 
-  def is_photo_owner?(%Photo{user_id: nil} = _photo, user_id) when is_binary(user_id),
+  def photo_owner?(%Photo{user_id: nil} = _photo, user_id) when is_binary(user_id),
     do: true
 
-  def is_photo_owner?(%Photo{} = photo, user_id) when is_binary(user_id),
+  def photo_owner?(%Photo{} = photo, user_id) when is_binary(user_id),
     do: photo.user_id == user_id
 
-  def is_photo_owner?(%Photo{user_id: nil}, _user_or_id), do: true
+  def photo_owner?(%Photo{user_id: nil}, _user_or_id), do: true
 
-  def is_photo_owner?(%Photo{} = _photo, nil), do: false
+  def photo_owner?(%Photo{} = _photo, nil), do: false
 
   @doc """
   Deletes a photo.
@@ -222,7 +242,7 @@ defmodule Fotohaecker.Content do
   def delete_photo(%Photo{user_id: nil} = photo, _user_or_id), do: delete_photo(photo)
 
   def delete_photo(%Photo{} = photo, user_id) when is_binary(user_id) do
-    if is_photo_owner?(photo, user_id) do
+    if photo_owner?(photo, user_id) do
       delete_photo(photo)
     else
       {:error, "You are not allowed to delete this photo."}
@@ -283,5 +303,151 @@ defmodule Fotohaecker.Content do
   """
   def change_photo(%Photo{} = photo, attrs \\ %{}) do
     Photo.changeset(photo, attrs)
+  end
+
+  alias Fotohaecker.Content.Recipe
+
+  @doc """
+  Returns the list of recipe.
+
+  ## Examples
+
+      iex> list_recipe()
+      [%Recipe{}, ...]
+
+  """
+  def list_recipe do
+    Repo.all(Recipe)
+  end
+
+  @doc """
+  Gets a single recipe.
+
+  Raises `Ecto.NoResultsError` if the Recipe does not exist.
+
+  ## Examples
+
+      iex> get_recipe!(123)
+      %Recipe{}
+
+      iex> get_recipe!(456)
+      ** (Ecto.NoResultsError)
+
+  """
+  def get_recipe!(id), do: Repo.get!(Recipe, id)
+
+  @doc """
+  Gets a single recipe and preloads the given fields.
+
+  Raises `Ecto.NoResultsError` if the Recipe does not exist.
+
+  ## Examples
+
+      iex> get_recipe!(123, [:photos])
+      %Recipe{photos: [%Photo{}]}
+
+      iex> get_recipe!(456, [:photos])
+      ** (Ecto.NoResultsError)
+  """
+
+  def get_recipe!(id, preload_fields),
+    do:
+      id
+      |> get_recipe!()
+      |> Repo.preload(preload_fields)
+
+  @doc """
+  Gets a single recipe.
+
+  ## Examples
+
+      iex> get_recipe(123)
+      %Recipe{}
+
+      iex> get_recipe(456)
+      nil
+  """
+  def get_recipe(id), do: Repo.get(Recipe, id)
+
+  @doc """
+  Gets a single recipe and preloads the given fields.
+
+  ## Examples
+
+      iex> get_recipe!(123, [:photos])
+      %Recipe{photos: [%Photo{}]}
+
+      iex> get_recipe!(456, [:photos])
+      nil
+  """
+  def get_recipe(id, preload_fields),
+    do:
+      id
+      |> get_recipe()
+      |> Repo.preload(preload_fields)
+
+  @doc """
+  Creates a recipe.
+
+  ## Examples
+
+      iex> create_recipe(%{field: value})
+      {:ok, %Recipe{}}
+
+      iex> create_recipe(%{field: bad_value})
+      {:error, %Ecto.Changeset{}}
+
+  """
+  def create_recipe(attrs \\ %{}) do
+    %Recipe{}
+    |> Recipe.changeset(attrs)
+    |> Repo.insert()
+  end
+
+  @doc """
+  Updates a recipe.
+
+  ## Examples
+
+      iex> update_recipe(recipe, %{field: new_value})
+      {:ok, %Recipe{}}
+
+      iex> update_recipe(recipe, %{field: bad_value})
+      {:error, %Ecto.Changeset{}}
+
+  """
+  def update_recipe(%Recipe{} = recipe, attrs) do
+    recipe
+    |> Recipe.changeset(attrs)
+    |> Repo.update()
+  end
+
+  @doc """
+  Deletes a recipe.
+
+  ## Examples
+
+      iex> delete_recipe(recipe)
+      {:ok, %Recipe{}}
+
+      iex> delete_recipe(recipe)
+      {:error, %Ecto.Changeset{}}
+
+  """
+  def delete_recipe(%Recipe{} = recipe) do
+    Repo.delete(recipe)
+  end
+
+  @doc """
+  Returns an `%Ecto.Changeset{}` for tracking recipe changes.
+
+  ## Examples
+
+      iex> change_recipe(recipe)
+      %Ecto.Changeset{data: %Recipe{}}
+
+  """
+  def change_recipe(%Recipe{} = recipe, attrs \\ %{}) do
+    Recipe.changeset(recipe, attrs)
   end
 end

@@ -23,7 +23,7 @@ defmodule FotohaeckerWeb.HeaderLive.NavigationComponent.SearchComponent do
         id="search_form"
         method="POST"
         class={[
-          "flex w-full bg-gray-800 border border-gray-700 rounded text-white placeholder:text-gray-400",
+          "flex w-full bg-gray-100 border border-gray-300 rounded text-gray-800 placeholder:text-gray-400",
           @search_query !== "" && "rounded-b-none"
         ]}
         phx-change="search"
@@ -45,20 +45,20 @@ defmodule FotohaeckerWeb.HeaderLive.NavigationComponent.SearchComponent do
     <button
       :if={@search_query !== ""}
       type="submit"
-      class="btn btn--dark hover:bg-gray-700 border-none"
+      class="btn btn--transparent hover:bg-gray-200 border-none"
       phx-target={@myself}
     >
-      <Heroicons.arrow_right class="w-4 h-4 stroke-gray-200" alt="" />
+      <Heroicons.arrow_right class="w-4 h-4 stroke-gray-800" alt="" />
       <span class="sr-only"><%= gettext("submit") %></span>
     </button>
     <button
       :if={@search_query !== ""}
       type="button"
-      class="btn btn--dark hover:bg-gray-700 border-none"
+      class="btn btn--transparent hover:bg-gray-200 border-none"
       phx-click="search_reset"
       phx-target={@myself}
     >
-      <Heroicons.x_mark class="w-4 h-4 stroke-gray-200" alt="" />
+      <Heroicons.x_mark class="w-4 h-4 stroke-gray-800" alt="" />
       <span class="sr-only"><%= gettext("clear search") %></span>
     </button>
     """
@@ -71,7 +71,7 @@ defmodule FotohaeckerWeb.HeaderLive.NavigationComponent.SearchComponent do
     </label>
     <input
       class={[
-        "w-full bg-transparent rounded text-white placeholder:text-gray-400 border-transparent",
+        "w-full bg-transparent rounded text-gray-800 placeholder:text-gray-400 border-transparent",
         @search_query !== "" && "rounded-b-none"
       ]}
       type="text"
@@ -92,7 +92,7 @@ defmodule FotohaeckerWeb.HeaderLive.NavigationComponent.SearchComponent do
     ~H"""
     <div
       class={[
-        "bg-gray-800 border border-gray-700 border-t-transparent
+        "bg-gray-100 border border-gray-500 border-t-transparent
         rounded-b absolute top-[calc(2.5rem+4px)] z-10 w-full max-h-[calc(100vh-4rem)] overflow-y-auto hidden",
         !!@grouped_search_results && "!block"
       ]}
@@ -111,13 +111,12 @@ defmodule FotohaeckerWeb.HeaderLive.NavigationComponent.SearchComponent do
 
   defp search_result_list(%{grouped_search_results: nil} = assigns) do
     ~H"""
-
     """
   end
 
   defp search_result_list(%{result_count: 0} = assigns) do
     ~H"""
-    <div class="text-gray-200 p-2">
+    <div class="text-gray-800 p-2">
       <%= gettext("No results") %>
     </div>
     """
@@ -125,7 +124,7 @@ defmodule FotohaeckerWeb.HeaderLive.NavigationComponent.SearchComponent do
 
   defp search_result_list(%{grouped_search_results: _grouped_search_results} = assigns) do
     ~H"""
-    <div class="text-gray-200 p-2">
+    <div class="text-gray-800 p-2">
       <%= ngettext(
         "1 result",
         "%{count} results",
@@ -136,12 +135,12 @@ defmodule FotohaeckerWeb.HeaderLive.NavigationComponent.SearchComponent do
     <%= for group <- @grouped_search_results |> Map.keys() do %>
       <.group_title group={group} />
       <ul
-        class="flex flex-col divide-y divide-gray-700"
+        class="flex flex-col divide-y divide-gray-300"
         data-testid={"result_preview_list--#{Atom.to_string(group)}"}
       >
         <li
           :for={%Search{} = search_result <- Map.get(@grouped_search_results, group)}
-          class="flex items-center hover:bg-gray-700 text-white pl-2 before:content-['-'] before:block before:mr-2 before:text-gray-400]"
+          class="flex items-center hover:bg-gray-200 text-gray-800 pl-2 before:content-['-'] before:block before:mr-2 before:text-gray-400]"
         >
           <.search_result_item item={search_result} />
         </li>
@@ -166,10 +165,7 @@ defmodule FotohaeckerWeb.HeaderLive.NavigationComponent.SearchComponent do
 
   defp search_result_item_link(assigns) do
     ~H"""
-    <.link
-      class="py-2 block w-full h-full link link--light text-ellipsis overflow-hidden"
-      href={@href}
-    >
+    <.link class="py-2 block w-full h-full link text-ellipsis overflow-hidden" href={@href}>
       <%= @title %>
     </.link>
     """
@@ -177,7 +173,7 @@ defmodule FotohaeckerWeb.HeaderLive.NavigationComponent.SearchComponent do
 
   defp group_title(%{group: :user} = assigns) do
     ~H"""
-    <div class="text-gray-200 p-2">
+    <div class="text-gray-800 font-bold p-2">
       <%= gettext("Users") %>
     </div>
     """
@@ -185,7 +181,7 @@ defmodule FotohaeckerWeb.HeaderLive.NavigationComponent.SearchComponent do
 
   defp group_title(%{group: :photo} = assigns) do
     ~H"""
-    <div class="text-gray-200 p-2">
+    <div class="text-gray-800 font-bold p-2">
       <%= gettext("Photos") %>
     </div>
     """
@@ -193,7 +189,7 @@ defmodule FotohaeckerWeb.HeaderLive.NavigationComponent.SearchComponent do
 
   defp group_title(assigns) do
     ~H"""
-    <div class="text-gray-200 p-2">
+    <div class="text-gray-800 p-2">
       <%= Atom.to_string(@group) %>
     </div>
     """

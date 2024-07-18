@@ -1,0 +1,10 @@
+{
+  "title": "Valid Recipe Title",
+  "description": "# Überschrift\n\nDies ist ein Absatz mit **fettgedrucktem** Text und *kursivem* Text.\n\n- Liste\n- mit\n- Punkten",
+  "user_id": "auth0|1234567890",
+  "brand": "fujifilm",
+  "settings": {
+    "compatible": ["x_trans_iv", "x_trans_v"],
+    "base_simulation": "Classic Negative"
+  }
+}

@@ -86,7 +86,7 @@ msgstr ""
 msgid "must be equal to %{number}"
 msgstr ""
 
-#: lib/fotohaecker_web/live/photo_live/show.ex:9
+#: lib/fotohaecker_web/live/photo_live/show.ex:8
 #, elixir-autogen, elixir-format
 msgid "photo not found"
 msgstr "Foto nicht gefunden"
@@ -100,3 +100,8 @@ msgstr "Es ist ein Fehler beim Hochladen Ihres Fotos aufgetreten: %{message}"
 #, elixir-autogen, elixir-format, fuzzy
 msgid "photo compression failed"
 msgstr "Komprimierung des Fotos fehlgeschlagen"
+
+#: lib/fotohaecker_web/live/recipe_live/show.ex:10
+#, elixir-autogen, elixir-format
+msgid "recipe not found"
+msgstr ""

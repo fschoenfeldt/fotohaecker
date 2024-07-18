@@ -3,14 +3,14 @@
   id="header"
   current_user={@current_user}
 />
-<main class="min-h-full dark:bg-gray-800 flex-1">
+<main class="min-h-full dark:bg-gray-800 flex-1 flex justify-center">
   <p
     class="alert alert--info"
     role="alert"
     phx-click="lv:clear-flash"
     phx-value-key="info"
     phx-no-format
-  ><%= live_flash(@flash, :info) %></p>
+  ><%= Flash.get(@flash, :info) %></p>
 
   <p
     class="alert alert--danger"
@@ -18,7 +18,7 @@
     phx-click="lv:clear-flash"
     phx-value-key="error"
     phx-no-format
-  ><%= live_flash(@flash, :error) %></p>
+  ><%= Flash.get(@flash, :error) %></p>
 
   <%= @inner_content %>
 </main>

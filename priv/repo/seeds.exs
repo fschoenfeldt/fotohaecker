@@ -11,6 +11,7 @@
 # and so on) as they will fail if something goes wrong.
 
 alias Fotohaecker.Content.Photo
+alias Fotohaecker.Content.Recipe
 alias Fotohaecker.Repo
 
 if Mix.env() == :e2e do
@@ -24,11 +25,24 @@ if Mix.env() == :e2e do
   })
 end
 
+recipe = %Recipe{
+  title: "My first recipe",
+  description: "This is my first recipe",
+  brand: "fujifilm",
+  user_id: "auth0|0000",
+  settings: %{}
+}
+
+if Mix.env() in [:dev, :e2e] do
+  Repo.insert!(recipe)
+end
+
 photo = %Photo{
   title: "My first photo",
   file_name: "my-first-photo",
   extension: ".jpg",
-  tags: []
+  tags: [],
+  recipe_id: 1
 }
 
 amount_photos =

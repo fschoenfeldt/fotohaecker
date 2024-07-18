@@ -26,19 +26,26 @@ defmodule Fotohaecker.Application do
       %{
         id: Fotohaecker.UserManagement,
         start: {Fotohaecker.UserManagement, :start_link, []}
+      },
+      %{
+        id: Fotohaecker.RecipeManagement,
+        start: {Fotohaecker.RecipeManagement, :start_link, []}
       }
     ]
 
     # Parse the swagger schema on startup as described here:
     # - https://hexdocs.pm/phoenix_swagger/PhoenixSwagger.Validator.html#parse_swagger_schema/1
     # - https://github.com/xerions/phoenix_swagger/issues/62#issuecomment-381932391
-    [
-      :code.priv_dir(:fotohaecker),
-      "static",
-      "schema.json"
-    ]
-    |> Path.join()
-    |> PhoenixSwagger.Validator.parse_swagger_schema()
+    # credo:disable-for-next-line
+    Task.start_link(fn ->
+      [
+        :code.priv_dir(:fotohaecker),
+        "static",
+        "schema.json"
+      ]
+      |> Path.join()
+      |> PhoenixSwagger.Validator.parse_swagger_schema()
+    end)
 
     # See https://hexdocs.pm/elixir/Supervisor.html
     # for other strategies and supported options

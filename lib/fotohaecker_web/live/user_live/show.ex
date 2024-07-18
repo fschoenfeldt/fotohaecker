@@ -37,10 +37,10 @@ defmodule FotohaeckerWeb.UserLive.Show do
               src={@user.picture}
               alt={gettext("Profile Picture of %{nickname}", %{nickname: @user.nickname})}
             />
-            <h1 class="text-gray-100 font-sans break-words"><%= @user.nickname %></h1>
+            <h1 class="text-gray-100 break-words"><%= @user.nickname %></h1>
           <% end %>
           <%= if !!assigns[:error] do %>
-            <h1 class="text-gray-100 font-sans break-words">
+            <h1 class="text-gray-100 break-words">
               <%= @error["statusCode"] %>: <%= @error["message"] %>
             </h1>
           <% end %>
@@ -66,7 +66,9 @@ defmodule FotohaeckerWeb.UserLive.Show do
     <%= if Fotohaecker.Payment.is_fully_onboarded?(@user) do %>
       <div class="bg-green-100 py-2" data-testid="donationBanner">
         <div class="flex gap-4 flex-wrap items-center justify-between max-w-6xl mx-2 md:mx-auto">
-          <p><%= gettext("Donate to %{user} to support their work", user: @user.nickname) %></p>
+          <p class="text-gray-800">
+            <%= gettext("Donate to %{user} to support their work", user: @user.nickname) %>
+          </p>
           <button type="button" class="btn btn--green inline-block" phx-click="donate">
             <%= gettext("donate") %>
           </button>

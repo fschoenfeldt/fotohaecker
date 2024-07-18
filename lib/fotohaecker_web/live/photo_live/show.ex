@@ -1,5 +1,4 @@
 defmodule FotohaeckerWeb.PhotoLive.Show do
-  alias Fotohaecker.UserManagement
   use FotohaeckerWeb, :live_view
 
   alias Fotohaecker.Content
@@ -16,19 +15,19 @@ defmodule FotohaeckerWeb.PhotoLive.Show do
   end
 
   @impl true
-  def handle_params(%{"id" => id}, _what, socket) do
-    case Content.get_photo(id) do
-      %Content.Photo{} = photo ->
+  def handle_params(%{"id" => id}, _uri, socket) do
+    case Content.get_photo(id, [:recipe]) do
+      nil ->
+        raise PhotoNotFoundError
+        {:noreply, socket}
+
+      photo ->
         {:noreply,
          socket
          |> assign(:page_title, photo.title)
          |> assign(:photo, photo)
          # TODO: is this good?
          |> assign(:show_delete_photo_confirmation_modal, false)}
-
-      nil ->
-        raise PhotoNotFoundError
-        {:noreply, socket}
     end
   end
 
@@ -40,13 +39,18 @@ defmodule FotohaeckerWeb.PhotoLive.Show do
                title        <- @photo.title,
                file_name    <- @photo.file_name,
                extension    <- @photo.extension,
+               recipe       <- @photo.recipe,
                # TODO DRY: don't hardcode paths here…
                path         <- Routes.static_path(FotohaeckerWeb.Endpoint,
                                                   "/uploads/#{file_name}_og#{extension}"),
                preview_path <- Routes.static_path(FotohaeckerWeb.Endpoint,
                                                   "/uploads/#{file_name}_preview#{extension}") do %>
-        <div class="grid md:gap-8 md:grid-cols-12">
-          <.download_link class="col-span-8 bg-[#17181b] md:py-8" href={path} photo={@photo}>
+        <div class="grid md:gap-8 md:grid-cols-12 h-full relative">
+          <.download_link
+            override_class="col-span-8 bg-gray-100 dark:bg-gray-900 md:py-8 md:px-4 flex items-center"
+            href={path}
+            photo={@photo}
+          >
             <img
               class="w-auto max-h-[calc(100vh-10rem)] mx-auto"
               src={preview_path}
@@ -58,20 +62,23 @@ defmodule FotohaeckerWeb.PhotoLive.Show do
             <.title
               photo={@photo}
               editing={@editing}
-              is_photo_owner?={Content.is_photo_owner?(@photo, @current_user)}
+              photo_owner?={Content.photo_owner?(@photo, @current_user)}
             />
             <.upload_date_and_user photo={@photo} />
             <.tags
               photo={@photo}
               editing={@editing}
-              is_photo_owner?={Content.is_photo_owner?(@photo, @current_user)}
+              photo_owner?={Content.photo_owner?(@photo, @current_user)}
             />
+            <%= if Fotohaecker.RecipeManagement.is_implemented?() do %>
+              <.recipe_card recipe={recipe} />
+            <% end %>
             <div class="flex space-x-4">
-              <.download_link class="btn btn--green flex gap-2 w-max" href={path} photo={@photo}>
+              <.download_link href={path} photo={@photo}>
                 <Heroicons.arrow_down_tray class="w-6 h-6 stroke-white" /> <%= gettext("Download") %>
               </.download_link>
               <button
-                :if={Content.is_photo_owner?(@photo, @current_user)}
+                :if={Content.photo_owner?(@photo, @current_user)}
                 class="btn btn--red flex gap-2 w-max"
                 phx-click="show_delete_photo_confirmation_modal"
               >
@@ -119,24 +126,33 @@ defmodule FotohaeckerWeb.PhotoLive.Show do
     """
   end
 
+  # TODO: DRY: doesn't respect the locale, see lib/fotohaecker_web/live/recipe_live/show.ex
   defp alpine_format_date(%NaiveDateTime{} = date) do
     js_date = "${new Date('#{date}').toLocaleDateString()}"
     "`#{gettext("uploaded on %{date}", %{date: js_date})}`"
   end
 
   slot(:inner_block, required: true)
-  attr(:class, :string)
+  attr(:class, :string, default: "")
+  attr(:override_class, :string, default: nil)
   attr(:href, :string, required: true)
   attr(:photo, Content.Photo, required: true)
   attr(:target, :string, default: "_blank")
 
   defp download_link(assigns) do
+    default_class = "btn btn--green flex gap-2 w-max "
+    class_to_use = assigns.override_class || default_class <> assigns.class
+
+    assigns =
+      assign(assigns, :class_to_use, class_to_use)
+
     ~H"""
     <.link
-      class={@class}
+      class={@class_to_use}
       href={@href}
       target={@target}
       title={gettext("download the photo %{title} from Fotohäcker", %{title: @photo.title})}
+      download={@photo.file_name <> @photo.extension}
     >
       <%= render_slot(@inner_block) %>
     </.link>
@@ -172,33 +188,14 @@ defmodule FotohaeckerWeb.PhotoLive.Show do
       >
         <%= gettext("uploaded on %{date}", %{date: @photo.inserted_at}) %>
       </span>
-      <span class="text-gray-700 dark:text-gray-300 italic">
-        <%= if @photo.user_id !== nil do %>
-          <%= case UserManagement.get(@photo.user_id) do %>
-            <% {:ok, user} -> %>
-              <a href={user_route(@photo.user_id)}>
-                <%= gettext("by %{user}", %{user: user.nickname}) %>
-              </a>
-            <% _ -> %>
-              <%= if UserManagement.is_implemented?() do %>
-                <a href={user_route(@photo.user_id)}>
-                  <%= gettext("by user_id %{user_id}", %{user_id: @photo.user_id}) %>
-                </a>
-              <% else %>
-                <%= gettext("by user %{user_id}", %{user_id: @photo.user_id}) %>
-              <% end %>
-          <% end %>
-        <% else %>
-          <%= gettext("by an anonymous user") %>
-        <% end %>
-      </span>
+      <.user_profile_link photo={@photo} />
     </p>
     """
   end
 
   attr(:photo, Photo, required: true)
   attr(:editing, :any, required: true)
-  attr(:is_photo_owner?, :boolean, required: true)
+  attr(:photo_owner?, :boolean, required: true)
 
   defp title(%{editing: %{field: "title", changeset: _changeset} = _editing} = assigns) do
     ~H"""
@@ -212,14 +209,14 @@ defmodule FotohaeckerWeb.PhotoLive.Show do
       <h1 data-testid="title" class="text-gray-800 dark:text-gray-100">
         <%= @photo.title %>
       </h1>
-      <.edit_button :if={@is_photo_owner?} field="title" />
+      <.edit_button :if={@photo_owner?} field="title" />
     </div>
     """
   end
 
   attr(:photo, Photo, required: true)
   attr(:editing, :any, required: true)
-  attr(:is_photo_owner?, :boolean, required: true)
+  attr(:photo_owner?, :boolean, required: true)
 
   defp tags(%{editing: %{field: "tags", changeset: _changeset} = _editing} = assigns) do
     ~H"""
@@ -248,8 +245,48 @@ defmodule FotohaeckerWeb.PhotoLive.Show do
           </ul>
         </div>
       <% end %>
-      <.edit_button :if={@is_photo_owner?} field="tags" />
+      <.edit_button :if={@photo_owner?} field="tags" />
     </div>
+    """
+  end
+
+  defp recipe_card(%{recipe: nil} = assigns) do
+    ~H"""
+    """
+  end
+
+  defp recipe_card(assigns) do
+    ~H"""
+    <p class="text-xs text-gray-600 dark:text-gray-200">Recipe used:</p>
+    <div class="rounded bg-gradient-to-br from-yellow-300 to-red-800 shadow-sm border-gray-400 relative !mt-1">
+      <div class="grain-effect"></div>
+      <div class="p-2 overflow-hidden relative">
+        <%!-- # FIXME: dont use absolute bs --%>
+        <div aria-hidden="true" class="bg-yellow-200 rounded-full w-12 h-12 p-4 absolute top-1/8">
+          <Heroicons.film class="w-1/2 h-1/2 top-1/4 left-1/4 stroke-red-800 absolute transform rotate-45 z-0" />
+        </div>
+
+        <div class="ms-14 p-2 rounded-md z-0 relative bg-yellow-300/75 backdrop-blur-md w-max">
+          <%= case @recipe.brand do %>
+            <% "fujifilm" -> %>
+              <%!-- # FIXME: use own logo --%>
+              <img
+                src="https://upload.wikimedia.org/wikipedia/commons/a/a1/Fujifilm_logo.svg"
+                alt="Fujifilm"
+                class="h-2 mb-1"
+              />
+            <% _ -> %>
+              <p class="text-xs text-gray-800">
+                <%= gettext("Brand: %{brand}", %{brand: @recipe.brand}) %>
+              </p>
+          <% end %>
+          <.link href={recipe_route(@recipe.id)} class="text-md text-gray-800">
+            <%= @recipe.title %>
+          </.link>
+        </div>
+      </div>
+    </div>
+    <%!-- <%= inspect(@recipe) %> --%>
     """
   end
 
@@ -272,7 +309,7 @@ defmodule FotohaeckerWeb.PhotoLive.Show do
         <%!-- # TODO: focus field after activating edit mode --%>
         <input
           id={"photo_#{@editing.field}"}
-          class={["p-2 bg-gray-100 max-w-full", @input_class]}
+          class={["p-2 bg-gray-100 max-w-full text-gray-800", @input_class]}
           name={"photo[#{@editing.field}]"}
           value={field_value(@editing)}
           placeholder={gettext("photo %{field}", %{field: @editing.field})}

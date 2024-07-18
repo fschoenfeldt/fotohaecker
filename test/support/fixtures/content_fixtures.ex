@@ -37,4 +37,30 @@ defmodule Fotohaecker.ContentFixtures do
 
     Fotohaecker.Content.change_photo(%Fotohaecker.Content.Photo{}, attrs)
   end
+
+  @doc """
+  Generate a recipe.
+  """
+  def recipe_fixture(attrs \\ %{}) do
+    {:ok, recipe} =
+      attrs
+      |> Enum.into(%{
+        title: "any title",
+        brand: "any brand",
+        user_id: "some_user_id",
+        settings: %{
+          "compatible" => "xtrans-iv",
+          "base_simulation" => "Classic Negative",
+          "highlight" => -1,
+          "shadow" => 1
+        },
+        description: """
+        ## Some subtitle for this recipe
+        sic semper tyrannis
+        """
+      })
+      |> Fotohaecker.Content.create_recipe()
+
+    recipe
+  end
 end

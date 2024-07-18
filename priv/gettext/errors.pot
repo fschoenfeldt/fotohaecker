@@ -93,7 +93,7 @@ msgstr ""
 msgid "must be equal to %{number}"
 msgstr ""
 
-#: lib/fotohaecker_web/live/photo_live/show.ex:9
+#: lib/fotohaecker_web/live/photo_live/show.ex:8
 #, elixir-autogen, elixir-format
 msgid "photo not found"
 msgstr ""
@@ -106,4 +106,9 @@ msgstr ""
 #: lib/fotohaecker/content/upload_photo.ex:68
 #, elixir-autogen, elixir-format
 msgid "photo compression failed"
+msgstr ""
+
+#: lib/fotohaecker_web/live/recipe_live/show.ex:10
+#, elixir-autogen, elixir-format
+msgid "recipe not found"
 msgstr ""

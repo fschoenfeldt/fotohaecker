@@ -11,7 +11,7 @@ defmodule Fotohaecker.MixProject do
       aliases: aliases(),
       deps: deps(),
       dialyzer: [plt_add_apps: [:mix]],
-      compilers: [:phoenix_swagger] ++ Mix.compilers()
+      compilers: Mix.compilers() ++ [:phoenix_swagger]
     ]
   end
 
@@ -69,7 +69,8 @@ defmodule Fotohaecker.MixProject do
       {:stripity_stripe, "~> 2.0"},
       {:cors_plug, "~> 3.0"},
       {:phoenix_swagger, "~> 0.8"},
-      {:ex_json_schema, "~> 0.5"}
+      {:ex_json_schema, "~> 0.5"},
+      {:earmark, "~> 1.4"}
     ]
   end
 

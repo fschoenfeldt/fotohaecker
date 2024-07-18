@@ -65,7 +65,13 @@ defmodule FotohaeckerWeb.Router do
 
     live "/", IndexLive.Home, :home
     live "/:locale", IndexLive.Home, :home
+
     live "/:locale/photos/:id", PhotoLive.Show, :show
+
+    # FIME: missing live view for recipe list
+    live "/:locale/recipes", RecipeLive.Home, :index
+    live "/:locale/recipes/:id", RecipeLive.Show, :show
+
     post "/:locale/search", SearchController, :search
     live "/:locale/search", SearchLive.Search, :index
 

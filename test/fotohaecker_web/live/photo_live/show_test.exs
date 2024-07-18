@@ -3,6 +3,8 @@ defmodule FotohaeckerWeb.PhotoLive.ShowTest do
 
   import Phoenix.ConnTest
   import Phoenix.LiveViewTest
+
+  alias FotohaeckerWeb.PhotoLive.Show.PhotoNotFoundError
   @endpoint FotohaeckerWeb.Endpoint
 
   test "disconnected mount works", %{conn: conn} do
@@ -64,7 +66,7 @@ defmodule FotohaeckerWeb.PhotoLive.ShowTest do
   end
 
   test "throws error if photo not found", %{conn: conn} do
-    assert_raise(FotohaeckerWeb.PhotoLive.Show.PhotoNotFoundError, fn ->
+    assert_raise(PhotoNotFoundError, fn ->
       {:ok, _view, _html} = live(conn, "/fh/en_US/photos/12345")
     end)
   end

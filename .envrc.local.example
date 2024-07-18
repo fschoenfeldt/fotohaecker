@@ -36,3 +36,9 @@ export STRIPE_PRICE_ID=""
 export E2E_PHOTOGRAPHER_ID=""
 export E2E_PHOTOGRAPHER_EMAIL=""
 export E2E_PHOTOGRAPHER_PASSWORD=""
+
+# in case you want to use recipe management
+# you can use relative paths, relative to the root's priv dir of the project
+# or absolute paths
+export RECIPE_IMPLEMENTATION=""
+export RECIPE_PATH=""
