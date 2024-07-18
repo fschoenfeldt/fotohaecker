@@ -21,7 +21,7 @@ defmodule FotohaeckerWeb.UserLive.Index do
   @impl Phoenix.LiveView
   def render(assigns) do
     ~H"""
-    <div id="user" class="max-w-6xl mx-2 md:mx-auto space-y-8 pt-2">
+    <div id="user" class="mx-2 space-y-8 pt-2">
       <h1 class="dark:text-gray-100"><%= gettext("Your Account") %></h1>
 
       <.account_info error={Map.get(assigns, :error)} current_user={Map.get(assigns, :current_user)} />

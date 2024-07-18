@@ -179,7 +179,7 @@
 
 @layer components {
   #home {
-    @apply relative z-0 h-full dark:bg-gray-900;
+    @apply relative z-0 h-full dark:bg-gray-900 w-full;
 
     .intro {
       @apply relative mx-auto flex max-w-6xl flex-col gap-4 p-4 lg:grid lg:gap-8 lg:p-8 z-0;
@@ -262,6 +262,14 @@
   }
 
   #photo {
+  }
+
+  #user {
+    @apply w-full max-w-6xl;
+  }
+
+  #user_show {
+    @apply w-full;
   }
 
   .decorative-gradient {
