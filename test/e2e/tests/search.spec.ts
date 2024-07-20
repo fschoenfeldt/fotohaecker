@@ -22,7 +22,7 @@ test.describe("Search Input and Suggestions: Users", () => {
     await page.goto("/fh");
 
     const searchInput = page.locator("input#search_query");
-    await searchInput.type("test");
+    await searchInput.fill("test");
     await expect(page.getByTestId("result_preview_list--user")).toContainText(
       "test"
     );
@@ -32,7 +32,7 @@ test.describe("Search Input and Suggestions: Users", () => {
     await page.goto("/fh");
 
     const searchInput = page.locator("input#search_query");
-    await searchInput.type("test");
+    await searchInput.fill("test");
     await searchInput.press("Enter");
     await expect(page.getByTestId("result_list--user")).toContainText("test");
   });
@@ -48,7 +48,7 @@ test.describe("Search Input and Suggestions: Photos", () => {
     await page.goto("/fh");
 
     const searchInput = page.locator("input#search_query");
-    await searchInput.type("search");
+    await searchInput.fill("search");
     await expect(page.getByTestId("result_preview_list--photo")).toContainText(
       photo.title
     );
@@ -64,7 +64,7 @@ test.describe("Search Input and Suggestions: Photos", () => {
     await page.goto("/fh");
 
     const searchInput = page.locator("input#search_query");
-    await searchInput.type("search2");
+    await searchInput.fill("search2");
     await searchInput.press("Enter");
     await expect(page.getByTestId("result_list--photo")).toContainText(
       photo.title
@@ -87,7 +87,7 @@ test.describe("Live Search and Results Page: Accessibility", () => {
     await page.goto("/fh");
 
     const searchInput = page.locator("input#search_query");
-    await searchInput.type("search3");
+    await searchInput.fill("search3");
 
     // no violations in search result preview
     let accessibilityScanResults = await makeAxeBuilder().analyze();

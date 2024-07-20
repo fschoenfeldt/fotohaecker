@@ -58,7 +58,7 @@ test("can not upload photo with title longer than 32 characters", async ({
   const title = "very long title".repeat(10);
 
   const uploadForm = page.locator("form.upload_form");
-  await uploadForm.locator("#photo_title").type(title);
+  await uploadForm.locator("#photo_title").fill(title);
   expect(await uploadForm.locator("#photo_title").inputValue()).toBe(
     title.slice(0, 32)
   );
