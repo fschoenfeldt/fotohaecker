@@ -174,6 +174,11 @@ Now you can deploy your application to uberspace. You can do this with the follo
 
 _This executes some rsync and ssh commands, you might get asked for your password multiple times. Also, if you run this the first time, Elixir asks you if you want to install Hex/rebar3, which you interactively agree to._
 
+The deployment script is quite hacky right now so:
+
+- environment variables are directly set in the script
+- the script doesn't run ecto migrations due to missing env vars
+
 #### seed database
 
 In case you want to re-run the seed script, you can do this with the following command:
