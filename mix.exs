@@ -66,7 +66,7 @@ defmodule Fotohaecker.MixProject do
       {:ueberauth_auth0, "~> 2.0"},
       {:heroicons, "~> 0.5.0"},
       {:mox, "~> 1.0", only: :test},
-      {:stripity_stripe, "~> 2.0"},
+      {:stripity_stripe, "~> 3.2"},
       {:cors_plug, "~> 3.0"},
       {:phoenix_swagger, "~> 0.8"},
       {:ex_json_schema, "~> 0.5"},
