@@ -34,7 +34,7 @@ defmodule FotohaeckerWeb.PhotoLive.Show do
   @impl true
   def render(assigns) do
     ~H"""
-    <div id="photo">
+    <div id="photo" class="flex-auto">
       <%= with _id          <- @photo.id,
                title        <- @photo.title,
                file_name    <- @photo.file_name,

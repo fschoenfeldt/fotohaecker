@@ -28,7 +28,7 @@ defmodule FotohaeckerWeb.UserLive.Show do
   def render(assigns) do
     ~H"""
     <%!-- # TODO: refactor me without double bools --%>
-    <div id="user_show" class="">
+    <div id="user_show" class="flex-auto">
       <div class="bg-gray-800">
         <div class="max-w-6xl mx-auto space-y-2 py-8 px-8 xl:px-0">
           <%= if !!assigns[:user] do %>
