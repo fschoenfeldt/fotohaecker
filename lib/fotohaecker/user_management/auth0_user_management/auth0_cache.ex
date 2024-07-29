@@ -12,6 +12,8 @@ defmodule Fotohaecker.UserManagement.Auth0UserManagement.Auth0Cache do
   def start_link(_initial_value) do
     Agent.start_link(
       fn ->
+        if Mix.env() == :test, do: raise("Auth0Cache should not be used in tests")
+
         # credo:disable-for-next-line
         case Auth0Management.get_all() do
           {:ok, users} ->
