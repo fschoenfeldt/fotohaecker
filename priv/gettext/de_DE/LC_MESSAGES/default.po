@@ -108,7 +108,7 @@ msgstr "mehr zeigen"
 msgid "showing %{limit} out of %{amount} photos"
 msgstr "%{limit} von %{amount} Fotos angezeigt"
 
-#: lib/fotohaecker_web/live/index_live/home.ex:214
+#: lib/fotohaecker_web/live/index_live/home.ex:209
 #, elixir-autogen, elixir-format
 msgid "Photo uploaded successfully."
 msgstr "Foto erfolgreich hochgeladen."
@@ -174,17 +174,17 @@ msgstr "Startseite"
 msgid "photo upload field"
 msgstr "Datei hochladen"
 
-#: lib/fotohaecker_web/live/index_live/home.ex:157
+#: lib/fotohaecker_web/live/index_live/home.ex:152
 #, elixir-autogen, elixir-format
 msgid "Something went wrong generating tags: %{error}"
 msgstr "Etwas ist beim Generieren der Schlagwörter schiefgelaufen: %{error}"
 
-#: lib/fotohaecker_web/live/index_live/home.ex:179
+#: lib/fotohaecker_web/live/index_live/home.ex:174
 #, elixir-autogen, elixir-format, fuzzy
 msgid "Something went wrong updating your photo: %{error}"
 msgstr "Bei der Aktualisierung Ihres Fotos ist ein Fehler aufgetreten: %{error}"
 
-#: lib/fotohaecker_web/live/index_live/home.ex:171
+#: lib/fotohaecker_web/live/index_live/home.ex:166
 #, elixir-autogen, elixir-format, fuzzy
 msgid "Tags updated successfully."
 msgstr "Tags erfolgreich aktualisiert."

@@ -108,7 +108,7 @@ msgstr ""
 msgid "showing %{limit} out of %{amount} photos"
 msgstr ""
 
-#: lib/fotohaecker_web/live/index_live/home.ex:214
+#: lib/fotohaecker_web/live/index_live/home.ex:209
 #, elixir-autogen, elixir-format
 msgid "Photo uploaded successfully."
 msgstr ""
@@ -174,17 +174,17 @@ msgstr ""
 msgid "photo upload field"
 msgstr ""
 
-#: lib/fotohaecker_web/live/index_live/home.ex:157
+#: lib/fotohaecker_web/live/index_live/home.ex:152
 #, elixir-autogen, elixir-format
 msgid "Something went wrong generating tags: %{error}"
 msgstr ""
 
-#: lib/fotohaecker_web/live/index_live/home.ex:179
+#: lib/fotohaecker_web/live/index_live/home.ex:174
 #, elixir-autogen, elixir-format, fuzzy
 msgid "Something went wrong updating your photo: %{error}"
 msgstr ""
 
-#: lib/fotohaecker_web/live/index_live/home.ex:171
+#: lib/fotohaecker_web/live/index_live/home.ex:166
 #, elixir-autogen, elixir-format, fuzzy
 msgid "Tags updated successfully."
 msgstr ""
