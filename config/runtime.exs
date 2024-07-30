@@ -92,7 +92,9 @@ if System.get_env("PHX_SERVER") do
 end
 
 if config_env() == :test do
+  # deactivate some modules in test environment
   config :fotohaecker, Fotohaecker.RecipeManagement.JsonRecipeManagement, warm: false
+  config :fotohaecker, Fotohaecker.UserManagement, Fotohaecker.UserManagement.NoUserManagement
 end
 
 if config_env() == :prod do
