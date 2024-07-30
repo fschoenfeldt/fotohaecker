@@ -7,8 +7,6 @@ defmodule Fotohaecker.UserManagement.Auth0UserManagement.Auth0Cache do
   use Agent
   require Logger
 
-  # TODO: the real implementation shouldn't be called when using `mix test`
-  # see https://github.com/fschoenfeldt/fotohaecker/issues/121
   def start_link(_initial_value) do
     Agent.start_link(
       fn ->
