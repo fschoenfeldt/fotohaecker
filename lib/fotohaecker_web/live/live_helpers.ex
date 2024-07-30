@@ -164,13 +164,14 @@ defmodule FotohaeckerWeb.LiveHelpers do
       )
   end
 
-  def photo_route(id),
+  def photo_route(id, params \\ %{}),
     do:
       Helpers.photo_show_path(
         FotohaeckerWeb.Endpoint,
         :show,
         Gettext.get_locale(FotohaeckerWeb.Gettext),
-        id
+        id,
+        params
       )
 
   def recipe_route(id),

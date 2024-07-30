@@ -86,14 +86,10 @@ defmodule FotohaeckerWeb.RecipeLive.ShowTest do
     expected = ["Photos using this recipe", "photo title"]
     assert Enum.all?(expected, &(actual =~ &1))
 
-    actual_after_click =
-      view
-      |> element("a", "photo title")
-      |> render_click()
-
-    expected_after_click = {:error, {:redirect, %{to: "/fh/en_US/photos/1"}}}
-
-    assert actual_after_click == expected_after_click
+    view
+    |> element("a", "photo title")
+    |> render_click()
+    |> follow_redirect(conn, "/fh/en_US/photos/1")
   end
 
   test "throws error if recipe not found", %{conn: conn} do

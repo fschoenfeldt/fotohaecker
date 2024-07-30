@@ -4,14 +4,12 @@ import {
   deletePhoto,
   openDeletePhotoModal,
   uploadPhoto,
+  selectFirstPhoto,
 } from "./helpers";
 
 test.describe("Photo Page: Static", () => {
   test.beforeEach(async ({ page }) => {
-    await page.goto("/fh");
-    const photo = page.locator("ul#photos > li:first-child");
-    await photo.click();
-    await expect(page).toHaveURL(/.*\/photos\/\d+/);
+    await selectFirstPhoto(page);
   });
 
   test("should not have any automatically detectable accessibility issues", async ({
@@ -43,8 +41,27 @@ test.describe("Photo Page: Static", () => {
     expect(download.suggestedFilename()).toContain(".jpg");
   });
 
-  test("can go back to home page", async ({ page }) => {
-    await page.getByTestId("back-button").click();
+  test("can go back to home page and preserve url params and scroll position", async ({
+    page,
+  }) => {
+    await page.goBack();
+
+    // click "show more button" to load more photos
+    await page.getByTestId("show_more_photos_button").click();
+
+    // save current get parameters
+    const expectedParams = new URL(page.url()).searchParams;
+    const expectedScrollY = await page.evaluate(() => window.scrollY);
+
+    await selectFirstPhoto(page);
+    await page.goBack();
+
+    const actualParams = new URL(page.url()).searchParams;
+    const actualScrollY = await page.evaluate(() => window.scrollY);
+
+    expect(actualParams).toEqual(expectedParams);
+    // be close to one pixel
+    expect(actualScrollY - expectedScrollY).toBeLessThanOrEqual(1);
     await expect(page).toHaveURL(/.*\/fh/);
   });
 
