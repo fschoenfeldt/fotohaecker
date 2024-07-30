@@ -22,6 +22,9 @@ defmodule Fotohaecker.ContentFixtures do
     photo
   end
 
+  def photo_fixtures(attrs \\ %{}, amount \\ 1),
+    do: Enum.map(1..amount, fn _i -> photo_fixture(attrs) end)
+
   @doc """
   Create a changeset for a photo.
   """

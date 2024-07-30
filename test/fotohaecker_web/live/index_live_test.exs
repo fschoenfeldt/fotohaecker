@@ -38,6 +38,15 @@ defmodule FotohaeckerWeb.IndexLiveTest do
 
     assert actual =~ expected
   end
+
+  test "can handle 'user_display_options' params", %{conn: conn} do
+    photo_fixtures(%{}, 15)
+
+    {:ok, view, _html} =
+      live(conn, "/fh?user_display_options[limit]=10&user_display_options[order]=asc_inserted_at")
+
+    assert render(view) =~ "showing 10 out of 15 photos"
+  end
 end
 
 defmodule FotohaeckerWeb.IndexLiveSyncTest do
@@ -49,11 +58,7 @@ defmodule FotohaeckerWeb.IndexLiveSyncTest do
   @endpoint FotohaeckerWeb.Endpoint
 
   test "can click on 'more photos' button", %{conn: conn} do
-    Enum.each(
-      1..6,
-      fn _i -> photo_fixture() end
-    )
-
+    photo_fixtures(%{}, 6)
     {:ok, view, _html} = live(conn, "/fh")
 
     assert render(view) =~ "showing 5 out of 6 photos"
@@ -71,11 +76,7 @@ defmodule FotohaeckerWeb.IndexLiveSyncTest do
   end
 
   test "can click on 'sort by' options", %{conn: conn} do
-    Enum.each(
-      1..6,
-      fn _i -> photo_fixture() end
-    )
-
+    photo_fixtures(%{}, 6)
     {:ok, view, _html} = live(conn, "/fh")
 
     actual_before = render(view)

@@ -58,7 +58,6 @@ defmodule FotohaeckerWeb.PhotoLive.Show do
             />
           </.download_link>
           <div class="col-span-4 m-4 md:pt-4 space-y-4">
-            <.back_button />
             <.title
               photo={@photo}
               editing={@editing}
@@ -155,23 +154,6 @@ defmodule FotohaeckerWeb.PhotoLive.Show do
       download={@photo.file_name <> @photo.extension}
     >
       <%= render_slot(@inner_block) %>
-    </.link>
-    """
-  end
-
-  defp back_button(assigns) do
-    ~H"""
-    <%!-- #TODO: href should be set --%>
-    <.link
-      data-testid="back-button"
-      phx-click="goto"
-      phx-keydown="goto"
-      phx-key="Enter"
-      phx-value-target="index"
-      class="w-max px-2 -mx-2 flex gap-1 items-center text-gray-800 dark:text-gray-100 fill-black"
-    >
-      <Heroicons.arrow_left mini class="w-4 h-4 fill-gray-800 dark:fill-gray-100" />
-      <%= gettext("back") %>
     </.link>
     """
   end
@@ -382,10 +364,6 @@ defmodule FotohaeckerWeb.PhotoLive.Show do
       </div>
     </button>
     """
-  end
-
-  def handle_event("goto", %{"target" => "index"}, socket) do
-    {:noreply, push_navigate(socket, to: home_route())}
   end
 
   def handle_event("activate_edit_mode", %{"field" => field} = _params, socket) do

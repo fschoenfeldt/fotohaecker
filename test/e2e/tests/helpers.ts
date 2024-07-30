@@ -70,6 +70,17 @@ export const changeLanguage = async (
 };
 
 /**
+ * On the homepage, selects the first photo in the list
+ * @param page {Page}
+ */
+export const selectFirstPhoto = async (page: Page) => {
+  await page.goto("/fh");
+  const photo = page.locator("ul#photos > li:first-child");
+  await photo.click();
+  await expect(page).toHaveURL(/.*\/photos\/\d+/);
+};
+
+/**
  * Joins the given path with the directory name.
  * @param {string} join - The path to join with the directory name.
  * @returns {string} - The joined path.
