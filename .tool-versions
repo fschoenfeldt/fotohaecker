@@ -1,5 +1,5 @@
-direnv 2.32.3
-nodejs 18.19.1
-elixir 1.15.6-otp-26
-erlang 26.1.1
-pnpm 8.15.5
+direnv 2.34.0
+nodejs 18.20.4
+elixir 1.15.7-otp-26
+erlang 26.2.5
+pnpm 9.7.0
