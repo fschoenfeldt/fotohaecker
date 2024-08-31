@@ -1,17 +1,17 @@
 {
   "devDependencies": {
     "@tailwindcss/forms": "^0.5.7",
-    "@tailwindcss/typography": "^0.5.13",
-    "postcss-import": "^15.1.0",
-    "prettier": "^3.1.1",
-    "prettier-plugin-tailwindcss": "^0.5.14",
-    "tailwindcss": "^3.3.7"
+    "@tailwindcss/typography": "^0.5.14",
+    "postcss-import": "^16.1.0",
+    "prettier": "^3.3.3",
+    "prettier-plugin-tailwindcss": "^0.6.6",
+    "tailwindcss": "^3.4.9"
   },
   "dependencies": {
-    "alpinejs": "^3.13.10",
+    "alpinejs": "^3.14.1",
     "phoenix": "file:../deps/phoenix",
     "phoenix_html": "file:../deps/phoenix_html",
     "phoenix_live_view": "file:../deps/phoenix_live_view",
-    "sharp": "^0.32.6"
+    "sharp": "^0.33.4"
   }
 }

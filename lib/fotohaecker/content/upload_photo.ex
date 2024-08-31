@@ -64,7 +64,7 @@ defmodule Fotohaecker.Content.UploadPhoto do
         Content.create_photo(submission_params)
 
       {:error, reason} ->
-        Logger.error("error compressing photo: #{inspect(reason)}")
+        IO.warn("error compressing photo: #{inspect(reason)}")
         message = FotohaeckerWeb.Gettext.dgettext("errors", "photo compression failed")
         {:error, message}
     end
