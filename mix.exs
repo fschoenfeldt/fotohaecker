@@ -94,7 +94,7 @@ defmodule Fotohaecker.MixProject do
       "assets.setup": [
         "tailwind.install --if-missing",
         "esbuild.install --if-missing",
-        "cmd --cd assets pnpm i"
+        "cmd --cd assets pnpm i --config.confirmModulesPurge=false"
       ],
       "assets.build": ["tailwind default", "esbuild default"],
       "assets.deploy": [
