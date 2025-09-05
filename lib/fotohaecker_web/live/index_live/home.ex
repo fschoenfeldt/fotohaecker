@@ -213,7 +213,7 @@ defmodule FotohaeckerWeb.IndexLive.Home do
 
       [{:error, message}] ->
         message =
-          FotohaeckerWeb.Gettext.dgettext(
+          dgettext(
             "errors",
             "Something went wrong uploading your photo: %{message}",
             message: message

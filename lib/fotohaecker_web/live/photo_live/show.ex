@@ -5,6 +5,7 @@ defmodule FotohaeckerWeb.PhotoLive.Show do
   alias Fotohaecker.Content.Photo
 
   defmodule PhotoNotFoundError do
+    use Gettext, backend: FotohaeckerWeb.Gettext
     defexception message: dgettext("errors", "photo not found"), plug_status: 404
   end
 

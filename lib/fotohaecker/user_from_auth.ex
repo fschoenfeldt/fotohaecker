@@ -67,7 +67,7 @@ defmodule Fotohaecker.UserFromAuth do
     :ok
   end
 
-  defp validate_pass(%{other: %{password: _}}) do
+  defp validate_pass(%{other: %{password: _pw}}) do
     {:error, "Passwords do not match"}
   end
 

@@ -4,7 +4,7 @@ defmodule Fotohaecker.Content.UploadPhoto do
   """
   require Logger
 
-  require FotohaeckerWeb.Gettext
+  use Gettext, backend: FotohaeckerWeb.Gettext
   alias Fotohaecker.Content
   alias Fotohaecker.Content.Photo
 
@@ -59,13 +59,13 @@ defmodule Fotohaecker.Content.UploadPhoto do
       end)
 
     case Task.await(task_compress, 10_000) do
-      {:ok, _} ->
+      {:ok, _result} ->
         File.rm!(dest)
         Content.create_photo(submission_params)
 
       {:error, reason} ->
         IO.warn("error compressing photo: #{inspect(reason)}")
-        message = FotohaeckerWeb.Gettext.dgettext("errors", "photo compression failed")
+        message = dgettext("errors", "photo compression failed")
         {:error, message}
     end
   end

@@ -33,7 +33,7 @@ defmodule FotohaeckerWeb.AuthController do
     logout_url = "https://#{domain}/v2/logout?returnTo=#{return_to}&client_id=#{client_id}"
 
     conn
-    |> put_flash(:info, FotohaeckerWeb.Gettext.gettext("You have been logged out!"))
+    |> put_flash(:info, gettext("You have been logged out!"))
     |> clear_session()
     |> redirect(external: logout_url)
   end
@@ -42,7 +42,7 @@ defmodule FotohaeckerWeb.AuthController do
     locale = locale_from_session(conn)
 
     conn
-    |> put_flash(:error, FotohaeckerWeb.Gettext.gettext("Failed to authenticate."))
+    |> put_flash(:error, gettext("Failed to authenticate."))
     |> redirect(to: Helpers.index_home_path(conn, :home, locale))
   end
 
@@ -52,7 +52,7 @@ defmodule FotohaeckerWeb.AuthController do
     case UserFromAuth.find_or_create(auth) do
       {:ok, user} ->
         conn
-        |> put_flash(:info, FotohaeckerWeb.Gettext.gettext("Successfully authenticated."))
+        |> put_flash(:info, gettext("Successfully authenticated."))
         |> put_session(:current_user, user)
         |> configure_session(renew: true)
         |> assign(:current_user, user)
@@ -70,7 +70,7 @@ defmodule FotohaeckerWeb.AuthController do
     current_user = Plug.Conn.get_session(conn, :current_user)
 
     case UserManagement.delete(current_user.id) do
-      {:ok, _} ->
+      {:ok, _result} ->
         conn
         |> put_flash(:info, gettext("Your account has been deleted!"))
         |> clear_session()
