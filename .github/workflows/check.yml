@@ -5,17 +5,17 @@ on: push
 jobs:
   mix_check:
     name: mix check
-    runs-on: ubuntu-20.04
+    runs-on: ubuntu-22.04
 
     steps:
       - name: Checkout
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
 
       - name: Setup Tools
-        uses: asdf-vm/actions/install@v3
+        uses: asdf-vm/actions/install@v4
 
       - name: Cache Elixir Deps/Build
-        uses: actions/cache@v3
+        uses: actions/cache@v4
         with:
           path: |
             deps
@@ -29,11 +29,5 @@ jobs:
       - name: Run setup
         run: mix setup
 
-      # - name: Compile Elixir deps
-      #   run: mix deps.compile
-
       - name: Run check
-        run: mix check --except dialyzer
-
-      - name: Run dialyzer
-        run: mix dialyzer
+        run: mix check
