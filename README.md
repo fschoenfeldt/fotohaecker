@@ -143,10 +143,10 @@ ssh user@server.uberspace.de
 
 #### prepare supervisord config
 
-copy the `_uberspace/fotohaeckertwo.ini.example` to `_uberspace/fotohaeckertwo.ini`
+copy the `bin/fotohaeckertwo.ini.example` to `bin/fotohaeckertwo.ini`
 
 ```shell
-cp _uberspace/fotohaeckertwo.ini.example _uberspace/fotohaeckertwo.ini
+cp bin/fotohaeckertwo.ini.example bin/fotohaeckertwo.ini
 ```
 
 now, insert the neccessary environment variables.
