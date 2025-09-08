@@ -70,9 +70,9 @@ MIX_ENV=e2e mix ecto.reset && MIX_ENV=e2e mix compile
 # run tests
 pnpm --prefix test/e2e test
 # .. with traces
-pnpm --prefix test/e2e test -- --trace on
+pnpm --prefix test/e2e test -- **/*.spec.ts --trace on
 # .. with traces and headed
-pnpm --prefix test/e2e test -- --trace on --headed
+pnpm --prefix test/e2e test -- **/*.spec.ts --trace on --headed
 ```
 
 #### If you want to use the VSCode Extension
