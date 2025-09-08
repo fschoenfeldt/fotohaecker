@@ -96,6 +96,26 @@ const joinPath = (join: string): string => path.join(__dirname, join);
 const applyPathMagic = (filePath: string, strip: string): string =>
   joinPath(filePath).replace(strip, "");
 
+export const maybeAuthorizeApplication = async (page: Page) => {
+  // in case of a new test user, try to authorize the application
+  try {
+    const authorizeApplication = page.locator("h1");
+    if ((await authorizeApplication?.innerHTML()) === "Authorize App") {
+      await page
+        .locator('button[type="submit"]', { hasText: "Accept" })
+        .click();
+    }
+
+    const authSuccessMessage = page.locator(".alert--info", {
+      hasText: "Successfully authenticated",
+    });
+    await expect(authSuccessMessage).toBeVisible();
+    await authSuccessMessage.click();
+  } catch (_error) {
+    // no authorization step needed
+  }
+};
+
 export const userFixture = {
   id: process.env.E2E_USER_ID || "",
   email: process.env.E2E_USER_EMAIL || "",
@@ -131,3 +151,31 @@ export const stripePaymentEnabled =
   process.env.STRIPE_SECRET &&
   process.env.STRIPE_CONNECT_CLIENT_ID &&
   process.env.STRIPE_PRICE_ID;
+
+/**
+ * Authenticates a user through the login flow
+ * @param page {Page} - The Playwright page object
+ * @param userCredentials {object} - User credentials with email and password
+ * @param authFilePath {string} - Path to save the authentication state
+ */
+export const authenticateUser = async (
+  page: Page,
+  userCredentials: { email: string; password: string },
+  authFilePath: string
+) => {
+  const { email, password } = userCredentials;
+
+  await page.goto("/fh");
+  await page.locator("a", { hasText: "login" }).click();
+  await page.locator("#username").fill(email);
+  await page.locator("#password").fill(password);
+  await page.locator("#password").press("Enter");
+
+  await maybeAuthorizeApplication(page);
+
+  // Verify successful authentication by checking for "your account" button
+  const yourAccountButton = page.locator("a", { hasText: "your account" });
+  await expect(yourAccountButton).toBeVisible();
+
+  await page.context().storageState({ path: authFilePath });
+};
