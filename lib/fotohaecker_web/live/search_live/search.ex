@@ -34,7 +34,7 @@ defmodule FotohaeckerWeb.SearchLive.Search do
                              @grouped_search_results
                              |> Enum.flat_map(fn {_key, value} -> value end)
                              |> length(),
-             _has_results? <- !!result_count > 0 do %>
+             _has_results? <- result_count > 0 do %>
         <h1 class="dark:text-gray-100">Search results for "<%= @search_query %>"</h1>
         <p class="dark:text-gray-100">
           <%= ngettext(
