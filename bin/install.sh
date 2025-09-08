@@ -16,6 +16,10 @@ export EXQLITE_SYSTEM_LDFLAGS="-L/lib64/sqlite -lsqlite3"
 mix deps.get --only prod
 mix compile
 
+## setup assets
+mix tailwind.install
+mix esbuild.install
+
 ## build assets
 mix phx.digest.clean
 npm --prefix assets install
