@@ -43,8 +43,8 @@ npm-debug.log
 .elixir_ls/
 .envrc.local
 
-_uberspace/*.ini*
-!_uberspace/*.ini.example
+bin/*.ini*
+!bin/*.ini.example
 
 # auth0
 auth0/config.json

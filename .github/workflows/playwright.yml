@@ -10,13 +10,13 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
 
       - name: Setup Tools
-        uses: asdf-vm/actions/install@v3
+        uses: asdf-vm/actions/install@v4
 
       - name: Cache Elixir Deps/Build
-        uses: actions/cache@v3
+        uses: actions/cache@v4
         with:
           path: |
             deps
@@ -44,7 +44,7 @@ jobs:
           pnpm exec playwright install --with-deps
       - name: Run Playwright tests
         working-directory: test/e2e
-        run: pnpm test -- --project chromium --trace on home.spec.ts:49
+        run: pnpm test
         env:
           AUTH0_DOMAIN: ${{ secrets.AUTH0_DOMAIN }}
           AUTH0_CLIENT_ID: ${{ secrets.AUTH0_CLIENT_ID }}
@@ -60,7 +60,7 @@ jobs:
           E2E_PHOTOGRAPHER_ID: ${{ secrets.E2E_PHOTOGRAPHER_ID }}
           E2E_PHOTOGRAPHER_EMAIL: ${{ secrets.E2E_PHOTOGRAPHER_EMAIL }}
           E2E_PHOTOGRAPHER_PASSWORD: ${{ secrets.E2E_PHOTOGRAPHER_PASSWORD }}
-      - uses: actions/upload-artifact@v3
+      - uses: actions/upload-artifact@v4
         if: always()
         with:
           name: playwright-report

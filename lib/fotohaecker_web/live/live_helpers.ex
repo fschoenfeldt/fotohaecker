@@ -8,7 +8,7 @@ defmodule FotohaeckerWeb.LiveHelpers do
   alias Fotohaecker.Content.Recipe
   alias Phoenix.LiveView.JS
 
-  require FotohaeckerWeb.Gettext
+  use Gettext, backend: FotohaeckerWeb.Gettext
 
   @doc """
   Renders a live component inside a modal.
@@ -53,7 +53,7 @@ defmodule FotohaeckerWeb.LiveHelpers do
           <%= if @return_to do %>
             <.link patch={@return_to} phx-click={hide_modal()} id="close" class="phx-modal-close">
               <Heroicons.x_mark class="w-6 h-6" />
-              <span class="sr-only"><%= FotohaeckerWeb.Gettext.gettext("close") %></span>
+              <span class="sr-only"><%= gettext("close") %></span>
             </.link>
           <% else %>
             <a id="close" href="#" class="phx-modal-close" phx-click={hide_modal()}>
@@ -92,22 +92,22 @@ defmodule FotohaeckerWeb.LiveHelpers do
                                              |> Map.get(:user_id),
                user_id                    <- maybe_user_id_from_photo || maybe_user_id_from_recipe do %>
         <%= if user_id === nil do %>
-          <%= FotohaeckerWeb.Gettext.gettext("by an anonymous user") %>
+          <%= gettext("by an anonymous user") %>
         <% else %>
           <%= case Fotohaecker.UserManagement.get(user_id) do %>
             <% {:ok, user} -> %>
               <a href={user_route(user_id)}>
-                <%= FotohaeckerWeb.Gettext.gettext("by %{user}", %{user: user.nickname}) %>
+                <%= gettext("by %{user}", %{user: user.nickname}) %>
               </a>
             <% _ -> %>
               <%= if Fotohaecker.UserManagement.is_implemented?() do %>
                 <a href={user_route(user_id)}>
-                  <%= FotohaeckerWeb.Gettext.gettext("by user_id %{user_id}", %{
+                  <%= gettext("by user_id %{user_id}", %{
                     user_id: user_id
                   }) %>
                 </a>
               <% else %>
-                <%= FotohaeckerWeb.Gettext.gettext("by user %{user_id}", %{user_id: user_id}) %>
+                <%= gettext("by user %{user_id}", %{user_id: user_id}) %>
               <% end %>
           <% end %>
         <% end %>
@@ -118,13 +118,13 @@ defmodule FotohaeckerWeb.LiveHelpers do
 
   def locale_gui("de_DE" = locale),
     do: {
-      FotohaeckerWeb.Gettext.gettext("german"),
+      gettext("german"),
       static("/images/flags/#{locale}.svg")
     }
 
   def locale_gui("en_US" = locale),
     do: {
-      FotohaeckerWeb.Gettext.gettext("english"),
+      gettext("english"),
       static("/images/flags/#{locale}.svg")
     }
 

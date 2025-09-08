@@ -70,9 +70,9 @@ MIX_ENV=e2e mix ecto.reset && MIX_ENV=e2e mix compile
 # run tests
 pnpm --prefix test/e2e test
 # .. with traces
-pnpm --prefix test/e2e test -- --trace on
+pnpm --prefix test/e2e test -- **/*.spec.ts --trace on
 # .. with traces and headed
-pnpm --prefix test/e2e test -- --trace on --headed
+pnpm --prefix test/e2e test -- **/*.spec.ts --trace on --headed
 ```
 
 #### If you want to use the VSCode Extension
@@ -143,10 +143,10 @@ ssh user@server.uberspace.de
 
 #### prepare supervisord config
 
-copy the `_uberspace/fotohaeckertwo.ini.example` to `_uberspace/fotohaeckertwo.ini`
+copy the `bin/fotohaeckertwo.ini.example` to `bin/fotohaeckertwo.ini`
 
 ```shell
-cp _uberspace/fotohaeckertwo.ini.example _uberspace/fotohaeckertwo.ini
+cp bin/fotohaeckertwo.ini.example bin/fotohaeckertwo.ini
 ```
 
 now, insert the neccessary environment variables.

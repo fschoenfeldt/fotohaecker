@@ -19,7 +19,7 @@ defmodule FotohaeckerWeb do
       use Phoenix.Controller, namespace: FotohaeckerWeb, formats: [:json]
 
       import Plug.Conn
-      import FotohaeckerWeb.Gettext
+      use Gettext, backend: FotohaeckerWeb.Gettext
       alias FotohaeckerWeb.Router.Helpers, as: Routes
       unquote(verified_routes())
     end
@@ -103,7 +103,6 @@ defmodule FotohaeckerWeb do
   def channel do
     quote do
       use Phoenix.Channel
-      import FotohaeckerWeb.Gettext
     end
   end
 
@@ -121,7 +120,7 @@ defmodule FotohaeckerWeb do
       alias Phoenix.Flash
 
       import FotohaeckerWeb.ErrorHelpers
-      import FotohaeckerWeb.Gettext
+      use Gettext, backend: FotohaeckerWeb.Gettext
       alias FotohaeckerWeb.Router.Helpers, as: Routes
       unquote(verified_routes())
     end

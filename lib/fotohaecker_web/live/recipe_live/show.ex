@@ -7,6 +7,7 @@ defmodule FotohaeckerWeb.RecipeLive.Show do
   alias FotohaeckerWeb.IndexLive.Home.PhotoComponent
 
   defmodule RecipeNotFoundError do
+    use Gettext, backend: FotohaeckerWeb.Gettext
     defexception message: dgettext("errors", "recipe not found"), plug_status: 404
   end
 

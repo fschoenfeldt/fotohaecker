@@ -23,7 +23,7 @@ defmodule Fotohaecker.UserManagement.Auth0UserManagement.Auth0Management do
   @spec delete(String.t()) :: {:ok, map} | {:error, term}
   def delete(user_id) do
     case user_delete_account_request(user_id, headers()) do
-      {:ok, _} ->
+      {:ok, _result} ->
         # Delete all photos by user
         # TODO: dirty limit
         photos = Fotohaecker.Content.list_photos_by_user(user_id, 1000, 0)
