@@ -49,7 +49,7 @@ config :phoenix, :json_library, Jason
 
 # Configure Tailwind
 config :tailwind,
-  version: "3.4.9",
+  version: "3.4.17",
   default: [
     args: ~w(
     --postcss
