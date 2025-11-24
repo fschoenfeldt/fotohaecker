@@ -10,15 +10,15 @@ importers:
     devDependencies:
       '@axe-core/playwright':
         specifier: ^4.10.2
-        version: 4.10.2(playwright-core@1.55.0)
+        version: 4.11.0(playwright-core@1.55.0)
       '@playwright/test':
         specifier: ^1.55.0
         version: 1.55.0
 
 packages:
 
-  '@axe-core/playwright@4.10.2':
-    resolution: {integrity: sha512-6/b5BJjG6hDaRNtgzLIfKr5DfwyiLHO4+ByTLB0cJgWSM8Ll7KqtdblIS6bEkwSF642/Ex91vNqIl3GLXGlceg==}
+  '@axe-core/playwright@4.11.0':
+    resolution: {integrity: sha512-70vBT/Ylqpm65RQz2iCG2o0JJCEG/WCNyefTr2xcOcr1CoSee60gNQYUMZZ7YukoKkFLv26I/jjlsvwwp532oQ==}
     peerDependencies:
       playwright-core: '>= 1.0.0'
 
@@ -27,8 +27,8 @@ packages:
     engines: {node: '>=18'}
     hasBin: true
 
-  axe-core@4.10.3:
-    resolution: {integrity: sha512-Xm7bpRXnDSX2YE2YFfBk2FnF0ep6tmG7xPh8iHee8MIcrgq762Nkce856dYtJYLkuIoYZvGfTs/PbZhideTcEg==}
+  axe-core@4.11.0:
+    resolution: {integrity: sha512-ilYanEU8vxxBexpJd8cWM4ElSQq4QctCLKih0TSfjIfCQTeyH/6zVrmIJfLPrKTKJRbiG+cfnZbQIjAlJmF1jQ==}
     engines: {node: '>=4'}
 
   fsevents@2.3.2:
@@ -48,16 +48,16 @@ packages:
 
 snapshots:
 
-  '@axe-core/playwright@4.10.2(playwright-core@1.55.0)':
+  '@axe-core/playwright@4.11.0(playwright-core@1.55.0)':
     dependencies:
-      axe-core: 4.10.3
+      axe-core: 4.11.0
       playwright-core: 1.55.0
 
   '@playwright/test@1.55.0':
     dependencies:
       playwright: 1.55.0
 
-  axe-core@4.10.3: {}
+  axe-core@4.11.0: {}
 
   fsevents@2.3.2:
     optional: true
