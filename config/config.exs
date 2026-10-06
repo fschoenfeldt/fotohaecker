@@ -47,6 +47,10 @@ config :logger, :console,
 # Use Jason for JSON parsing in Phoenix
 config :phoenix, :json_library, Jason
 
+# Erlang/OTP 28's ssl fails the TLS handshake with GitHub's release CDN,
+# so fetch the precompiled NIF from mdex's Cloudflare mirror instead
+config :mdex_native, artifact_source: :cloudflare
+
 # Configure Tailwind
 config :tailwind,
   version: "3.4.17",
