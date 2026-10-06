@@ -30,7 +30,7 @@ defmodule FotohaeckerWeb.RecipeLive.Show do
         }
 
       recipe ->
-        {:ok, description_as_ast, _whatever} = Earmark.as_html(recipe.description)
+        description_as_ast = MDEx.to_html!(recipe.description)
 
         {
           :noreply,

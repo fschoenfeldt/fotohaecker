@@ -57,20 +57,21 @@ defmodule Fotohaecker.MixProject do
       {:doctor, ">= 0.0.0", only: [:dev], runtime: false},
       {:ex_doc, ">= 0.0.0", only: [:dev], runtime: false},
       {:sobelow, ">= 0.0.0", only: [:dev], runtime: false},
-      {:ex_check, "~> 0.16.0", only: [:dev], runtime: false},
+      {:ex_check, "~> 0.17.0", only: [:dev], runtime: false},
       {:excellent_migrations, "~> 0.1", only: [:dev, :test], runtime: false},
       {:mix_test_watch, "~> 1.0", only: [:dev, :test], runtime: false},
       {:nodejs, "~> 3.0"},
-      {:httpoison, "~> 2.1"},
+      {:httpoison, "~> 3.0"},
       {:ueberauth, "~> 0.7"},
       {:ueberauth_auth0, "~> 2.0"},
       {:heroicons, "~> 0.5.0"},
       {:mox, "~> 1.0", only: :test},
-      {:stripity_stripe, "~> 2.0"},
+      {:stripity_stripe, "~> 3.0"},
       {:cors_plug, "~> 3.0"},
       {:phoenix_swagger, "~> 0.8"},
       {:ex_json_schema, "~> 0.5"},
-      {:earmark, "~> 1.4"}
+      {:mdex, "~> 0.14"},
+      {:mix_audit, ">= 0.0.0", only: [:dev], runtime: false}
     ]
   end
 
