@@ -34,7 +34,7 @@ defmodule Fotohaecker.Payment.StripePayment do
     else
       {:ok, stripe_account} =
         Stripe.Account.create(%{
-          type: "express",
+          type: :express,
           email: auth0_user.email,
           metadata: %{
             "auth0_user_id" => auth0_user_id
@@ -89,14 +89,14 @@ defmodule Fotohaecker.Payment.StripePayment do
       account: stripe_account_id,
       refresh_url: refresh_url(),
       return_url: return_url(),
-      type: "account_onboarding"
+      type: :account_onboarding
     })
   end
 
   @impl PaymentBehaviour
   # TODO: why do I need to do this?
   @dialyzer {:nowarn_function, retrieve: 1}
-  def retrieve(account_id), do: Stripe.Account.retrieve(account_id)
+  def retrieve(account_id), do: Stripe.Account.retrieve(%{}, connect_account: account_id)
 
   @impl PaymentBehaviour
   def create_login_link(account_id), do: Stripe.LoginLink.create(account_id, %{})
@@ -110,10 +110,10 @@ defmodule Fotohaecker.Payment.StripePayment do
 
   @impl PaymentBehaviour
   def checkout(stripe_account_id) do
-    Stripe.Session.create(%{
+    Stripe.Checkout.Session.create(%{
       success_url: success_url(),
       cancel_url: cancel_url(),
-      mode: "payment",
+      mode: :payment,
       line_items: [
         %{
           price: price_id(),
