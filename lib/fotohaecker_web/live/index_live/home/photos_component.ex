@@ -51,7 +51,7 @@ defmodule FotohaeckerWeb.IndexLive.Home.PhotosComponent do
       <% else %>
         <ul
           id="photos"
-          class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 items-start gap-4"
+          class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 items-start grid-rows-[masonry] gap-6"
         >
           <%= for photo <- @photos.photos do %>
             <PhotoComponent.render photo={photo} />
